@@ -5,20 +5,18 @@ using UnityEngine;
 public class Bowl : MonoBehaviour
 {
     public AudioSource BowlSound;
-    public Material material;
     void Start()
     {
-        material=this.GetComponent<Material>();
-        BowlSound=this.GetComponent<AudioSource>();
-        
+        BowlSound = GetComponent<AudioSource>();
+
     }
     public void PlaySound()
     {
-        if(!BowlSound.isPlaying)
+        if (!BowlSound.isPlaying)
         {
             BowlSound.Play();
-            
+
         }
-        this.gameObject.transform.GetChild(0).GetChild(0).gameObject.SetActive(BowlSound.isPlaying);
+        gameObject.transform.GetChild(0).gameObject.SetActive(BowlSound.isPlaying);
     }
 }
