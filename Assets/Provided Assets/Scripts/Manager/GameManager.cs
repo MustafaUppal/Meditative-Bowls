@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject GridParent;
     #endregion
-    
+
     public void LoadItemInSubInventory()
     {
         switch (SelectedItem)
@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
     }
     public void CarpetDataShow()
     {
-        for(int i = 0; i < BowlData.Length; i++)
+        for (int i = 0; i < BowlData.Length; i++)
         {
             Instantiate(carpetData[i], GridParent.transform);
         }
@@ -85,12 +85,12 @@ public class GameManager : MonoBehaviour
         RepositionState,
         Shop,
         RecordingMode,
+        Load
     }
-   
+
     void Start()
     {
         Instance = this;
-
     }
     private void Update()
     {
@@ -102,12 +102,15 @@ public class GameManager : MonoBehaviour
                 break;
             case State.RecordingMode:
                 break;
+            case State.Load:
+                break;
         }
     }
     public void SelectModeReposition()
     {
 
         state = State.RepositionState;
+        this.gameObject.GetComponent<BowlReposition>().StopEveryThing();
     }
     public void SelectModeNormal()
     {
@@ -122,4 +125,7 @@ public class GameManager : MonoBehaviour
     {
         state = State.Shop;
     }
+
+    
+
 }
