@@ -36,22 +36,30 @@ public class BowlReposition : MonoBehaviour
     }
     public void StopEveryThing()
     {
-        foreach(GameObject BowlinArray in Bowl){
+        foreach (GameObject BowlinArray in Bowl)
+        {
             BowlinArray.transform.GetChild(0).gameObject.SetActive(false);
-            BowlinArray.transform.GetComponent<AudioSource>().Stop();
         }
     }
     public void SelectBowl(RaycastHit hit)
     {
-        
         if (Input.GetMouseButtonUp(0) && hit.transform.gameObject.CompareTag("Bowl"))
         {
             SelectBowls(hit);
         }
     }
+    public void ResetFuntion()
+    {
+   
+            foreach (GameObject bowl in Bowl)
+            {
+                bowl.GetComponent<Renderer>().material = OriginalMaterial;
+            }
+        }
+    
+    
     private void SelectBowls(RaycastHit hit)
     {
-
         if (Selectable)
         {
             if (!SelectedBowl)
@@ -59,7 +67,8 @@ public class BowlReposition : MonoBehaviour
                 SelectedBowl = hit.transform.gameObject;
                 temp = hit.transform.position;
                 SelectedBowl.transform.GetChild(0).gameObject.SetActive(true);
-                SelectedBowl.transform.GetChild(0).gameObject.GetComponent<Light>().intensity=100;
+                SelectedBowl.transform.GetChild(0).gameObject.GetComponent<Light>().intensity = 50;
+                SelectedBowl.GetComponent<Renderer>().material = OriginalMaterial;
 
             }
             else if (SelectedBowl && SelectedBowl2)
@@ -72,14 +81,17 @@ public class BowlReposition : MonoBehaviour
             {
                 SelectedBowl2 = hit.transform.gameObject;
                 temp2 = hit.transform.gameObject.transform.position;
-                SelectedBowl2.transform.GetChild(0).gameObject.GetComponent<Light>().intensity=100;
+                SelectedBowl2.transform.GetChild(0).gameObject.GetComponent<Light>().intensity = 50;
+                SelectedBowl2.GetComponent<Renderer>().material = OriginalMaterial;
+
             }
+            //FadeEffect();
 
         }
 
         if (SelectedBowl && SelectedBowl2)
         {
-            Reposition();
+            Invoke("Reposition",0.10f);
         }
     }
     public void Reposition()
@@ -87,13 +99,23 @@ public class BowlReposition : MonoBehaviour
         Selectable = false;
         iTween.MoveTo(SelectedBowl, iTween.Hash("position", temp2, "time", transitionspeed));
         iTween.MoveTo(SelectedBowl2, iTween.Hash("position", temp, "time", transitionspeed));
-        
-            Selectable = true;
-        
-            SelectedBowl.transform.GetChild(0).gameObject.GetComponent<Light>().intensity = 0;
-            SelectedBowl2.transform.GetChild(0).gameObject.GetComponent<Light>().intensity = 0;
+
+
+        SelectedBowl.GetComponent<Renderer>().material = SubsituteMaterial;
+        SelectedBowl2.GetComponent<Renderer>().material = SubsituteMaterial;
+        SelectedBowl.transform.GetChild(0).gameObject.GetComponent<Light>().intensity = 0;
+        SelectedBowl2.transform.GetChild(0).gameObject.GetComponent<Light>().intensity = 0;
+        Selectable = true;
+    }
+    [SerializeField] private Material SubsituteMaterial;
+    [SerializeField] private Material OriginalMaterial;
+    public void FadeEffect()
+    {
+        foreach (GameObject bowl in Bowl)
+        {
+            bowl.GetComponent<Renderer>().material = SubsituteMaterial;
         }
-        
+    }
 
     private void ResetFunction()
     {
@@ -102,6 +124,7 @@ public class BowlReposition : MonoBehaviour
     public void RepositionBowlInitializer()
     {
         Bowl = new GameObject[(GameManager.Instance.BowlArray.Length)];
+
         for (int i = 0; i < Bowl.Length; i++)
         {
             Bowl[i] = GameManager.Instance.BowlArray[i];

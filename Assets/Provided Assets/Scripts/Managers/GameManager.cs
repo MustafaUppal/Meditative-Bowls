@@ -13,72 +13,12 @@ public class GameManager : MonoBehaviour
     public bool Reposition;
     public GameObject[] BowlArray;
     public GameObject Bowl;
+    public GameObject BowlToLoad;
     public State state;
 
-    [Header("SubInventory")]
-    #region Subinformationinventory
-    public GameObject[] carpetData;
-    public GameObject[] BowlData;
-    public GameObject[] BackGroundMusicData;
-    public string SelectedItem;
 
 
-    public GameObject SubInformationInventoryPanel;
-    public TextMeshProUGUI ItemnameSlot;
-    public TextMeshProUGUI priceSlot;
-    public TextMeshProUGUI CategorySlot;
-    public Image ShowItemImageSlot;
 
-    public GameObject GridParent;
-    #endregion
-
-    public void LoadItemInSubInventory()
-    {
-        switch (SelectedItem)
-        {
-
-            case "Carpet":
-                CarpetDataShow();
-                break;
-
-            case "Bowl":
-                BowlDataShow();
-                break;
-
-            case "BackGroundMusicvData":
-                BackGroundDataShow();
-                break;
-
-        }
-    }
-    public void CarpetDataShow()
-    {
-        for (int i = 0; i < BowlData.Length; i++)
-        {
-            Instantiate(carpetData[i], GridParent.transform);
-        }
-    }
-    public void BowlDataShow()
-    {
-        for (int i = 0; i < BowlData.Length; i++)
-        {
-            Instantiate(BowlData[i], GridParent.transform);
-        }
-    }
-    public void BackGroundDataShow()
-    {
-        for (int i = 0; i < BowlData.Length; i++)
-        {
-            Instantiate(BackGroundMusicData[i], GridParent.transform);
-        }
-    }
-    public void BackFromSubInventory()
-    {
-        for (int i = 0; i < GridParent.transform.childCount; i++)
-        {
-            Destroy(GridParent.transform.GetChild(i));
-        }
-    }
     public enum State
     {
         Normal,
@@ -103,6 +43,23 @@ public class GameManager : MonoBehaviour
             case State.RecordingMode:
                 break;
             case State.Load:
+                RaycastHit hit;
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                if (Input.GetMouseButtonUp(0))
+                {
+                    if (Physics.Raycast(ray, out hit))
+                    {
+                        Transform objectHit = hit.transform;
+
+                        if (hit.transform.GetComponent<AudioSource>() != null)
+                            if (hit.transform.CompareTag("Bowl"))
+                            {
+                                hit.transform.gameObject.SetActive(false);
+                                BowlToLoad.transform.position = hit.transform.position;
+                                state = GameManager.State.Normal;
+                            }
+                    }
+                }
                 break;
         }
     }
@@ -111,7 +68,9 @@ public class GameManager : MonoBehaviour
 
         state = State.RepositionState;
         this.gameObject.GetComponent<BowlReposition>().StopEveryThing();
+        this.gameObject.GetComponent<BowlReposition>().FadeEffect();
     }
+
     public void SelectModeNormal()
     {
 
@@ -126,6 +85,6 @@ public class GameManager : MonoBehaviour
         state = State.Shop;
     }
 
-    
+
 
 }

@@ -15,34 +15,30 @@ public class ObjectSeection : MonoBehaviour
     {
 
     }
-    private void LateUpdate()
+    private void Update()
     {
         if (GameManager.Instance.state == GameManager.State.Normal)
         {
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            AudioSyncColor au = new AudioSyncColor();
             if (Physics.Raycast(ray, out hit))
             {
                 Transform objectHit = hit.transform;
                 if (Input.GetMouseButtonUp(0))
                 {
-                    print("sd");
+                    //print("sd");
 
                     if (hit.transform.GetComponent<AudioSource>() != null)
                         if (hit.transform.CompareTag("Bowl"))
                         {
                             hit = PlaySound(hit);
-                            print(hit.transform.name);
-                            hit.transform.GetChild(0).gameObject.SetActive(hit.transform.GetComponent<AudioSource>().isPlaying);
-
+                            //print(hit.transform.name);
+                            //hit.transform.GetChild(0).gameObject.SetActive(hit.transform.GetComponent<AudioSource>().isPlaying);
                         }
                 }
                 if (hit.transform.CompareTag("Bowl"))
                 {
-                    GameObject SpotLight = hit.transform.GetChild(0).gameObject ;
-                    SpotLight.SetActive(hit.transform.GetComponent<AudioSource>().isPlaying);
-
+                    GameObject SpotLight = hit.transform.GetChild(0).gameObject;
                 }
             }
         }

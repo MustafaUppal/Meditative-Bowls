@@ -17,11 +17,13 @@ public class SettingsMenuEventListener : MonoBehaviour
     public void OnClickBackButton()
     {
         MenuManager.Instance.ChangeState(MenuManager.MenuStates.Main);
+        GameManager.Instance.SelectModeNormal();
+        GameManager.Instance.gameObject.GetComponent<BowlReposition>().ResetFuntion();
     }
 
     public void OnClickRepositionButton()
     {
-
+     GameManager.Instance.SelectModeReposition();
     }
 
     public void OnClickRemoveButton()

@@ -7,11 +7,16 @@ using UnityEngine.Events;
 
 namespace BackNavigatorPro
 {
+    #if UNITY_EDITOR
     [HideScriptField]
+    #endif
     public class BackNavigationHandler : MonoBehaviour
     {
         [Tooltip("Unique ID of every page, assigned automatically.")]
-        [ReadOnly] [SerializeField] private int pageID;
+        #if UNITY_EDITOR
+        [ReadOnly] 
+        #endif
+        [SerializeField] private int pageID;
         int savedID = -1;
 
         public int PageID

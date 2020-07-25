@@ -6,6 +6,7 @@ using System;
 
 namespace BackNavigatorPro
 {
+#if UNITY_EDITOR
     [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
     public sealed class HideScriptField : Attribute { }
 
@@ -66,4 +67,5 @@ namespace BackNavigatorPro
             GUI.enabled = previousGUIState;
         }
     }
+    #endif
 }

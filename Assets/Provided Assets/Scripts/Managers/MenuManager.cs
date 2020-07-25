@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class MenuManager : MonoBehaviour
 {
     public enum MenuStates
@@ -21,7 +21,7 @@ public class MenuManager : MonoBehaviour
     public MenuStates prevState;
 
     public GameObject[] AllPanels;
-
+ 
     void Awake()
     {
         Instance = this;
@@ -29,6 +29,8 @@ public class MenuManager : MonoBehaviour
 
     void Start()
     {
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
+        
         ChangeState(defaultState);
     }
 
