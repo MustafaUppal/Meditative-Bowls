@@ -20,19 +20,18 @@ public class SettingsMenuEventListener : MonoBehaviour
         GameManager.Instance.SelectModeNormal();
         GameManager.Instance.gameObject.GetComponent<BowlReposition>().ResetFuntion();
     }
-
     public void OnClickRepositionButton()
     {
-     GameManager.Instance.SelectModeReposition();
+       GameManager.Instance.SelectModeReposition();
     }
 
     public void OnClickRemoveButton()
     {
-
+        GameManager.Instance.state = GameManager.State.Remove;
     }
 
     public void OnClickVolumeButton()
     {
-
+        GameManager.Instance.state = GameManager.State.Sound;
     }
 }

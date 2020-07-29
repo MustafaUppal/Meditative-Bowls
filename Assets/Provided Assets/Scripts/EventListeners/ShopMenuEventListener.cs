@@ -42,7 +42,6 @@ public class ShopMenuEventListener : MonoBehaviour
         public Color[] buttonColors;
         public Color tileHighlight;
         public Color tileNormal;
-
         public void ActivateImage(int index)
         {
             carpet.gameObject.SetActive(index.Equals(0));
@@ -50,6 +49,7 @@ public class ShopMenuEventListener : MonoBehaviour
             thumbnail.gameObject.SetActive(index.Equals(2));
         }
     }
+    public int SelectedItemIndex;
 
     public SelectedItemSettings selectedItem;
 
@@ -115,6 +115,7 @@ public class ShopMenuEventListener : MonoBehaviour
 
     public void OnClickItemButton(int index)
     {
+        SelectedItemIndex = index;
         content.GetTile(selectedItem.index).Highlight = false;
         content.GetTile(index).Highlight = true;
 
@@ -146,20 +147,21 @@ public class ShopMenuEventListener : MonoBehaviour
 
     #endregion Button Clicks end
 
-    void LoadAllSet()
+    void OnClickLoadItem()
     {
-        // foreach (GameObject item in Inventory.Instance.BackGroundSoundDataButtons)
-        // {
-        //     Instantiate(item, Inventory.Instance.ParentOfList.transform);
-        // }
-        // foreach (GameObject item in Inventory.Instance.CarpetsDataButtons)
-        // {
-        //     Instantiate(item, Inventory.Instance.ParentOfList.transform);
-        // }
-        // foreach (GameObject item in Inventory.Instance.BowlDataButtons)
-        // {
-        //     Instantiate(item, Inventory.Instance.ParentOfList.transform);
-        // }
-        // OnClickCarpetItemButton();
+        switch (currentState)
+        {
+            case ShopStates.Bowls:
+                GameManager.Instance.BowlToLoad = Inventory.Instance.allBowls[SelectedItemIndex].gameObject;
+                GameManager.Instance.state = GameManager.State.Load;
+                break;
+            case ShopStates.BG_Musics:
+                GameManager.Instance.BackgroundMusic.GetComponent<AudioSource>().clip
+                    = Inventory.Instance.allMusics[SelectedItemIndex].SoundClip;
+                break;
+            case ShopStates.Carpets:
+
+                break;
+        }
     }
 }

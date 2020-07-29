@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BG_Music : Item
 {
-    // Start is called before the first frame update
+    public AudioClip SoundClip;
     void Start()
     {
         
