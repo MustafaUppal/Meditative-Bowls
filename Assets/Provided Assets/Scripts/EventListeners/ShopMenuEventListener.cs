@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 using UnityEngine.UI;
 
 public class ShopMenuEventListener : MonoBehaviour
@@ -44,9 +45,11 @@ public class ShopMenuEventListener : MonoBehaviour
         public Color tileNormal;
         public void ActivateImage(int index)
         {
+
             carpet.gameObject.SetActive(index.Equals(0));
             bowl.gameObject.SetActive(index.Equals(1));
             thumbnail.gameObject.SetActive(index.Equals(2));
+
         }
     }
     public int SelectedItemIndex;
@@ -73,6 +76,8 @@ public class ShopMenuEventListener : MonoBehaviour
 
     void ChangeState(ShopStates newState)
     {
+        GameManager.Instance.gameObject.GetComponent<BowlReposition>().StopEveryThing();
+
         prevState = currentState;
         currentState = newState;
 
@@ -127,7 +132,7 @@ public class ShopMenuEventListener : MonoBehaviour
         selectedItem.b_itemActionButton.image.color = selectedItem.buttonColors[(int)item.currentState];
         selectedItem.b_itemActionButton.interactable = !item.currentState.Equals(Bowl.State.Loaded);
         selectedItem.t_itemActionButton.text = item.StateText;
-        
+
         shop.Manage3DItems((int)currentState, index);
         DistinctFunctionality();
     }
@@ -137,30 +142,41 @@ public class ShopMenuEventListener : MonoBehaviour
         switch ((int)currentState)
         {
             case 0: // Carpets
-            break;
-             case 1: // Bowls
-            break;
-             case 2: // Musics
-            break;
+                break;
+            case 1: // Bowls
+                break;
+            case 2: // Musics
+                break;
         }
     }
 
     #endregion Button Clicks end
 
-    void OnClickLoadItem()
+    public void OnClickLoadItem()
     {
+
         switch (currentState)
         {
             case ShopStates.Bowls:
-                GameManager.Instance.BowlToLoad = Inventory.Instance.allBowls[SelectedItemIndex].gameObject;
-                GameManager.Instance.state = GameManager.State.Load;
+                if (Inventory.Instance.allBowls[SelectedItemIndex].GetComponent<Bowl>().currentState == Item.State.Purchased)
+                {
+                    MenuManager.Instance.ChangeState(MenuManager.MenuStates.Main);
+                    GameManager.Instance.BowlToLoad = Inventory.Instance.allBowls[SelectedItemIndex].gameObject;
+                    GameManager.Instance.state = GameManager.State.Load;
+                }
                 break;
             case ShopStates.BG_Musics:
-                GameManager.Instance.BackgroundMusic.GetComponent<AudioSource>().clip
+                if (Inventory.Instance.allBowls[SelectedItemIndex].GetComponent<BG_Music>().currentState == Item.State.Purchased)
+                {
+                    GameManager.Instance.BackgroundMusic.GetComponent<AudioSource>().clip
                     = Inventory.Instance.allMusics[SelectedItemIndex].SoundClip;
+                }
                 break;
             case ShopStates.Carpets:
-
+                if (Inventory.Instance.allBowls[SelectedItemIndex].GetComponent<Carpet>().currentState == Item.State.Purchased)
+                {
+                    GameManager.Instance.carpetPlane.GetComponent<Renderer>().material = Inventory.Instance.allCarpets[SelectedItemIndex].material;
+                }
                 break;
         }
     }

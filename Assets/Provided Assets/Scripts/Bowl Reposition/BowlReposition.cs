@@ -39,7 +39,10 @@ public class BowlReposition : MonoBehaviour
         foreach (GameObject BowlinArray in Bowl)
         {
             BowlinArray.transform.GetChild(0).gameObject.SetActive(false);
+            BowlinArray.GetComponent<AudioSource>().Stop();
         }
+        
+
     }
     public void SelectBowl(RaycastHit hit)
     {
@@ -76,9 +79,11 @@ public class BowlReposition : MonoBehaviour
 
                 SelectedBowl2 = SelectedBowl = null;
                 SelectBowls(hit);
+
             }
             else
             {
+
                 SelectedBowl2 = hit.transform.gameObject;
                 temp2 = hit.transform.gameObject.transform.position;
                 SelectedBowl2.transform.GetChild(0).gameObject.GetComponent<Light>().intensity = 50;

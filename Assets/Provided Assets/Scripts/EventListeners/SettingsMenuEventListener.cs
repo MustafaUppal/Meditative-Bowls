@@ -22,16 +22,24 @@ public class SettingsMenuEventListener : MonoBehaviour
     }
     public void OnClickRepositionButton()
     {
-       GameManager.Instance.SelectModeReposition();
+
+        GameManager.Instance.SelectModeReposition();
     }
 
     public void OnClickRemoveButton()
     {
         GameManager.Instance.state = GameManager.State.Remove;
+        GameManager.Instance.gameObject.GetComponent<BowlReposition>().ResetFuntion();
+        GameManager.Instance.gameObject.GetComponent<BowlReposition>().StopEveryThing();
+
     }
 
     public void OnClickVolumeButton()
     {
         GameManager.Instance.state = GameManager.State.Sound;
+        GameManager.Instance.gameObject.GetComponent<BowlReposition>().StopEveryThing();
+        GameManager.Instance.gameObject.GetComponent<BowlReposition>().ResetFuntion();
+
+
     }
 }

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
+using System;
 //using UnityEditorInternal;
 
 public class GameManager : MonoBehaviour
@@ -40,6 +42,9 @@ public class GameManager : MonoBehaviour
     }
     private void Update()
     {
+        if (EventSystem.current.IsPointerOverGameObject())
+            return;
+
         switch (state)
         {
             case State.Normal:
@@ -49,19 +54,18 @@ public class GameManager : MonoBehaviour
             case State.RecordingMode:
                 break;
             case State.Load:
-                if (Input.GetMouseButtonUp(0))
+                if (Input.GetMouseButtonUp(0) && state == GameManager.State.Load)
                 {
-                   StartCoroutine(LoadABowl());
+                    StartCoroutine(LoadABowl());
                 }
                 break;
             case State.Sound:
                 if (Input.GetMouseButtonUp(0))
                 {
-                StartCoroutine(VolumeChanger());
+                    StartCoroutine(VolumeChanger());
                 }
                 break;
             case State.Remove:
-         
                 StartCoroutine(Remove());
                 break;
         }
@@ -73,7 +77,7 @@ public class GameManager : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit))
         {
-            if (hit.transform.CompareTag("Bowl")&& Input.GetMouseButton(0))
+            if (hit.transform.CompareTag("Bowl") && Input.GetMouseButton(0))
             {
                 hit.transform.gameObject.SetActive(false);
                 hit.transform.GetComponent<Bowl>().currentState = Item.State.Purchased;
@@ -94,7 +98,6 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-
                 SoundChangerIndicatorText.text = "BackGound Sound";
                 SelectedSoundBowl = BackgroundMusic;
             }
@@ -105,8 +108,10 @@ public class GameManager : MonoBehaviour
     }
     private IEnumerator LoadABowl()
     {
+
         RaycastHit hit;
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);   
+        
         if (Physics.Raycast(ray, out hit))
         {
             Transform objectHit = hit.transform;
@@ -114,8 +119,15 @@ public class GameManager : MonoBehaviour
             if (hit.transform.GetComponent<AudioSource>() != null)
                 if (hit.transform.CompareTag("Bowl"))
                 {
-                    hit.transform.gameObject.SetActive(false);
+                    GameObject Item=hit.transform.gameObject;
+                    Item.SetActive(false);
+                   
+                            print(Array.IndexOf(BowlArray, hit.transform.gameObject));
+                            BowlArray[Array.IndexOf(BowlArray,hit.transform.gameObject)] = BowlToLoad;
+
                     BowlToLoad.transform.position = hit.transform.position;
+                    BowlToLoad.transform.gameObject.SetActive(true);
+
                     state = GameManager.State.Normal;
                 }
         }
@@ -125,23 +137,22 @@ public class GameManager : MonoBehaviour
     public void SelectModeReposition()
     {
         state = State.RepositionState;
-        this.gameObject.GetComponent<BowlReposition>().StopEveryThing();
+        this.gameObject.GetComponent<BowlReposition>().RepositionBowlInitializer();
+        this.gameObject.GetComponent<BowlReposition>().StopEveryThing();          
         this.gameObject.GetComponent<BowlReposition>().FadeEffect();
     }
 
     public void SelectModeNormal()
     {
-
         state = State.Normal;
     }
+    
     public void SelectModeRecording()
     {
-
         state = State.RecordingMode;
     }
     public void SelectShopModeState()
     {
-
         state = State.Shop;
     }
 
