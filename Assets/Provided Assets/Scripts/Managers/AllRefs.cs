@@ -13,4 +13,5 @@ public class AllRefs : MonoBehaviour
     
     [Header("Menus")]
     public DockEventListener dock;
+    public ShopMenuEventListener shopMenu;
 }

@@ -6,69 +6,67 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-
-[System.Serializable]
-public class ItemData
-{
-    public Sprite ItemImage;
-    public string ItemName;
-    [TextArea(2, 4)]
-    public string itemDescription;
-}
-                                                   
 public class Inventory : MonoBehaviour
 {
-    public GameObject[] AllPanels;
-    public Image ItemImage;
-    public Text ItemName;
-    public Text ItemDescription;
-
-    [Header("All_Data")]
-    public Bowl[] BowlInventoryItems;
-
-
-    [Header("Carpet Data")]
-
-    public Bowl[] Carpet;
-    
-    [Header("BackGround Sound")]
-    public Bowl[] BackGroundSound;
-
-
-    [Header("Bowl")]
-    public GameObject[] BowlDataButtons;
-    [Header("Carpet")]
-   
-    public GameObject[] CarpetsDataButtons;
-    [Header("BackGround Sound")]
-    
-    public GameObject[] BackGroundSoundDataButtons;
-    
-    
     public static Inventory Instance;
 
-    [Header("All_Data Show")]
-    public GameObject CarpetScrollView;
-    public GameObject BackGroundMusicScrollView;
-    public GameObject BowlView;
+    [Header("Items")]
+    public Bowl[] allBowls;
+    public Carpet[] allCarpets;
+    public BG_Music[] allMusics;
 
- 
-    
-    [Header("List")]
-    public GameObject ParentOfList;
-    public Button Button;
+    [Header("3D Imagess")]
+    public GameObject bowl;
+    public GameObject carpet;
 
     private void Start()
-    { 
+    {
         Instance = this;
     }
-    public void ShowBowlInAList()
-    {
 
-    }
-    public void ShowBowlInAList(ItemData Data)
+    public void Manage3DItems(int currentState, int materialIndex)
     {
-        
+        carpet.SetActive(currentState.Equals(0));
+        bowl.SetActive(currentState.Equals(1));
+
+        switch (currentState)
+        {
+            case 0:
+                carpet.GetComponent<Renderer>().material = allCarpets[materialIndex].material;
+                break;
+            case 1:
+                bowl.GetComponent<Renderer>().material = allBowls[materialIndex].material;
+                break;
+        }
     }
-    
+
+    public Item GetItem(int itemType, int index)
+    {
+        switch (itemType)
+        {
+            case 0:
+                return allCarpets[index].GetComponent<Item>();
+            case 1:
+                return allBowls[index].GetComponent<Item>();
+            case 2:
+                return allMusics[index].GetComponent<Item>();
+            default:
+                return null;
+        }
+    }
+
+    public int GetItemCount(int itemType)
+    {
+        switch (itemType)
+        {
+            case 0:
+                return allCarpets.Length;
+            case 1:
+                return allBowls.Length;
+            case 2:
+                return allMusics.Length;
+            default:
+                return 0;
+        }
+    }
 }

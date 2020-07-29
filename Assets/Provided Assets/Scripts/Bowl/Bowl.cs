@@ -1,26 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class Bowl : MonoBehaviour
+public class Bowl : Item
 {
-    public AudioSource BowlSound;
-    public Sprite Bowl_Image;
-    public string Name;
-    [TextArea(2, 4)]
-    public string Description;
+    public Material material;
+    AudioSource audioSource;
 
-    void Start()
+    private void Awake()
     {
-        BowlSound = GetComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
     }
+
     public void PlaySound()
     {
-        if (!BowlSound.isPlaying)
+        if (!audioSource.isPlaying)
         {
-            BowlSound.Play();
+            audioSource.Play();
         }
-        gameObject.transform.GetChild(0).gameObject.SetActive(BowlSound.isPlaying);
+        gameObject.transform.GetChild(0).gameObject.SetActive(audioSource.isPlaying);
     }
 }
