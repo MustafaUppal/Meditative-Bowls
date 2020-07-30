@@ -18,13 +18,16 @@ public class BowlReposition : MonoBehaviour
     [SerializeField] Vector3 positiontoarrive2;
     [SerializeField] private bool Selectable;
     [SerializeField] private float transitionspeed;
+
     void Start()
     {
         Selectable = true;
         Invoke("RepositionBowlInitializer", 0.1f);
     }
+
     private void Update()
     {
+        
         if (GameManager.Instance.state == GameManager.State.RepositionState)
         {
             RaycastHit hit;
@@ -76,10 +79,8 @@ public class BowlReposition : MonoBehaviour
             }
             else if (SelectedBowl && SelectedBowl2)
             {
-
                 SelectedBowl2 = SelectedBowl = null;
                 SelectBowls(hit);
-
             }
             else
             {
@@ -99,6 +100,7 @@ public class BowlReposition : MonoBehaviour
             Invoke("Reposition",0.10f);
         }
     }
+
     public void Reposition()
     {
         Selectable = false;
@@ -128,11 +130,13 @@ public class BowlReposition : MonoBehaviour
     }
     public void RepositionBowlInitializer()
     {
-        Bowl = new GameObject[(GameManager.Instance.BowlArray.Length)];
+        Bowl = new GameObject[(BowlsManager.Instance.activeBowlsIndexes.Length)];
 
         for (int i = 0; i < Bowl.Length; i++)
         {
-            Bowl[i] = GameManager.Instance.BowlArray[i];
+            int bowlIndex = BowlsManager.Instance.activeBowlsIndexes[i];
+            
+            Bowl[i] = Inventory.Instance.allBowls[bowlIndex].gameObject;
         }
     }
     public void Load()

@@ -19,7 +19,7 @@ public class Inventory : MonoBehaviour
     public GameObject bowl;
     public GameObject carpet;
 
-    private void Start()
+    private void Awake()
     {
         Instance = this;
     }

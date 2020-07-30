@@ -14,9 +14,8 @@ public class GameManager : MonoBehaviour
     public GameObject postPocessing;
     public bool Reposition;
     public GameObject carpetPlane;
-    public GameObject[] BowlArray;
     public GameObject Bowl;
-    public GameObject BowlToLoad;
+    public int BowlToLoad;
     [SerializeField] private GameObject SelectedSoundBowl;
     [SerializeField] private Text SoundChangerIndicatorText;
     public GameObject BackgroundMusic;
@@ -40,6 +39,7 @@ public class GameManager : MonoBehaviour
     {
         Instance = this;
     }
+
     private void Update()
     {
         if (EventSystem.current.IsPointerOverGameObject())
@@ -54,10 +54,9 @@ public class GameManager : MonoBehaviour
             case State.RecordingMode:
                 break;
             case State.Load:
-                if (Input.GetMouseButtonUp(0) && state == GameManager.State.Load)
-                {
-                    StartCoroutine(LoadABowl());
-                }
+
+                LoadABowl();
+
                 break;
             case State.Sound:
                 if (Input.GetMouseButtonUp(0))
@@ -70,6 +69,7 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
+
     private IEnumerator Remove()
     {
         RaycastHit hit;
@@ -106,39 +106,41 @@ public class GameManager : MonoBehaviour
             SelectedSoundBowl.GetComponent<AudioSource>().volume = VolumeSlider.value;
         yield return null;
     }
-    private IEnumerator LoadABowl()
+    private void LoadABowl()
     {
-
-        RaycastHit hit;
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);   
-        
-        if (Physics.Raycast(ray, out hit))
+        if (Input.GetMouseButtonUp(0))
         {
-            Transform objectHit = hit.transform;
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-            if (hit.transform.GetComponent<AudioSource>() != null)
-                if (hit.transform.CompareTag("Bowl"))
+            if (Physics.Raycast(ray, out hit))
+            {
+                // Why checking audio source when you are already checking tag?
+                // Is there any possiblilty that a gameobject with bol take will not have audiosource? 
+                if (hit.transform.GetComponent<AudioSource>() != null && hit.transform.CompareTag("Bowl"))
                 {
-                    GameObject Item=hit.transform.gameObject;
-                    Item.SetActive(false);
-                   
-                            print(Array.IndexOf(BowlArray, hit.transform.gameObject));
-                            BowlArray[Array.IndexOf(BowlArray,hit.transform.gameObject)] = BowlToLoad;
+                    // Disable bowl which is clicked
+                    hit.transform.gameObject.SetActive(false);
 
-                    BowlToLoad.transform.position = hit.transform.position;
-                    BowlToLoad.transform.gameObject.SetActive(true);
+                    // Place bowl to load on clicked bowl position and enable it
+                    Inventory.Instance.allBowls[BowlToLoad].transform.position = hit.transform.position;
+                    Inventory.Instance.allBowls[BowlToLoad].transform.gameObject.SetActive(true);
 
-                    state = GameManager.State.Normal;
+                    // Replace new bowl's index with clicked bowl index in active bowls array
+                    int hitItemIndex = Array.FindIndex(Inventory.Instance.allBowls, x => x == hit.transform.GetComponent<Bowl>());
+                    BowlsManager.Instance.activeBowlsIndexes[hitItemIndex] = BowlToLoad;
+
+                    state = State.Normal;
                 }
+            }
         }
-        yield return null;
     }
 
     public void SelectModeReposition()
     {
         state = State.RepositionState;
         this.gameObject.GetComponent<BowlReposition>().RepositionBowlInitializer();
-        this.gameObject.GetComponent<BowlReposition>().StopEveryThing();          
+        this.gameObject.GetComponent<BowlReposition>().StopEveryThing();
         this.gameObject.GetComponent<BowlReposition>().FadeEffect();
     }
 
@@ -146,7 +148,7 @@ public class GameManager : MonoBehaviour
     {
         state = State.Normal;
     }
-    
+
     public void SelectModeRecording()
     {
         state = State.RecordingMode;
@@ -155,7 +157,4 @@ public class GameManager : MonoBehaviour
     {
         state = State.Shop;
     }
-
-
-
 }

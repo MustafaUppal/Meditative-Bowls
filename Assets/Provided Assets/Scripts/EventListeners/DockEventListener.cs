@@ -34,6 +34,19 @@ public class DockEventListener : MonoBehaviour
 
     public void OnClickSaveSessionButton()
     {
+        PopupManager.Instance.Show("Name Session", SaveBowlPosition);
+    }
 
+    void SaveBowlPosition(string name)
+    {
+        string status = SessionManager.Instance.ValidateSessionName(name);
+
+        if (status.Equals("Pass"))
+        {
+            SessionManager.Instance.SaveSession(name);
+            PopupManager.Instance.Hide();
+        }
+        else
+            PopupManager.Instance.ShowError(status);
     }
 }

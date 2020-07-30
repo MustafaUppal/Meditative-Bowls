@@ -52,7 +52,6 @@ public class ShopMenuEventListener : MonoBehaviour
 
         }
     }
-    public int SelectedItemIndex;
 
     public SelectedItemSettings selectedItem;
 
@@ -120,7 +119,6 @@ public class ShopMenuEventListener : MonoBehaviour
 
     public void OnClickItemButton(int index)
     {
-        SelectedItemIndex = index;
         content.GetTile(selectedItem.index).Highlight = false;
         content.GetTile(index).Highlight = true;
 
@@ -154,28 +152,27 @@ public class ShopMenuEventListener : MonoBehaviour
 
     public void OnClickLoadItem()
     {
-
         switch (currentState)
         {
             case ShopStates.Bowls:
-                if (Inventory.Instance.allBowls[SelectedItemIndex].GetComponent<Bowl>().currentState == Item.State.Purchased)
+                if (shop.allBowls[selectedItem.index].currentState == Item.State.Purchased)
                 {
                     MenuManager.Instance.ChangeState(MenuManager.MenuStates.Main);
-                    GameManager.Instance.BowlToLoad = Inventory.Instance.allBowls[SelectedItemIndex].gameObject;
+                    GameManager.Instance.BowlToLoad = selectedItem.index;
                     GameManager.Instance.state = GameManager.State.Load;
                 }
                 break;
             case ShopStates.BG_Musics:
-                if (Inventory.Instance.allBowls[SelectedItemIndex].GetComponent<BG_Music>().currentState == Item.State.Purchased)
+                if (shop.allMusics[selectedItem.index].currentState == Item.State.Purchased)
                 {
                     GameManager.Instance.BackgroundMusic.GetComponent<AudioSource>().clip
-                    = Inventory.Instance.allMusics[SelectedItemIndex].SoundClip;
+                    = Inventory.Instance.allMusics[selectedItem.index].SoundClip;
                 }
                 break;
             case ShopStates.Carpets:
-                if (Inventory.Instance.allBowls[SelectedItemIndex].GetComponent<Carpet>().currentState == Item.State.Purchased)
+                if (shop.allCarpets[selectedItem.index].currentState == Item.State.Purchased)
                 {
-                    GameManager.Instance.carpetPlane.GetComponent<Renderer>().material = Inventory.Instance.allCarpets[SelectedItemIndex].material;
+                    GameManager.Instance.carpetPlane.GetComponent<Renderer>().material = Inventory.Instance.allCarpets[selectedItem.index].material;
                 }
                 break;
         }
