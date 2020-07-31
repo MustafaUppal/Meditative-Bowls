@@ -24,11 +24,13 @@ public class MainMenuEventListener : MonoBehaviour
     public void OnClickShopButton()
     {
         MenuManager.Instance.ChangeState(MenuManager.MenuStates.Shop);
+        GameManager.Instance.state = GameManager.State.Shop;
     }
 
     public void OnClickRecordingButton()
     {
         MenuManager.Instance.ChangeState(MenuManager.MenuStates.Recording);
+        
     }
 
     public void OnClickAlramButton()

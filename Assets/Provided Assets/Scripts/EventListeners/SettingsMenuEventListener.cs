@@ -10,7 +10,7 @@ public class SettingsMenuEventListener : MonoBehaviour
         {
             saveSession = false
         };
-
+        GameManager.Instance.VolumeSlider.gameObject.SetActive(false);
         AllRefs.I.dock.ManageButtons(data);
     }
 
@@ -19,18 +19,22 @@ public class SettingsMenuEventListener : MonoBehaviour
         MenuManager.Instance.ChangeState(MenuManager.MenuStates.Main);
         GameManager.Instance.SelectModeNormal();
         GameManager.Instance.gameObject.GetComponent<BowlReposition>().ResetFuntion();
+        GameManager.Instance.VolumeSlider.gameObject.SetActive(false);
+
     }
     public void OnClickRepositionButton()
     {
-
         GameManager.Instance.SelectModeReposition();
+        GameManager.Instance.VolumeSlider.gameObject.SetActive(false);
     }
 
     public void OnClickRemoveButton()
     {
+
         GameManager.Instance.state = GameManager.State.Remove;
         GameManager.Instance.gameObject.GetComponent<BowlReposition>().ResetFuntion();
         GameManager.Instance.gameObject.GetComponent<BowlReposition>().StopEveryThing();
+        GameManager.Instance.VolumeSlider.gameObject.SetActive(false);
 
     }
 
@@ -39,6 +43,7 @@ public class SettingsMenuEventListener : MonoBehaviour
         GameManager.Instance.state = GameManager.State.Sound;
         GameManager.Instance.gameObject.GetComponent<BowlReposition>().StopEveryThing();
         GameManager.Instance.gameObject.GetComponent<BowlReposition>().ResetFuntion();
+        GameManager.Instance.VolumeSlider.gameObject.SetActive(true);
 
 
     }

@@ -41,5 +41,6 @@ public class MenuManager : MonoBehaviour
 
         AllPanels[(int)prevState].SetActive(false);
         AllPanels[(int)currentState].SetActive(true);
+        
     }
 }

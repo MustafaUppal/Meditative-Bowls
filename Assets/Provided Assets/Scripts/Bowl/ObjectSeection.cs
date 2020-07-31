@@ -17,7 +17,7 @@ public class ObjectSeection : MonoBehaviour
     }
     private void Update()
     {
-        if (GameManager.Instance.state == GameManager.State.Normal)
+        if (GameManager.Instance.state == GameManager.State.Normal&& !(MenuManager.Instance.currentState==MenuManager.MenuStates.Main))
         {
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -26,14 +26,10 @@ public class ObjectSeection : MonoBehaviour
                 Transform objectHit = hit.transform;
                 if (Input.GetMouseButtonUp(0))
                 {
-                    //print("sd");
-
                     if (hit.transform.GetComponent<AudioSource>() != null)
                         if (hit.transform.CompareTag("Bowl"))
                         {
                             hit = PlaySound(hit);
-                            //print(hit.transform.name);
-                            //hit.transform.GetChild(0).gameObject.SetActive(hit.transform.GetComponent<AudioSource>().isPlaying);
                         }
                 }
                 if (hit.transform.CompareTag("Bowl"))

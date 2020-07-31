@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject SelectedSoundBowl;
     [SerializeField] private Text SoundChangerIndicatorText;
     public GameObject BackgroundMusic;
-    [SerializeField] private Slider VolumeSlider;
+   public Slider VolumeSlider;
 
 
     [Header("State")]
@@ -54,23 +54,24 @@ public class GameManager : MonoBehaviour
             case State.RecordingMode:
                 break;
             case State.Load:
-
                 LoadABowl();
 
                 break;
             case State.Sound:
+                
                 if (Input.GetMouseButtonUp(0))
                 {
-                    StartCoroutine(VolumeChanger());
+                    VolumeChanger();
                 }
+
                 break;
             case State.Remove:
-                StartCoroutine(Remove());
+                Remove();
                 break;
         }
     }
 
-    private IEnumerator Remove()
+    private void Remove()
     {
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -81,11 +82,11 @@ public class GameManager : MonoBehaviour
             {
                 hit.transform.gameObject.SetActive(false);
                 hit.transform.GetComponent<Bowl>().currentState = Item.State.Purchased;
+
             }
         }
-        yield return null;
     }
-    private IEnumerator VolumeChanger()
+    private void VolumeChanger()
     {
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -104,7 +105,6 @@ public class GameManager : MonoBehaviour
         }
         if (SelectedSoundBowl)
             SelectedSoundBowl.GetComponent<AudioSource>().volume = VolumeSlider.value;
-        yield return null;
     }
     private void LoadABowl()
     {
@@ -140,8 +140,8 @@ public class GameManager : MonoBehaviour
     {
         state = State.RepositionState;
         this.gameObject.GetComponent<BowlReposition>().RepositionBowlInitializer();
-        this.gameObject.GetComponent<BowlReposition>().StopEveryThing();
         this.gameObject.GetComponent<BowlReposition>().FadeEffect();
+        this.gameObject.GetComponent<BowlReposition>().StopEveryThing();
     }
 
     public void SelectModeNormal()
@@ -157,4 +157,5 @@ public class GameManager : MonoBehaviour
     {
         state = State.Shop;
     }
+    
 }
