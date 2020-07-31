@@ -1095,7 +1095,7 @@ PrefabInstance:
     - target: {fileID: 3006688203545980180, guid: d9ca5bad017850f4584bf32ea447b2f7,
         type: 3}
       propertyPath: name
-      value: 'Bowl '
+      value: Bowl 8
       objectReference: {fileID: 0}
     - target: {fileID: 3006688203545980180, guid: d9ca5bad017850f4584bf32ea447b2f7,
         type: 3}
@@ -1415,7 +1415,7 @@ PrefabInstance:
     - target: {fileID: 3006688203545980180, guid: d9ca5bad017850f4584bf32ea447b2f7,
         type: 3}
       propertyPath: name
-      value: 'Bowl '
+      value: Bowl 4
       objectReference: {fileID: 0}
     - target: {fileID: 3006688203545980180, guid: d9ca5bad017850f4584bf32ea447b2f7,
         type: 3}
@@ -3601,7 +3601,7 @@ PrefabInstance:
     - target: {fileID: 3006688203545980180, guid: d9ca5bad017850f4584bf32ea447b2f7,
         type: 3}
       propertyPath: name
-      value: 'Bowl '
+      value: Bowl 1
       objectReference: {fileID: 0}
     - target: {fileID: 3006688203545980180, guid: d9ca5bad017850f4584bf32ea447b2f7,
         type: 3}
@@ -5459,7 +5459,7 @@ PrefabInstance:
     - target: {fileID: 3006688203545980180, guid: d9ca5bad017850f4584bf32ea447b2f7,
         type: 3}
       propertyPath: name
-      value: 'Bowl '
+      value: Bowl 6
       objectReference: {fileID: 0}
     - target: {fileID: 3006688203545980180, guid: d9ca5bad017850f4584bf32ea447b2f7,
         type: 3}
@@ -7850,7 +7850,7 @@ PrefabInstance:
     - target: {fileID: 3006688203545980180, guid: d9ca5bad017850f4584bf32ea447b2f7,
         type: 3}
       propertyPath: name
-      value: 'Bowl '
+      value: Bowl 7
       objectReference: {fileID: 0}
     - target: {fileID: 3006688203545980180, guid: d9ca5bad017850f4584bf32ea447b2f7,
         type: 3}
@@ -8821,7 +8821,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.28125, y: 1}
-  m_AnchoredPosition: {x: -360.02136, y: 0}
+  m_AnchoredPosition: {x: -360, y: 0}
   m_SizeDelta: {x: 114.12076, y: 60}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &794824471
@@ -10915,12 +10915,12 @@ PrefabInstance:
     - target: {fileID: 3006688203545980180, guid: d9ca5bad017850f4584bf32ea447b2f7,
         type: 3}
       propertyPath: name
-      value: 'Bowl '
+      value: Bowl 9
       objectReference: {fileID: 0}
     - target: {fileID: 3006688203545980180, guid: d9ca5bad017850f4584bf32ea447b2f7,
         type: 3}
       propertyPath: set
-      value: Set
+      value: Set 2
       objectReference: {fileID: 0}
     - target: {fileID: 3006688203545980180, guid: d9ca5bad017850f4584bf32ea447b2f7,
         type: 3}
@@ -13872,7 +13872,7 @@ PrefabInstance:
     - target: {fileID: 3006688203545980180, guid: d9ca5bad017850f4584bf32ea447b2f7,
         type: 3}
       propertyPath: name
-      value: 'Bowl '
+      value: Bowl 5
       objectReference: {fileID: 0}
     - target: {fileID: 3006688203545980180, guid: d9ca5bad017850f4584bf32ea447b2f7,
         type: 3}
@@ -18188,7 +18188,7 @@ PrefabInstance:
     - target: {fileID: 3006688203545980180, guid: d9ca5bad017850f4584bf32ea447b2f7,
         type: 3}
       propertyPath: name
-      value: Bowl  2
+      value: Bowl 3
       objectReference: {fileID: 0}
     - target: {fileID: 3006688203545980180, guid: d9ca5bad017850f4584bf32ea447b2f7,
         type: 3}
@@ -24148,12 +24148,12 @@ PrefabInstance:
     - target: {fileID: 184918697773079976, guid: 5775ccc0a9e1e2d4b966d63122f3642b,
         type: 3}
       propertyPath: name
-      value: 'Bowl '
+      value: Bowl 2
       objectReference: {fileID: 0}
     - target: {fileID: 184918697773079976, guid: 5775ccc0a9e1e2d4b966d63122f3642b,
         type: 3}
       propertyPath: set
-      value: Set
+      value: Set 1
       objectReference: {fileID: 0}
     - target: {fileID: 184918697773079976, guid: 5775ccc0a9e1e2d4b966d63122f3642b,
         type: 3}
@@ -24339,12 +24339,12 @@ PrefabInstance:
     - target: {fileID: 391651156646249892, guid: 7311fa1fb93ee8a4a9a3c36f0c87bb1d,
         type: 3}
       propertyPath: name
-      value: 'Bowl '
+      value: Bowl 7
       objectReference: {fileID: 0}
     - target: {fileID: 391651156646249892, guid: 7311fa1fb93ee8a4a9a3c36f0c87bb1d,
         type: 3}
       propertyPath: set
-      value: Set
+      value: Set 1
       objectReference: {fileID: 0}
     - target: {fileID: 391651156646249892, guid: 7311fa1fb93ee8a4a9a3c36f0c87bb1d,
         type: 3}
@@ -24639,6 +24639,7 @@ MonoBehaviour:
   BackgroundMusic: {fileID: 2093575822}
   SelectedSoundBowl: {fileID: 0}
   SoundChangerIndicatorText: {fileID: 794824471}
+  DefaultFooterText: 
   state: 0
 --- !u!114 &559566324590841288
 MonoBehaviour:
@@ -25239,12 +25240,12 @@ PrefabInstance:
     - target: {fileID: 2059231185100445471, guid: 2c8f79f1fe2609340bd40df6ae376554,
         type: 3}
       propertyPath: name
-      value: 'Bowl '
+      value: Bowl 6
       objectReference: {fileID: 0}
     - target: {fileID: 2059231185100445471, guid: 2c8f79f1fe2609340bd40df6ae376554,
         type: 3}
       propertyPath: set
-      value: Set
+      value: Set 1
       objectReference: {fileID: 0}
     - target: {fileID: 2059231185100445471, guid: 2c8f79f1fe2609340bd40df6ae376554,
         type: 3}
@@ -25798,12 +25799,12 @@ PrefabInstance:
     - target: {fileID: 2694405827978265058, guid: 75cdfe4dab93d33418bb79f7576a2423,
         type: 3}
       propertyPath: name
-      value: 'Bowl '
+      value: Bowl 3
       objectReference: {fileID: 0}
     - target: {fileID: 2694405827978265058, guid: 75cdfe4dab93d33418bb79f7576a2423,
         type: 3}
       propertyPath: set
-      value: Set
+      value: Set 1
       objectReference: {fileID: 0}
     - target: {fileID: 2694405827978265058, guid: 75cdfe4dab93d33418bb79f7576a2423,
         type: 3}
@@ -26042,12 +26043,12 @@ PrefabInstance:
     - target: {fileID: 2989608620248537672, guid: 823bf51f76bcf4e4e96b516df54b6df1,
         type: 3}
       propertyPath: name
-      value: 'Bowl '
+      value: Bowl 9
       objectReference: {fileID: 0}
     - target: {fileID: 2989608620248537672, guid: 823bf51f76bcf4e4e96b516df54b6df1,
         type: 3}
       propertyPath: set
-      value: Set
+      value: Set 1
       objectReference: {fileID: 0}
     - target: {fileID: 2989608620248537672, guid: 823bf51f76bcf4e4e96b516df54b6df1,
         type: 3}
@@ -26177,12 +26178,12 @@ PrefabInstance:
     - target: {fileID: 3006688203545980180, guid: d9ca5bad017850f4584bf32ea447b2f7,
         type: 3}
       propertyPath: name
-      value: 'Bowl '
+      value: Bowl 11
       objectReference: {fileID: 0}
     - target: {fileID: 3006688203545980180, guid: d9ca5bad017850f4584bf32ea447b2f7,
         type: 3}
       propertyPath: set
-      value: Set
+      value: Set 1
       objectReference: {fileID: 0}
     - target: {fileID: 3006688203545980180, guid: d9ca5bad017850f4584bf32ea447b2f7,
         type: 3}
@@ -26665,12 +26666,12 @@ PrefabInstance:
     - target: {fileID: 3596927123101464892, guid: 3af46e0efe61eba4e8fa3ca1ce021895,
         type: 3}
       propertyPath: name
-      value: 'Bowl '
+      value: Bowl 5
       objectReference: {fileID: 0}
     - target: {fileID: 3596927123101464892, guid: 3af46e0efe61eba4e8fa3ca1ce021895,
         type: 3}
       propertyPath: set
-      value: Set
+      value: Set 1
       objectReference: {fileID: 0}
     - target: {fileID: 3596927123101464892, guid: 3af46e0efe61eba4e8fa3ca1ce021895,
         type: 3}
@@ -27061,12 +27062,12 @@ PrefabInstance:
     - target: {fileID: 4159997386616312678, guid: 4e8fe1a275ed39442a9bd66f9897607a,
         type: 3}
       propertyPath: name
-      value: 'Bowl '
+      value: Bowl 8
       objectReference: {fileID: 0}
     - target: {fileID: 4159997386616312678, guid: 4e8fe1a275ed39442a9bd66f9897607a,
         type: 3}
       propertyPath: set
-      value: Set
+      value: Set 1
       objectReference: {fileID: 0}
     - target: {fileID: 4159997386616312678, guid: 4e8fe1a275ed39442a9bd66f9897607a,
         type: 3}
@@ -27345,12 +27346,12 @@ PrefabInstance:
     - target: {fileID: 4425835414208316740, guid: 952b7e317285cc9488f6c5d795f8b59c,
         type: 3}
       propertyPath: name
-      value: 'Bowl '
+      value: Bowl 4
       objectReference: {fileID: 0}
     - target: {fileID: 4425835414208316740, guid: 952b7e317285cc9488f6c5d795f8b59c,
         type: 3}
       propertyPath: set
-      value: Set
+      value: Set 1
       objectReference: {fileID: 0}
     - target: {fileID: 4425835414208316740, guid: 952b7e317285cc9488f6c5d795f8b59c,
         type: 3}
@@ -28481,12 +28482,12 @@ PrefabInstance:
     - target: {fileID: 5546457357033196456, guid: 321bf964f2f58d94b90101aa947c9d0c,
         type: 3}
       propertyPath: name
-      value: 'Bowl '
+      value: Bowl 10
       objectReference: {fileID: 0}
     - target: {fileID: 5546457357033196456, guid: 321bf964f2f58d94b90101aa947c9d0c,
         type: 3}
       propertyPath: set
-      value: Set
+      value: Set 1
       objectReference: {fileID: 0}
     - target: {fileID: 5546457357033196456, guid: 321bf964f2f58d94b90101aa947c9d0c,
         type: 3}

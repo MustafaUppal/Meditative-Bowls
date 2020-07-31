@@ -128,10 +128,8 @@ public class GameManager : MonoBehaviour
             { 
                 if (hit.transform.CompareTag("Bowl"))
                 {
-
                     // Disable bowl which is clicked
                     hit.transform.gameObject.SetActive(false);
-
                     // Place bowl to load on clicked bowl position and enable it
                     Inventory.Instance.allBowls[BowlToLoad].transform.position = hit.transform.position;
                     Inventory.Instance.allBowls[BowlToLoad].transform.gameObject.SetActive(true);
@@ -141,8 +139,10 @@ public class GameManager : MonoBehaviour
                     BowlsManager.Instance.activeBowlsIndexes[hitItemIndex] = BowlToLoad;
 
                     //Changing State
+                    hit.transform.gameObject.GetComponent<Bowl>().currentState=Item.State.Purchased;
                     Inventory.Instance.allBowls[BowlToLoad].transform.gameObject.GetComponent<Bowl>().currentState = Item.State.Loaded;
                     state = State.Normal;
+                    GameManager.Instance.FooterText.text = GameManager.Instance.DefaultFooterText;
                     MenuManager.Instance.currentState = MenuManager.MenuStates.Main;
                 }
                 else if(hit.transform.gameObject.CompareTag("Bowl2"))
@@ -152,10 +152,12 @@ public class GameManager : MonoBehaviour
 
                     int hitItemIndex = hit.transform.GetComponent<indexHolder>().index;
                     BowlsManager.Instance.activeBowlsIndexes[hitItemIndex] = BowlToLoad;
-                    Inventory.Instance.allBowls[BowlToLoad].transform.gameObject.GetComponent<Bowl>().currentState=Item.State.Loaded;
                     Destroy(hit.transform.gameObject);
                     state = State.Normal;
+                    Inventory.Instance.allBowls[BowlToLoad].transform.gameObject.GetComponent<Bowl>().currentState=Item.State.Loaded;
+                    GameManager.Instance.FooterText.text = GameManager.Instance.DefaultFooterText;
                     MenuManager.Instance.currentState = MenuManager.MenuStates.Main;
+
                 }
                 else
                 {

@@ -75,8 +75,6 @@ public class ShopMenuEventListener : MonoBehaviour
 
     void ChangeState(ShopStates newState)
     {
-        GameManager.Instance.gameObject.GetComponent<BowlReposition>().StopEveryThing();
-
         prevState = currentState;
         currentState = newState;
 
@@ -93,6 +91,20 @@ public class ShopMenuEventListener : MonoBehaviour
         //Setting tiles
         content.Init((int)currentState);
         OnClickItemButton(0); // select first tile in the start
+
+
+
+
+        GameManager.Instance.gameObject.GetComponent<BowlReposition>().StopEveryThing();
+        if (GameManager.Instance.state == GameManager.State.Load)
+        {
+            GameManager.Instance.state = GameManager.State.Normal;
+        }
+
+        if(!(GameManager.Instance.state == GameManager.State.Load))
+        {
+            GameManager.Instance.FooterText.text = GameManager.Instance.DefaultFooterText;
+        }
     }
 
     #region Button Clicks
