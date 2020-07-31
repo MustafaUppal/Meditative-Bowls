@@ -56,6 +56,7 @@ public class ShopMenuEventListener : MonoBehaviour
     public SelectedItemSettings selectedItem;
 
     public ContentHandler content;
+    public Text Footertext;
 
     public Inventory shop => Inventory.Instance;
 
@@ -71,6 +72,10 @@ public class ShopMenuEventListener : MonoBehaviour
         AllRefs.I.dock.ManageButtons(data);
 
         ChangeState(defaultState);
+    }
+    void MessageSender(string Message)
+    {
+        Footertext.text = Message;
     }
 
     void ChangeState(ShopStates newState)
@@ -91,10 +96,6 @@ public class ShopMenuEventListener : MonoBehaviour
         //Setting tiles
         content.Init((int)currentState);
         OnClickItemButton(0); // select first tile in the start
-
-
-
-
         GameManager.Instance.gameObject.GetComponent<BowlReposition>().StopEveryThing();
         if (GameManager.Instance.state == GameManager.State.Load)
         {

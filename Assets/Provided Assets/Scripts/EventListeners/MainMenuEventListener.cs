@@ -1,16 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class MainMenuEventListener : MonoBehaviour
 {
+    public Text Footertext;
     private void OnEnable()
     {
         DockEventListener.ButtonsData data = new DockEventListener.ButtonsData{};
 
         AllRefs.I.dock.ManageButtons(data);
     }
-
+    void MessageSender(string Message)
+    {
+        Footertext.text = Message;
+    }
     public void OnClickBackButton()
     {
         Application.Quit();

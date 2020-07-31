@@ -1,9 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class RecordingMenuEventListener : MonoBehaviour
 {
+    public Text Footertext;
+    void MessageSender(string Message)
+    {
+        Footertext.text = Message;
+    }
     private void OnEnable()
     {
         DockEventListener.ButtonsData data = new DockEventListener.ButtonsData
