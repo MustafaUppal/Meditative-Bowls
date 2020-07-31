@@ -27,7 +27,7 @@ public class AudioLightSync : MonoBehaviour
     void Update()
     {
 
-        if (GameManager.Instance.state == GameManager.State.Normal && emit)
+        if (GameManager.Instance.state == GameManager.State.Normal ||GameManager.Instance.state==GameManager.State.Sound&& emit)
         {
             light.intensity = audioLoudness.clipLoudness * intensityMultiplier;
             light.intensity = Mathf.Clamp(light.intensity, 1, 50);

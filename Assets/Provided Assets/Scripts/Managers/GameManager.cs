@@ -9,7 +9,7 @@ using System;
 
 public class GameManager : MonoBehaviour
 {
-    [Header("GameManager Variable")]
+    [Header("Game Manager Variable")]
     public static GameManager Instance;
     public GameObject postPocessing;
     public bool Reposition;
@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour
 
         switch (state)
         {
-            case State.Normal:                   
+            case State.Normal:
                 break;
             case State.RepositionState:
                 break;
@@ -61,18 +61,22 @@ public class GameManager : MonoBehaviour
 
                 break;
             case State.Sound:
-                
-                if (Input.GetMouseButtonUp(0))
+                VolumeChanger();
+                if (SelectedSoundBowl)
                 {
-                    VolumeChanger();
+                    VolumeSlider.onValueChanged.AddListener(delegate { VolumeChange(VolumeSlider.value); });
                 }
-
                 break;
             case State.Remove:
                 Remove();
                 break;
-        }
+        } 
     }
+        void VolumeChange(float Value)
+        {
+        
+            SelectedSoundBowl.GetComponent<AudioSource>().volume = Value;
+        }
 
     private void Remove()
     {
@@ -99,23 +103,25 @@ public class GameManager : MonoBehaviour
     }
     private void VolumeChanger()
     {
-        RaycastHit hit;
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out hit))
+       
+        if (Input.GetMouseButtonUp(0))
         {
-            if (hit.transform.CompareTag("Bowl"))
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out hit))
             {
-                SelectedSoundBowl = hit.transform.gameObject;
-                SoundChangerIndicatorText.text = SelectedSoundBowl.name +" ("+SelectedSoundBowl.GetComponent<Bowl>().set+")";
-            }
-            else
-            {
-                SoundChangerIndicatorText.text = "BackGound";
-                SelectedSoundBowl = BackgroundMusic;
+                if (hit.transform.CompareTag("Bowl"))
+                {
+                    SelectedSoundBowl = hit.transform.gameObject;
+                    SoundChangerIndicatorText.text = SelectedSoundBowl.name + " (" + SelectedSoundBowl.GetComponent<Bowl>().set + ") ";
+                }
+                else
+                {
+                    SoundChangerIndicatorText.text = "BackGound";
+                    SelectedSoundBowl = BackgroundMusic;
+                }
             }
         }
-        if (SelectedSoundBowl)
-            SelectedSoundBowl.GetComponent<AudioSource>().volume = VolumeSlider.value;
     }
     private void LoadABowl()
     {

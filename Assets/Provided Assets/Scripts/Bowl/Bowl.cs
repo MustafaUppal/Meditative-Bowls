@@ -11,13 +11,15 @@ public class Bowl : Item
     {
         audioSource = GetComponent<AudioSource>();
     }
-
+    private void Update()
+    {
+        gameObject.transform.GetChild(0).gameObject.SetActive(audioSource.isPlaying);
+    }
     public void PlaySound()
     {
         if (!audioSource.isPlaying)
         {
             audioSource.Play();
         }
-        gameObject.transform.GetChild(0).gameObject.SetActive(audioSource.isPlaying);
     }
 }

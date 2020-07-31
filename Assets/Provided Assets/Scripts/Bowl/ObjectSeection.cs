@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class ObjectSeection : MonoBehaviour
 {
@@ -17,7 +18,9 @@ public class ObjectSeection : MonoBehaviour
     }
     private void Update()
     {
-        if (GameManager.Instance.state == GameManager.State.Normal&& !(MenuManager.Instance.currentState==MenuManager.MenuStates.Shop))
+        if (EventSystem.current.IsPointerOverGameObject())
+            return;
+        if (GameManager.Instance.state == GameManager.State.Normal || GameManager.Instance.state == GameManager.State.Sound && !(MenuManager.Instance.currentState==MenuManager.MenuStates.Shop))
         {
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
