@@ -11,10 +11,12 @@ public class MainMenuEventListener : MonoBehaviour
 
         AllRefs.I.dock.ManageButtons(data);
     }
+
     void MessageSender(string Message)
     {
         Footertext.text = Message;
     }
+    
     public void OnClickBackButton()
     {
         Application.Quit();

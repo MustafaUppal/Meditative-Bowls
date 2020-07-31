@@ -6,13 +6,15 @@ using UnityEngine.UI;
 public class LibraryMenuEventListener : MonoBehaviour
 {
     public GameObject sessionTile;
-
     public Transform tilesContainer;
+
     public Text Footertext;
+
     void MessageSender(string Message)
     {
         Footertext.text = Message;
     }
+    
     private void OnEnable()
     {
         DockEventListener.ButtonsData data = new DockEventListener.ButtonsData
