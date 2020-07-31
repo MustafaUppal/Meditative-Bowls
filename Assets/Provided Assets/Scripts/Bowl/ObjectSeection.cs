@@ -17,7 +17,7 @@ public class ObjectSeection : MonoBehaviour
     }
     private void Update()
     {
-        if (GameManager.Instance.state == GameManager.State.Normal&& !(MenuManager.Instance.currentState==MenuManager.MenuStates.Main))
+        if (GameManager.Instance.state == GameManager.State.Normal&& !(MenuManager.Instance.currentState==MenuManager.MenuStates.Shop))
         {
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
