@@ -20,7 +20,6 @@ public class SettingsMenuEventListener : MonoBehaviour
         GameManager.Instance.SelectModeNormal();
         GameManager.Instance.gameObject.GetComponent<BowlReposition>().ResetFuntion();
         GameManager.Instance.VolumeSlider.gameObject.SetActive(false);
-
     }
     public void OnClickRepositionButton()
     {
@@ -36,6 +35,7 @@ public class SettingsMenuEventListener : MonoBehaviour
         GameManager.Instance.gameObject.GetComponent<BowlReposition>().StopEveryThing();
         GameManager.Instance.VolumeSlider.gameObject.SetActive(false);
 
+
     }
 
     public void OnClickVolumeButton()
@@ -44,7 +44,6 @@ public class SettingsMenuEventListener : MonoBehaviour
         GameManager.Instance.gameObject.GetComponent<BowlReposition>().StopEveryThing();
         GameManager.Instance.gameObject.GetComponent<BowlReposition>().ResetFuntion();
         GameManager.Instance.VolumeSlider.gameObject.SetActive(true);
-
 
     }
 }

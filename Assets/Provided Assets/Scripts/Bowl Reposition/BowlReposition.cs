@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
 using UnityEditor;
@@ -28,7 +29,6 @@ public class BowlReposition : MonoBehaviour
 
     private void Update()
     {
-        
         if (GameManager.Instance.state == GameManager.State.RepositionState)
         {
             RaycastHit hit;
@@ -59,26 +59,21 @@ public class BowlReposition : MonoBehaviour
     {
         for (int i = 0; i < Bowl.Length; i++)
         {
-            int bowlIndex = BowlsManager.Instance.activeBowlsIndexes[i];
-
-            Bowl[i].GetComponent<Renderer>().material = materialArray[bowlIndex] ;
+            Bowl[i].GetComponent<Renderer>().material = materialArray[i];
         }
     }
     
     
     private void SelectBowls(RaycastHit hit)
     {
-        
         if (Selectable)
         {
             if (!SelectedBowl)
             {
-                Material tempMaterial;
                 SelectedBowl = hit.transform.gameObject;
                 temp = hit.transform.position;
                 SelectedBowl.transform.GetChild(0).gameObject.SetActive(true);
                 SelectedBowl.transform.GetChild(0).gameObject.GetComponent<Light>().intensity = 50;
-                tempMaterial = SelectedBowl.transform.GetComponent<Material>();
                 SelectedBowl.GetComponent<Renderer>().material = OriginalMaterial;
 
             }
@@ -89,7 +84,6 @@ public class BowlReposition : MonoBehaviour
             }
             else
             {
-                Material tempMaterial;
                 SelectedBowl2 = hit.transform.gameObject;
                 temp2 = hit.transform.gameObject.transform.position;
                 SelectedBowl2.transform.GetChild(0).gameObject.GetComponent<Light>().intensity = 50;

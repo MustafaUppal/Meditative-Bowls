@@ -24613,6 +24613,7 @@ MonoBehaviour:
   positiontoarrive2: {x: 0, y: 0, z: 0}
   Selectable: 0
   transitionspeed: 0.6
+  materialArray: []
   SubsituteMaterial: {fileID: 2100000, guid: 381a35268ff8df5499be53a83b792aa7, type: 2}
   OriginalMaterial: {fileID: 2100000, guid: bfe5af0b9aed1a148b358fdc33f87d17, type: 2}
 --- !u!114 &559566324590841287
@@ -24632,10 +24633,12 @@ MonoBehaviour:
   carpetPlane: {fileID: 3704570319181356287}
   Bowl: {fileID: 0}
   BowlToLoad: 0
+  VolumeSlider: {fileID: 746763902}
+  FooterText: {fileID: 1600410650}
+  allButtons: []
+  BackgroundMusic: {fileID: 2093575822}
   SelectedSoundBowl: {fileID: 0}
   SoundChangerIndicatorText: {fileID: 794824471}
-  BackgroundMusic: {fileID: 2093575822}
-  VolumeSlider: {fileID: 746763902}
   state: 0
 --- !u!114 &559566324590841288
 MonoBehaviour:

@@ -152,6 +152,8 @@ public class ShopMenuEventListener : MonoBehaviour
 
     public void OnClickLoadItem()
     {
+        GameManager.Instance.FooterText.text = "Place The Bowl to yor desire location";
+
         switch (currentState)
         {
             case ShopStates.Bowls:

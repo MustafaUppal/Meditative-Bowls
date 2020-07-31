@@ -16,12 +16,13 @@ public class GameManager : MonoBehaviour
     public GameObject carpetPlane;
     public GameObject Bowl;
     public int BowlToLoad;
+    public Slider VolumeSlider;
+    public Text FooterText;
+    public Button[] allButtons; 
+    public GameObject BackgroundMusic;
     [SerializeField] private GameObject SelectedSoundBowl;
     [SerializeField] private Text SoundChangerIndicatorText;
-    public GameObject BackgroundMusic;
-   public Slider VolumeSlider;
-
-
+   public  string DefaultFooterText;
     [Header("State")]
     public State state;
     public enum State
@@ -38,6 +39,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         Instance = this;
+        DefaultFooterText = FooterText.text;
+
     }
 
     private void Update()
@@ -47,7 +50,7 @@ public class GameManager : MonoBehaviour
 
         switch (state)
         {
-            case State.Normal:
+            case State.Normal:                   
                 break;
             case State.RepositionState:
                 break;
@@ -80,9 +83,17 @@ public class GameManager : MonoBehaviour
         {
             if (hit.transform.CompareTag("Bowl") && Input.GetMouseButton(0))
             {
-                hit.transform.gameObject.SetActive(false);
-                hit.transform.GetComponent<Bowl>().currentState = Item.State.Purchased;
-
+                hit.transform.gameObject.GetComponent<Bowl>().currentState = Item.State.Purchased;
+                GameObject SubsituteGameObject = new GameObject();
+                SubsituteGameObject.transform.position = hit.transform.gameObject.transform.position;
+                SubsituteGameObject.AddComponent<BoxCollider>();
+                SubsituteGameObject.AddComponent<Rigidbody>();
+                SubsituteGameObject.AddComponent<indexHolder>();
+                SubsituteGameObject.GetComponent<indexHolder>().index =
+                Array.FindIndex(Inventory.Instance.allBowls, x => x == hit.transform.GetComponent<Bowl>());
+                SubsituteGameObject.GetComponent<Rigidbody>().isKinematic=true;
+                hit.transform.gameObject.SetActive(false); 
+                SubsituteGameObject.tag = "Bowl2";
             }
         }
     }
@@ -99,7 +110,7 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                SoundChangerIndicatorText.text = "BackGound Sound";
+                SoundChangerIndicatorText.text = "BackGound";
                 SelectedSoundBowl = BackgroundMusic;
             }
         }
@@ -114,11 +125,10 @@ public class GameManager : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
             if (Physics.Raycast(ray, out hit))
-            {
-                // Why checking audio source when you are already checking tag?
-                // Is there any possiblilty that a gameobject with bol take will not have audiosource? 
-                if (hit.transform.GetComponent<AudioSource>() != null && hit.transform.CompareTag("Bowl"))
+            { 
+                if (hit.transform.CompareTag("Bowl"))
                 {
+
                     // Disable bowl which is clicked
                     hit.transform.gameObject.SetActive(false);
 
@@ -130,7 +140,26 @@ public class GameManager : MonoBehaviour
                     int hitItemIndex = Array.FindIndex(Inventory.Instance.allBowls, x => x == hit.transform.GetComponent<Bowl>());
                     BowlsManager.Instance.activeBowlsIndexes[hitItemIndex] = BowlToLoad;
 
+                    //Changing State
+                    Inventory.Instance.allBowls[BowlToLoad].transform.gameObject.GetComponent<Bowl>().currentState = Item.State.Loaded;
                     state = State.Normal;
+                    MenuManager.Instance.currentState = MenuManager.MenuStates.Main;
+                }
+                else if(hit.transform.gameObject.CompareTag("Bowl2"))
+                {
+                    Inventory.Instance.allBowls[BowlToLoad].transform.position = hit.transform.position;
+                    Inventory.Instance.allBowls[BowlToLoad].transform.gameObject.SetActive(true);
+
+                    int hitItemIndex = hit.transform.GetComponent<indexHolder>().index;
+                    BowlsManager.Instance.activeBowlsIndexes[hitItemIndex] = BowlToLoad;
+                    Inventory.Instance.allBowls[BowlToLoad].transform.gameObject.GetComponent<Bowl>().currentState=Item.State.Loaded;
+                    Destroy(hit.transform.gameObject);
+                    state = State.Normal;
+                    MenuManager.Instance.currentState = MenuManager.MenuStates.Main;
+                }
+                else
+                {
+                    GameManager.Instance.FooterText.text = "You are Placing the bowl in wrong Place";
                 }
             }
         }
