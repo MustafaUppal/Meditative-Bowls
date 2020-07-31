@@ -72,6 +72,8 @@ public class ShopMenuEventListener : MonoBehaviour
         AllRefs.I.dock.ManageButtons(data);
 
         ChangeState(defaultState);
+        MessageSender("Carpet");
+
     }
     void MessageSender(string Message)
     {
@@ -118,15 +120,18 @@ public class ShopMenuEventListener : MonoBehaviour
     public void OnClickCarpetButton()
     {
         ChangeState(ShopStates.Carpets);
+        MessageSender("Carpet");
     }
 
     public void OnClickBowlsButton()
     {
+        MessageSender("Bowl");
         ChangeState(ShopStates.Bowls);
     }
 
     public void OnClickBGMusicsButton()
     {
+        MessageSender("BGMusic");
         ChangeState(ShopStates.BG_Musics);
     }
 

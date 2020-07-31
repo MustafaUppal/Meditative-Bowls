@@ -15394,7 +15394,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Status
+  m_Text: Select an option to for setting up environment
 --- !u!222 &1419568218
 CanvasRenderer:
   m_ObjectHideFlags: 0
