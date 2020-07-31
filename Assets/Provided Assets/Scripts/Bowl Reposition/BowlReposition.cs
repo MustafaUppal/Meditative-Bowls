@@ -18,6 +18,7 @@ public class BowlReposition : MonoBehaviour
     [SerializeField] Vector3 positiontoarrive2;
     [SerializeField] private bool Selectable;
     [SerializeField] private float transitionspeed;
+    [SerializeField] private Material[] materialArray;
 
     void Start()
     {
@@ -56,24 +57,28 @@ public class BowlReposition : MonoBehaviour
     }
     public void ResetFuntion()
     {
-   
-            foreach (GameObject bowl in Bowl)
-            {
-                bowl.GetComponent<Renderer>().material = OriginalMaterial;
-            }
+        for (int i = 0; i < Bowl.Length; i++)
+        {
+            int bowlIndex = BowlsManager.Instance.activeBowlsIndexes[i];
+
+            Bowl[i].GetComponent<Renderer>().material = materialArray[bowlIndex] ;
         }
+    }
     
     
     private void SelectBowls(RaycastHit hit)
     {
+        
         if (Selectable)
         {
             if (!SelectedBowl)
             {
+                Material tempMaterial;
                 SelectedBowl = hit.transform.gameObject;
                 temp = hit.transform.position;
                 SelectedBowl.transform.GetChild(0).gameObject.SetActive(true);
                 SelectedBowl.transform.GetChild(0).gameObject.GetComponent<Light>().intensity = 50;
+                tempMaterial = SelectedBowl.transform.GetComponent<Material>();
                 SelectedBowl.GetComponent<Renderer>().material = OriginalMaterial;
 
             }
@@ -84,7 +89,7 @@ public class BowlReposition : MonoBehaviour
             }
             else
             {
-
+                Material tempMaterial;
                 SelectedBowl2 = hit.transform.gameObject;
                 temp2 = hit.transform.gameObject.transform.position;
                 SelectedBowl2.transform.GetChild(0).gameObject.GetComponent<Light>().intensity = 50;
@@ -131,16 +136,15 @@ public class BowlReposition : MonoBehaviour
     public void RepositionBowlInitializer()
     {
         Bowl = new GameObject[(BowlsManager.Instance.activeBowlsIndexes.Length)];
+        materialArray= new Material[BowlsManager.Instance.activeBowlsIndexes.Length];
 
         for (int i = 0; i < Bowl.Length; i++)
         {
             int bowlIndex = BowlsManager.Instance.activeBowlsIndexes[i];
             
             Bowl[i] = Inventory.Instance.allBowls[bowlIndex].gameObject;
+            materialArray[i] = Inventory.Instance.allBowls[bowlIndex].GetComponent<Renderer>().material;
         }
     }
-    public void Load()
-    {
-
-    }
+   
 }
