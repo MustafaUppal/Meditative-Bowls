@@ -15,12 +15,16 @@ public class GameManager : MonoBehaviour
     public bool Reposition;
     public GameObject carpetPlane;
     public GameObject Bowl;
+    public GameObject Footer;
+    public GameObject FooterText1;
+
     public int BowlToLoad;
     public Slider VolumeSlider;
     public Text FooterText;
     public Button[] allButtons; 
     public GameObject BackgroundMusic;
     [SerializeField] private GameObject SelectedSoundBowl;
+
     [SerializeField] private Text SoundChangerIndicatorText;
    public  string DefaultFooterText;
     [Header("State")]
@@ -53,6 +57,13 @@ public class GameManager : MonoBehaviour
             case State.Normal:
                 break;
             case State.RepositionState:
+                VolumeChanger();
+                if (SelectedSoundBowl)
+                {
+
+                    VolumeSlider.onValueChanged.AddListener(delegate { VolumeChange(VolumeSlider.value); });
+                
+                }
                 break;
             case State.RecordingMode:
                 break;
@@ -61,11 +72,7 @@ public class GameManager : MonoBehaviour
 
                 break;
             case State.Sound:
-                VolumeChanger();
-                if (SelectedSoundBowl)
-                {
-                    VolumeSlider.onValueChanged.AddListener(delegate { VolumeChange(VolumeSlider.value); });
-                }
+               
                 break;
             case State.Remove:
                 Remove();

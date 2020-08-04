@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.XR.WSA.Input;
 
 public class ObjectSeection : MonoBehaviour
 {
@@ -10,39 +11,76 @@ public class ObjectSeection : MonoBehaviour
     Color baseColor;
     float emission;
     public Material mat;
+    public GameObject SelectedBowl;
+    public bool LongPressState, Pressing;
+    public float TimeUserHold, TimeUserForLongPressState;
     Renderer renderer;
     bool _emit;
     private void Start()
     {
-
+        TimeUserForLongPressState = 3f;
+        LongPressState = false;
+        Pressing = false;
     }
+
     private void Update()
     {
         if (EventSystem.current.IsPointerOverGameObject())
             return;
-        if (GameManager.Instance.state == GameManager.State.Normal || GameManager.Instance.state == GameManager.State.Sound && !(MenuManager.Instance.currentState==MenuManager.MenuStates.Shop))
+
+
+
+        if (GameManager.Instance.state == GameManager.State.Normal ||GameManager.Instance.state==GameManager.State.RepositionState || GameManager.Instance.state == GameManager.State.Sound && !(MenuManager.Instance.currentState == MenuManager.MenuStates.Shop))
         {
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
             if (Physics.Raycast(ray, out hit))
             {
+
                 Transform objectHit = hit.transform;
-                if (Input.GetMouseButtonUp(0))
+
+                if (Input.GetMouseButtonDown(0))
                 {
-                    if (hit.transform.GetComponent<AudioSource>() != null)
-                        if (hit.transform.CompareTag("Bowl"))
-                        {
-                            hit = PlaySound(hit);
-                        }
+
+                    if (hit.transform.GetComponent<AudioSource>() != null && hit.transform.CompareTag("Bowl"))
+                    {
+
+                        hit = PlaySound(hit);
+
+                    }
+
                 }
-                if (hit.transform.CompareTag("Bowl"))
+                if (hit.transform.CompareTag("Bowl") && Input.GetMouseButton(0)&&GameManager.Instance.state==GameManager.State.Normal)
                 {
-                    GameObject SpotLight = hit.transform.GetChild(0).gameObject;
+
+                    Pressing = true;
+                    TimeUserHold += Time.deltaTime;
+
+                    if (TimeUserHold >= TimeUserForLongPressState)
+                    {
+
+                        GameManager.Instance.SelectModeReposition();
+                        GameManager.Instance.gameObject.GetComponent<BowlReposition>().SelectBowls(hit.transform.gameObject);
+                        GameManager.Instance.VolumeSlider.value = hit.transform.GetComponent<AudioSource>().volume;
+
+                        LongPressState = true;
+                        Pressing = false;
+                        TimeUserHold = 0;
+                    }
+                    else
+                    {
+                        LongPressState = false;
+                        Pressing = false;
+                    }
                 }
             }
-        }
 
+        }
     }
+
+
+
 
     private static RaycastHit PlaySound(RaycastHit hit)
     {

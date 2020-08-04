@@ -8,8 +8,10 @@ public class SettingsMenuEventListener : MonoBehaviour
     public Text Status;
     public GameObject FooterPanel;
     public GameObject StatusText;
+    
     void MessageSender(string Message)
     {
+
         Status.text = Message;
     }
     private void OnEnable()
@@ -54,12 +56,11 @@ public class SettingsMenuEventListener : MonoBehaviour
 
     public void OnClickVolumeButton()
     {
-        MessageSender("Volume");
-        GameManager.Instance.state = GameManager.State.Sound;
+    
         StatusText.SetActive(false);
-        GameManager.Instance.gameObject.GetComponent<BowlReposition>().StopEveryThing();
-        GameManager.Instance.gameObject.GetComponent<BowlReposition>().ResetFuntion();
         GameManager.Instance.VolumeSlider.gameObject.SetActive(true);
+        //GameManager.Instance.gameObject.GetComponent<BowlReposition>().StopEveryThing();
+        //GameManager.Instance.gameObject.GetComponent<BowlReposition>().ResetFuntion();
 
     }
 }

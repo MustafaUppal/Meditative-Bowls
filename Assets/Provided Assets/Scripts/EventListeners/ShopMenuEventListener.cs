@@ -73,7 +73,6 @@ public class ShopMenuEventListener : MonoBehaviour
 
         ChangeState(defaultState);
         MessageSender("Carpet");
-
     }
     void MessageSender(string Message)
     {
