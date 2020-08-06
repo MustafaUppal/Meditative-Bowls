@@ -53,7 +53,11 @@ public class BowlReposition : MonoBehaviour
         if (Input.GetMouseButtonUp(0) && hit.transform.gameObject.CompareTag("Bowl"))
         {
             SelectBowls(hit);
-        
+        }
+         if (!(hit.transform.gameObject.tag == "Bowl")&&Input.GetMouseButtonDown(0))
+         {
+            print(hit.transform.gameObject);
+            ResetFuntion();
         }
 
     }
@@ -75,6 +79,7 @@ public class BowlReposition : MonoBehaviour
         if (hit.transform.gameObject == SelectedBowl)
             return;
 
+       
         SelectedBowl2 = hit.transform.gameObject;
         temp2 = hit.transform.gameObject.transform.position;
         SelectedBowl2.transform.GetChild(0).gameObject.GetComponent<Light>().intensity = 50;
@@ -95,6 +100,7 @@ public class BowlReposition : MonoBehaviour
         SelectedBowl.GetComponent<Renderer>().material = OriginalMaterial;
         
     }
+
     public void Reposition()
     {
         Selectable = false;

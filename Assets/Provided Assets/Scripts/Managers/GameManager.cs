@@ -124,7 +124,9 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
+
                     SoundChangerIndicatorText.text = "BackGound";
+
                     SelectedSoundBowl = BackgroundMusic;
                 }
             }

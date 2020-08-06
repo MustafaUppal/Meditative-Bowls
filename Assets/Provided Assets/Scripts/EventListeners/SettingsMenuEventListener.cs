@@ -49,8 +49,6 @@ public class SettingsMenuEventListener : MonoBehaviour
         StatusText.SetActive(true);
 
         GameManager.Instance.state = GameManager.State.Remove;
-        GameManager.Instance.gameObject.GetComponent<BowlReposition>().ResetFuntion();
-        GameManager.Instance.gameObject.GetComponent<BowlReposition>().StopEveryThing();
         GameManager.Instance.VolumeSlider.gameObject.SetActive(false);
     }
 

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.XR.WSA.Input;
 
 public class ObjectSeection : MonoBehaviour
 {
@@ -30,7 +30,7 @@ public class ObjectSeection : MonoBehaviour
 
 
 
-        if (GameManager.Instance.state == GameManager.State.Normal ||GameManager.Instance.state==GameManager.State.RepositionState || GameManager.Instance.state == GameManager.State.Sound && !(MenuManager.Instance.currentState == MenuManager.MenuStates.Shop))
+        if (GameManager.Instance.state == GameManager.State.Normal || GameManager.Instance.state == GameManager.State.RepositionState || GameManager.Instance.state == GameManager.State.Sound && !(MenuManager.Instance.currentState == MenuManager.MenuStates.Shop))
         {
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -51,7 +51,7 @@ public class ObjectSeection : MonoBehaviour
                     }
 
                 }
-                if (hit.transform.CompareTag("Bowl") && Input.GetMouseButton(0)&&GameManager.Instance.state==GameManager.State.Normal)
+                if (hit.transform.CompareTag("Bowl") && Input.GetMouseButton(0) && GameManager.Instance.state == GameManager.State.Normal)
                 {
 
                     Pressing = true;
@@ -68,11 +68,12 @@ public class ObjectSeection : MonoBehaviour
                         Pressing = false;
                         TimeUserHold = 0;
                     }
-                    else
-                    {
-                        LongPressState = false;
-                        Pressing = false;
-                    }
+                }
+                else
+                {
+                    //GameManager.Instance.gameObject.GetComponent<BowlReposition>().SelectedBowl = null;
+                    LongPressState = false;
+                    Pressing = false;
                 }
             }
 

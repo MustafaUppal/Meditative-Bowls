@@ -7,7 +7,7 @@ public class MainMenuEventListener : MonoBehaviour
     public Text Footertext;
     private void OnEnable()
     {
-        DockEventListener.ButtonsData data = new DockEventListener.ButtonsData{};
+        DockEventListener.ButtonsData data = new DockEventListener.ButtonsData { };
 
         AllRefs.I.dock.ManageButtons(data);
     }
@@ -16,7 +16,7 @@ public class MainMenuEventListener : MonoBehaviour
     {
         Footertext.text = Message;
     }
-    
+
     public void OnClickBackButton()
     {
         Application.Quit();
@@ -36,16 +36,28 @@ public class MainMenuEventListener : MonoBehaviour
     public void OnClickRecordingButton()
     {
         MenuManager.Instance.ChangeState(MenuManager.MenuStates.Recording);
-        
     }
 
     public void OnClickAlramButton()
     {
-
+        MenuManager.Instance.ChangeState(MenuManager.MenuStates.Alram);
     }
 
     public void OnClickSettingsButton()
     {
         MenuManager.Instance.ChangeState(MenuManager.MenuStates.Settings);
+    }
+    public void OnClickRemoveButton()
+    {
+        if (GameManager.Instance.state == GameManager.State.RepositionState)
+        {
+            GameManager.Instance.state= GameManager.State.Remove;
+            GameManager.Instance.VolumeSlider.gameObject.SetActive(false);
+        }
+        else
+        {
+            GameManager.Instance.state = GameManager.State.RepositionState;
+
+        }
     }
 }
