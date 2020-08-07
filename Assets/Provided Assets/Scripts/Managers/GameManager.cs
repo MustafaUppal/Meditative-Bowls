@@ -84,7 +84,6 @@ public class GameManager : MonoBehaviour
     public void PanningSliderChange(float SliderValue)
     {
         SelectedSoundBowl.GetComponent<AudioSource>().spatialBlend = 0;
-        
         SelectedSoundBowl.GetComponent<AudioSource>().panStereo = SliderValue;
     }
     void VolumeChange(float Value)
@@ -112,6 +111,7 @@ public class GameManager : MonoBehaviour
                 SubsituteGameObject.GetComponent<Rigidbody>().isKinematic = true;
                 hit.transform.gameObject.SetActive(false);
                 SubsituteGameObject.tag = "Bowl2";
+                PanningSlider.value = SelectedSoundBowl.GetComponent<AudioSource>().panStereo;
             }
         }
     }
