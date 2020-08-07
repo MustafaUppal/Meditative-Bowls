@@ -136,7 +136,7 @@ public class BowlReposition : MonoBehaviour
 
         for (int i = 0; i < materialArray.Length; i++)
         {
-            print("Masti kr rya na");
+            // print("Masti kr rya na");
             int bowlIndex = BowlsManager.Instance.activeBowlsIndexes[i];
             materialArray[i] = Inventory.Instance.allBowls[bowlIndex].GetComponent<Renderer>().material;
            // Bowl[i] = Inventory.Instance.allBowls[bowlIndex].gameObject;

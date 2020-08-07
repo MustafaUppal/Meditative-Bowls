@@ -66,6 +66,7 @@ public class GameManager : MonoBehaviour
                 }
                 break;
             case State.RecordingMode:
+                RecodingInput();
                 break;
             case State.Load:
                 LoadABowl();
@@ -79,7 +80,13 @@ public class GameManager : MonoBehaviour
                 break;
         } 
     }
-        void VolumeChange(float Value)
+
+    private void RecodingInput()
+    {
+        
+    }
+
+    void VolumeChange(float Value)
         {
         
             SelectedSoundBowl.GetComponent<AudioSource>().volume = Value;

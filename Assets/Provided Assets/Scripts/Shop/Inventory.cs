@@ -11,7 +11,13 @@ public class Inventory : MonoBehaviour
     public static Inventory Instance;
 
     [Header("Items")]
+    public Transform bowlsParent;
     public Bowl[] allBowls;
+
+    public Bowl[] allBowlss(int index)
+    {
+        return bowlsParent.GetComponentsInChildren<Bowl>();
+    }
     public Carpet[] allCarpets;
     public BG_Music[] allMusics;
 

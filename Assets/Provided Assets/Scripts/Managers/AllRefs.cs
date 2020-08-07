@@ -15,4 +15,5 @@ public class AllRefs : MonoBehaviour
     public DockEventListener dock;
     public ShopMenuEventListener shopMenu;
     public LibraryMenuEventListener libraryMenu;
+    public RecordingMenuEventListener recordingMenu;
 }
