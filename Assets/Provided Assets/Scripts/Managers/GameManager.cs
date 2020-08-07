@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
 {
     [Header("Game Manager Variable")]
     public static GameManager Instance;
+    public Slider PanningSlider;
+
     public GameObject postPocessing;
     public bool Reposition;
     public GameObject carpetPlane;
@@ -21,12 +23,12 @@ public class GameManager : MonoBehaviour
     public int BowlToLoad;
     public Slider VolumeSlider;
     public Text FooterText;
-    public Button[] allButtons; 
+    public Button[] allButtons;
     public GameObject BackgroundMusic;
     [SerializeField] private GameObject SelectedSoundBowl;
 
     [SerializeField] private Text SoundChangerIndicatorText;
-   public  string DefaultFooterText;
+    public string DefaultFooterText;
     [Header("State")]
     public State state;
     public enum State
@@ -60,37 +62,35 @@ public class GameManager : MonoBehaviour
                 VolumeChanger();
                 if (SelectedSoundBowl)
                 {
-
                     VolumeSlider.onValueChanged.AddListener(delegate { VolumeChange(VolumeSlider.value); });
-                
+                    PanningSlider.onValueChanged.AddListener(delegate { PanningSliderChange(PanningSlider.value); });
                 }
+
                 break;
             case State.RecordingMode:
-                RecodingInput();
                 break;
             case State.Load:
                 LoadABowl();
 
                 break;
             case State.Sound:
-               
+
                 break;
             case State.Remove:
                 Remove();
                 break;
-        } 
-    }
-
-    private void RecodingInput()
-    {
-        
-    }
-
-    void VolumeChange(float Value)
-        {
-        
-            SelectedSoundBowl.GetComponent<AudioSource>().volume = Value;
         }
+    }
+    public void PanningSliderChange(float SliderValue)
+    {
+        SelectedSoundBowl.GetComponent<AudioSource>().spatialBlend = 0;
+        
+        SelectedSoundBowl.GetComponent<AudioSource>().panStereo = SliderValue;
+    }
+    void VolumeChange(float Value)
+    {
+        SelectedSoundBowl.GetComponent<AudioSource>().volume = Value;
+    }
 
     private void Remove()
     {
@@ -109,15 +109,15 @@ public class GameManager : MonoBehaviour
                 SubsituteGameObject.AddComponent<indexHolder>();
                 SubsituteGameObject.GetComponent<indexHolder>().index =
                 Array.FindIndex(Inventory.Instance.allBowls, x => x == hit.transform.GetComponent<Bowl>());
-                SubsituteGameObject.GetComponent<Rigidbody>().isKinematic=true;
-                hit.transform.gameObject.SetActive(false); 
+                SubsituteGameObject.GetComponent<Rigidbody>().isKinematic = true;
+                hit.transform.gameObject.SetActive(false);
                 SubsituteGameObject.tag = "Bowl2";
             }
         }
     }
     private void VolumeChanger()
     {
-       
+
         if (Input.GetMouseButtonUp(0))
         {
             RaycastHit hit;
@@ -133,7 +133,6 @@ public class GameManager : MonoBehaviour
                 {
 
                     SoundChangerIndicatorText.text = "BackGound";
-
                     SelectedSoundBowl = BackgroundMusic;
                 }
             }
@@ -147,7 +146,7 @@ public class GameManager : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
             if (Physics.Raycast(ray, out hit))
-            { 
+            {
                 if (hit.transform.CompareTag("Bowl"))
                 {
                     // Disable bowl which is clicked
@@ -161,13 +160,13 @@ public class GameManager : MonoBehaviour
                     BowlsManager.Instance.activeBowlsIndexes[hitItemIndex] = BowlToLoad;
 
                     //Changing State
-                    hit.transform.gameObject.GetComponent<Bowl>().currentState=Item.State.Purchased;
+                    hit.transform.gameObject.GetComponent<Bowl>().currentState = Item.State.Purchased;
                     Inventory.Instance.allBowls[BowlToLoad].transform.gameObject.GetComponent<Bowl>().currentState = Item.State.Loaded;
                     state = State.Normal;
                     GameManager.Instance.FooterText.text = GameManager.Instance.DefaultFooterText;
                     MenuManager.Instance.currentState = MenuManager.MenuStates.Main;
                 }
-                else if(hit.transform.gameObject.CompareTag("Bowl2"))
+                else if (hit.transform.gameObject.CompareTag("Bowl2"))
                 {
                     Inventory.Instance.allBowls[BowlToLoad].transform.position = hit.transform.position;
                     Inventory.Instance.allBowls[BowlToLoad].transform.gameObject.SetActive(true);
@@ -176,7 +175,7 @@ public class GameManager : MonoBehaviour
                     BowlsManager.Instance.activeBowlsIndexes[hitItemIndex] = BowlToLoad;
                     Destroy(hit.transform.gameObject);
                     state = State.Normal;
-                    Inventory.Instance.allBowls[BowlToLoad].transform.gameObject.GetComponent<Bowl>().currentState=Item.State.Loaded;
+                    Inventory.Instance.allBowls[BowlToLoad].transform.gameObject.GetComponent<Bowl>().currentState = Item.State.Loaded;
                     GameManager.Instance.FooterText.text = GameManager.Instance.DefaultFooterText;
                     MenuManager.Instance.currentState = MenuManager.MenuStates.Main;
 
@@ -210,5 +209,5 @@ public class GameManager : MonoBehaviour
     {
         state = State.Shop;
     }
-    
+
 }

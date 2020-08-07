@@ -104,6 +104,7 @@ public class BowlReposition : MonoBehaviour
     public void Reposition()
     {
         Selectable = false;
+        SelectedBowl.GetComponent<AudioSource>().spatialBlend = SelectedBowl2.GetComponent<AudioSource>().spatialBlend = 1;
         iTween.MoveTo(SelectedBowl, iTween.Hash("position", temp2, "time", transitionspeed));
         iTween.MoveTo(SelectedBowl2, iTween.Hash("position", temp, "time", transitionspeed));
 
