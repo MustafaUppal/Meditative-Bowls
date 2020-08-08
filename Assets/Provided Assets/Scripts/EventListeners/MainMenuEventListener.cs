@@ -49,15 +49,8 @@ public class MainMenuEventListener : MonoBehaviour
     }
     public void OnClickRemoveButton()
     {
-        if (GameManager.Instance.state == GameManager.State.RepositionState)
-        {
-            GameManager.Instance.state= GameManager.State.Remove;
-            GameManager.Instance.VolumeSlider.gameObject.SetActive(false);
-        }
-        else
-        {
-            GameManager.Instance.state = GameManager.State.RepositionState;
-
-        }
+        GameManager.Instance.VolumeSlider.gameObject.SetActive(false);
+        GameManager.Instance.Remove();
+        GameManager.Instance.state = GameManager.State.Normal;
     }
 }

@@ -18,7 +18,6 @@ public class ObjectSeection : MonoBehaviour
     bool _emit;
     private void Start()
     {
-        TimeUserForLongPressState = 3f;
         LongPressState = false;
         Pressing = false;
     }
@@ -37,19 +36,13 @@ public class ObjectSeection : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit))
             {
-
                 Transform objectHit = hit.transform;
-
                 if (Input.GetMouseButtonDown(0))
                 {
-
                     if (hit.transform.GetComponent<AudioSource>() != null && hit.transform.CompareTag("Bowl"))
                     {
-
                         hit = PlaySound(hit);
-
                     }
-
                 }
                 if (hit.transform.CompareTag("Bowl") && Input.GetMouseButton(0) && GameManager.Instance.state == GameManager.State.Normal)
                 {
@@ -75,6 +68,8 @@ public class ObjectSeection : MonoBehaviour
                     //GameManager.Instance.gameObject.GetComponent<BowlReposition>().SelectedBowl = null;
                     LongPressState = false;
                     Pressing = false;
+                    TimeUserHold = 0;
+
                 }
             }
 
