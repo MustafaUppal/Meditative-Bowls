@@ -1,27 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BowlsManager : MonoBehaviour
 {
-    public static BowlsManager Instance;
-
-    
     // -1 will be assigned if no bowl is on a place
     public int[] activeBowlsIndexes;
-
     public Vector3[] bowlsPositions;
-
-    private void Awake()
-    {
-        Instance = this;
-    }
-
-    private void Start()
-    {
-        SetUpBowls();   
-    }
-
+    
+    InventoryManager Inventory => InventoryManager.Instance;
     public List<int> unusedBowls;
 
     /// <summary>
@@ -32,7 +20,7 @@ public class BowlsManager : MonoBehaviour
         unusedBowls = new List<int>();
 
         // Considering all bowls as unused
-        for (int i = 0; i < Inventory.Instance.allBowls.Length; i++)
+        for (int i = 0; i < Inventory.allBowls.Count; i++)
         {
             unusedBowls.Add(i);
         }
@@ -40,22 +28,22 @@ public class BowlsManager : MonoBehaviour
         for (int i = 0; i < activeBowlsIndexes.Length; i++)
         {
             // -1 means no bowl is there, so look for next bowl
-            if(activeBowlsIndexes[i].Equals(-1))
+            if (activeBowlsIndexes[i].Equals(-1))
                 continue;
 
             // Removing used bowls from the list
             unusedBowls.Remove(activeBowlsIndexes[i]);
 
             // Managing used bowls
-            Inventory.Instance.allBowls[activeBowlsIndexes[i]].gameObject.SetActive(true);
-            Inventory.Instance.allBowls[activeBowlsIndexes[i]].transform.localPosition = bowlsPositions[i];
-            
+            Inventory.allBowls[activeBowlsIndexes[i]].gameObject.SetActive(true);
+            Inventory.allBowls[activeBowlsIndexes[i]].transform.localPosition = bowlsPositions[i];
+
         }
 
         // Disabling all used bowls
         for (int i = 0; i < unusedBowls.Count; i++)
         {
-            Inventory.Instance.allBowls[unusedBowls[i]].gameObject.SetActive(false);
+            Inventory.allBowls[unusedBowls[i]].gameObject.SetActive(false);
         }
     }
 }

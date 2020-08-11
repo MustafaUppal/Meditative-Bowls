@@ -5,12 +5,14 @@ using UnityEngine;
 
 public class Bowl : Item
 {
+    public Color lightColor;
     public Material material;
     AudioSource audioSource;
 
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
+        transform.GetChild(0).GetComponent<Light>().color = lightColor;
     }
     private void Update()
     {

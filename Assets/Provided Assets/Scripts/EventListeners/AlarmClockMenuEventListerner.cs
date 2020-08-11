@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Notifications.Android;
+// using Unity.Notifications.Android;
 //using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -17,7 +17,7 @@ public class AlarmClockMenuEventListerner : MonoBehaviour
     private GameObject Tile;
     void Start()
     {
-        GleyNotifications.Initialize();
+        // GleyNotifications.Initialize();
         ShowNotification();
     }
     
@@ -37,7 +37,7 @@ public class AlarmClockMenuEventListerner : MonoBehaviour
         Hour = int.Parse( Hours.text);
         Min = int.Parse(Mins.text);
         Sec = int.Parse(Second.text);
-        GleyNotifications.SendNotification("Meditative Bowl","Reminder to Meditate",new System.TimeSpan(Hour,Min,Sec));
+        // GleyNotifications.SendNotification("Meditative Bowl","Reminder to Meditate",new System.TimeSpan(Hour,Min,Sec));
         OnClickBackButton();
         ShowNotification();
 
@@ -45,7 +45,7 @@ public class AlarmClockMenuEventListerner : MonoBehaviour
     }
     public void ShowNotification()
     {
-        Debug.Log(AndroidNotificationCenter.GetNotificationChannels());
+        // Debug.Log(AndroidNotificationCenter.GetNotificationChannels());
     }
     //private void OnApplicationFocus(bool focus)
     //{
@@ -58,7 +58,7 @@ public class AlarmClockMenuEventListerner : MonoBehaviour
     }
     public void OnClickBackButton()
     {
-        MenuManager.Instance.ChangeState(MenuManager.MenuStates.Main);
+        // MenuManager.Instance.ChangeState(MenuManager.MenuStates.Main);
 
     }
 

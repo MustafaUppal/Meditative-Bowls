@@ -22,6 +22,8 @@ public class BowlReposition : MonoBehaviour
     [SerializeField] private float transitionspeed;
     [SerializeField] private Material[] materialArray;
 
+    public InventoryManager Inventory => InventoryManager.Instance;
+
     void Start()
     {
         Selectable = true;
@@ -57,10 +59,10 @@ public class BowlReposition : MonoBehaviour
         {
             SelectBowls(hit);
         }
-        if(Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
             print(hit.transform.gameObject.name);
-         if (!(hit.transform.gameObject.tag == "Bowl")&&Input.GetMouseButtonDown(0))
-         {
+        if (!(hit.transform.gameObject.tag == "Bowl") && Input.GetMouseButtonDown(0))
+        {
             ResetFuntion();
         }
 
@@ -69,7 +71,7 @@ public class BowlReposition : MonoBehaviour
     {
         for (int i = 0; i < materialArray.Length; i++)
         {
-            Inventory.Instance.allBowls[BowlsManager.Instance.activeBowlsIndexes[i]].GetComponent<Renderer>().material = materialArray[i];
+            Inventory.allBowls[Inventory.bowlsManager.activeBowlsIndexes[i]].GetComponent<Renderer>().material = materialArray[i];
 
         }
         GameManager.Instance.state = GameManager.State.Normal;
@@ -83,7 +85,7 @@ public class BowlReposition : MonoBehaviour
         if (hit.transform.gameObject == SelectedBowl)
             return;
 
-       
+
         SelectedBowl2 = hit.transform.gameObject;
         temp2 = hit.transform.gameObject.transform.position;
         SelectedBowl2.transform.GetChild(0).gameObject.GetComponent<Light>().intensity = 50;
@@ -102,7 +104,7 @@ public class BowlReposition : MonoBehaviour
         SelectedBowl.transform.GetChild(0).gameObject.SetActive(true);
         SelectedBowl.transform.GetChild(0).gameObject.GetComponent<Light>().intensity = 50;
         SelectedBowl.GetComponent<Renderer>().material = OriginalMaterial;
-        
+
     }
 
     public void Reposition()
@@ -114,7 +116,7 @@ public class BowlReposition : MonoBehaviour
 
         SelectedBowl.GetComponent<Renderer>().material = SubsituteMaterial;
         SelectedBowl2.GetComponent<Renderer>().material = SubsituteMaterial;
-        
+
         Selectable = true;
         GameManager.Instance.SelectModeNormal();
         ResetFuntion();
@@ -123,9 +125,12 @@ public class BowlReposition : MonoBehaviour
     [SerializeField] private Material OriginalMaterial;
     public void FadeEffect()
     {
-        for(int i = 0; i < BowlsManager.Instance.activeBowlsIndexes.Length; i++)
+        for (int i = 0; i < Inventory.bowlsManager.activeBowlsIndexes.Length; i++)
         {
-            Inventory.Instance.allBowls[BowlsManager.Instance.activeBowlsIndexes[i]].GetComponent<Renderer>().material = SubsituteMaterial;
+            int index = Inventory.bowlsManager.activeBowlsIndexes[i];
+
+            if (index > -1)
+                Inventory.allBowls[index].GetComponent<Renderer>().material = SubsituteMaterial;
         }
     }
 
@@ -137,14 +142,15 @@ public class BowlReposition : MonoBehaviour
     public void RepositionBowlInitializer()
     {
         //Bowl = new GameObject[(BowlsManager.Instance.activeBowlsIndexes.Length)];
-        materialArray = new Material[BowlsManager.Instance.activeBowlsIndexes.Length];
+        materialArray = new Material[Inventory.bowlsManager.activeBowlsIndexes.Length];
 
         for (int i = 0; i < materialArray.Length; i++)
         {
             // print("Masti kr rya na");
-            int bowlIndex = BowlsManager.Instance.activeBowlsIndexes[i];
-            materialArray[i] = Inventory.Instance.allBowls[bowlIndex].GetComponent<Renderer>().material;
-           // Bowl[i] = Inventory.Instance.allBowls[bowlIndex].gameObject;
+            int bowlIndex = Inventory.bowlsManager.activeBowlsIndexes[i];
+            if (bowlIndex > -1)
+                materialArray[i] = Inventory.allBowls[bowlIndex].GetComponent<Renderer>().material;
+            // Bowl[i] = Inventory.Instance.allBowls[bowlIndex].gameObject;
         }
         if (GameManager.Instance.state == GameManager.State.RepositionState)
         {

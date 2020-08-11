@@ -17,6 +17,8 @@ public class SessionManager : MonoBehaviour
 
     private SessionData sessionData;
 
+    public InventoryManager Inventory => InventoryManager.Instance;
+
     public SessionData SessionData
     {
         get
@@ -36,7 +38,7 @@ public class SessionManager : MonoBehaviour
 
     public void SaveSession(string name)
     {
-        int[] tempsession = BowlsManager.Instance.activeBowlsIndexes;
+        int[] tempsession = Inventory.bowlsManager.activeBowlsIndexes;
         int[] session = new int[tempsession.Length];
 
         for (int i = 0; i < session.Length; i++)
@@ -67,8 +69,8 @@ public class SessionManager : MonoBehaviour
             session[i] = tempSession[i];
         }
         
-        BowlsManager.Instance.activeBowlsIndexes = session;
-        BowlsManager.Instance.SetUpBowls();
+        Inventory.bowlsManager.activeBowlsIndexes = session;
+        Inventory.bowlsManager.SetUpBowls();
     }
 
     public void DeleteSession(string name)

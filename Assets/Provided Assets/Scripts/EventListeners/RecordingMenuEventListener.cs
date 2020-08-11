@@ -107,7 +107,7 @@ public class RecordingMenuEventListener : MonoBehaviour
 
     public void AddRecordingSnipt(Transform hit)
     {
-        int hitItemIndex = Array.FindIndex(Inventory.Instance.allBowls, x => x == hit.GetComponent<Bowl>());
+        int hitItemIndex = Array.FindIndex(InventoryManager.Instance.allBowls.ToArray(), x => x == hit.GetComponent<Bowl>());
 
         Debug.Log("hitItemIndex: " + hitItemIndex);
         Debug.Log("Seonds: " + recordingSettings.stopwatch.Elapsed.Seconds);

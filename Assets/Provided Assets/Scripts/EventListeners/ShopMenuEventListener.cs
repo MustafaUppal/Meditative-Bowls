@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using SerializeableClasses;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
 using UnityEngine.UI;
@@ -13,52 +14,22 @@ public class ShopMenuEventListener : MonoBehaviour
         Bowls,
         BG_Musics
     }
-
+    [Header("State Settings")]
     public ShopStates defaultState;
     public ShopStates currentState;
     public ShopStates prevState;
 
-    [System.Serializable]
-    public struct HeaderSettings
-    {
-        public Image[] buttons;
-
-        public Color highlighted;
-        public Color unhighlighted;
-    }
-
+    [Space]
     public HeaderSettings headerSettings;
-
-    [System.Serializable]
-    public struct SelectedItemSettings
-    {
-        public int index;
-        public Image thumbnail;
-        public RawImage carpet;
-        public RawImage bowl;
-        public Text description;
-        public Button b_itemActionButton;
-        public Text t_itemActionButton;
-
-        public Color[] buttonColors;
-        public Color tileHighlight;
-        public Color tileNormal;
-        public void ActivateImage(int index)
-        {
-
-            carpet.gameObject.SetActive(index.Equals(0));
-            bowl.gameObject.SetActive(index.Equals(1));
-            thumbnail.gameObject.SetActive(index.Equals(2));
-
-        }
-    }
-
     public SelectedItemSettings selectedItem;
+    public BowlPlacementSettings bowlPlacementSettings;
 
+    [Space]
     public ContentHandler content;
     public Text Footertext;
 
-    public Inventory shop => Inventory.Instance;
+    public InventoryManager Inventory => InventoryManager.Instance;
+    public int[] activeBowls => InventoryManager.Instance.bowlsManager.activeBowlsIndexes;
 
     private void OnEnable()
     {
@@ -123,7 +94,7 @@ public class ShopMenuEventListener : MonoBehaviour
         content.GetTile(index).Highlight = true;
 
         selectedItem.index = index;
-        Item item = shop.GetItem((int)currentState, index);
+        Item item = Inventory.GetItem((int)currentState, index);
 
         string setName = item.set.Equals("") ? "" : " (" + item.set + ")";
         selectedItem.description.text = "<size=35>" + item.name + setName + "</size>\n" + item.description;
@@ -131,8 +102,28 @@ public class ShopMenuEventListener : MonoBehaviour
         selectedItem.b_itemActionButton.interactable = !item.currentState.Equals(Bowl.State.Loaded);
         selectedItem.t_itemActionButton.text = item.StateText;
 
-        shop.Manage3DItems((int)currentState, index);
+        Inventory.Manage3DItems((int)currentState, index);
         DistinctFunctionality();
+    }
+
+    public void OnClickPlaceBowlButton(int index)
+    {
+        for (int i = 0; i < activeBowls.Length; i++)
+        {
+            if (activeBowls[i].Equals(selectedItem.index))
+            {
+                activeBowls[i] = -1;
+                bowlPlacementSettings.SetText(i);
+            }
+        }
+
+        activeBowls[index] = selectedItem.index;
+        bowlPlacementSettings.SetText(index);
+    }
+
+    public void OnClickCloseBowlsPlacementButton()
+    {
+        bowlPlacementSettings.Enable = false;
     }
 
     void DistinctFunctionality()
@@ -152,27 +143,27 @@ public class ShopMenuEventListener : MonoBehaviour
 
     public void OnClickLoadItem()
     {
-        GameManager.Instance.FooterText.text = "Place The Bowl to yor desire location";
+        // GameManager.Instance.FooterText.text = "Place The Bowl to yor desire location";
 
         switch (currentState)
         {
             case ShopStates.Bowls:
-                if (shop.allBowls[selectedItem.index].currentState == Item.State.Purchased)
+                if (Inventory.allBowls[selectedItem.index].currentState == Item.State.Purchased)
                 {
-                    MenuManager.Instance.ChangeState(MenuManager.MenuStates.Main);
-                    // GameManager.Instance.BowlToLoad = selectedItem.index;
-                    // GameManager.Instance.state = GameManager.State.Load;
+                    MessageSender("Tip: Select a position to place or replace. Click on carpet to close Placement setting.");
+                    bowlPlacementSettings.Enable = true;
+                    bowlPlacementSettings.Init();
                 }
                 break;
             case ShopStates.BG_Musics:
-                if (shop.allMusics[selectedItem.index].currentState == Item.State.Purchased)
+                if (Inventory.allMusics[selectedItem.index].currentState == Item.State.Purchased)
                 {
                     // GameManager.Instance.BackgroundMusic.GetComponent<AudioSource>().clip
                     // = Inventory.Instance.allMusics[selectedItem.index].SoundClip;
                 }
                 break;
             case ShopStates.Carpets:
-                if (shop.allCarpets[selectedItem.index].currentState == Item.State.Purchased)
+                if (Inventory.allCarpets[selectedItem.index].currentState == Item.State.Purchased)
                 {
                     // GameManager.Instance.carpetPlane.GetComponent<Renderer>().material = Inventory.Instance.AllCarpets[selectedItem.index].material;
                 }

@@ -7,15 +7,17 @@ public class ContentHandler : MonoBehaviour
 {
     public GameObject tilePrefab;
 
+    public InventoryManager Inventory => InventoryManager.Instance;
+
     public void Init(int currentState)
     {
         int tilesCount = 0;
         
         for (int i = 0; i < transform.childCount; i++, tilesCount++)
         {
-            if (i < Inventory.Instance.GetItemCount(currentState))
+            if (i < Inventory.GetItemCount(currentState))
             {
-                Item item = Inventory.Instance.GetItem(currentState, i);
+                Item item = Inventory.GetItem(currentState, i);
 
                 transform.GetChild(i).GetComponent<TileHandler>().SetTile(item.image, item.name, item.set);
                 transform.GetChild(i).gameObject.SetActive(true);
@@ -29,9 +31,9 @@ public class ContentHandler : MonoBehaviour
 
         }
 
-        for (int i = tilesCount; i < Inventory.Instance.GetItemCount(currentState); i++)
+        for (int i = tilesCount; i < Inventory.GetItemCount(currentState); i++)
         {
-            Item item = Inventory.Instance.GetItem(currentState, i);
+            Item item = Inventory.GetItem(currentState, i);
             Instantiate(tilePrefab, transform).transform.GetChild(i).GetComponent<TileHandler>().SetTile(item.image, item.name, item.set);
             transform.GetChild(i).GetComponent<Button>().onClick.AddListener( delegate { AllRefs.I.shopMenu.OnClickItemButton(i); });
         }
