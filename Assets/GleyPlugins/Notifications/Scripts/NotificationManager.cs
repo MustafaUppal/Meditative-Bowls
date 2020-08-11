@@ -133,7 +133,6 @@
         {
 #if EnableNotificationsAndroid
             var notificationIntentData = AndroidNotificationCenter.GetLastNotificationIntent();
-
             if (notificationIntentData != null)
             {
                 return notificationIntentData.Notification.IntentData;

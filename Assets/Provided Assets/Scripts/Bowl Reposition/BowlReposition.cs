@@ -5,6 +5,7 @@ using System.Configuration;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
+using UnityEngine.EventSystems;
 
 public class BowlReposition : MonoBehaviour
 {
@@ -29,6 +30,8 @@ public class BowlReposition : MonoBehaviour
 
     private void Update()
     {
+        if (EventSystem.current.IsPointerOverGameObject())
+            return;
         if (GameManager.Instance.state == GameManager.State.RepositionState)
         {
             RaycastHit hit;

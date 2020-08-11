@@ -29,7 +29,7 @@ public class ObjectSeection : MonoBehaviour
 
 
 
-        if (GameManager.Instance.state == GameManager.State.Normal || GameManager.Instance.state == GameManager.State.RepositionState || GameManager.Instance.state == GameManager.State.Sound && !(MenuManager.Instance.currentState == MenuManager.MenuStates.Shop))
+        if (GameManager.Instance.state == GameManager.State.Normal /*|| GameManager.Instance.state == GameManager.State.RepositionState*/ || GameManager.Instance.state == GameManager.State.Sound && !(MenuManager.Instance.currentState == MenuManager.MenuStates.Shop))
         {
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);

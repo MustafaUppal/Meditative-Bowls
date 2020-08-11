@@ -1,4 +1,5 @@
 ﻿using GleyPushNotifications;
+using Unity.Notifications.Android;
 #if USE_BOLT_SUPPORT
 using Ludiq;
 
@@ -14,8 +15,9 @@ public static class GleyNotifications
     public static void Initialize(bool cancelPendingNotifications = true)
     {
         NotificationManager.Instance.Initialize(cancelPendingNotifications);
+        
     }
-
+    
     /// <summary>
     /// Schedule a notification
     /// </summary>
