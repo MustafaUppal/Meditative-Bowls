@@ -54,9 +54,10 @@ public class BowlReposition : MonoBehaviour
         {
             SelectBowls(hit);
         }
+        if(Input.GetMouseButtonDown(0))
+            print(hit.transform.gameObject.name);
          if (!(hit.transform.gameObject.tag == "Bowl")&&Input.GetMouseButtonDown(0))
          {
-            print(hit.transform.gameObject);
             ResetFuntion();
         }
 
