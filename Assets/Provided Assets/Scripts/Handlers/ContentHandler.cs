@@ -10,6 +10,7 @@ public class ContentHandler : MonoBehaviour
     public void Init(int currentState)
     {
         int tilesCount = 0;
+        
         for (int i = 0; i < transform.childCount; i++, tilesCount++)
         {
             if (i < Inventory.Instance.GetItemCount(currentState))

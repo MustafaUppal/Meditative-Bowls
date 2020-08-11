@@ -11,19 +11,15 @@ public class Inventory : MonoBehaviour
     public static Inventory Instance;
 
     [Header("Items")]
-    public Transform bowlsParent;
     public Bowl[] allBowls;
-
-    public Bowl[] allBowlss(int index)
-    {
-        return bowlsParent.GetComponentsInChildren<Bowl>();
-    }
     public Carpet[] allCarpets;
     public BG_Music[] allMusics;
 
     [Header("3D Imagess")]
     public GameObject bowl;
     public GameObject carpet;
+
+    // public Carpet[] AllCarpets { get => allCarpets; set { Debug.Log("allCarpets"); allCarpets = value; } }
 
     private void Awake()
     {

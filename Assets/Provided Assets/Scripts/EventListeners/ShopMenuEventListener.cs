@@ -62,15 +62,7 @@ public class ShopMenuEventListener : MonoBehaviour
 
     private void OnEnable()
     {
-        DockEventListener.ButtonsData data = new DockEventListener.ButtonsData
-        {
-            replayBG = false,
-            changeCamera = false,
-            saveSession = false
-        };
-
-        AllRefs.I.dock.ManageButtons(data);
-
+        selectedItem.index = 0;
         ChangeState(defaultState);
         MessageSender("Carpet");
     }
@@ -97,23 +89,14 @@ public class ShopMenuEventListener : MonoBehaviour
         //Setting tiles
         content.Init((int)currentState);
         OnClickItemButton(0); // select first tile in the start
-        GameManager.Instance.gameObject.GetComponent<BowlReposition>().StopEveryThing();
-        if (GameManager.Instance.state == GameManager.State.Load)
-        {
-            GameManager.Instance.state = GameManager.State.Normal;
-        }
-
-        if(!(GameManager.Instance.state == GameManager.State.Load))
-        {
-            GameManager.Instance.FooterText.text = GameManager.Instance.DefaultFooterText;
-        }
     }
 
     #region Button Clicks
     public void OnClickBackButton()
     {
         MenuManager.Instance.ChangeState(MenuManager.MenuStates.Main);
-        GameManager.Instance.state = GameManager.State.Normal;
+        if (GameManager.Instance)
+            GameManager.Instance.state = GameManager.State.Normal;
     }
 
     public void OnClickCarpetButton()
@@ -177,21 +160,21 @@ public class ShopMenuEventListener : MonoBehaviour
                 if (shop.allBowls[selectedItem.index].currentState == Item.State.Purchased)
                 {
                     MenuManager.Instance.ChangeState(MenuManager.MenuStates.Main);
-                    GameManager.Instance.BowlToLoad = selectedItem.index;
-                    GameManager.Instance.state = GameManager.State.Load;
+                    // GameManager.Instance.BowlToLoad = selectedItem.index;
+                    // GameManager.Instance.state = GameManager.State.Load;
                 }
                 break;
             case ShopStates.BG_Musics:
                 if (shop.allMusics[selectedItem.index].currentState == Item.State.Purchased)
                 {
-                    GameManager.Instance.BackgroundMusic.GetComponent<AudioSource>().clip
-                    = Inventory.Instance.allMusics[selectedItem.index].SoundClip;
+                    // GameManager.Instance.BackgroundMusic.GetComponent<AudioSource>().clip
+                    // = Inventory.Instance.allMusics[selectedItem.index].SoundClip;
                 }
                 break;
             case ShopStates.Carpets:
                 if (shop.allCarpets[selectedItem.index].currentState == Item.State.Purchased)
                 {
-                    GameManager.Instance.carpetPlane.GetComponent<Renderer>().material = Inventory.Instance.allCarpets[selectedItem.index].material;
+                    // GameManager.Instance.carpetPlane.GetComponent<Renderer>().material = Inventory.Instance.AllCarpets[selectedItem.index].material;
                 }
                 break;
         }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Bowl : Item
 {
     public Material material;
@@ -13,6 +14,7 @@ public class Bowl : Item
     }
     private void Update()
     {
+        if(audioSource)
         gameObject.transform.GetChild(0).gameObject.SetActive(audioSource.isPlaying);
     }
     public void PlaySound()

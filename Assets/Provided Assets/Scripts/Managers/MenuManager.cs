@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class MenuManager : MonoBehaviour
 {
@@ -21,7 +23,7 @@ public class MenuManager : MonoBehaviour
     public MenuStates prevState;
 
     public GameObject[] AllPanels;
- 
+
     void Awake()
     {
         Instance = this;
@@ -30,7 +32,7 @@ public class MenuManager : MonoBehaviour
     void Start()
     {
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
-        
+
         ChangeState(defaultState);
     }
 
@@ -39,8 +41,21 @@ public class MenuManager : MonoBehaviour
         prevState = currentState;
         currentState = newState;
 
-        AllPanels[(int)prevState].SetActive(false);
-        AllPanels[(int)currentState].SetActive(true);
-        
+        if (!prevState.Equals(MenuStates.Shop))
+            AllPanels[(int)prevState].SetActive(false);
+        else if(!SceneManager.GetActiveScene().buildIndex.Equals(0))
+            SceneManager.LoadScene(0);
+
+        if (!currentState.Equals(MenuStates.Shop))
+            AllPanels[(int)currentState].SetActive(true);
+        else if(!SceneManager.GetActiveScene().buildIndex.Equals(1))
+            SceneManager.LoadScene(1);
+
+        ApplyChanges();
+    }
+
+    private void ApplyChanges()
+    {
+
     }
 }
