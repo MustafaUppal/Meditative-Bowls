@@ -56,7 +56,7 @@ public class ObjectSeection : MonoBehaviour
                         GameManager.Instance.SelectModeReposition();
                         //hit.transform.GetComponent<AudioSource>().spatialBlend = 1;
                         GameManager.Instance.gameObject.GetComponent<BowlReposition>().SelectBowls(hit.transform.gameObject);
-
+                        GameManager.Instance.PanningSlider.value = hit.transform.GetComponent<AudioSource>().panStereo;
                         GameManager.Instance.VolumeSlider.value = hit.transform.GetComponent<AudioSource>().volume;
                         LongPressState = true;
                         Pressing = false;

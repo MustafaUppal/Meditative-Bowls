@@ -77,6 +77,8 @@ public class BowlReposition : MonoBehaviour
         GameManager.Instance.state = GameManager.State.Normal;
         GameManager.Instance.FooterText.gameObject.SetActive(true);
         GameManager.Instance.Footer.gameObject.SetActive(false);
+        SelectedBowl = SelectedBowl2 = null;
+
     }
 
 
@@ -91,10 +93,23 @@ public class BowlReposition : MonoBehaviour
         SelectedBowl2.transform.GetChild(0).gameObject.GetComponent<Light>().intensity = 50;
         SelectedBowl2.GetComponent<Renderer>().material = OriginalMaterial;
 
+
+        int SelectedBowlIndex = Array.FindIndex(Inventory.allBowls.ToArray(), x => x == SelectedBowl.GetComponent<Bowl>()); ;
+        int SelectedBowlIndex2 = Array.FindIndex(Inventory.allBowls.ToArray(), x => x == SelectedBowl2.GetComponent<Bowl>());
+        print(SelectedBowlIndex);
+        print(SelectedBowlIndex2);
+        
+        BowlPanning(SelectedBowl,Inventory.bowlsManager.BowlPanningValues[SelectedBowlIndex2]);
+        BowlPanning(SelectedBowl2,Inventory.bowlsManager.BowlPanningValues[SelectedBowlIndex]);
         if (SelectedBowl && SelectedBowl2)
         {
             Invoke("Reposition", 0.10f);
         }
+    }
+    public void BowlPanning(GameObject BowlRequire,float value)
+    {
+
+        BowlRequire.GetComponent<AudioSource>().panStereo = value;
     }
     public void SelectBowls(GameObject SelectaBowl)
     {
@@ -143,7 +158,7 @@ public class BowlReposition : MonoBehaviour
     {
         //Bowl = new GameObject[(BowlsManager.Instance.activeBowlsIndexes.Length)];
         materialArray = new Material[Inventory.bowlsManager.activeBowlsIndexes.Length];
-
+        
         for (int i = 0; i < materialArray.Length; i++)
         {
             // print("Masti kr rya na");

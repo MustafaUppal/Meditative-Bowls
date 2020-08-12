@@ -8,6 +8,7 @@ public class BowlsManager : MonoBehaviour
     // -1 will be assigned if no bowl is on a place
     public int[] activeBowlsIndexes;
     public Vector3[] bowlsPositions;
+    public float[] BowlPanningValues;
     
     InventoryManager Inventory => InventoryManager.Instance;
     public List<int> unusedBowls;
@@ -18,7 +19,7 @@ public class BowlsManager : MonoBehaviour
     public void SetUpBowls()
     {
         unusedBowls = new List<int>();
-
+        
         // Considering all bowls as unused
         for (int i = 0; i < Inventory.allBowls.Count; i++)
         {
@@ -39,6 +40,13 @@ public class BowlsManager : MonoBehaviour
             Inventory.allBowls[activeBowlsIndexes[i]].transform.localPosition = bowlsPositions[i];
 
         }
+        BowlPanningValues=new float[activeBowlsIndexes.Length];
+        for (int i = 0; i < activeBowlsIndexes.Length; i++)
+        {
+            BowlPanningValues[i] = Inventory.allBowls[activeBowlsIndexes[i]].GetComponent<AudioSource>().panStereo;
+        }
+
+
 
         // Disabling all used bowls
         for (int i = 0; i < unusedBowls.Count; i++)

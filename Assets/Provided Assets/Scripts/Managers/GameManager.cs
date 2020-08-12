@@ -87,12 +87,13 @@ public class GameManager : MonoBehaviour
     {
         SelectedSoundBowl.GetComponent<AudioSource>().spatialBlend = 0;
         SelectedSoundBowl.GetComponent<AudioSource>().panStereo = SliderValue;
+
     }
     void VolumeChange(float Value)
     {
         SelectedSoundBowl.GetComponent<AudioSource>().volume = Value;
     }
-
+    
     public void Remove()
     {
        SelectedSoundBowl.gameObject.GetComponent<Bowl>().currentState = Item.State.Purchased;
@@ -122,10 +123,10 @@ public class GameManager : MonoBehaviour
                 {
                     SelectedSoundBowl = hit.transform.gameObject;
                     SoundChangerIndicatorText.text = SelectedSoundBowl.name + " (" + SelectedSoundBowl.GetComponent<Bowl>().set + ") ";
+                    
                 }
                 else
                 {
-
                     SoundChangerIndicatorText.text = "BackGound";
                     SelectedSoundBowl = BackgroundMusic;
                 }
