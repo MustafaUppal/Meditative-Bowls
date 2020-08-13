@@ -52,8 +52,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (EventSystem.current.IsPointerOverGameObject())
-            return;
+        
 
         switch (state)
         {
@@ -65,7 +64,6 @@ public class GameManager : MonoBehaviour
                 {
                     VolumeSlider.onValueChanged.AddListener(delegate { VolumeChange(VolumeSlider.value); });
                     PanningSlider.onValueChanged.AddListener(delegate { PanningSliderChange(PanningSlider.value); });
-            
                 }
 
                 break;
@@ -97,8 +95,6 @@ public class GameManager : MonoBehaviour
     {
         if(SelectedSoundBowl&&SelectedSoundBowl.GetComponent<AudioSource>().isPlaying)
         SelectedSoundBowl.GetComponent<AudioSource>().Stop();
-
-
         SelectedSoundBowl.GetComponent<AudioSource>().Play();
 
     }

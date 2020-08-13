@@ -28,8 +28,8 @@ public class ObjectSeection : MonoBehaviour
 
         if (GameManager.Instance.state == GameManager.State.Normal  || GameManager.Instance.state == GameManager.State.Sound && !(MenuManager.Instance.currentState==MenuManager.MenuStates.Alram) && !(MenuManager.Instance.currentState == MenuManager.MenuStates.Shop))
         {
-            if (EventSystem.current.IsPointerOverGameObject())
-                return;
+           
+                
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 

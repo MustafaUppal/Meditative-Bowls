@@ -23,9 +23,7 @@ public class AlarmClockMenuEventListerner : MonoBehaviour
     
     private void Update()
     {
-        if (EventSystem.current.IsPointerOverGameObject())
-            return;
-
+        
         isintractable = (Hours.text != "") || (Second.text != "") || (Mins.text != "");
         
         Okbutton.interactable= isintractable ;
