@@ -49,12 +49,18 @@ public class MainMenuEventListener : MonoBehaviour
     }
     public void OnClickRemoveButton()
     {
-        GameManager.Instance.VolumeSlider.gameObject.SetActive(false);
         GameManager.Instance.Remove();
         GameManager.Instance.state = GameManager.State.Normal;
+        GameManager.Instance.GetComponent<BowlReposition>().ResetFuntion();
     }
     public void OnclickStopButton()
     {
         GameManager.Instance.SoundStop();
+    }
+    public void OnClickBackGroundMusic()
+    {
+
+        GameManager.Instance.OnclickBgMusicButton(); ;
+    
     }
 }

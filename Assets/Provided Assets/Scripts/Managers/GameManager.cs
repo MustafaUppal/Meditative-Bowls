@@ -209,7 +209,7 @@ public class GameManager : MonoBehaviour
     {
 
         state = State.RepositionState;
-        Footer.SetActive(true);
+        
         this.gameObject.GetComponent<BowlReposition>().RepositionBowlInitializer();
         this.gameObject.GetComponent<BowlReposition>().FadeEffect();
         this.gameObject.GetComponent<BowlReposition>().StopEveryThing();
