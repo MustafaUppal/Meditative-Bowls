@@ -39,7 +39,8 @@ public class GameManager : MonoBehaviour
         RecordingMode,
         Load,
         Remove,
-        Sound
+        Sound,
+        Alarm
     }
     public InventoryManager Inventory => InventoryManager.Instance;
 
@@ -71,13 +72,14 @@ public class GameManager : MonoBehaviour
                 break;
             case State.Load:
                 LoadABowl();
-
                 break;
             case State.Sound:
 
                 break;
             case State.Remove:
                // Remove();
+                break;
+            case State.Alarm:
                 break;
         }
     }
@@ -88,6 +90,7 @@ public class GameManager : MonoBehaviour
     }
     public void SoundStop()
     {
+        print("SSSSS");
         SelectedSoundBowl.GetComponent<AudioSource>().Stop();
     }
 

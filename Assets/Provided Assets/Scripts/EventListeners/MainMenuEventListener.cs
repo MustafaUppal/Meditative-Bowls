@@ -11,7 +11,9 @@ public class MainMenuEventListener : MonoBehaviour
 
         AllRefs.I.dock.ManageButtons(data);
     }
-
+    public void OnClickBackButtonInRepositionMode(){
+         GameManager.Instance.GetComponent<BowlReposition>().ResetFuntion();
+    }
     void MessageSender(string Message)
     {
         Footertext.text = Message;
@@ -41,6 +43,7 @@ public class MainMenuEventListener : MonoBehaviour
     public void OnClickAlramButton()
     {
         MenuManager.Instance.ChangeState(MenuManager.MenuStates.Alram);
+        GameManager.Instance.state=GameManager.State.Alarm;
     }
 
     public void OnClickSettingsButton()
@@ -53,7 +56,7 @@ public class MainMenuEventListener : MonoBehaviour
         GameManager.Instance.state = GameManager.State.Normal;
         GameManager.Instance.GetComponent<BowlReposition>().ResetFuntion();
     }
-    public void OnclickStopButton()
+    public void OnClickStopMusicButton()
     {
         GameManager.Instance.SoundStop();
     }
@@ -63,4 +66,5 @@ public class MainMenuEventListener : MonoBehaviour
         GameManager.Instance.OnclickBgMusicButton(); ;
     
     }
+
 }

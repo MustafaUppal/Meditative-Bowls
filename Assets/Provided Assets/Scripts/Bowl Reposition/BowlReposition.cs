@@ -63,7 +63,7 @@ public class BowlReposition : MonoBehaviour
             print(hit.transform.gameObject.name);
         if (!(hit.transform.gameObject.tag == "Bowl") && Input.GetMouseButtonDown(0))
         {
-            ResetFuntion();
+           
         }
         
 
@@ -131,7 +131,7 @@ public class BowlReposition : MonoBehaviour
         iTween.MoveTo(SelectedBowl, iTween.Hash("position", temp2, "time", transitionspeed));
         iTween.MoveTo(SelectedBowl2, iTween.Hash("position", temp, "time", transitionspeed));
 
-        SelectedBowl.GetComponent<Renderer>().material = SubsituteMaterial;
+        SelectedBowl.GetComponent<Renderer>().material = SubsituteMaterial;   
         SelectedBowl2.GetComponent<Renderer>().material = SubsituteMaterial;
         int SelectedBowlIndex = Array.FindIndex(Inventory.allBowls.ToArray(), x => x == SelectedBowl.GetComponent<Bowl>()); ;
         

@@ -57,6 +57,7 @@ public class AlarmClockMenuEventListerner : MonoBehaviour
     public void OnClickBackButton()
     {
          MenuManager.Instance.ChangeState(MenuManager.MenuStates.Main);
+         GameManager.Instance.state =GameManager.State.Normal;
 
     }
 
