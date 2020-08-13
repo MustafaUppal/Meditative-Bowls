@@ -53,4 +53,8 @@ public class MainMenuEventListener : MonoBehaviour
         GameManager.Instance.Remove();
         GameManager.Instance.state = GameManager.State.Normal;
     }
+    public void OnclickStopButton()
+    {
+        GameManager.Instance.SoundStop();
+    }
 }

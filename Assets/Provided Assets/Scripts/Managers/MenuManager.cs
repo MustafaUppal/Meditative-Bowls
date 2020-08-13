@@ -35,7 +35,7 @@ public class MenuManager : MonoBehaviour
 
         ChangeState(defaultState);
     }
-
+    
     public void ChangeState(MenuStates newState)
     {
         prevState = currentState;

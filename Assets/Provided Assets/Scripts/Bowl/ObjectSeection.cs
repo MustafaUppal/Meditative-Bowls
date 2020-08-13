@@ -24,13 +24,12 @@ public class ObjectSeection : MonoBehaviour
 
     private void Update()
     {
-        if (EventSystem.current.IsPointerOverGameObject())
-            return;
 
 
-
-        if (GameManager.Instance.state == GameManager.State.Normal /*|| GameManager.Instance.state == GameManager.State.RepositionState*/ || GameManager.Instance.state == GameManager.State.Sound && !(MenuManager.Instance.currentState == MenuManager.MenuStates.Shop))
+        if (GameManager.Instance.state == GameManager.State.Normal  || GameManager.Instance.state == GameManager.State.Sound && !(MenuManager.Instance.currentState==MenuManager.MenuStates.Alram) && !(MenuManager.Instance.currentState == MenuManager.MenuStates.Shop))
         {
+            if (EventSystem.current.IsPointerOverGameObject())
+                return;
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
@@ -54,7 +53,6 @@ public class ObjectSeection : MonoBehaviour
                     {
 
                         GameManager.Instance.SelectModeReposition();
-                        //hit.transform.GetComponent<AudioSource>().spatialBlend = 1;
                         GameManager.Instance.gameObject.GetComponent<BowlReposition>().SelectBowls(hit.transform.gameObject);
                         GameManager.Instance.PanningSlider.value = hit.transform.GetComponent<AudioSource>().panStereo;
                         GameManager.Instance.VolumeSlider.value = hit.transform.GetComponent<AudioSource>().volume;

@@ -72,7 +72,6 @@ public class BowlReposition : MonoBehaviour
         for (int i = 0; i < materialArray.Length; i++)
         {
             Inventory.allBowls[Inventory.bowlsManager.activeBowlsIndexes[i]].GetComponent<Renderer>().material = materialArray[i];
-
         }
         GameManager.Instance.state = GameManager.State.Normal;
         GameManager.Instance.FooterText.gameObject.SetActive(true);
@@ -96,20 +95,22 @@ public class BowlReposition : MonoBehaviour
 
         int SelectedBowlIndex = Array.FindIndex(Inventory.allBowls.ToArray(), x => x == SelectedBowl.GetComponent<Bowl>()); ;
         int SelectedBowlIndex2 = Array.FindIndex(Inventory.allBowls.ToArray(), x => x == SelectedBowl2.GetComponent<Bowl>());
+
         print(SelectedBowlIndex);
-        print(SelectedBowlIndex2);
-        
-        BowlPanning(SelectedBowl,Inventory.bowlsManager.BowlPanningValues[SelectedBowlIndex2]);
-        BowlPanning(SelectedBowl2,Inventory.bowlsManager.BowlPanningValues[SelectedBowlIndex]);
+        SelectedBowl2.GetComponent <AudioSource>().panStereo= BowlPanning(SelectedBowl,Inventory.bowlsManager.BowlPanningValues[SelectedBowlIndex2] );
+        SelectedBowl.GetComponent<AudioSource>().panStereo=BowlPanning(SelectedBowl2,Inventory.bowlsManager.BowlPanningValues[SelectedBowlIndex]);
+    
         if (SelectedBowl && SelectedBowl2)
         {
             Invoke("Reposition", 0.10f);
+            SelectedBowl.GetComponent<AudioSource>().panStereo=BowlPanning(SelectedBowl2,Inventory.bowlsManager.BowlPanningValues[SelectedBowlIndex]);
+
         }
     }
-    public void BowlPanning(GameObject BowlRequire,float value)
+    public float BowlPanning(GameObject BowlRequire,float value)
     {
-
         BowlRequire.GetComponent<AudioSource>().panStereo = value;
+        return  value;
     }
     public void SelectBowls(GameObject SelectaBowl)
     {

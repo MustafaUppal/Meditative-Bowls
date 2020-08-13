@@ -83,6 +83,26 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
+    public void OnclickBgMusicButton()
+    {
+        SoundChangerIndicatorText.text = "BackGound";
+        SelectedSoundBowl = BackgroundMusic;
+    }
+    public void SoundStop()
+    {
+        SelectedSoundBowl.GetComponent<AudioSource>().Stop();
+    }
+
+    public void SoundRestart()
+    {
+        if(SelectedSoundBowl&&SelectedSoundBowl.GetComponent<AudioSource>().isPlaying)
+        SelectedSoundBowl.GetComponent<AudioSource>().Stop();
+
+
+        SelectedSoundBowl.GetComponent<AudioSource>().Play();
+
+    }
+
     public void PanningSliderChange(float SliderValue)
     {
         SelectedSoundBowl.GetComponent<AudioSource>().spatialBlend = 0;
@@ -125,13 +145,13 @@ public class GameManager : MonoBehaviour
                     SoundChangerIndicatorText.text = SelectedSoundBowl.name + " (" + SelectedSoundBowl.GetComponent<Bowl>().set + ") ";
                     
                 }
-                else
-                {
-                    SoundChangerIndicatorText.text = "BackGound";
-                    SelectedSoundBowl = BackgroundMusic;
-                }
+               
             }
         }
+    }
+    public void StopMusic()
+    {
+        SelectedSoundBowl.GetComponent<AudioSource>().Stop();
     }
     private void LoadABowl()
     {
@@ -189,6 +209,7 @@ public class GameManager : MonoBehaviour
     {
 
         state = State.RepositionState;
+        Footer.SetActive(true);
         this.gameObject.GetComponent<BowlReposition>().RepositionBowlInitializer();
         this.gameObject.GetComponent<BowlReposition>().FadeEffect();
         this.gameObject.GetComponent<BowlReposition>().StopEveryThing();

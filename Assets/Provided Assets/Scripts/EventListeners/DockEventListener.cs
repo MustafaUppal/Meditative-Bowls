@@ -24,13 +24,14 @@ public class DockEventListener : MonoBehaviour
 
     public void OnClickReplayBGButton()
     {
-
+        GameManager.Instance.SoundRestart();
     }
 
     public void OnClickChangeCameraAngleButton()
     {
-
+        GameManager.Instance.OnclickBgMusicButton();
     }
+    
 
     public void OnClickSaveSessionButton()
     {
