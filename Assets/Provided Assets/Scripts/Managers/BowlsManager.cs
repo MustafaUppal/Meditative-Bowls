@@ -54,4 +54,17 @@ public class BowlsManager : MonoBehaviour
             Inventory.allBowls[unusedBowls[i]].gameObject.SetActive(false);
         }
     }
+
+    public void PlaySound(Transform hit)
+    {
+        hit.GetChild(0).gameObject.SetActive(true);
+        hit.transform.GetChild(0).GetComponent<AudioLightSync>().emit = true;
+
+        if (hit.GetComponent<AudioSource>().isPlaying)
+            hit.GetComponent<AudioSource>().Stop();
+
+        hit.GetComponent<AudioSource>().Play();
+        //hit.transform.GetChild(0).gameObject.SetActive(true);
+        // return hit;
+    }
 }

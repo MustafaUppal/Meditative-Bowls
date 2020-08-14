@@ -6,12 +6,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using Debug = UnityEngine.Debug;
 
-[System.Serializable]
-public class RecordingSnipt
-{
-    public double time;
-    public int bowlIndex;
-}
 
 public class RecordingMenuEventListener : MonoBehaviour
 {
@@ -38,7 +32,7 @@ public class RecordingMenuEventListener : MonoBehaviour
     [Serializable]
     public class RecordingSettings
     {
-        public List<RecordingSnipt> recordingData;
+        public Recording recordingData;
         public Stopwatch stopwatch = new Stopwatch();
 
         [Range(120, 300)]
@@ -88,13 +82,17 @@ public class RecordingMenuEventListener : MonoBehaviour
         SetTimer((int)recordingSettings.stopwatch.Elapsed.TotalSeconds);
     }
 
+    bool isButtonPressed;
+
     void Record()
     {
         if (!recordingSettings.stopwatch.IsRunning)
             recordingSettings.stopwatch.Start();
 
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButtonDown(0) && !isButtonPressed)
         {
+            isButtonPressed = true;
+
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
@@ -103,14 +101,22 @@ public class RecordingMenuEventListener : MonoBehaviour
                 AddRecordingSnipt(hit.transform);
             }
         }
+
+        if (Input.GetMouseButtonUp(0) && isButtonPressed)
+        {
+            isButtonPressed = false;
+        }
     }
 
     public void AddRecordingSnipt(Transform hit)
     {
         int hitItemIndex = Array.FindIndex(InventoryManager.Instance.allBowls.ToArray(), x => x == hit.GetComponent<Bowl>());
-
+        double hitTime = recordingSettings.stopwatch.Elapsed.TotalSeconds;
         Debug.Log("hitItemIndex: " + hitItemIndex);
-        Debug.Log("Seonds: " + recordingSettings.stopwatch.Elapsed.Seconds);
+        Debug.Log("Seonds: " + hitTime);
+
+        Recording.Snipt newSnipt = new Recording.Snipt { bowlIndex = hitItemIndex, time = (float)hitTime };
+        recordingSettings.recordingData.Add(newSnipt);
     }
 
     void SetTimer(int seconds)
@@ -130,7 +136,7 @@ public class RecordingMenuEventListener : MonoBehaviour
         {
             case RecordingStates.None:
                 headerSettings.buttons[0].interactable = true;
-                headerSettings.buttons[1].interactable = true;
+                headerSettings.buttons[1].interactable = false;
 
                 headerSettings.icon.sprite = headerSettings.startRecoding;
 
@@ -139,7 +145,7 @@ public class RecordingMenuEventListener : MonoBehaviour
                 break;
             case RecordingStates.Started:
                 headerSettings.buttons[0].interactable = true;
-                headerSettings.buttons[1].interactable = false;
+                headerSettings.buttons[1].interactable = true;
 
                 headerSettings.icon.sprite = headerSettings.pauseRecording;
 
@@ -147,19 +153,22 @@ public class RecordingMenuEventListener : MonoBehaviour
                 break;
             case RecordingStates.Paused:
                 headerSettings.buttons[0].interactable = true;
-                headerSettings.buttons[1].interactable = false;
+                headerSettings.buttons[1].interactable = true;
 
                 headerSettings.icon.sprite = headerSettings.startRecoding;
 
                 recordingSettings.stopwatch.Stop();
                 break;
             case RecordingStates.Saving:
+                Debug.Log("Saving");
                 headerSettings.buttons[0].interactable = false;
                 headerSettings.buttons[1].interactable = true;
 
                 headerSettings.icon.sprite = headerSettings.startRecoding;
 
+                Microphone.End(string.Empty);
                 recordingSettings.stopwatch.Stop();
+                PopupManager.Instance.Show("Name Session", SaveRecording);
                 break;
         }
     }
@@ -170,20 +179,39 @@ public class RecordingMenuEventListener : MonoBehaviour
         MenuManager.Instance.ChangeState(MenuManager.MenuStates.Main);
     }
 
+    AudioClip newAudio;
     public void OnClickRecordButton()
     {
         switch (currentState)
         {
             case RecordingStates.None:
+                recordingSettings.recordingData.Clear();
                 ChangeState(RecordingStates.Started);
+                newAudio = Microphone.Start(string.Empty, false, 300, 44100);
                 break;
-            case RecordingStates.Started:
-                ChangeState(RecordingStates.Paused);
-                break;
-            case RecordingStates.Paused:
-                ChangeState(RecordingStates.Started);
-                break;
+                // case RecordingStates.Started:
+                //     ChangeState(RecordingStates.Paused);
+                //     break;
+                // case RecordingStates.Paused:
+                //     ChangeState(RecordingStates.Started);
+                //     break;
         }
+    }
+
+
+    void SaveRecording(string name)
+    {
+        string status = SessionManager.Instance.ValidateSessionName(name);
+
+        if (status.Equals("Pass"))
+        {
+            SessionManager.Instance.SaveSession(name, recordingSettings.recordingData);
+            SavWav.Save(name, newAudio);
+            
+            PopupManager.Instance.Hide();
+        }
+        else
+            PopupManager.Instance.ShowError(status);
     }
 
     public void OnClickSaveButton()

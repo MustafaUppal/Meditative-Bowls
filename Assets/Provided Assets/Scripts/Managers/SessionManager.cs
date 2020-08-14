@@ -15,6 +15,8 @@ public class SessionManager : MonoBehaviour
 
     public int[] defaultSession;
 
+    Coroutine recordingC;
+
     private SessionData sessionData;
 
     public InventoryManager Inventory => InventoryManager.Instance;
@@ -25,10 +27,24 @@ public class SessionManager : MonoBehaviour
         {
             if (sessionData == null)
                 sessionData = PersistantData.Load();
+            else if (sessionData.Length == 0)
+                sessionData = PersistantData.Load();
 
             return sessionData;
         }
-        set => sessionData = value;
+        set
+        {
+            Debug.Log("Saving session");
+            sessionData = value;
+        }
+    }
+
+    public bool RecordingIsPlaying
+    {
+        get
+        {
+            return recordingC != null;
+        }
     }
 
     private void Awake()
@@ -36,7 +52,7 @@ public class SessionManager : MonoBehaviour
         Instance = this;
     }
 
-    public void SaveSession(string name)
+    public void SaveSession(string name, Recording recording = null)
     {
         int[] tempsession = Inventory.bowlsManager.activeBowlsIndexes;
         int[] session = new int[tempsession.Length];
@@ -46,31 +62,36 @@ public class SessionManager : MonoBehaviour
             session[i] = tempsession[i];
         }
 
-        Session newSession = new Session { name = name, bowlsPositions = session };
+        SessionData.Snipt newSession = new SessionData.Snipt { name = name, bowlsPositions = session, recording = recording };
         SessionData.AddSession(newSession);
         PersistantData.Save(SessionData);
-    }
-
-    public void SaveRecording()
-    {
     }
 
     public void SaveMp3()
     {
     }
 
-    public void LoadSession(string name)
+    public void LoadSession(string name, bool playRecording = false)
     {
-        int[] tempSession = SessionData.GetSession(name);
+        SessionData.Snipt sessionSnipt = SessionData.GetSession(name);
+        int[] tempSession = sessionSnipt.bowlsPositions;
         int[] session = new int[tempSession.Length];
 
         for (int i = 0; i < session.Length; i++)
         {
             session[i] = tempSession[i];
         }
-        
+
         Inventory.bowlsManager.activeBowlsIndexes = session;
         Inventory.bowlsManager.SetUpBowls();
+
+        if (playRecording && sessionSnipt.recording != null)
+        {
+            if (recordingC != null)
+                StopCoroutine(recordingC);
+
+            recordingC = StartCoroutine(PlayRecording(sessionSnipt.recording));
+        }
     }
 
     public void DeleteSession(string name)
@@ -91,30 +112,52 @@ public class SessionManager : MonoBehaviour
 
         return "Pass";
     }
+
+    IEnumerator PlayRecording(Recording recording)
+    {
+        foreach (var snipt in recording.recodingSnipts)
+        {
+            yield return new WaitForSecondsRealtime(snipt.time);
+            Transform bowl = InventoryManager.Instance.allBowls[snipt.bowlIndex].transform;
+
+            InventoryManager.Instance.bowlsManager.PlaySound(bowl);
+        }
+    }
 }
 
 [System.Serializable]
 public class SessionData
 {
-    public List<Session> sessions = new List<Session>();
-
-    public int Length { get => sessions.Count; }
-
-    public Session Get(int i)
+    [System.Serializable]
+    public struct Snipt
     {
-        return sessions[i];
-    }
-    public void AddSession(Session session)
-    {
-        sessions.Add(session);
+        public string name;
+
+        public int[] bowlsPositions;
+
+        public Recording recording;
     }
 
-    public int[] GetSession(string name)
+    public List<Snipt> sessionSnipts = new List<Snipt>();
+
+    public int Length { get => sessionSnipts.Count; }
+
+    public Snipt GetSession(int index)
     {
-        foreach (var session in sessions)
+        return sessionSnipts[index];
+    }
+
+    public void AddSession(Snipt session)
+    {
+        sessionSnipts.Add(session);
+    }
+
+    public Snipt GetSession(string name)
+    {
+        foreach (var session in sessionSnipts)
         {
             if (session.name.Equals(name))
-                return session.bowlsPositions;
+                return session;
         }
 
         throw new KeyNotFoundException();
@@ -122,11 +165,11 @@ public class SessionData
 
     public void DeleteSession(string name)
     {
-        for (int i = 0; i < sessions.Count; i++)
+        for (int i = 0; i < sessionSnipts.Count; i++)
         {
-            if (sessions[i].name.Equals(name))
+            if (sessionSnipts[i].name.Equals(name))
             {
-                sessions.RemoveAt(i);
+                sessionSnipts.RemoveAt(i);
                 break;
             }
         }
@@ -134,9 +177,9 @@ public class SessionData
 
     public bool AlreadyExists(string name)
     {
-        for (int i = 0; i < sessions.Count; i++)
+        for (int i = 0; i < sessionSnipts.Count; i++)
         {
-            if (sessions[i].name.Equals(name))
+            if (sessionSnipts[i].name.Equals(name))
             {
                 return true;
             }
@@ -147,9 +190,24 @@ public class SessionData
 }
 
 [System.Serializable]
-public class Session
+public class Recording
 {
-    public string name;
+    [System.Serializable]
+    public struct Snipt
+    {
+        public float time;
+        public int bowlIndex;
+    }
 
-    public int[] bowlsPositions;
+    public List<Snipt> recodingSnipts = new List<Snipt>();
+
+    public void Add(Snipt snipt)
+    {
+        recodingSnipts.Add(snipt);
+    }
+
+    public void Clear()
+    {
+        recodingSnipts.Clear();
+    }
 }

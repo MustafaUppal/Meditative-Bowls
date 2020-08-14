@@ -27,6 +27,15 @@ public class ShopMenuEventListener : MonoBehaviour
     [Space]
     public ContentHandler content;
     public Text Footertext;
+    public Touch touch1;
+    public Touch touch2;
+    public Vector2 t1Position;
+    public Vector2 t2Position;
+    public Camera mainCamera;
+
+    [Space]
+    public float rotationSpeed;
+    public float panningSpeed;
 
     public InventoryManager Inventory => InventoryManager.Instance;
     public int[] activeBowls => InventoryManager.Instance.bowlsManager.activeBowlsIndexes;
@@ -37,6 +46,70 @@ public class ShopMenuEventListener : MonoBehaviour
         ChangeState(defaultState);
         MessageSender("Carpet");
     }
+
+    private void Update()
+    {
+        if (currentState.Equals(ShopStates.Bowls))
+        {
+            float x = selectedItem.bowlObj.transform.rotation.x;
+            float y = selectedItem.bowlObj.transform.rotation.y;
+            float z = selectedItem.bowlObj.transform.rotation.z;
+            float w = selectedItem.bowlObj.transform.rotation.w;
+
+            if (!Application.isEditor)
+            {
+                touch1 = Input.GetTouch(0);
+                touch2 = Input.GetTouch(1);
+
+                if (touch1.phase.Equals(TouchPhase.Began))
+                {
+                    t1Position = touch1.position;
+                }
+
+                if (touch2.phase.Equals(TouchPhase.Began))
+                {
+                    t2Position = touch2.position;
+                }
+
+                // Spin bowl
+                if (Input.touchCount.Equals(1))
+                {
+                    if (touch1.phase.Equals(TouchPhase.Moved))
+                    {
+                        x += touch1.deltaPosition.x * rotationSpeed * Time.unscaledDeltaTime;
+                        y += touch1.deltaPosition.x * rotationSpeed * Time.unscaledDeltaTime;
+                        z += touch1.deltaPosition.x * rotationSpeed * Time.unscaledDeltaTime;
+
+                        selectedItem.bowlObj.transform.rotation = new Quaternion(x, y, z, w);
+                    }
+                }
+                else if (Input.touchCount > 1) // pan bowl
+                {
+                    if (touch1.phase.Equals(TouchPhase.Moved) || touch2.phase.Equals(TouchPhase.Moved))
+                    {
+                        float change = 0;
+                        float cx1 = t1Position.x - touch1.position.x;
+                        float cx2 = t2Position.x - touch2.position.x;
+                        float cy1 = t1Position.y - touch1.position.y;
+                        float cy2 = t2Position.y - touch2.position.y;
+
+                        if (cx1 > 0 || cx2 > 0 || cy1 > 0 || cy2 > 0)
+                        {
+                            change += .1f;
+                        }
+                        else if (cx1 < 0 || cx2 < 0 || cy1 < 0 || cy2 < 0)
+                            change -= .1f;
+
+
+                        mainCamera.fieldOfView += change;
+                        mainCamera.fieldOfView = Mathf.Clamp(mainCamera.fieldOfView, 50, 70);
+                    }
+
+                }
+            }
+        }
+    }
+
     void MessageSender(string Message)
     {
         Footertext.text = Message;

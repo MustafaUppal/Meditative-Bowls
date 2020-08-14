@@ -14,7 +14,7 @@ public class LibraryMenuEventListener : MonoBehaviour
     {
         Footertext.text = Message;
     }
-    
+
     private void OnEnable()
     {
         DockEventListener.ButtonsData data = new DockEventListener.ButtonsData
@@ -36,17 +36,23 @@ public class LibraryMenuEventListener : MonoBehaviour
 
     public void LoadAllSessions()
     {
-        int totalSessions = SessionManager.Instance.SessionData.Length;
+        SessionData sessionData = SessionManager.Instance.SessionData;
         int j = 0;
 
         for (int i = 0; i < tilesContainer.childCount; i++, j++)
         {
-            if (i < totalSessions)
+            if (i < sessionData.Length)
             {
-                Session session = SessionManager.Instance.SessionData.Get(i);
+                SessionData.Snipt session = SessionManager.Instance.SessionData.GetSession(i);
+
+                bool havePositions = session.bowlsPositions.Length > 0;
+                bool haveRecoding = session.recording != null;
+                bool haveMP3 = false;
+                Debug.Log("haveRecoding: " + haveRecoding);
+
                 tilesContainer.GetChild(i).GetComponent<LibraryTileHandler>().SetTile
                 (
-                    session.name, new bool[4] { true, false, false, true }
+                    session.name, new bool[4] { havePositions, haveRecoding, haveMP3, true }
                 );
                 tilesContainer.GetChild(i).gameObject.SetActive(true);
             }
@@ -59,12 +65,16 @@ public class LibraryMenuEventListener : MonoBehaviour
             }
         }
 
-        for (int i = j; i < totalSessions; i++)
+        for (int i = j; i < sessionData.Length; i++)
         {
-            Session session = SessionManager.Instance.SessionData.Get(i);
+            SessionData.Snipt session = SessionManager.Instance.SessionData.GetSession(i);
+            bool havePositions = session.bowlsPositions.Length > 0;
+            bool haveRecoding = session.recording != null;
+            bool haveMP3 = false;
+            Debug.Log("haveRecoding: " + haveRecoding);
             Instantiate(sessionTile, tilesContainer).GetComponent<LibraryTileHandler>().SetTile
             (
-                session.name, new bool[4] { true, false, false, true }
+                session.name, new bool[4] { havePositions, haveRecoding, haveMP3, true }
             );
         }
     }

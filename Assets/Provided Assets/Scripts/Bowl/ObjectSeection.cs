@@ -24,12 +24,8 @@ public class ObjectSeection : MonoBehaviour
 
     private void Update()
     {
-
-
         if (GameManager.Instance.state == GameManager.State.Normal  || GameManager.Instance.state == GameManager.State.Sound  && !(MenuManager.Instance.currentState == MenuManager.MenuStates.Shop))
-        {
-           
-                
+        {   
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
@@ -40,7 +36,7 @@ public class ObjectSeection : MonoBehaviour
                 {
                     if (hit.transform.GetComponent<AudioSource>() != null && hit.transform.CompareTag("Bowl"))
                     {
-                        hit = PlaySound(hit);
+                        InventoryManager.Instance.bowlsManager.PlaySound(hit.transform);
                     }
                 }
                 if (hit.transform.CompareTag("Bowl") && Input.GetMouseButton(0) && GameManager.Instance.state == GameManager.State.Normal)
@@ -72,21 +68,5 @@ public class ObjectSeection : MonoBehaviour
             }
 
         }
-    }
-
-
-
-
-    private static RaycastHit PlaySound(RaycastHit hit)
-    {
-        hit.transform.GetChild(0).gameObject.SetActive(true);
-        hit.transform.transform.GetChild(0).GetComponent<AudioLightSync>().emit = true;
-
-        if (hit.transform.GetComponent<AudioSource>().isPlaying)
-            hit.transform.GetComponent<AudioSource>().Stop();
-
-        hit.transform.GetComponent<AudioSource>().Play();
-        //hit.transform.GetChild(0).gameObject.SetActive(true);
-        return hit;
     }
 }

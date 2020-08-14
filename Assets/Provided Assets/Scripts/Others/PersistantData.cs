@@ -9,6 +9,7 @@ public class PersistantData
 {
     public static void Save(SessionData sessionData)
     {
+        Debug.Log(sessionData.Length);
         BinaryFormatter binaryFormatter = new BinaryFormatter();
 
         FileStream file = null;
@@ -31,6 +32,7 @@ public class PersistantData
         FileStream file = File.Open(Application.persistentDataPath + "/appData.dat", FileMode.Open);
         SessionData sessionData = binaryFormatter.Deserialize(file) as SessionData;
 
+        Debug.Log("L: " + sessionData.Length);
         file.Close();
 
         return sessionData;

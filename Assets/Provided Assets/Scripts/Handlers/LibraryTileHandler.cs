@@ -10,6 +10,7 @@ public class LibraryTileHandler : MonoBehaviour
 
     public void SetTile(string name, bool[] activeStates)
     {
+        
         this.name.text = name;
 
         for (int i = 0; i < container.childCount; i++)
@@ -26,7 +27,9 @@ public class LibraryTileHandler : MonoBehaviour
 
     public void OnClickPlayRecordingButton()
     {
-        
+        MenuManager.Instance.ChangeState(MenuManager.MenuStates.Main);
+        SessionManager.Instance.LoadSession(name.text, true);
+        // TODO: playrecording
     }
 
     public void OnClickPlayMp3Button()

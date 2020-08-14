@@ -31,6 +31,7 @@ public class MenuManager : MonoBehaviour
 
     void Start()
     {
+        Debug.Log(Application.persistentDataPath);
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
 
         ChangeState(defaultState);

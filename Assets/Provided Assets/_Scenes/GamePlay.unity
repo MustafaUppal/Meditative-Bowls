@@ -993,7 +993,7 @@ Transform:
   - {fileID: 714765775}
   - {fileID: 939301111}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &92036136
 MonoBehaviour:
@@ -1523,7 +1523,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0db9288e6b08644f92d1f200c0ea023, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activeBowlsIndexes: 00000000010000000200000003000000040000000500000006000000
+  activeBowlsIndexes: 00000000010000000200000014000000040000000500000006000000
   bowlsPositions:
   - {x: -3.75, y: -13.3, z: 0}
   - {x: 3.75, y: -13.3, z: 0}
@@ -7188,6 +7188,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 616037255}
   m_CullTransparentMesh: 0
+--- !u!1 &617797069
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 617797071}
+  - component: {fileID: 617797070}
+  m_Layer: 0
+  m_Name: Audio Renederer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &617797070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 617797069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8a5d1f9932a492428ee6249857e2f72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Rendering: 0
+--- !u!4 &617797071
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 617797069}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 18
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &630507519
 GameObject:
   m_ObjectHideFlags: 0
@@ -8180,7 +8224,8 @@ MonoBehaviour:
     startRecoding: {fileID: 21300000, guid: 75f773dbcba2d6741aa60eb1a7b52ea8, type: 3}
     pauseRecording: {fileID: 21300000, guid: f0f0057aa3a532044a0d2e2d4b37f85b, type: 3}
   recordingSettings:
-    recordingData: []
+    recordingData:
+      recodingSnipts: []
     recordingMaxTime: 300
     currentTime: 0
   Footertext: {fileID: 195309091}
@@ -9968,7 +10013,7 @@ Transform:
   m_Children:
   - {fileID: 476387230}
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &837465230
 GameObject:
@@ -10947,7 +10992,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &939301110
 GameObject:
@@ -11438,7 +11483,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 22, y: 0, z: 0}
 --- !u!114 &963194229
 MonoBehaviour:
@@ -14460,7 +14505,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1221060365
 GameObject:
@@ -15154,7 +15199,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1280238535
 MonoBehaviour:
@@ -16536,7 +16581,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1366446313
 GameObject:
@@ -16812,7 +16857,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1409621994
 GameObject:
@@ -21262,6 +21307,11 @@ MonoBehaviour:
     bowlsText: []
   content: {fileID: 568613652}
   Footertext: {fileID: 1522501149}
+  t1Position: {x: 0, y: 0}
+  t2Position: {x: 0, y: 0}
+  mainCamera: {fileID: 0}
+  rotationSpeed: 0
+  panningSpeed: 0
 --- !u!1 &1718155203
 GameObject:
   m_ObjectHideFlags: 0
@@ -24083,36 +24133,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1906259535}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1906394609
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1906394610}
-  m_Layer: 0
-  m_Name: Bowls
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1906394610
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1906394609}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -13.3, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1921242084
 GameObject:
   m_ObjectHideFlags: 0
@@ -26702,7 +26722,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2116249664
 PrefabInstance:
@@ -27239,7 +27259,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &559566324590841285
 MonoBehaviour:
