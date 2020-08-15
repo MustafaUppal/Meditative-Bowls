@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class BG_Music : Item
 {
-    public AudioClip SoundClip;
+
+    public AudioClip audioClip;
     void Start()
     {
         

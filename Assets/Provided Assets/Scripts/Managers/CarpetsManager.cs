@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class CarpetsManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public int activeCarpetIndex;
 
-    // Update is called once per frame
-    void Update()
+    InventoryManager Inventory => InventoryManager.Instance;
+
+    public void SetUpCarpets()
     {
-        
+        int itemType = (int)ShopMenuEventListener.ShopStates.Carpets;
+
+        for (int i = 0; i < Inventory.GetItemCount(itemType); i++)
+        {
+            Inventory.GetItem(itemType, i).gameObject.SetActive(i.Equals(activeCarpetIndex));
+        }
     }
 }

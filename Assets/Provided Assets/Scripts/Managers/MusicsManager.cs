@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class MusicsManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public int activeMusicIndex;
 
-    // Update is called once per frame
-    void Update()
+    InventoryManager Inventory => InventoryManager.Instance;
+
+    public void SetUpMusic()
     {
-        
+        int itemType = (int)ShopMenuEventListener.ShopStates.BG_Musics;
+
+        // audioSource.Clip = Inventory.GetItem(itemType, activeMusicIndex).audioClip;
+        // audioSource.Play()
     }
 }

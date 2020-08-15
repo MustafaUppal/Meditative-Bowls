@@ -163,10 +163,12 @@ public class ShopMenuEventListener : MonoBehaviour
 
     public void OnClickItemButton(int index)
     {
-        content.GetTile(selectedItem.index).Highlight = false;
-        content.GetTile(index).Highlight = true;
-
+        selectedItem.prevIndex = selectedItem.index;
         selectedItem.index = index;
+
+        content.GetTile(selectedItem.prevIndex).Highlight = false;
+        content.GetTile(selectedItem.index).Highlight = true;
+
         Item item = Inventory.GetItem((int)currentState, index);
 
         string setName = item.set.Equals("") ? "" : " (" + item.set + ")";
@@ -192,6 +194,8 @@ public class ShopMenuEventListener : MonoBehaviour
 
         activeBowls[index] = selectedItem.index;
         bowlPlacementSettings.SetText(index);
+
+        bowlPlacementSettings.Enable = false;
     }
 
     public void OnClickCloseBowlsPlacementButton()
@@ -238,7 +242,11 @@ public class ShopMenuEventListener : MonoBehaviour
             case ShopStates.Carpets:
                 if (Inventory.allCarpets[selectedItem.index].currentState == Item.State.Purchased)
                 {
-                    // GameManager.Instance.carpetPlane.GetComponent<Renderer>().material = Inventory.Instance.AllCarpets[selectedItem.index].material;
+                    Inventory.allCarpets[selectedItem.prevIndex].currentState = Item.State.Purchased;
+                    Inventory.allCarpets[selectedItem.index].currentState = Item.State.Loaded;
+
+                    InventoryManager.Instance.carpetsManager.activeCarpetIndex = selectedItem.index;
+                    OnClickItemButton(selectedItem.index);
                 }
                 break;
         }

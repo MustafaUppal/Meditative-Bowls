@@ -9,7 +9,7 @@ public class BowlsManager : MonoBehaviour
     public int[] activeBowlsIndexes;
     public Vector3[] bowlsPositions;
     public float[] BowlPanningValues;
-    
+
     InventoryManager Inventory => InventoryManager.Instance;
     public List<int> unusedBowls;
 
@@ -18,10 +18,11 @@ public class BowlsManager : MonoBehaviour
     /// </summary>
     public void SetUpBowls()
     {
+        int itemType = (int)ShopMenuEventListener.ShopStates.Bowls;
         unusedBowls = new List<int>();
-        
+
         // Considering all bowls as unused
-        for (int i = 0; i < Inventory.allBowls.Count; i++)
+        for (int i = 0; i < Inventory.GetItemCount(itemType); i++)
         {
             unusedBowls.Add(i);
         }
@@ -38,15 +39,14 @@ public class BowlsManager : MonoBehaviour
             // Managing used bowls
             Inventory.allBowls[activeBowlsIndexes[i]].gameObject.SetActive(true);
             Inventory.allBowls[activeBowlsIndexes[i]].transform.localPosition = bowlsPositions[i];
-
         }
-        BowlPanningValues=new float[activeBowlsIndexes.Length];
+
+        BowlPanningValues = new float[activeBowlsIndexes.Length];
+
         for (int i = 0; i < activeBowlsIndexes.Length; i++)
         {
             BowlPanningValues[i] = Inventory.allBowls[activeBowlsIndexes[i]].GetComponent<AudioSource>().panStereo;
         }
-
-
 
         // Disabling all used bowls
         for (int i = 0; i < unusedBowls.Count; i++)

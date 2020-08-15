@@ -17,6 +17,7 @@ namespace SerializeableClasses
     public struct SelectedItemSettings
     {
         public int index;
+        public int prevIndex;
         public Image thumbnail;
         public RawImage carpet;
         public RawImage bowl;

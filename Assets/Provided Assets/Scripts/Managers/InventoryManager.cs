@@ -65,20 +65,31 @@ public class InventoryManager : MonoBehaviour
     {
         bool isGameplayScene = scene.buildIndex.Equals(0);
 
-        for (int i = 0; i < allBowls.Count; i++)
-        {
-            if (allBowls[i].gameObject.activeInHierarchy)
-            {
-                allBowls[i].GetComponent<MeshRenderer>().enabled = isGameplayScene;
-                allBowls[i].GetComponent<AudioLoudness>().enabled = isGameplayScene;
-                allBowls[i].GetComponent<AudioSource>().enabled = isGameplayScene;
-                allBowls[i].GetComponent<BoxCollider>().enabled = isGameplayScene;
-            }
-        }
+        InitScene(isGameplayScene);
+    }
 
+    private void InitScene(bool isGameplayScene)
+    {
         if (isGameplayScene)
         {
             bowlsManager.SetUpBowls();
+            carpetsManager.SetUpCarpets();
+        }
+        else
+        {
+            int bowlsCount = GetItemCount((int)ShopMenuEventListener.ShopStates.Bowls);
+            int carpetsCount = GetItemCount((int)ShopMenuEventListener.ShopStates.Carpets);
+
+            int largerNumber = bowlsCount > carpetsCount ? bowlsCount : carpetsCount;
+
+            for (int i = 0; i < largerNumber; i++)
+            {
+                if (i < bowlsCount)
+                    allBowls[i].gameObject.SetActive(isGameplayScene);
+
+                if (i < carpetsCount)
+                    allCarpets[i].gameObject.SetActive(isGameplayScene);
+            }
         }
     }
 
