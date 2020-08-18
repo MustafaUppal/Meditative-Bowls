@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-// using Unity.Notifications.Android;
+
 //using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.iOS;
+using UnityEditor;
+using Unity.Notifications.Android;
+
 public class AlarmClockMenuEventListerner : MonoBehaviour
 {
     int Hour, Min, Sec;
@@ -15,41 +19,38 @@ public class AlarmClockMenuEventListerner : MonoBehaviour
     public Text Message;
     private bool ReminderSet;
     private GameObject Tile;
+    int count=0;
+    public List <string> id=new List<string>();
+  
+  
     void Start()
     {
-        // GleyNotifications.Initialize();
-        ShowNotification();
+        
     }
     
     private void Update()
     {
-        
-        isintractable = (Hours.text != "") || (Second.text != "") || (Mins.text != "");
-        
-        Okbutton.interactable= isintractable ;
-
+        isintractable = (Hours.text != "") || (Second.text != "") || (Mins.text != "");    
+        Okbutton.interactable= isintractable;
     }
     public void OnClickSetAlarmButton()
     {
-
+        PlayerPrefs.GetInt("Count");
         Hour = int.Parse( Hours.text);
         Min = int.Parse(Mins.text);
         Sec = int.Parse(Second.text);
-        // GleyNotifications.SendNotification("Meditative Bowl","Reminder to Meditate",new System.TimeSpan(Hour,Min,Sec));
+        id.Add("Time TO Meditate"+ Hours+Mins+Second);
+        NotificationSystem.instance.NotificationScheduleer(id[count],"Meditative Bowl","Time To Meditate","GetUp To Meditate",true,"","",Hour,Min,Sec);
+        count++;
+        PlayerPrefs.SetInt("Count",count);
         OnClickBackButton();
         ShowNotification();
-
-
     }
     public void ShowNotification()
     {
-        // Debug.Log(AndroidNotificationCenter.GetNotificationChannels());
+        NotificationSystem.instance.NotificationGet();
     }
-    //private void OnApplicationFocus(bool focus)
-    //{
-    //    if (ReminderSet)
-    //        GleyNotifications.SendNotification("Meditative Bowl", "Reminder to Meditate", new System.TimeSpan(Hour, Min, Sec));
-    //}
+
     private void MessageSender(string v)
     {
         Message.text = v;
