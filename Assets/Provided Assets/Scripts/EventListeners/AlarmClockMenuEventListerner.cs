@@ -9,7 +9,7 @@ using UnityEngine.Tilemaps;
 
 public class AlarmClockMenuEventListerner : MonoBehaviour
 {
-    int Hour, Min, Sec;
+    int Hou, Mi, Se;
     public InputField Hours, Mins, Second;
     public Button Okbutton;
     bool isintractable;
@@ -47,6 +47,7 @@ public class AlarmClockMenuEventListerner : MonoBehaviour
         SecList.Add(HourtoUpdate);
         ButtonState(State, game);
         SaveNotificationList();
+        //game = null;
     }
     public void ButtonState(bool State, GameObject tile)
     {
@@ -75,16 +76,17 @@ public class AlarmClockMenuEventListerner : MonoBehaviour
 
         GleyNotifications.Initialize(false);
 
-        Hour = int.Parse(Hours.text);
-        Min = int.Parse(Mins.text);
-        Sec = int.Parse(Second.text);
+        Hou = int.Parse(Hours.text);
+        Mi = int.Parse(Mins.text);
+        Se = int.Parse(Second.text);
 
-        var ms = new System.TimeSpan(Hour, Min, Sec);
+        var ms = new System.TimeSpan(Hou, Mi, Se);
+        newAlarm = true;
         NotificationManager.Instance.GetAllNotifications();
 
-        GleyNotifications.SendNotification("MeditativeBowls", "Time To Meditate", new System.TimeSpan(Hour, Min, Sec));
-
-        ShowingTile(Hour + ":" + Min + ":" + Min, true, Hour, Min, Sec);
+        GleyNotifications.SendNotification("MeditativeBowls", "Time To Meditate", new System.TimeSpan(Hou, Mi, Se));
+        
+        ShowingTile(Hours.text + ":" + Mins.text + ":" + Second.text, true, Hou, Mi, Se);
 
 
     }
@@ -125,8 +127,10 @@ public class AlarmClockMenuEventListerner : MonoBehaviour
             AlarmList.Add(PlayerPrefs.GetString("AlarmList" + i));
             //iNSTENTIATE Tiles
             GameObject NEWtILE = Instantiate(Tiles, NotificationPoint.transform);
+           
             NEWtILE.transform.GetChild(0).GetComponent<Text>().text = AlarmList[i];
             NEWtILE.GetComponent<ButtonStatusChanger>().id = i;
+            
             //Getting Channel id 
             ChannelId.Add(PlayerPrefs.GetString("ChaneelIDs" + i));
             HoursList.Add(PlayerPrefs.GetInt("HourList" + i));

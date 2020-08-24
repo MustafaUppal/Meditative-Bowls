@@ -2,7 +2,6 @@
 {
     using UnityEngine;
     using System;
-    using Unity.Notifications.iOS;
 #if EnableNotificationsIos
     using Unity.Notifications.iOS;
 #endif
@@ -61,8 +60,8 @@
         /// 
         public void CancelANotiFication(string channelId)
         {
-#if EnableNotificationsIos
-            iOSNotificationCenter.RemoveDeliveredNotification(channelId);
+#if EnableNotificationsIos         
+                iOSNotificationCenter.RemoveDeliveredNotification(channelId);
 #elif EnableNotificationsAndroid
 
 #endif
@@ -78,12 +77,12 @@
 
                 var c = new AndroidNotificationChannel()
                 {
-                    Id = channelID + count,
+                    Id = channelID ,
                     Name = "Default Channel",
                     Importance = Importance.High,
                     Description = "Generic notifications",
                 };
-                count = count + 1;
+                //count = count + 1;
                 PlayerPrefs.SetInt("ChannelCount", count);
                 AlarmClockMenuEventListerner.instance.ChannelId.Add(c.Id);
                 AndroidNotificationCenter.RegisterNotificationChannel(c);
@@ -134,8 +133,6 @@
             notification.FireTime = DateTime.Now.Add(timeDelayFromNow);
 
             AndroidNotificationCenter.SendNotification(notification, channelID + count);
-            AlarmClockMenuEventListerner.instance.ChannelId.Add(notification.Identifier);
-
 #endif
 
 #if EnableNotificationsIos
@@ -147,7 +144,7 @@
 
             iOSNotification notification = new iOSNotification()
             {
-                Identifier = channelID + count,
+                Identifier = channelID+count,
                 Title = title,
                 Subtitle = "Time To Meditate",
                 Body = text,
@@ -158,10 +155,12 @@
                 ThreadIdentifier = "thread1",
                 Trigger = timeTrigger,
             };
-            if(AlarmClockMenuEventListerner.instance.newAlarm)
-            AlarmClockMenuEventListerner.instance.ChannelId.Add(notification.Identifier);
-            iOSNotificationCenter.ScheduleNotification(notification);
-            count++;
+            if (AlarmClockMenuEventListerner.instance.newAlarm)
+            {
+                count++;
+                AlarmClockMenuEventListerner.instance.ChannelId.Add(notification.Identifier);
+            }
+                iOSNotificationCenter.ScheduleNotification(notification);
 #endif
         }
 
@@ -200,4 +199,3 @@
         }
     }
 }
-
