@@ -31,6 +31,10 @@ public class GameManager : MonoBehaviour
     public string DefaultFooterText;
     [Header("State")]
     public State state;
+    public float time;
+    public float interpolationPeriod;
+    public float givenTime;
+
     public enum State
     {
         Normal,
@@ -40,7 +44,8 @@ public class GameManager : MonoBehaviour
         Load,
         Remove,
         Sound,
-        Alarm
+        Alarm,
+        Randomization
     }
     public InventoryManager Inventory => InventoryManager.Instance;
 
@@ -81,6 +86,22 @@ public class GameManager : MonoBehaviour
                 break;
             case State.Alarm:
                 break;
+            case State.Randomization:
+                
+                int RandomBowlIndex = UnityEngine.Random.Range(0, Inventory.bowlsManager.activeBowlsIndexes.Length);
+                
+                
+                time += Time.deltaTime;
+                if (time >= givenTime)
+                {
+                    if (time >= interpolationPeriod)
+                    {
+                        Inventory.allBowls[RandomBowlIndex].GetComponent<Bowl>().PlaySound();
+                    }
+
+                }
+                break;
+                  
         }
     }
     public void OnclickBgMusicButton()

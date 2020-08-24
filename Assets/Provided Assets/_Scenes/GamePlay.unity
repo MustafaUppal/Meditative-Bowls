@@ -72,7 +72,7 @@ LightmapSettings:
     m_FinalGatherRayCount: 256
     m_ReflectionCompression: 2
     m_MixedBakeMode: 1
-    m_BakeBackend: 1
+    m_BakeBackend: 2
     m_PVRSampling: 1
     m_PVRDirectSampleCount: 32
     m_PVRSampleCount: 500
@@ -29664,7 +29664,10 @@ MonoBehaviour:
   SelectedSoundBowl: {fileID: 0}
   SoundChangerIndicatorText: {fileID: 794824471}
   DefaultFooterText: 
-  state: 0
+  state: 8
+  time: 0
+  interpolationPeriod: 500
+  givenTime: 10000
 --- !u!114 &559566324590841288
 MonoBehaviour:
   m_ObjectHideFlags: 0
