@@ -41,9 +41,9 @@ public class BowlsManager : MonoBehaviour
             Inventory.allBowls[activeBowlsIndexes[i]].transform.localPosition = bowlsPositions[i];
         }
 
-        BowlPanningValues = new float[activeBowlsIndexes.Length];
+        BowlPanningValues = new float[Inventory.allBowls.Capacity];
 
-        for (int i = 0; i < activeBowlsIndexes.Length; i++)
+        for (int i = 0; i < Inventory.allBowls.Capacity;/*activeBowlsIndexes.Length&&!(activeBowlsIndexes[i]==-1)*/ i++)
         {
             BowlPanningValues[i] = Inventory.allBowls[activeBowlsIndexes[i]].GetComponent<AudioSource>().panStereo;
         }
