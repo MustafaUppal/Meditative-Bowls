@@ -30,7 +30,7 @@ public class AudioLightSync : MonoBehaviour
         if (GameManager.Instance.state == GameManager.State.Normal|| GameManager.Instance.state == GameManager.State.RepositionState || GameManager.Instance.state==GameManager.State.Sound&& emit)
         {
             light.intensity = audioLoudness.clipLoudness * intensityMultiplier;
-            light.intensity = Mathf.Clamp(light.intensity, 1, 50);
+            light.intensity = Mathf.Clamp(light.intensity, 1, 50) / 2;
 
             if(maxValue < light.intensity)
                 maxValue = light.intensity;

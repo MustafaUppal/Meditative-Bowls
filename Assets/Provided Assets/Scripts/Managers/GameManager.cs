@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        
+
 
         switch (state)
         {
@@ -82,15 +82,15 @@ public class GameManager : MonoBehaviour
 
                 break;
             case State.Remove:
-               // Remove();
+                // Remove();
                 break;
             case State.Alarm:
                 break;
             case State.Randomization:
-                
+
                 int RandomBowlIndex = UnityEngine.Random.Range(0, Inventory.bowlsManager.activeBowlsIndexes.Length);
-                
-                
+
+
                 time += Time.deltaTime;
                 if (time >= givenTime)
                 {
@@ -101,7 +101,7 @@ public class GameManager : MonoBehaviour
 
                 }
                 break;
-                  
+
         }
     }
     public void OnclickBgMusicButton()
@@ -117,8 +117,8 @@ public class GameManager : MonoBehaviour
 
     public void SoundRestart()
     {
-        if(SelectedSoundBowl&&SelectedSoundBowl.GetComponent<AudioSource>().isPlaying)
-        SelectedSoundBowl.GetComponent<AudioSource>().Stop();
+        if (SelectedSoundBowl && SelectedSoundBowl.GetComponent<AudioSource>().isPlaying)
+            SelectedSoundBowl.GetComponent<AudioSource>().Stop();
         SelectedSoundBowl.GetComponent<AudioSource>().Play();
 
     }
@@ -133,22 +133,28 @@ public class GameManager : MonoBehaviour
     {
         SelectedSoundBowl.GetComponent<AudioSource>().volume = Value;
     }
-    
+
     public void Remove()
     {
-       SelectedSoundBowl.gameObject.GetComponent<Bowl>().currentState = Item.State.Purchased;
-       GameObject SubsituteGameObject = new GameObject();
-       SubsituteGameObject.transform.position = SelectedSoundBowl.transform.gameObject.transform.position;
-       SubsituteGameObject.AddComponent<BoxCollider>();
-       SubsituteGameObject.AddComponent<Rigidbody>();
-       SubsituteGameObject.AddComponent<indexHolder>();
-       SubsituteGameObject.GetComponent<indexHolder>().index =
-       Array.FindIndex(Inventory.allBowls.ToArray(), x => x == SelectedSoundBowl.transform.GetComponent<Bowl>());
-       SubsituteGameObject.GetComponent<Rigidbody>().isKinematic = true;
-       SelectedSoundBowl.transform.gameObject.SetActive(false);
-       SubsituteGameObject.tag = "Bowl2";
-            
-        
+        SelectedSoundBowl.gameObject.GetComponent<Bowl>().CurrentState = Item.State.Purchased;
+        GameObject SubsituteGameObject = new GameObject();
+        SubsituteGameObject.transform.position = SelectedSoundBowl.transform.gameObject.transform.position;
+        SubsituteGameObject.AddComponent<BoxCollider>();
+        SubsituteGameObject.AddComponent<Rigidbody>();
+        SubsituteGameObject.AddComponent<indexHolder>();
+        int index = Array.FindIndex(Inventory.allBowls.ToArray(), x => x == SelectedSoundBowl.transform.GetComponent<Bowl>());
+        SubsituteGameObject.GetComponent<indexHolder>().index = index;
+        SubsituteGameObject.GetComponent<Rigidbody>().isKinematic = true;
+        SelectedSoundBowl.transform.gameObject.SetActive(false);
+        SubsituteGameObject.tag = "Bowl2";
+
+        // Removing from active indeces in bowl Manager
+        var thisBowlIndex = Array.FindIndex
+        (
+            InventoryManager.Instance.bowlsManager.activeBowlsIndexes,
+            x => x == index
+        );
+        InventoryManager.Instance.bowlsManager.activeBowlsIndexes[thisBowlIndex] = -1;
     }
     private void VolumeChanger()
     {
@@ -162,10 +168,10 @@ public class GameManager : MonoBehaviour
                 if (hit.transform.CompareTag("Bowl"))
                 {
                     SelectedSoundBowl = hit.transform.gameObject;
-                    SoundChangerIndicatorText.text = SelectedSoundBowl.name + " (" + SelectedSoundBowl.GetComponent<Bowl>().set + ") ";
-                    
+                    SoundChangerIndicatorText.text = SelectedSoundBowl.name + " (" + SelectedSoundBowl.GetComponent<Bowl>().setName + ") ";
+
                 }
-               
+
             }
         }
     }
@@ -195,12 +201,12 @@ public class GameManager : MonoBehaviour
                     Inventory.bowlsManager.activeBowlsIndexes[hitItemIndex] = BowlToLoad;
 
                     //Changing State
-                    hit.transform.gameObject.GetComponent<Bowl>().currentState = Item.State.Purchased;
-                    Inventory.allBowls[BowlToLoad].transform.gameObject.GetComponent<Bowl>().currentState = Item.State.Loaded;
+                    hit.transform.gameObject.GetComponent<Bowl>().CurrentState = Item.State.Purchased;
+                    Inventory.allBowls[BowlToLoad].transform.gameObject.GetComponent<Bowl>().CurrentState = Item.State.Loaded;
                     state = State.Normal;
                     GameManager.Instance.FooterText.text = GameManager.Instance.DefaultFooterText;
                     MenuManager.Instance.currentState = MenuManager.MenuStates.Main;
-                
+
                 }
                 else if (hit.transform.gameObject.CompareTag("Bowl2"))
                 {
@@ -211,7 +217,7 @@ public class GameManager : MonoBehaviour
                     Inventory.bowlsManager.activeBowlsIndexes[hitItemIndex] = BowlToLoad;
                     Destroy(hit.transform.gameObject);
                     state = State.Normal;
-                    Inventory.allBowls[BowlToLoad].transform.gameObject.GetComponent<Bowl>().currentState = Item.State.Loaded;
+                    Inventory.allBowls[BowlToLoad].transform.gameObject.GetComponent<Bowl>().CurrentState = Item.State.Loaded;
                     GameManager.Instance.FooterText.text = GameManager.Instance.DefaultFooterText;
                     MenuManager.Instance.currentState = MenuManager.MenuStates.Main;
 
@@ -219,7 +225,7 @@ public class GameManager : MonoBehaviour
                 else
                 {
                     GameManager.Instance.FooterText.text = "You are Placing the bowl in wrong Place";
-                
+
                 }
             }
         }
@@ -229,7 +235,7 @@ public class GameManager : MonoBehaviour
     {
 
         state = State.RepositionState;
-        
+
         this.gameObject.GetComponent<BowlReposition>().RepositionBowlInitializer();
         this.gameObject.GetComponent<BowlReposition>().FadeEffect();
         this.gameObject.GetComponent<BowlReposition>().StopEveryThing();

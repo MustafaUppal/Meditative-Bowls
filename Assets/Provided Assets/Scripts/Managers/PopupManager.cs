@@ -6,10 +6,13 @@ using UnityEngine.UI;
 
 public class PopupManager : MonoBehaviour
 {
+    public delegate void CancelAction();
+    public CancelAction cancelAtion;
+
     public static PopupManager Instance;
 
     public Popup1 popup;
-
+    public GeneralLoading loading;
     Action<string> method;
 
     private void Awake()
@@ -19,6 +22,7 @@ public class PopupManager : MonoBehaviour
 
     public void Show(string header, Action<string> OnClickSave)
     {
+        
         popup.Show(header);
         method = OnClickSave;
     }
@@ -40,40 +44,8 @@ public class PopupManager : MonoBehaviour
 
     public void OnClickPopup1Cancel()
     {
-        popup.Hide();
+        cancelAtion();
+        Hide();
     }
 
-}
-
-[System.Serializable]
-public class Popup1
-{
-    public GameObject root;
-
-    public Text header;
-    public Text errorText;
-    public InputField inputField;
-
-    public void Show(string header)
-    {
-        root.SetActive(true);
-        errorText.gameObject.SetActive(false);
-        this.header.text = header;
-    }
-
-    public void ShowError(string error)
-    {
-        errorText.gameObject.SetActive(true);
-        errorText.text = error;
-    }
-
-    public string GetName()
-    {
-        return inputField.text;
-    }
-
-    public void Hide()
-    {
-        root.SetActive(false);
-    }
 }

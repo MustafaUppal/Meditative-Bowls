@@ -9,7 +9,7 @@ public class TestNotifications : MonoBehaviour
     void Start()
     {
       
-        openText.text= GleyNotifications.AppWasOpenFromNotification();
+        // openText.text= GleyNotifications.AppWasOpenFromNotification();
     }
 
     /// <summary>

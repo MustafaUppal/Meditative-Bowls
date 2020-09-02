@@ -1,25 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DockEventListener : MonoBehaviour
 {
+    public new Animator camera;
+    public bool isCameraFar;
     public class ButtonsData
     {
         public bool replayBG = true;
         public bool changeCamera = true;
         public bool saveSession = true;
     }
-    public GameObject[] allButton;
+    public Button[] allButtons;
 
     public void ManageButtons(ButtonsData data)
     {
         if(data == null)
             return;
 
-        allButton[0].SetActive(data.replayBG);
-        allButton[1].SetActive(data.changeCamera);
-        allButton[2].SetActive(data.saveSession);
+        allButtons[0].interactable = data.replayBG;
+        allButtons[1].interactable = data.changeCamera;
+        allButtons[2].interactable = data.saveSession;
     }
 
     public void OnClickReplayBGButton()
@@ -29,7 +32,9 @@ public class DockEventListener : MonoBehaviour
 
     public void OnClickChangeCameraAngleButton()
     {
-        GameManager.Instance.OnclickBgMusicButton();
+        isCameraFar = !isCameraFar;
+        // GameManager.Instance.OnclickBgMusicButton();
+        camera.SetInteger("State", isCameraFar ? 1 : 0);
     }
     
 

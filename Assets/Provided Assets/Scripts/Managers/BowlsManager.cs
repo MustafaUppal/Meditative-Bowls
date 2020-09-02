@@ -39,11 +39,12 @@ public class BowlsManager : MonoBehaviour
             // Managing used bowls
             Inventory.allBowls[activeBowlsIndexes[i]].gameObject.SetActive(true);
             Inventory.allBowls[activeBowlsIndexes[i]].transform.localPosition = bowlsPositions[i];
+            Inventory.allBowls[activeBowlsIndexes[i]].CurrentState = Item.State.Loaded;
         }
 
-        BowlPanningValues = new float[Inventory.allBowls.Capacity];
+        BowlPanningValues = new float[activeBowlsIndexes.Length];
 
-        for (int i = 0; i < Inventory.allBowls.Capacity;/*activeBowlsIndexes.Length&&!(activeBowlsIndexes[i]==-1)*/ i++)
+        for (int i = 0; i < activeBowlsIndexes.Length; i++)
         {
             BowlPanningValues[i] = Inventory.allBowls[activeBowlsIndexes[i]].GetComponent<AudioSource>().panStereo;
         }
@@ -51,12 +52,14 @@ public class BowlsManager : MonoBehaviour
         // Disabling all used bowls
         for (int i = 0; i < unusedBowls.Count; i++)
         {
+            Inventory.allBowls[unusedBowls[i]].CurrentState = Item.State.Purchased;
             Inventory.allBowls[unusedBowls[i]].gameObject.SetActive(false);
         }
     }
 
     public void PlaySound(Transform hit)
     {
+        Debug.Log("Playing sound: " + hit.name);
         hit.GetChild(0).gameObject.SetActive(true);
         hit.transform.GetChild(0).GetComponent<AudioLightSync>().emit = true;
 

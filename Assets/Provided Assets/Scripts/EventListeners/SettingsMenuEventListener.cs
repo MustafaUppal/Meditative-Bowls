@@ -8,7 +8,7 @@ public class SettingsMenuEventListener : MonoBehaviour
     public Text Status;
     public GameObject FooterPanel;
     public GameObject StatusText;
-    
+
     void MessageSender(string Message)
     {
 
@@ -32,33 +32,21 @@ public class SettingsMenuEventListener : MonoBehaviour
         GameManager.Instance.VolumeSlider.gameObject.SetActive(false);
         MessageSender("Select an option to for setting up environment");
     }
-    public void OnClickRepositionButton()
-    {
-        MessageSender("Reposition");
-        GameManager.Instance.SelectModeReposition();
-        GameManager.Instance.VolumeSlider.gameObject.SetActive(false);
-        StatusText.SetActive(true);
-
-
-    }
-
     public void OnClickRemoveButton()
     {
-
-        MessageSender("Remove");
-        StatusText.SetActive(true);
-
-        GameManager.Instance.state = GameManager.State.Remove;
-        GameManager.Instance.VolumeSlider.gameObject.SetActive(false);
+        GameManager.Instance.Remove();
+        Debug.Log("normal");
+        GameManager.Instance.state = GameManager.State.Normal;
+        GameManager.Instance.GetComponent<BowlReposition>().ResetFuntion();
     }
-
-    public void OnClickVolumeButton()
+    public void OnClickStopMusicButton()
     {
-    
-        StatusText.SetActive(false);
-        GameManager.Instance.VolumeSlider.gameObject.SetActive(true);
-        //GameManager.Instance.gameObject.GetComponent<BowlReposition>().StopEveryThing();
-        //GameManager.Instance.gameObject.GetComponent<BowlReposition>().ResetFuntion();
+        GameManager.Instance.SoundStop();
+    }
+    public void OnClickBackGroundMusic()
+    {
+
+        GameManager.Instance.OnclickBgMusicButton(); ;
 
     }
 }

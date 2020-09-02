@@ -60,6 +60,13 @@ public class RecordingMenuEventListener : MonoBehaviour
         AllRefs.I.dock.ManageButtons(data);
 
         recordingSettings.stopwatch = new Stopwatch();
+
+        PopupManager.Instance.cancelAtion += OnRecordingDeleted;
+    }
+
+    private void OnDisable()
+    {
+        PopupManager.Instance.cancelAtion -= OnRecordingDeleted;
     }
 
     private void Update()
@@ -198,6 +205,7 @@ public class RecordingMenuEventListener : MonoBehaviour
         }
     }
 
+    Coroutine savingC;
 
     void SaveRecording(string name)
     {
@@ -206,9 +214,11 @@ public class RecordingMenuEventListener : MonoBehaviour
         if (status.Equals("Pass"))
         {
             SessionManager.Instance.SaveSession(name, recordingSettings.recordingData);
-            SavWav.Save(name, newAudio);
             
-            PopupManager.Instance.Hide();
+            if(savingC != null)
+                StopCoroutine(savingC);
+
+            savingC = StartCoroutine(SaveSound(name));
         }
         else
             PopupManager.Instance.ShowError(status);
@@ -218,5 +228,24 @@ public class RecordingMenuEventListener : MonoBehaviour
     {
         if (currentState.Equals(RecordingStates.Paused) || currentState.Equals(RecordingStates.Started))
             ChangeState(RecordingStates.Saving);
+    }
+
+    void OnRecordingDeleted() // not saved from popup
+    {
+        ChangeState(RecordingStates.None);
+    }
+
+    IEnumerator SaveSound(string name)
+    {
+        // Loading true
+        PopupManager.Instance.loading.Show(true, "Saving Audio...");
+
+        yield return SavWav.Save(name, newAudio);
+
+        PopupManager.Instance.loading.Show(false);
+        PopupManager.Instance.Hide();
+        ChangeState(RecordingStates.None);
+
+        savingC = null;
     }
 }

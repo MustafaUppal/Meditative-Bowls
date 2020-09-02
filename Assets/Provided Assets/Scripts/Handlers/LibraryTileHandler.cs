@@ -8,7 +8,7 @@ public class LibraryTileHandler : MonoBehaviour
     public new Text name;
     public Transform container;
 
-    public void SetTile(string name, bool[] activeStates)
+    public GameObject SetTile(string name, bool[] activeStates)
     {
         
         this.name.text = name;
@@ -17,17 +17,22 @@ public class LibraryTileHandler : MonoBehaviour
         {
             container.GetChild(i).gameObject.SetActive(activeStates[i]);
         }
+
+        return gameObject;
     }
 
     public void OnClickLoadButton()
     {
-        MenuManager.Instance.ChangeState(MenuManager.MenuStates.Main);
+        // MenuManager.Instance.ChangeState(MenuManager.MenuStates.Main);
+
+        AllRefs.I.headerHandler.OnClickMenuButton();
         SessionManager.Instance.LoadSession(name.text);
     }
 
     public void OnClickPlayRecordingButton()
     {
-        MenuManager.Instance.ChangeState(MenuManager.MenuStates.Main);
+        // MenuManager.Instance.ChangeState(MenuManager.MenuStates.Main);
+        AllRefs.I.headerHandler.OnClickMenuButton();
         SessionManager.Instance.LoadSession(name.text, true);
         // TODO: playrecording
     }

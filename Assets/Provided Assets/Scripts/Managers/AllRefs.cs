@@ -12,8 +12,13 @@ public class AllRefs : MonoBehaviour
     }
     
     [Header("Menus")]
+    public MainMenuEventListener mainMenu;
     public DockEventListener dock;
     public ShopMenuEventListener shopMenu;
     public LibraryMenuEventListener libraryMenu;
     public RecordingMenuEventListener recordingMenu;
+    public HeaderHandler headerHandler;
+
+    [Header("Objects")]
+    public GameObject itemContainer;
 }

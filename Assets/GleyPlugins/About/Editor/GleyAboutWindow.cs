@@ -29,20 +29,20 @@
 
         AssetStorePackage[] assetStorePackages =
         {
-        new AssetStorePackage(GleyAssets.JumpyCompleteGame,"Mobile Tools","MobileToolsIcon.png","All you need to publish your finished game on the store and BONUS a free game with all of them already integrated","https://assetstore.unity.com/packages/tools/integration/mobile-tools-complete-game-132284?aid=1011l8QY4"),
-        new AssetStorePackage(GleyAssets.Ads, "Mobile Ads","MobileAdsIcon.png","Show ads inside your game with this easy to use, multiple advertisers support tool.","https://assetstore.unity.com/packages/tools/integration/mobile-ads-gdpr-compliant-102892?aid=1011l8QY4"),
-        new AssetStorePackage(GleyAssets.EasyIAP,"Easy IAP","EasyIAPIcon.png","Sell In App products inside your game with minimal setup and very little programming knowledge.", "https://assetstore.unity.com/packages/tools/integration/easy-iap-in-app-purchase-128902?aid=1011l8QY4"),
-        new AssetStorePackage(GleyAssets.Notifications,"Mobile Push Notifications","NotificationsIcon.png","Send scheduled offline notifications to your users and keep them engaged.", "https://assetstore.unity.com/packages/tools/integration/mobile-push-notifications-156905?aid=1011l8QY4"),
-        new AssetStorePackage(GleyAssets.GameServices,"Easy Achievements and Leaderboards","AchievementsIcon.png","Submit achievements and scores with minimal setup and increase competition between your users.", "https://assetstore.unity.com/packages/tools/integration/easy-achievements-and-leaderboards-118119?aid=1011l8QY4"),
-        new AssetStorePackage(GleyAssets.RateGame,"Rate Game Popup","RateGameIcon.png","Increase the number of game ratings by encouraging users to rate your game.", "https://assetstore.unity.com/packages/tools/integration/rate-game-popup-android-ios-139131?aid=1011l8QY4"),
-        new AssetStorePackage(GleyAssets.CrossPromo,"Mobile Cross Promo","CrossPromoIcon.png","Easily cross promote and increase popularity for all of your published games.", "https://assetstore.unity.com/packages/tools/integration/mobile-cross-promo-148024?aid=1011l8QY4"),
-        new AssetStorePackage(GleyAssets.AllPlatformsSave,"All Platforms Save","SaveIcon.png","Easy to use: same line of code to save or load game data on all supported Unity platforms.", "https://assetstore.unity.com/packages/tools/integration/all-platforms-save-115960?aid=1011l8QY4"),
-        new AssetStorePackage(GleyAssets.DeliveryVehiclesPack,"Delivery Vehicles Pack","VehiclesIcon.png","Delivery Vehicles Pack contains 3 low poly, textured vehicles: Scooter, Three Wheeler, Minivan", "https://assetstore.unity.com/packages/3d/vehicles/land/delivery-vehicles-pack-55528?aid=1011l8QY4")
+        new AssetStorePackage(GleyAssets.JumpyCompleteGame,"Mobile Tools","MobileToolsIcon.png","All you need to publish your finished game on the store and BONUS a free game with all of them already integrated","https://assetstore.unity.com/packages/tools/integration/mobile-tools-complete-game-132284"),
+        new AssetStorePackage(GleyAssets.Ads, "Mobile Ads","MobileAdsIcon.png","Show ads inside your game with this easy to use, multiple advertisers support tool.","https://assetstore.unity.com/packages/tools/integration/mobile-ads-gdpr-compliant-102892"),
+        new AssetStorePackage(GleyAssets.EasyIAP,"Easy IAP","EasyIAPIcon.png","Sell In App products inside your game with minimal setup and very little programming knowledge.", "https://assetstore.unity.com/packages/tools/integration/easy-iap-in-app-purchase-128902"),
+        new AssetStorePackage(GleyAssets.Notifications,"Mobile Push Notifications","NotificationsIcon.png","Send scheduled offline notifications to your users and keep them engaged.", "https://assetstore.unity.com/packages/tools/integration/mobile-push-notifications-156905"),
+        new AssetStorePackage(GleyAssets.GameServices,"Easy Achievements and Leaderboards","AchievementsIcon.png","Submit achievements and scores with minimal setup and increase competition between your users.", "https://assetstore.unity.com/packages/tools/integration/easy-achievements-and-leaderboards-118119"),
+        new AssetStorePackage(GleyAssets.RateGame,"Rate Game Popup","RateGameIcon.png","Increase the number of game ratings by encouraging users to rate your game.", "https://assetstore.unity.com/packages/tools/integration/rate-game-popup-android-ios-139131"),
+        new AssetStorePackage(GleyAssets.CrossPromo,"Mobile Cross Promo","CrossPromoIcon.png","Easily cross promote and increase popularity for all of your published games.", "https://assetstore.unity.com/packages/tools/integration/mobile-cross-promo-148024"),
+        new AssetStorePackage(GleyAssets.AllPlatformsSave,"All Platforms Save","SaveIcon.png","Easy to use: same line of code to save or load game data on all supported Unity platforms.", "https://assetstore.unity.com/packages/tools/integration/all-platforms-save-115960"),
+        new AssetStorePackage(GleyAssets.DeliveryVehiclesPack,"Delivery Vehicles Pack","VehiclesIcon.png","Delivery Vehicles Pack contains 3 low poly, textured vehicles: Scooter, Three Wheeler, Minivan", "https://assetstore.unity.com/packages/3d/vehicles/land/delivery-vehicles-pack-55528")
     };
 
-        GleyAssets[] packagesInsideMobileTools = { GleyAssets.Ads, GleyAssets.EasyIAP, GleyAssets.Notifications, GleyAssets.GameServices, GleyAssets.RateGame, GleyAssets.CrossPromo, GleyAssets.AllPlatformsSave };
+        GleyAssets[] packagesInsideMobileTools = { GleyAssets.Ads, GleyAssets.EasyIAP, GleyAssets.GameServices, GleyAssets.RateGame, GleyAssets.CrossPromo, GleyAssets.AllPlatformsSave };
 
-        [MenuItem("Window/Gley/About Gley", false, 0)]
+        [MenuItem("Window/Gley/About Gley")]
         private static void Init()
         {
             window = (GleyAboutWindow)GetWindow(typeof(GleyAboutWindow));
@@ -102,12 +102,12 @@
             EditorGUILayout.Space();
 
             GUILayout.Label("Connect with us:", labelStyle);
-            EditorGUILayout.SelectableLabel("gley.assets@gmail.com", labelStyle);
+            EditorGUILayout.SelectableLabel("gley.mobi@gmail.com", labelStyle);
 
             EditorGUILayout.BeginHorizontal();
             if (GUILayout.Button(websiteButtonContent))
             {
-                Application.OpenURL("https://gleygames.com");
+                Application.OpenURL("https://gley.mobi");
             }
             if (GUILayout.Button(twitterButtonContent))
             {
@@ -156,9 +156,9 @@
             bool mobileToolsAvailable = (assetStorePackages[0].assetState != AssetState.NotDownloaded);
             for (int i = 0; i < assetStorePackages.Length; i++)
             {
-                if (mobileToolsAvailable)
+                if(mobileToolsAvailable)
                 {
-                    if (!packagesInsideMobileTools.Contains(assetStorePackages[i].asset))
+                    if(!packagesInsideMobileTools.Contains(assetStorePackages[i].asset))
                     {
                         DrawPack(assetStorePackages[i]);
                     }
@@ -264,7 +264,7 @@
         {
             updateResult = "Connecting to server";
             fileLoader = new EditorFileLoaded();
-            string url = "https://gleygames.com/versions/AssetVersions.txt";
+            string url = "https://gley.mobi/versions/AssetVersions.txt";
             fileLoader.LoadFile(url);
             EditorApplication.update = MyUpdate;
         }

@@ -18,20 +18,31 @@ namespace SerializeableClasses
     {
         public int index;
         public int prevIndex;
-        public Image thumbnail;
-        public RawImage carpet;
-        public RawImage bowl;
+
+        [Header("Item References")]
+
+        public Image image;
         public Text description;
         public Button b_itemActionButton;
         public Text t_itemActionButton;
+        public Image i_itemActionButton;
 
+        [Header("Values")]
         public Color[] buttonColors;
+        public Sprite[] buttonIcons;
+
         public Color tileHighlight;
         public Color tileNormal;
 
-        [Header("3D Imagess")]
+        [Header("Important References")]
         public GameObject bowlObj;
         public GameObject carpetObj;
+        public GameObject bowlCam;
+        public GameObject carpetCam;
+        public Image thumbnail;
+        public RawImage carpet;
+        public RawImage bowl;
+        public GameObject resetButton;
 
         public void ActivateImage(int index)
         {
@@ -72,7 +83,7 @@ namespace SerializeableClasses
             if (i > -1)
             {
                 color = bowls[i].lightColor;
-                text = bowls[i].name + "\n(" + bowls[i].set + ")";
+                text = bowls[i].name + "\n(" + bowls[i].setName + ")";
             }
 
             bowlsText[index].text = text;

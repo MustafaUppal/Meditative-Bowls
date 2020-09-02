@@ -31,7 +31,7 @@ public class ButtonStatusChanger : MonoBehaviour
             this.transform.GetChild(1).transform.GetChild(0).GetComponent<Text>().text = "Off";
             PlayerPrefs.SetInt("AlarmStatus" + id, 0);
             AlarmClockMenuEventListerner.instance.StatusOfAlarms[id] = false;
-            NotificationManager.Instance.CancelANotiFication(AlarmClockMenuEventListerner.instance.ChannelId[id]);
+            // NotificationManager.Instance.CancelANotiFication(AlarmClockMenuEventListerner.instance.ChannelId[id]);
             //AlarmClockMenuEventListerner.instance.SaveNotificationList();
         }
     }

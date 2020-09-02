@@ -28,7 +28,6 @@ public class BowlReposition : MonoBehaviour
     {
         Selectable = true;
         Invoke("RepositionBowlInitializer", 0.1f);
-        Inventory.bowlsManager.SetUpBowls();
     }
 
     private void Update()
@@ -73,6 +72,8 @@ public class BowlReposition : MonoBehaviour
     {
         for (int i = 0; i < materialArray.Length; i++)
         {
+            int index = Inventory.bowlsManager.activeBowlsIndexes[i];
+            if(index > 0)
             Inventory.allBowls[Inventory.bowlsManager.activeBowlsIndexes[i]].GetComponent<Renderer>().material = materialArray[i];
         }
         GameManager.Instance.state = GameManager.State.Normal;
@@ -125,11 +126,10 @@ public class BowlReposition : MonoBehaviour
         panningArray = new float[Inventory.bowlsManager.BowlPanningValues.Length];
         for (int i = 0; i < Inventory.bowlsManager.BowlPanningValues.Length; i++)
         {
-            panningArray[i] = Inventory.bowlsManager.BowlPanningValues[i];
+            panningArray[i]=Inventory.bowlsManager.BowlPanningValues[i];
         }
         Selectable = false;
         SelectedBowl.GetComponent<AudioSource>().spatialBlend = SelectedBowl2.GetComponent<AudioSource>().spatialBlend = 1;
-       
         iTween.MoveTo(SelectedBowl, iTween.Hash("position", temp2, "time", transitionspeed));
         iTween.MoveTo(SelectedBowl2, iTween.Hash("position", temp, "time", transitionspeed));
 
@@ -138,12 +138,11 @@ public class BowlReposition : MonoBehaviour
         int SelectedBowlIndex = Array.FindIndex(Inventory.allBowls.ToArray(), x => x == SelectedBowl.GetComponent<Bowl>()); ;
         
         int SelectedBowlIndex2 = Array.FindIndex(Inventory.allBowls.ToArray(), x => x == SelectedBowl2.GetComponent<Bowl>());
-        //print(Inventory.bowlsManager.BowlPanningValues[SelectedBowlIndex2]);
-        //print(Inventory.bowlsManager.BowlPanningValues[SelectedBowlIndex]);
-        print(SelectedBowlIndex2);
-        print(SelectedBowlIndex);
+        print(Inventory.bowlsManager.BowlPanningValues[SelectedBowlIndex2]);
+        print(Inventory.bowlsManager.BowlPanningValues[SelectedBowlIndex]);
+
         val1=  BowlPanning(SelectedBowl2 , panningArray[SelectedBowlIndex]);
-        val2 = BowlPanning(SelectedBowl , panningArray[SelectedBowlIndex2]);
+        val2 = BowlPanning(SelectedBowl , panningArray[SelectedBowlIndex2] );
         SelectedBowl2.GetComponent<AudioSource>().panStereo = val2;
         SelectedBowl.GetComponent<AudioSource>().panStereo = val1;
         Selectable = true;

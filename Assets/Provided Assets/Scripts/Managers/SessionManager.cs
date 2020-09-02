@@ -16,8 +16,9 @@ public class SessionManager : MonoBehaviour
     public int[] defaultSession;
 
     Coroutine recordingC;
+    Coroutine recordingTimerC;
 
-    private SessionData sessionData;
+    [SerializeField]private SessionData sessionData;
 
     public InventoryManager Inventory => InventoryManager.Instance;
 
@@ -87,10 +88,15 @@ public class SessionManager : MonoBehaviour
 
         if (playRecording && sessionSnipt.recording != null)
         {
-            if (recordingC != null)
-                StopCoroutine(recordingC);
+            // if (recordingC != null)
+            //     StopCoroutine(recordingC);
 
-            recordingC = StartCoroutine(PlayRecording(sessionSnipt.recording));
+            // recordingC = StartCoroutine(PlayRecording(sessionSnipt.recording));
+            
+            if (recordingTimerC != null)
+                StopCoroutine(recordingTimerC);
+
+            recordingTimerC = StartCoroutine(RecordingTimer(sessionSnipt.recording));
         }
     }
 
@@ -113,15 +119,68 @@ public class SessionManager : MonoBehaviour
         return "Pass";
     }
 
-    IEnumerator PlayRecording(Recording recording)
-    {
-        foreach (var snipt in recording.recodingSnipts)
-        {
-            yield return new WaitForSecondsRealtime(snipt.time);
-            Transform bowl = InventoryManager.Instance.allBowls[snipt.bowlIndex].transform;
+    // IEnumerator PlayRecording(Recording recording)
+    // {
+        
+            
 
-            InventoryManager.Instance.bowlsManager.PlaySound(bowl);
+    //         if (recordingTimerC != null)
+    //             StopCoroutine(recordingTimerC);
+
+    //         recordingTimerC = StartCoroutine(RecordingTimer(recording));
+
+    //         foreach (var snipt in recording.recodingSnipts)
+    //         {
+    //             yield return new WaitForSecondsRealtime(snipt.time - lastSniptTime);
+    //             lastSniptTime = snipt.time;
+                
+    //         }
+        
+
+    //     recordingC = null;
+    //     AllRefs.I.mainMenu.ManageFooter(false);
+    // }
+
+    IEnumerator RecordingTimer(Recording recording)
+    {
+        float timer = 0;
+        int lastIndex = recording.recodingSnipts.Count - 1;
+        if(lastIndex < 0)
+            StopAllCoroutines();
+        float totalTime = recording.recodingSnipts[lastIndex].time;
+        int i = 0;
+
+        AllRefs.I.mainMenu.recordingFooter.InitLoopCount(1);
+        AllRefs.I.mainMenu.ManageFooter(true);
+
+        while (AllRefs.I.mainMenu.recordingFooter.currentLoop <= AllRefs.I.mainMenu.recordingFooter.loopCount)
+        {
+            AllRefs.I.mainMenu.recordingFooter.currentLoop++;
+            timer = 0;
+
+            for (i = 0 ; i < recording.recodingSnipts.Count;)
+            {
+                timer += Time.deltaTime;
+                Debug.Log("timer/totalTime: " + timer / totalTime);
+                AllRefs.I.mainMenu.recordingFooter.UpdateTimer(timer / totalTime, (int)timer);
+                yield return null;
+
+                if(recording.recodingSnipts[i].time < timer)
+                {
+                    Transform bowl = InventoryManager.Instance.allBowls[recording.recodingSnipts[i].bowlIndex].transform;
+                    InventoryManager.Instance.bowlsManager.PlaySound(bowl);
+                    i++;
+                }
+
+                if (!AllRefs.I.mainMenu.playingMode)
+                {
+                    StopAllCoroutines();
+                }
+            }
         }
+
+        recordingTimerC = null;
+        AllRefs.I.mainMenu.ManageFooter(false);
     }
 }
 

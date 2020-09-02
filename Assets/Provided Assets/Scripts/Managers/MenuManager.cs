@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using MeditativeBowls;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class MenuManager : MonoBehaviour
 {
@@ -11,8 +11,8 @@ public class MenuManager : MonoBehaviour
         Main,
         Library,
         Shop,
-        Recording,
         Alram,
+        Recording,
         Settings
     }
 
@@ -34,7 +34,8 @@ public class MenuManager : MonoBehaviour
         Debug.Log(Application.persistentDataPath);
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
 
-        ChangeState(defaultState);
+        currentState = SceneManager.Instance.prevState;
+        ChangeState(SceneManager.Instance.currentState);
     }
     
     public void ChangeState(MenuStates newState)
@@ -42,17 +43,31 @@ public class MenuManager : MonoBehaviour
         prevState = currentState;
         currentState = newState;
 
+        SceneManager.Instance.prevState = prevState;
+        SceneManager.Instance.currentState = currentState;
+
         if (!prevState.Equals(MenuStates.Shop))
             AllPanels[(int)prevState].SetActive(false);
-        else if(!SceneManager.GetActiveScene().buildIndex.Equals(0))
-            SceneManager.LoadScene(0);
+        else if(!SceneManager.Instance.IsSceneLoaded(1))
+            SceneManager.Instance.LoadScene(1);
 
         if (!currentState.Equals(MenuStates.Shop))
             AllPanels[(int)currentState].SetActive(true);
-        else if(!SceneManager.GetActiveScene().buildIndex.Equals(1))
-            SceneManager.LoadScene(1);
+        else if(!SceneManager.Instance.IsSceneLoaded(2))
+            SceneManager.Instance.LoadScene(2);
 
         ApplyChanges();
+        AllRefs.I.headerHandler.SelectButton();
+
+        Debug.Log("MM");
+    }
+
+    IEnumerator ChangeStateE(MenuStates newState)
+    {
+        prevState = currentState;
+        currentState = newState;
+
+        yield return null;
     }
 
     private void ApplyChanges()

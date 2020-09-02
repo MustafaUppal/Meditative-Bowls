@@ -14,7 +14,6 @@ public class LibraryMenuEventListener : MonoBehaviour
     {
         Footertext.text = Message;
     }
-
     private void OnEnable()
     {
         DockEventListener.ButtonsData data = new DockEventListener.ButtonsData
@@ -31,7 +30,7 @@ public class LibraryMenuEventListener : MonoBehaviour
 
     public void OnClickBackButton()
     {
-        MenuManager.Instance.ChangeState(MenuManager.MenuStates.Main);
+        // MenuManager.Instance.ChangeState(MenuManager.MenuStates.Main);
     }
 
     public void LoadAllSessions()
@@ -52,14 +51,14 @@ public class LibraryMenuEventListener : MonoBehaviour
 
                 tilesContainer.GetChild(i).GetComponent<LibraryTileHandler>().SetTile
                 (
-                    session.name, new bool[4] { havePositions, haveRecoding, haveMP3, true }
+                    session.name, new bool[3] { havePositions, haveRecoding, true }
                 );
                 tilesContainer.GetChild(i).gameObject.SetActive(true);
             }
             else
             {
                 if (!tilesContainer.GetChild(i).gameObject.activeInHierarchy)
-                    return;
+                    break;
 
                 tilesContainer.GetChild(i).gameObject.SetActive(false);
             }
@@ -74,8 +73,12 @@ public class LibraryMenuEventListener : MonoBehaviour
             Debug.Log("haveRecoding: " + haveRecoding);
             Instantiate(sessionTile, tilesContainer).GetComponent<LibraryTileHandler>().SetTile
             (
-                session.name, new bool[4] { havePositions, haveRecoding, haveMP3, true }
-            );
+                session.name, new bool[3] { havePositions, haveRecoding, true }
+            ).SetActive(true);
         }
+
+        // Refresh content
+        transform.GetChild(1).gameObject.SetActive(false);
+        transform.GetChild(1).gameObject.SetActive(true);
     }
 }

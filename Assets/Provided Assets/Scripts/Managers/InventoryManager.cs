@@ -27,21 +27,21 @@ public class InventoryManager : MonoBehaviour
         {
             Instance = this;
 
-            bowlsManager = transform.GetChild(0).GetComponent<BowlsManager>();
-            carpetsManager = transform.GetChild(1).GetComponent<CarpetsManager>();
-            musicsManager = transform.GetChild(2).GetComponent<MusicsManager>();
+            // bowlsManager = transform.GetChild(0).GetComponent<BowlsManager>();
+            // carpetsManager = transform.GetChild(1).GetComponent<CarpetsManager>();
+            // musicsManager = transform.GetChild(2).GetComponent<MusicsManager>();
 
-            allBowls = new List<Bowl>();
-            for (int i = 0; i < bowlsManager.transform.childCount; i++)
-            {
-                allBowls.Add(bowlsManager.transform.GetChild(i).GetComponent<Bowl>());
-            }
+            // allBowls = new List<Bowl>();
+            // for (int i = 0; i < bowlsManager.transform.childCount; i++)
+            // {
+            //     allBowls.Add(bowlsManager.transform.GetChild(i).GetComponent<Bowl>());
+            // }
 
-            allCarpets = new List<Carpet>();
-            for (int i = 0; i < carpetsManager.transform.childCount; i++)
-            {
-                allCarpets.Add(carpetsManager.transform.GetChild(i).GetComponent<Carpet>());
-            }
+            // allCarpets = new List<Carpet>();
+            // for (int i = 0; i < carpetsManager.transform.childCount; i++)
+            // {
+            //     allCarpets.Add(carpetsManager.transform.GetChild(i).GetComponent<Carpet>());
+            // }
 
             // allBowls = new List<Bowl>();
             // for (int i = 0; i < bowlsManager.transform.childCount; i++)
@@ -63,7 +63,7 @@ public class InventoryManager : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        bool isGameplayScene = scene.buildIndex.Equals(0);
+        bool isGameplayScene = scene.buildIndex.Equals(1);
 
         InitScene(isGameplayScene);
     }
@@ -97,11 +97,14 @@ public class InventoryManager : MonoBehaviour
     {
         AllRefs.I.shopMenu.selectedItem.carpetObj.SetActive(currentState.Equals(0));
         AllRefs.I.shopMenu.selectedItem.bowlObj.SetActive(currentState.Equals(1));
+        AllRefs.I.shopMenu.selectedItem.carpetCam.SetActive(currentState.Equals(0));
+        AllRefs.I.shopMenu.selectedItem.bowlCam.SetActive(currentState.Equals(1));
 
         switch (currentState)
         {
             case 0:
                 AllRefs.I.shopMenu.selectedItem.carpetObj.GetComponent<Renderer>().material = allCarpets[materialIndex].material;
+                AllRefs.I.shopMenu.selectedItem.carpetObj.transform.GetChild(0).GetComponent<Renderer>().material = allCarpets[materialIndex].material;
                 break;
             case 1:
                 AllRefs.I.shopMenu.selectedItem.bowlObj.GetComponent<Renderer>().material = allBowls[materialIndex].material;

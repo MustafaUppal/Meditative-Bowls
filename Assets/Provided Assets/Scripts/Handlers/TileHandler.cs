@@ -9,6 +9,7 @@ public class TileHandler : MonoBehaviour
     public new Text name;
     public Text set;
     public Image bg;
+    public int Index;
 
     private void Awake()
     {
@@ -25,12 +26,10 @@ public class TileHandler : MonoBehaviour
         }
     }
 
-    public void SetTile(Sprite sprite, string name, string set = "")
+    public void SetTile(Sprite sprite, string name, int index)
     {
         image.sprite = sprite;
         this.name.text = name;
-
-        this.set.gameObject.SetActive(!set.Equals(""));
-        this.set.text = set;
+        this.Index = index;
     }
 }

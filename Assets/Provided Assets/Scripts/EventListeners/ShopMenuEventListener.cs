@@ -49,65 +49,7 @@ public class ShopMenuEventListener : MonoBehaviour
 
     private void Update()
     {
-        if (currentState.Equals(ShopStates.Bowls))
-        {
-            float x = selectedItem.bowlObj.transform.rotation.x;
-            float y = selectedItem.bowlObj.transform.rotation.y;
-            float z = selectedItem.bowlObj.transform.rotation.z;
-            float w = selectedItem.bowlObj.transform.rotation.w;
-
-            if (!Application.isEditor)
-            {
-                touch1 = Input.GetTouch(0);
-                touch2 = Input.GetTouch(1);
-
-                if (touch1.phase.Equals(TouchPhase.Began))
-                {
-                    t1Position = touch1.position;
-                }
-
-                if (touch2.phase.Equals(TouchPhase.Began))
-                {
-                    t2Position = touch2.position;
-                }
-
-                // Spin bowl
-                if (Input.touchCount.Equals(1))
-                {
-                    if (touch1.phase.Equals(TouchPhase.Moved))
-                    {
-                        x += touch1.deltaPosition.x * rotationSpeed * Time.unscaledDeltaTime;
-                        y += touch1.deltaPosition.x * rotationSpeed * Time.unscaledDeltaTime;
-                        z += touch1.deltaPosition.x * rotationSpeed * Time.unscaledDeltaTime;
-
-                        selectedItem.bowlObj.transform.rotation = new Quaternion(x, y, z, w);
-                    }
-                }
-                else if (Input.touchCount > 1) // pan bowl
-                {
-                    if (touch1.phase.Equals(TouchPhase.Moved) || touch2.phase.Equals(TouchPhase.Moved))
-                    {
-                        float change = 0;
-                        float cx1 = t1Position.x - touch1.position.x;
-                        float cx2 = t2Position.x - touch2.position.x;
-                        float cy1 = t1Position.y - touch1.position.y;
-                        float cy2 = t2Position.y - touch2.position.y;
-
-                        if (cx1 > 0 || cx2 > 0 || cy1 > 0 || cy2 > 0)
-                        {
-                            change += .1f;
-                        }
-                        else if (cx1 < 0 || cx2 < 0 || cy1 < 0 || cy2 < 0)
-                            change -= .1f;
-
-
-                        mainCamera.fieldOfView += change;
-                        mainCamera.fieldOfView = Mathf.Clamp(mainCamera.fieldOfView, 50, 70);
-                    }
-
-                }
-            }
-        }
+        
     }
 
     void MessageSender(string Message)
@@ -161,8 +103,13 @@ public class ShopMenuEventListener : MonoBehaviour
         ChangeState(ShopStates.BG_Musics);
     }
 
+    public void OnClickItemButton(GameObject itemObj)
+    {
+        OnClickItemButton(itemObj.GetComponent<TileHandler>().Index);
+    }
     public void OnClickItemButton(int index)
     {
+        Debug.Log("index: " + index);
         selectedItem.prevIndex = selectedItem.index;
         selectedItem.index = index;
 
@@ -171,11 +118,18 @@ public class ShopMenuEventListener : MonoBehaviour
 
         Item item = Inventory.GetItem((int)currentState, index);
 
-        string setName = item.set.Equals("") ? "" : " (" + item.set + ")";
+        string setName = item.setName.Equals("") ? "" : " (" + item.setName + ")";
+        
+        // Image
+        selectedItem.image.sprite = item.image;
+        // Description
         selectedItem.description.text = "<size=35>" + item.name + setName + "</size>\n" + item.description;
-        selectedItem.b_itemActionButton.image.color = selectedItem.buttonColors[(int)item.currentState];
-        selectedItem.b_itemActionButton.interactable = !item.currentState.Equals(Bowl.State.Loaded);
-        selectedItem.t_itemActionButton.text = item.StateText;
+        // Button
+        selectedItem.b_itemActionButton.transform.GetChild(0).GetComponent<Image>().color = selectedItem.buttonColors[(int)item.CurrentState];
+        selectedItem.i_itemActionButton.sprite = selectedItem.buttonIcons[(int)item.CurrentState];
+        selectedItem.b_itemActionButton.interactable = !item.CurrentState.Equals(Bowl.State.Loaded);
+        // Price
+        selectedItem.t_itemActionButton.text = item.price + "$";
 
         Inventory.Manage3DItems((int)currentState, index);
         DistinctFunctionality();
@@ -187,12 +141,16 @@ public class ShopMenuEventListener : MonoBehaviour
         {
             if (activeBowls[i].Equals(selectedItem.index))
             {
+                Inventory.allBowls[activeBowls[i]].CurrentState = Item.State.Purchased;
+                OnClickItemButton(activeBowls[i]);
                 activeBowls[i] = -1;
                 bowlPlacementSettings.SetText(i);
             }
         }
 
         activeBowls[index] = selectedItem.index;
+        Inventory.allBowls[activeBowls[index]].CurrentState = Item.State.Loaded;
+        OnClickItemButton(selectedItem.index);
         bowlPlacementSettings.SetText(index);
 
         bowlPlacementSettings.Enable = false;
@@ -225,7 +183,7 @@ public class ShopMenuEventListener : MonoBehaviour
         switch (currentState)
         {
             case ShopStates.Bowls:
-                if (Inventory.allBowls[selectedItem.index].currentState == Item.State.Purchased)
+                if (Inventory.allBowls[selectedItem.index].CurrentState == Item.State.Purchased)
                 {
                     MessageSender("Tip: Select a position to place or replace. Click on carpet to close Placement setting.");
                     bowlPlacementSettings.Enable = true;
@@ -233,17 +191,17 @@ public class ShopMenuEventListener : MonoBehaviour
                 }
                 break;
             case ShopStates.BG_Musics:
-                if (Inventory.allMusics[selectedItem.index].currentState == Item.State.Purchased)
+                if (Inventory.allMusics[selectedItem.index].CurrentState == Item.State.Purchased)
                 {
                     // GameManager.Instance.BackgroundMusic.GetComponent<AudioSource>().clip
                     // = Inventory.Instance.allMusics[selectedItem.index].SoundClip;
                 }
                 break;
             case ShopStates.Carpets:
-                if (Inventory.allCarpets[selectedItem.index].currentState == Item.State.Purchased)
+                if (Inventory.allCarpets[selectedItem.index].CurrentState == Item.State.Purchased)
                 {
-                    Inventory.allCarpets[selectedItem.prevIndex].currentState = Item.State.Purchased;
-                    Inventory.allCarpets[selectedItem.index].currentState = Item.State.Loaded;
+                    Inventory.allCarpets[selectedItem.prevIndex].CurrentState = Item.State.Purchased;
+                    Inventory.allCarpets[selectedItem.index].CurrentState = Item.State.Loaded;
 
                     InventoryManager.Instance.carpetsManager.activeCarpetIndex = selectedItem.index;
                     OnClickItemButton(selectedItem.index);

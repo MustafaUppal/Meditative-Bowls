@@ -11,9 +11,12 @@ public class Item : MonoBehaviour
         Loaded
     }
 
-    public State currentState;
+    [SerializeField]private State currentState;
     public new string name;
-    public string set;
+    public string setName;
+    public int set;
+    public int Index;
+    
     public float price;
     public Sprite image;
     [TextArea(2, 4)] public string description;
@@ -22,7 +25,7 @@ public class Item : MonoBehaviour
     {
         get
         {
-            switch (currentState)
+            switch (CurrentState)
             {
                 case State.Locked:
                     return price.ToString("#0.00") + " $";
@@ -31,6 +34,16 @@ public class Item : MonoBehaviour
                 default:
                     return "Loaded";
             }
+        }
+    }
+
+    public State CurrentState
+    {
+        get => currentState;
+        set
+        {
+            // Debug.Log("currentState: " + currentState + " -> " + value);
+            currentState = value;
         }
     }
 }

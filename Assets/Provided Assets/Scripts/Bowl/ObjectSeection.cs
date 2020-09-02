@@ -32,10 +32,12 @@ public class ObjectSeection : MonoBehaviour
             if (Physics.Raycast(ray, out hit))
             {
                 Transform objectHit = hit.transform;
+                // Debug.Log(hit.transform);
                 if (Input.GetMouseButtonDown(0))
                 {
                     if (hit.transform.GetComponent<AudioSource>() != null && hit.transform.CompareTag("Bowl"))
                     {
+                        // Debug.Log("Click");
                         InventoryManager.Instance.bowlsManager.PlaySound(hit.transform);
                     }
                 }
