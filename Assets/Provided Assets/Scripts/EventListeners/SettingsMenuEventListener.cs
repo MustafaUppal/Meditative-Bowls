@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using SerializeableClasses;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,13 +8,15 @@ public class SettingsMenuEventListener : MonoBehaviour
 {
     public Text Status;
     public GameObject FooterPanel;
-    public GameObject StatusText;
+
+    public BowlEditingSettings bowlEditingSettings;
 
     void MessageSender(string Message)
     {
 
         Status.text = Message;
     }
+    
     private void OnEnable()
     {
         DockEventListener.ButtonsData data = new DockEventListener.ButtonsData
@@ -22,6 +25,12 @@ public class SettingsMenuEventListener : MonoBehaviour
         };
         GameManager.Instance.VolumeSlider.gameObject.SetActive(false);
         AllRefs.I.dock.ManageButtons(data);
+    }
+
+    public void ManageFooter(bool isEditingBowl)
+    {
+        FooterPanel.SetActive(!isEditingBowl);
+        bowlEditingSettings.root.SetActive((isEditingBowl));
     }
 
     public void OnClickBackButton()
