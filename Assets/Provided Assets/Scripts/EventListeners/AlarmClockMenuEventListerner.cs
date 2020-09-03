@@ -143,7 +143,7 @@ public class AlarmClockMenuEventListerner : MonoBehaviour
             else
             {
                 StatusOfAlarms.Add(false);
-                NEWtILE.transform.GetChild(1).gameObject.transform.GetComponent<Text>().text = "OFF";
+                NEWtILE.transform.GetChild(1).gameObject.transform.GetChild(0).GetComponent<Text>().text = "OFF";
             }
         }
 

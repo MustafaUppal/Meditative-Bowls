@@ -57,6 +57,7 @@ public class ObjectSeection : MonoBehaviour
                         LongPressState = true;
                         Pressing = false;
                         TimeUserHold = 0;
+                        AllRefs.I.settingMenu.ManageFooter(true);
                     }
                 }
                 else

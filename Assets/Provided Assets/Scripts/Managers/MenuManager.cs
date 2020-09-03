@@ -56,6 +56,12 @@ public class MenuManager : MonoBehaviour
         else if(!SceneManager.Instance.IsSceneLoaded(2))
             SceneManager.Instance.LoadScene(2);
 
+        if (prevState.Equals(MenuStates.Settings)&&!AllRefs.I.settingMenu.bowlEditingSettings.root.activeInHierarchy)
+        {
+            print("Pakistan");
+            AllRefs.I.settingMenu.ManageFooter(false);
+            AllRefs.I.settingMenu.OnClickBackButton();
+        }
         ApplyChanges();
         AllRefs.I.headerHandler.SelectButton();
 
@@ -66,7 +72,6 @@ public class MenuManager : MonoBehaviour
     {
         prevState = currentState;
         currentState = newState;
-
         yield return null;
     }
 

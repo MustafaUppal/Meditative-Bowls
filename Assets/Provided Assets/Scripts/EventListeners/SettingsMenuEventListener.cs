@@ -8,7 +8,7 @@ public class SettingsMenuEventListener : MonoBehaviour
 {
     public Text Status;
     public GameObject FooterPanel;
-
+    //public static SettingsMenuEventListener Instance;
     public BowlEditingSettings bowlEditingSettings;
 
     void MessageSender(string Message)
@@ -23,22 +23,31 @@ public class SettingsMenuEventListener : MonoBehaviour
         {
             saveSession = false
         };
-        GameManager.Instance.VolumeSlider.gameObject.SetActive(false);
+        //GameManager.Instance.VolumeSlider.gameObject.SetActive(false);
         AllRefs.I.dock.ManageButtons(data);
     }
-
+    private void Start()
+    {
+        //Instance = this;
+    }
     public void ManageFooter(bool isEditingBowl)
     {
-        FooterPanel.SetActive(!isEditingBowl);
+        print(!isEditingBowl);
+        print(isEditingBowl);
         bowlEditingSettings.root.SetActive((isEditingBowl));
+        FooterPanel.SetActive(!isEditingBowl);
     }
 
     public void OnClickBackButton()
     {
+        //SettingsMenuEventListener.Instance.ManageFooter(false);
+        AllRefs.I.settingMenu.ManageFooter(false);
+
         MenuManager.Instance.ChangeState(MenuManager.MenuStates.Main);
         GameManager.Instance.SelectModeNormal();
-        GameManager.Instance.gameObject.GetComponent<BowlReposition>().ResetFuntion();
         GameManager.Instance.VolumeSlider.gameObject.SetActive(false);
+        GameManager.Instance.gameObject.GetComponent<BowlReposition>().ResetFuntion();
+        
         MessageSender("Select an option to for setting up environment");
     }
     public void OnClickRemoveButton()

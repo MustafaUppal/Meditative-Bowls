@@ -168,7 +168,7 @@ public class GameManager : MonoBehaviour
                 if (hit.transform.CompareTag("Bowl"))
                 {
                     SelectedSoundBowl = hit.transform.gameObject;
-                    SoundChangerIndicatorText.text = SelectedSoundBowl.name + " (" + SelectedSoundBowl.GetComponent<Bowl>().setName + ") ";
+                   // SoundChangerIndicatorText.text = SelectedSoundBowl.name + " (" + SelectedSoundBowl.GetComponent<Bowl>().setName + ") ";
 
                 }
 

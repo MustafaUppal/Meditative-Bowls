@@ -44,12 +44,13 @@ public class ShopMenuEventListener : MonoBehaviour
     {
         selectedItem.index = 0;
         ChangeState(defaultState);
+        IAPManager.Instance.InitializeIAPManager(InitializeResultCallback);
         MessageSender("Carpet");
     }
 
     private void Update()
     {
-        
+
     }
 
     void MessageSender(string Message)
@@ -76,7 +77,98 @@ public class ShopMenuEventListener : MonoBehaviour
         content.Init((int)currentState);
         OnClickItemButton(0); // select first tile in the start
     }
+    #region IAP
+    private void InitializeResultCallback(IAPOperationStatus status, string message, List<StoreProduct>
+shopProducts)
+    {
 
+        if (status == IAPOperationStatus.Success)
+        {
+            //IAP was successfully initialized
+            //loop through all products
+
+
+            for (int i = 8; i <= 14; i++)
+            {
+                print(i);
+                if (shopProducts[i].productName == ((ShopProductNames)i).ToString())
+                {
+                    //if active variable is true, means that user had bought that product
+                    //so enable access
+                    if (shopProducts[i].active)
+                    {
+                        Inventory.allBowls[i].GetComponent<Bowl>().currentState = Item.State.Purchased;
+                        //PurchasedProduct = true;
+                    }
+                    else
+                    {
+                        Inventory.allBowls[i].GetComponent<Bowl>().currentState = Item.State.Locked;
+                        //PurchasedProduct = false;
+
+                    }
+                }
+            }
+            for (int i = 15; i <= 21; i++)
+            {
+
+                if (shopProducts[i].productName == ((ShopProductNames)i).ToString())
+                {
+                    //if active variable is true, means that user had bought that product
+                    if (shopProducts[i].active)
+                    {
+                        Inventory.allBowls[i].GetComponent<Bowl>().currentState = Item.State.Purchased;
+                    }
+                    else
+                    {
+                        Inventory.allBowls[i].GetComponent<Bowl>().currentState = Item.State.Locked;
+                    }
+                }
+            }
+            for (int i = 22; i <= 28; i++)
+            {
+
+                if (shopProducts[i].productName == ((ShopProductNames)i).ToString())
+                {
+                    //if active variable is true, means that user had bought that product
+                    if (shopProducts[i].active)
+                    {
+
+                        Inventory.allBowls[i].GetComponent<Bowl>().currentState = Item.State.Purchased;
+
+                    }
+                    else
+                    {
+
+                        Inventory.allBowls[i].GetComponent<Bowl>().currentState = Item.State.Locked;
+
+                    }
+                }
+            }
+        }
+
+    }
+    public ShopProductNames ProductName;
+    private void ProductBoughtCallback(IAPOperationStatus status, string message, StoreProduct
+    product)
+    {
+        if (status == IAPOperationStatus.Success)
+        {
+            if (product.productName == ProductName.ToString())
+            {
+                Inventory.allBowls[(int)ProductName].currentState = Item.State.Purchased;
+            }
+            else
+            {
+                print("Purchased Failed");
+            }
+        }
+        else
+        {
+            //an error occurred in the buy process, log the message for more details
+            Debug.Log("Buy product failed: " + message);
+        }
+    }
+    #endregion
     #region Button Clicks
     public void OnClickBackButton()
     {
@@ -119,7 +211,7 @@ public class ShopMenuEventListener : MonoBehaviour
         Item item = Inventory.GetItem((int)currentState, index);
 
         string setName = item.setName.Equals("") ? "" : " (" + item.setName + ")";
-        
+
         // Image
         selectedItem.image.sprite = item.image;
         // Description
@@ -189,13 +281,18 @@ public class ShopMenuEventListener : MonoBehaviour
                     bowlPlacementSettings.Enable = true;
                     bowlPlacementSettings.Init();
                 }
+                else if (Inventory.allBowls[selectedItem.index].currentState == Item.State.Locked)
+                {
+                    print("Working");
+                    IAPManager.Instance.BuyProduct(ProductName, ProductBoughtCallback);
+                }
                 break;
             case ShopStates.BG_Musics:
                 if (Inventory.allMusics[selectedItem.index].CurrentState == Item.State.Purchased)
                 {
-                    // GameManager.Instance.BackgroundMusic.GetComponent<AudioSource>().clip
-                    // = Inventory.Instance.allMusics[selectedItem.index].SoundClip;
+                   
                 }
+
                 break;
             case ShopStates.Carpets:
                 if (Inventory.allCarpets[selectedItem.index].CurrentState == Item.State.Purchased)

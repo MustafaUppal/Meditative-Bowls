@@ -1,8 +1,35 @@
 public enum ShopProductNames
 {
-Consumable1,
-Consumable2,
-UnlockLevel,
-RemoveAds,
-Subscription,
+    //Set1
+    SingingBowlsSet1Bowl1,
+    SingingBowlsSet1Bowl2,
+    SingingBowlsSet1Bowl3,
+    SingingBowlsSet1Bowl4,
+    SingingBowlsSet1Bowl5,
+    SingingBowlsSet1Bowl6,
+    SingingBowlsSet1Bowl7,
+    //Set2
+    SingingBowlsSet2Bowl1,
+    SingingBowlsSet2Bowl2,
+    SingingBowlsSet2Bowl3,
+    SingingBowlsSet2Bowl4,
+    SingingBowlsSet2Bowl5,
+    SingingBowlsSet2Bowl6,
+    SingingBowlsSet2Bowl7,
+    //Set3
+    SingingBowlsSet3Bowl1,
+    SingingBowlsSet3Bowl2,
+    SingingBowlsSet3Bowl3,
+    SingingBowlsSet3Bowl4,
+    SingingBowlsSet3Bowl5,
+    SingingBowlsSet3Bowl6,
+    SingingBowlsSet3Bowl7,
+    //Set4
+    SingingBowlsSet4Bowl1,
+    SingingBowlsSet4Bowl2,
+    SingingBowlsSet4Bowl3,
+    SingingBowlsSet4Bowl4,
+    SingingBowlsSet4Bowl5,
+    SingingBowlsSet4Bowl6,
+    SingingBowlsSet4Bowl7,
 }

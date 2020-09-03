@@ -175,6 +175,7 @@ MonoBehaviour:
   position: 0
   lightColor: {r: 1, g: 0, b: 0, a: 1}
   material: {fileID: 2100000, guid: 7888bb3c70abd8f45ba91e87645a6bd8, type: 2}
+  currentState: 0
 --- !u!54 &9614124
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1539,7 +1540,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 820b329146143224d81a437b870052db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState: 0
+  currentState: 2
   name: Bowl 3
   setName: Set 1
   set: 1
@@ -1550,6 +1551,7 @@ MonoBehaviour:
   position: 0
   lightColor: {r: 1, g: 1, b: 0, a: 1}
   material: {fileID: 2100000, guid: bc7929497a7a2e14184dcc6bce0de76d, type: 2}
+  currentState: 2
 --- !u!54 &81505976
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4743,7 +4745,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 820b329146143224d81a437b870052db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState: 0
+  currentState: 2
   name: Bowl 6
   setName: Set 1
   set: 1
@@ -4754,6 +4756,7 @@ MonoBehaviour:
   position: 0
   lightColor: {r: 0.1882353, g: 0.09803922, b: 0.20392157, a: 1}
   material: {fileID: 2100000, guid: b8492fd1358f5ba4eb19d0027fa8ea91, type: 2}
+  currentState: 2
 --- !u!54 &245460688
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -8401,10 +8404,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 2053556084}
   m_HandleRect: {fileID: 889963567}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: -1
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.531
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -9751,6 +9754,7 @@ MonoBehaviour:
   position: 0
   lightColor: {r: 1, g: 0.64705884, b: 0, a: 1}
   material: {fileID: 2100000, guid: c18fddb7e3fdc5b40991aa82b4ae53bf, type: 2}
+  currentState: 0
 --- !u!54 &489403885
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -9960,7 +9964,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 820b329146143224d81a437b870052db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState: 0
+  currentState: 2
   name: Bowl 1
   setName: Set 1
   set: 1
@@ -9971,6 +9975,7 @@ MonoBehaviour:
   position: 0
   lightColor: {r: 1, g: 0, b: 0, a: 1}
   material: {fileID: 2100000, guid: 3089aa80d2b7739409e8ce93e7f6e429, type: 2}
+  currentState: 2
 --- !u!54 &498131179
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -11818,7 +11823,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 820b329146143224d81a437b870052db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState: 0
+  currentState: 2
   name: Bowl 4
   setName: Set 1
   set: 1
@@ -11829,6 +11834,7 @@ MonoBehaviour:
   position: 0
   lightColor: {r: 0.19607843, g: 0.8039216, b: 0.19607843, a: 1}
   material: {fileID: 2100000, guid: 68965369eb2ab8b44afde92cb23c0a62, type: 2}
+  currentState: 2
 --- !u!54 &600343694
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -14046,7 +14052,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 820b329146143224d81a437b870052db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState: 0
+  currentState: 2
   name: Bowl 7
   setName: Set 1
   set: 1
@@ -14057,6 +14063,7 @@ MonoBehaviour:
   position: 0
   lightColor: {r: 1, g: 0, b: 1, a: 1}
   material: {fileID: 2100000, guid: 886c97920f832344f977ec2c2160fd98, type: 2}
+  currentState: 2
 --- !u!54 &685769171
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -15101,10 +15108,10 @@ RectTransform:
   m_Father: {fileID: 1293600368}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -21.799988, y: -215.6}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchorMin: {x: 0.36529478, y: 0.11929916}
+  m_AnchorMax: {x: 0.57701224, y: 0.1688266}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &712446333
 MonoBehaviour:
@@ -15440,10 +15447,10 @@ RectTransform:
   m_Father: {fileID: 650077480}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 463.4, y: -0.67674}
-  m_SizeDelta: {x: 480.4284, y: 598.6466}
+  m_AnchorMin: {x: 0.6288403, y: 0.12499996}
+  m_AnchorMax: {x: 0.9061812, y: 0.87330824}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &745089630
 MonoBehaviour:
@@ -18067,8 +18074,8 @@ RectTransform:
   m_Father: {fileID: 411236626}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.531, y: 0}
-  m_AnchorMax: {x: 0.531, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 30, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -24544,6 +24551,7 @@ MonoBehaviour:
   libraryMenu: {fileID: 1718155208}
   recordingMenu: {fileID: 689920279}
   headerHandler: {fileID: 286431105}
+  settingMenu: {fileID: 1807735392}
   itemContainer: {fileID: 0}
 --- !u!1 &1284643140
 GameObject:
@@ -24904,10 +24912,10 @@ RectTransform:
   m_Father: {fileID: 2131975896}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -440, y: 2}
-  m_SizeDelta: {x: -976.5425, y: -194.27502}
+  m_AnchorMin: {x: 0.02786594, y: 0.12392189}
+  m_AnchorMax: {x: 0.46412915, y: 0.8810781}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1293600369
 MonoBehaviour:
@@ -28554,7 +28562,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1537555964
 RectTransform:
   m_ObjectHideFlags: 0
@@ -29933,7 +29941,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 820b329146143224d81a437b870052db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState: 0
+  currentState: 2
   name: Bowl 2
   setName: Set 1
   set: 1
@@ -29944,6 +29952,7 @@ MonoBehaviour:
   position: 0
   lightColor: {r: 1, g: 0.64705884, b: 0, a: 1}
   material: {fileID: 2100000, guid: 99e7528a6fccae545b183ef8b166c826, type: 2}
+  currentState: 2
 --- !u!65 &1579010957
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -34230,6 +34239,7 @@ MonoBehaviour:
   mainCamera: {fileID: 0}
   rotationSpeed: 0
   panningSpeed: 0
+  ProductName: 0
 --- !u!1 &1718155203
 GameObject:
   m_ObjectHideFlags: 0
@@ -34563,7 +34573,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 820b329146143224d81a437b870052db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState: 0
+  currentState: 2
   name: Bowl 5
   setName: Set 1
   set: 1
@@ -34574,6 +34584,7 @@ MonoBehaviour:
   position: 0
   lightColor: {r: 0, g: 1, b: 1, a: 1}
   material: {fileID: 2100000, guid: 03419623206e90c4894199cedc419494, type: 2}
+  currentState: 2
 --- !u!54 &1740651741
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -37512,6 +37523,7 @@ MonoBehaviour:
   position: 0
   lightColor: {r: 0.19607843, g: 0.8039216, b: 0.19607843, a: 1}
   material: {fileID: 2100000, guid: 271cf9e1f842f424bb65aadd3e3f580d, type: 2}
+  currentState: 0
 --- !u!54 &1872608385
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -38050,6 +38062,7 @@ MonoBehaviour:
   position: 0
   lightColor: {r: 1, g: 1, b: 0, a: 1}
   material: {fileID: 2100000, guid: f33642295e51f9948af7de6102da6b9e, type: 2}
+  currentState: 0
 --- !u!54 &1885299039
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -41602,7 +41615,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.531, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -44689,7 +44702,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e7f9c793dd374843b52609323e136f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PanningSlider: {fileID: 0}
+  PanningSlider: {fileID: 436887926}
   postPocessing: {fileID: 963194225}
   Reposition: 0
   carpetPlane: {fileID: 3704570319181356287}
@@ -44697,7 +44710,7 @@ MonoBehaviour:
   Footer: {fileID: 1284643140}
   FooterText1: {fileID: 1600410648}
   BowlToLoad: 0
-  VolumeSlider: {fileID: 0}
+  VolumeSlider: {fileID: 1437728885}
   FooterText: {fileID: 1600410650}
   allButtons: []
   BackgroundMusic: {fileID: 2093575822}
@@ -46726,6 +46739,7 @@ MonoBehaviour:
   position: 0
   lightColor: {r: 0, g: 1, b: 1, a: 1}
   material: {fileID: 2100000, guid: 7b0aec89dac1a3c458423b46f98ac5a6, type: 2}
+  currentState: 0
 --- !u!54 &3006688202758079173
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -46796,6 +46810,7 @@ MonoBehaviour:
   position: 0
   lightColor: {r: 1, g: 1, b: 0, a: 1}
   material: {fileID: 2100000, guid: 7b5567e6d372c8f4da3487697a5bd526, type: 2}
+  currentState: 0
 --- !u!114 &3006688202768404910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46878,6 +46893,7 @@ MonoBehaviour:
   position: 0
   lightColor: {r: 0.1882353, g: 0.09803922, b: 0.20392157, a: 1}
   material: {fileID: 2100000, guid: af740b46f49a7a74bb867cd35a7ab9b1, type: 2}
+  currentState: 0
 --- !u!54 &3006688202935718741
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -46963,6 +46979,7 @@ MonoBehaviour:
   position: 0
   lightColor: {r: 0.1882353, g: 0.09803922, b: 0.20392157, a: 1}
   material: {fileID: 2100000, guid: bbb1d352a01c7c544a27d50ca3a324cc, type: 2}
+  currentState: 0
 --- !u!114 &3006688202973836705
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47133,6 +47150,7 @@ MonoBehaviour:
   position: 0
   lightColor: {r: 0.19607843, g: 0.8039216, b: 0.19607843, a: 1}
   material: {fileID: 2100000, guid: 08f3a68751f4ff94cb4d69c483598e44, type: 2}
+  currentState: 0
 --- !u!54 &3006688203148929195
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -47247,6 +47265,7 @@ MonoBehaviour:
   position: 0
   lightColor: {r: 1, g: 0, b: 0, a: 1}
   material: {fileID: 2100000, guid: 7d4a588aecf9d6e4a9e9d5506bbcb027, type: 2}
+  currentState: 0
 --- !u!114 &3006688203316442146
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47330,6 +47349,7 @@ MonoBehaviour:
   position: 0
   lightColor: {r: 0, g: 1, b: 1, a: 1}
   material: {fileID: 2100000, guid: 4fb36b0b4a2ab4644a33a5ca34bba2e1, type: 2}
+  currentState: 0
 --- !u!114 &3006688203338434038
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47384,6 +47404,7 @@ MonoBehaviour:
   position: 0
   lightColor: {r: 1, g: 0.64705884, b: 0, a: 1}
   material: {fileID: 2100000, guid: 8d5c0be2a9ff6134690f5514fe2e7bc9, type: 2}
+  currentState: 0
 --- !u!114 &3006688203380442562
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47526,6 +47547,7 @@ MonoBehaviour:
   position: 0
   lightColor: {r: 1, g: 1, b: 0, a: 1}
   material: {fileID: 2100000, guid: 30f3c9a808062e24c896fca6c27aa17d, type: 2}
+  currentState: 0
 --- !u!114 &3006688203453724390
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47639,6 +47661,7 @@ MonoBehaviour:
   position: 0
   lightColor: {r: 1, g: 0, b: 1, a: 1}
   material: {fileID: 2100000, guid: 380519754dafad34597afa3c0f760401, type: 2}
+  currentState: 0
 --- !u!114 &3006688203578005556
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47662,6 +47685,7 @@ MonoBehaviour:
   position: 0
   lightColor: {r: 0, g: 1, b: 1, a: 1}
   material: {fileID: 2100000, guid: ddf6800a5e852f24eaebe565d45cde62, type: 2}
+  currentState: 0
 --- !u!54 &3006688203578005557
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -47835,6 +47859,7 @@ MonoBehaviour:
   position: 0
   lightColor: {r: 1, g: 0, b: 0, a: 1}
   material: {fileID: 2100000, guid: 17c3493fd522acd4a87ee3fd44fa3ee9, type: 2}
+  currentState: 0
 --- !u!114 &3006688203871593585
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47962,6 +47987,7 @@ MonoBehaviour:
   position: 0
   lightColor: {r: 1, g: 0, b: 1, a: 1}
   material: {fileID: 2100000, guid: 200bbcd10be3a8b4ea22ade9558175c0, type: 2}
+  currentState: 0
 --- !u!114 &3006688204061019966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48000,6 +48026,7 @@ MonoBehaviour:
   position: 0
   lightColor: {r: 0.1882353, g: 0.09803922, b: 0.20392157, a: 1}
   material: {fileID: 2100000, guid: e65b75312c3240641aa6b2b0dc2496ea, type: 2}
+  currentState: 0
 --- !u!54 &3006688204185404037
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -48158,6 +48185,7 @@ MonoBehaviour:
   position: 0
   lightColor: {r: 1, g: 0, b: 0, a: 1}
   material: {fileID: 2100000, guid: 3a15f706e9932b846977eb3cda5a7b86, type: 2}
+  currentState: 0
 --- !u!114 &3006688204561671270
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48255,6 +48283,7 @@ MonoBehaviour:
   position: 0
   lightColor: {r: 1, g: 0.64705884, b: 0, a: 1}
   material: {fileID: 2100000, guid: d841369289a81de489325598db070b91, type: 2}
+  currentState: 0
 --- !u!54 &3006688204728907435
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -48310,6 +48339,7 @@ MonoBehaviour:
   position: 0
   lightColor: {r: 0.19607843, g: 0.8039216, b: 0.19607843, a: 1}
   material: {fileID: 2100000, guid: 2e8082f8ae3c67e4da30383192bbbca5, type: 2}
+  currentState: 0
 --- !u!114 &3006688204831661810
 MonoBehaviour:
   m_ObjectHideFlags: 0

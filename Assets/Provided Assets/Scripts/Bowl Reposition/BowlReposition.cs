@@ -73,14 +73,14 @@ public class BowlReposition : MonoBehaviour
         for (int i = 0; i < materialArray.Length; i++)
         {
             int index = Inventory.bowlsManager.activeBowlsIndexes[i];
-            if(index > 0)
+            if(index >= 0)
             Inventory.allBowls[Inventory.bowlsManager.activeBowlsIndexes[i]].GetComponent<Renderer>().material = materialArray[i];
         }
         GameManager.Instance.state = GameManager.State.Normal;
+        AllRefs.I.settingMenu.ManageFooter(false);
         GameManager.Instance.FooterText.gameObject.SetActive(true);
         GameManager.Instance.Footer.gameObject.SetActive(false);
         SelectedBowl = SelectedBowl2 = null;
-
     }
 
 
@@ -95,9 +95,6 @@ public class BowlReposition : MonoBehaviour
         SelectedBowl2.transform.GetChild(0).gameObject.GetComponent<Light>().intensity = 50;
         SelectedBowl2.GetComponent<Renderer>().material = OriginalMaterial;
 
-
-
-        
         if (SelectedBowl && SelectedBowl2)
         {
             Invoke("Reposition", 0.10f);
@@ -105,9 +102,7 @@ public class BowlReposition : MonoBehaviour
     }
     public float BowlPanning(GameObject BowlRequire,float value)
     {
-        
         return BowlRequire.GetComponent<AudioSource>().panStereo;
-    
     }
     public void SelectBowls(GameObject SelectaBowl)
     {
@@ -117,7 +112,6 @@ public class BowlReposition : MonoBehaviour
         SelectedBowl.transform.GetChild(0).gameObject.SetActive(true);
         SelectedBowl.transform.GetChild(0).gameObject.GetComponent<Light>().intensity = 50;
         SelectedBowl.GetComponent<Renderer>().material = OriginalMaterial;
-
     }
     [SerializeField]float[] panningArray;
     [SerializeField] float val1,val2;
@@ -147,8 +141,8 @@ public class BowlReposition : MonoBehaviour
         SelectedBowl.GetComponent<AudioSource>().panStereo = val1;
         Selectable = true;
         
-        GameManager.Instance.SelectModeNormal();
          ResetFuntion();
+        GameManager.Instance.SelectModeNormal();
     }
     [SerializeField] private Material SubsituteMaterial;
     [SerializeField] private Material OriginalMaterial;

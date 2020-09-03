@@ -10,7 +10,14 @@ public class PlayerPreferencesManager
     {
         PlayerPrefs.SetString(sessionName, value);
     }
+    public static void GetBowlPurchaseState()
+    {
 
+    }
+    public static  void SetBowlPurchaseState()
+    {
+
+    }
     public static string GetSession(string sessionName, string defaultSession)
     {
         return PlayerPrefs.GetString(sessionName, defaultSession);

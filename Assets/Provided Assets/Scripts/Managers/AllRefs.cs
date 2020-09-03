@@ -18,6 +18,7 @@ public class AllRefs : MonoBehaviour
     public LibraryMenuEventListener libraryMenu;
     public RecordingMenuEventListener recordingMenu;
     public HeaderHandler headerHandler;
+    public SettingsMenuEventListener settingMenu;
 
     [Header("Objects")]
     public GameObject itemContainer;

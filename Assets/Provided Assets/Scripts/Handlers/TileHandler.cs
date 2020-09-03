@@ -10,6 +10,7 @@ public class TileHandler : MonoBehaviour
     public Text set;
     public Image bg;
     public int Index;
+    public ShopProductNames MyName;
 
     private void Awake()
     {
