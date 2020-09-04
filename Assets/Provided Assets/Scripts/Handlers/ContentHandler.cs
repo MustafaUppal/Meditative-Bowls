@@ -2,46 +2,83 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Michsky.UI.ModernUIPack;
+using static UnityEngine.UI.Dropdown;
 
 public class ContentHandler : MonoBehaviour
 {
     public GameObject tilePrefab;
+    public Dropdown categoryDropdown;
+    public Dictionary<int, TileHandler> activeTiles = new Dictionary<int, TileHandler>();
 
     public InventoryManager Inventory => InventoryManager.Instance;
+    TileHandler currentTile;
 
-    public void Init(int currentState)
+    public void SetDropdown(int currentState)
     {
-        int tilesCount = 0;
-        
-        for (int i = 0; i < transform.childCount; i++, tilesCount++)
-        {
-            if (i < Inventory.GetItemCount(currentState))
-            {
-                Item item = Inventory.GetItem(currentState, i);
+        categoryDropdown.ClearOptions();
 
-                transform.GetChild(i).GetComponent<TileHandler>().SetTile(item.image, item.name, item.Index);
-                transform.GetChild(i).gameObject.SetActive(true);
-            }
-            else
-            {
-                if(!transform.GetChild(i).gameObject.activeInHierarchy)
-                    break;
-                transform.GetChild(i).gameObject.SetActive(false);
-            }
+        Dictionary<int, bool> categories = new Dictionary<int, bool>();
+        List<OptionData> categoryOptions = new List<OptionData>();
 
-        }
-
-        for (int i = tilesCount; i < Inventory.GetItemCount(currentState); i++)
+        for (int i = 0; i < Inventory.GetItemCount(currentState); i++)
         {
             Item item = Inventory.GetItem(currentState, i);
-            Instantiate(tilePrefab, transform).transform.GetChild(i).GetComponent<TileHandler>().SetTile(item.image, item.name, item.set);
-            transform.GetChild(i).GetComponent<Button>().onClick.AddListener( delegate { AllRefs.I.shopMenu.OnClickItemButton(i); });
+
+            if (!categories.ContainsKey(item.set))
+            {
+                categories.Add(item.set, true);
+                categoryOptions.Add(new OptionData { text = item.setName });
+                Debug.Log("item.set:" + item.set);
+            }
         }
+
+        SetItems(currentState, 1);
+        categoryDropdown.AddOptions(categoryOptions);
     }
+
+
+    public int SetItems(int currentState, int setNumber)
+    {
+        activeTiles.Clear();
+        int tilesCount = 0;
+        int firstIndex = -1;
+
+        for (int i = 0; i < Inventory.GetItemCount(currentState); i++)
+        {
+            Item item = Inventory.GetItem(currentState, i);
+            
+            if(tilesCount < transform.childCount)
+            {
+                if(item.set.Equals(setNumber))
+                {
+                    Debug.Log("item.Name:" + item.name);
+                    Debug.Log("item.Index: " + item.Index);
+                    currentTile = transform.GetChild(tilesCount).GetComponent<TileHandler>(); 
+                    currentTile.SetTile(item.image, item.name, item.Index);
+                    currentTile.Highlight = false;
+
+                    activeTiles.Add(item.Index, currentTile);
+                    transform.GetChild(tilesCount).gameObject.SetActive(true);
+                    tilesCount++;
+                    if(firstIndex.Equals(-1)) firstIndex = item.Index;
+                }
+            }
+        }
+        
+        for(int i = tilesCount; i < transform.childCount; i++)
+        {
+            transform.GetChild(i).gameObject.SetActive(false);
+        }
+
+        return firstIndex;
+    }
+
 
     public TileHandler GetTile(int index)
     {
-        return transform.GetChild(index).GetComponent<TileHandler>();
+        Debug.Log("Index: " + index);
+        return activeTiles[index];
     }
 }
 

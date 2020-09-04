@@ -44,13 +44,11 @@ namespace SerializeableClasses
         public RawImage bowl;
         public GameObject resetButton;
 
-        public void ActivateImage(int index)
+        public void EnableImage(int index, bool enable = true)
         {
-
-            carpet.gameObject.SetActive(index.Equals(0));
-            bowl.gameObject.SetActive(index.Equals(1));
-            thumbnail.gameObject.SetActive(index.Equals(2));
-
+            carpet.gameObject.SetActive(index.Equals(0) ? enable: false);
+            bowl.gameObject.SetActive(index.Equals(1) ? enable: false);
+            thumbnail.gameObject.SetActive(index.Equals(2) ? enable: false);
         }
     }
 

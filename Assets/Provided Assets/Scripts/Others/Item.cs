@@ -15,7 +15,18 @@ public class Item : MonoBehaviour
     public new string name;
     public string setName;
     public int set;
-    public int Index;
+    public int index = -1;
+
+    public int Index
+    {
+        get
+        {
+            if(index == -1)
+                index = int.Parse(gameObject.name.Split('(')[1].Trim(')')) - 1;
+
+            return index;
+        }
+    }
     
     public float price;
     public Sprite image;

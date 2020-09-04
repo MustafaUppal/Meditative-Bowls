@@ -44,7 +44,7 @@ public class PopupManager : MonoBehaviour
 
     public void OnClickPopup1Cancel()
     {
-        cancelAtion();
+        if(cancelAtion != null)cancelAtion();
         Hide();
     }
 

@@ -71,15 +71,14 @@ public class ShopMenuEventListener : MonoBehaviour
         }
 
         // Activating image
-        selectedItem.ActivateImage((int)currentState);
+        selectedItem.EnableImage((int)currentState);
 
         //Setting tiles
-        content.Init((int)currentState);
+        content.SetDropdown((int)currentState);
         OnClickItemButton(0); // select first tile in the start
     }
     #region IAP
-    private void InitializeResultCallback(IAPOperationStatus status, string message, List<StoreProduct>
-shopProducts)
+    private void InitializeResultCallback(IAPOperationStatus status, string message, List<StoreProduct> shopProducts)
     {
 
         if (status == IAPOperationStatus.Success)
@@ -148,8 +147,7 @@ shopProducts)
 
     }
     public ShopProductNames ProductName;
-    private void ProductBoughtCallback(IAPOperationStatus status, string message, StoreProduct
-    product)
+    private void ProductBoughtCallback(IAPOperationStatus status, string message, StoreProduct product)
     {
         if (status == IAPOperationStatus.Success)
         {
@@ -205,7 +203,7 @@ shopProducts)
         selectedItem.prevIndex = selectedItem.index;
         selectedItem.index = index;
 
-        content.GetTile(selectedItem.prevIndex).Highlight = false;
+        try{content.GetTile(selectedItem.prevIndex).Highlight = false;}catch(System.Exception e){};
         content.GetTile(selectedItem.index).Highlight = true;
 
         Item item = Inventory.GetItem((int)currentState, index);
@@ -251,6 +249,20 @@ shopProducts)
     public void OnClickCloseBowlsPlacementButton()
     {
         bowlPlacementSettings.Enable = false;
+    }
+
+    public void OnSetSelected(System.Int32 index)
+    {
+        OnClickItemButton(content.SetItems((int)currentState, index + 1));
+    }
+
+    bool imageView;
+    public void OnClickChangeViewButton()
+    {
+        imageView = !imageView;
+
+        selectedItem.EnableImage((int)currentState, !imageView);
+        selectedItem.image.transform.parent.gameObject.SetActive(imageView);
     }
 
     void DistinctFunctionality()

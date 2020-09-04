@@ -442,7 +442,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Meditative bowls
+  m_Text: Himalayan Bowls
 --- !u!222 &846552032
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1096,7 +1096,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -162.3, y: 0}
+  m_AnchoredPosition: {x: -162.2998, y: 0}
   m_SizeDelta: {x: 455.21423, y: -233.33334}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2115206136

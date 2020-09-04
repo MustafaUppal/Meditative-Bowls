@@ -10,10 +10,12 @@ public class Bowl : Item
     public Material material;
     AudioSource audioSource;
     public Item.State currentState;
+
+
+
+
     private void Awake()
     {
-        Index = int.Parse(gameObject.name.Split('(')[1].Trim(')')) - 1;
-
         audioSource = GetComponent<AudioSource>();
         transform.GetChild(0).GetComponent<Light>().color = lightColor;
     }

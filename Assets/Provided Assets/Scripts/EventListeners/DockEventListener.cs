@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class DockEventListener : MonoBehaviour
 {
     public new Animator camera;
-    public bool isCameraFar;
+    public int cameraPosition;
     public class ButtonsData
     {
         public bool replayBG = true;
@@ -32,9 +32,10 @@ public class DockEventListener : MonoBehaviour
 
     public void OnClickChangeCameraAngleButton()
     {
-        isCameraFar = !isCameraFar;
+        cameraPosition++;
+        if(cameraPosition > 3) cameraPosition = 0;
         // GameManager.Instance.OnclickBgMusicButton();
-        camera.SetInteger("State", isCameraFar ? 1 : 0);
+        camera.SetInteger("State", cameraPosition);
     }
     
 
