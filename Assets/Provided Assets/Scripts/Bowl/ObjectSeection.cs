@@ -24,7 +24,7 @@ public class ObjectSeection : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.Instance.state == GameManager.State.Normal  || GameManager.Instance.state == GameManager.State.Sound  && !(MenuManager.Instance.currentState == MenuManager.MenuStates.Shop))
+        if (GameManager.Instance.state == GameManager.State.Normal  || GameManager.Instance.state == GameManager.State.Sound  && (MenuManager.Instance.currentState == MenuManager.MenuStates.Main|| MenuManager.Instance.currentState == MenuManager.MenuStates.Settings|| MenuManager.Instance.currentState == MenuManager.MenuStates.Recording&& !(MenuManager.Instance.currentState == MenuManager.MenuStates.Library)))
         {   
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);

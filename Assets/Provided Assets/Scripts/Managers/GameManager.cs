@@ -45,7 +45,9 @@ public class GameManager : MonoBehaviour
         Remove,
         Sound,
         Alarm,
-        Randomization
+        Randomization,
+        SavingSession,
+        Libarary
     }
     public InventoryManager Inventory => InventoryManager.Instance;
 
@@ -89,8 +91,6 @@ public class GameManager : MonoBehaviour
             case State.Randomization:
 
                 int RandomBowlIndex = UnityEngine.Random.Range(0, Inventory.bowlsManager.activeBowlsIndexes.Length);
-
-
                 time += Time.deltaTime;
                 if (time >= givenTime)
                 {
@@ -100,6 +100,7 @@ public class GameManager : MonoBehaviour
                     }
 
                 }
+
                 break;
 
         }
@@ -168,7 +169,7 @@ public class GameManager : MonoBehaviour
                 if (hit.transform.CompareTag("Bowl"))
                 {
                     SelectedSoundBowl = hit.transform.gameObject;
-                   // SoundChangerIndicatorText.text = SelectedSoundBowl.name + " (" + SelectedSoundBowl.GetComponent<Bowl>().setName + ") ";
+                    SoundChangerIndicatorText.text = SelectedSoundBowl.name + " (" + SelectedSoundBowl.GetComponent<Bowl>().setName + ") ";
 
                 }
 

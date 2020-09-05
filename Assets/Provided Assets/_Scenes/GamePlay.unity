@@ -48460,7 +48460,7 @@ MonoBehaviour:
   allButtons: []
   BackgroundMusic: {fileID: 2093575822}
   SelectedSoundBowl: {fileID: 0}
-  SoundChangerIndicatorText: {fileID: 0}
+  SoundChangerIndicatorText: {fileID: 1220077099}
   DefaultFooterText: 
   state: 0
   time: 0

@@ -13,7 +13,8 @@ public class MenuManager : MonoBehaviour
         Shop,
         Alram,
         Recording,
-        Settings
+        Settings,
+        SavingSession
     }
 
     public static MenuManager Instance;
@@ -45,7 +46,7 @@ public class MenuManager : MonoBehaviour
 
         SceneManager.Instance.prevState = prevState;
         SceneManager.Instance.currentState = currentState;
-
+        
         if (!prevState.Equals(MenuStates.Shop))
             AllPanels[(int)prevState].SetActive(false);
         else if(!SceneManager.Instance.IsSceneLoaded(1))
@@ -61,6 +62,21 @@ public class MenuManager : MonoBehaviour
             print("Pakistan");
             AllRefs.I.settingMenu.ManageFooter(false);
             AllRefs.I.settingMenu.OnClickBackButton();
+        }
+        if (currentState.Equals(MenuStates.Library))
+        {
+            GameManager.Instance.state = GameManager.State.Libarary;
+        }
+        if (currentState.Equals(MenuStates.Main))
+        {
+            try
+            {
+                GameManager.Instance.SelectModeNormal();
+            }
+            catch
+            {
+
+            }
         }
         ApplyChanges();
         AllRefs.I.headerHandler.SelectButton();

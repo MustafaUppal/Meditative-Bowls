@@ -40,6 +40,7 @@ public class PopupManager : MonoBehaviour
     public void OnClickPopup1Save()
     {
         method(popup.GetName());
+
     }
 
     public void OnClickPopup1Cancel()
