@@ -5,14 +5,17 @@ using UnityEngine;
 using UnityEngine.UI;
 public class MainMenuEventListener : MonoBehaviour
 {
-    public bool playingMode;
-    public bool slideShowMode;
+    [Header("References")]
+    public MainMenuModes modes;
     public Animator dock;
-
-    public SlideShowHandler slideShow;
-    public RecordingFooter recordingFooter;
-    
+    public Button slideShowButton;
     public Text Footertext;
+
+    [Header("Handlers")]
+    public SlideShowHandler slideShow;
+    public BowlsPlacementHandler bowlsPlacement;
+    public RecordingFooter recordingFooter;
+
     private void OnEnable()
     {
         DockEventListener.ButtonsData data = new DockEventListener.ButtonsData { };
@@ -20,14 +23,15 @@ public class MainMenuEventListener : MonoBehaviour
         AllRefs.I.dock.ManageButtons(data);
 
         ManageDock(true);
-        
+
+        slideShowButton.interactable = PlayerPreferencesManager.GetSlideShowPurchedState(false);
     }
 
     public void ManageFooter(bool val)
     {
-        playingMode = val;
-        Footertext.gameObject.SetActive(!playingMode);
-        recordingFooter.root.SetActive(playingMode);
+        modes.playingRecording = val;
+        Footertext.gameObject.SetActive(!modes.playingRecording);
+        recordingFooter.root.SetActive(modes.playingRecording);
     }
 
     public void ManageDock(bool enable)
@@ -77,7 +81,19 @@ public class MainMenuEventListener : MonoBehaviour
 
     public void OnClickStartSlideShowButton()
     {
-        slideShowMode = !slideShowMode;
-        slideShow.StartSlideShow(slideShowMode);
+        if(modes.placeBowls)
+            return;
+
+        modes.slideShow = !modes.slideShow;
+        slideShow.StartSlideShow(modes.slideShow);
+    }
+
+    public void OnClickPlaceBowlsButton()
+    {
+        if(modes.slideShow)
+            return;
+            
+        modes.placeBowls = !modes.placeBowls;
+        bowlsPlacement.Enable(modes.placeBowls);
     }
 }

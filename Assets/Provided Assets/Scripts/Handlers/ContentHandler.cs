@@ -14,7 +14,7 @@ public class ContentHandler : MonoBehaviour
     public InventoryManager Inventory => InventoryManager.Instance;
     TileHandler currentTile;
 
-    public void SetDropdown(int currentState)
+    public void SetDropdown(int currentState, int setNumber = 1)
     {
         categoryDropdown.ClearOptions();
 
@@ -33,7 +33,7 @@ public class ContentHandler : MonoBehaviour
             }
         }
 
-        SetItems(currentState, 1);
+        SetItems(currentState, setNumber);
         categoryDropdown.AddOptions(categoryOptions);
     }
 
@@ -43,6 +43,12 @@ public class ContentHandler : MonoBehaviour
         activeTiles.Clear();
         int tilesCount = 0;
         int firstIndex = -1;
+
+        Dictionary<int, int> loadedBowls = new Dictionary<int, int>();
+        for(int i = 0; i < Inventory.bowlsManager.activeBowlsIndexes.Length; i++)
+        {
+            loadedBowls.Add(Inventory.bowlsManager.activeBowlsIndexes[i], i);
+        }
 
         for (int i = 0; i < Inventory.GetItemCount(currentState); i++)
         {
@@ -57,6 +63,7 @@ public class ContentHandler : MonoBehaviour
                     currentTile = transform.GetChild(tilesCount).GetComponent<TileHandler>(); 
                     currentTile.SetTile(item.image, item.name, item.Index);
                     currentTile.Highlight = false;
+                    currentTile.IsLoaded = loadedBowls.ContainsKey(item.Index);
 
                     activeTiles.Add(item.Index, currentTile);
                     transform.GetChild(tilesCount).gameObject.SetActive(true);
@@ -72,6 +79,47 @@ public class ContentHandler : MonoBehaviour
         }
 
         return firstIndex;
+    }
+
+    public void SetPurchasedBowls()
+    {
+        activeTiles.Clear();
+        int tilesCount = 0;
+        int firstIndex = -1;
+
+        Dictionary<int, int> loadedBowls = new Dictionary<int, int>();
+        for(int i = 0; i < Inventory.bowlsManager.activeBowlsIndexes.Length; i++)
+        {
+            loadedBowls.Add(Inventory.bowlsManager.activeBowlsIndexes[i], i);
+        }
+
+        for (int i = 0; i < Inventory.GetItemCount(1); i++)
+        {
+            Item item = Inventory.GetItem(1, i);
+            
+            if(tilesCount < transform.childCount)
+            {
+                if(!item.CurrentState.Equals(Item.State.Locked))
+                {
+                    // Debug.Log("item.Name:" + item.name);
+                    // Debug.Log("item.Index: " + item.Index);
+                    currentTile = transform.GetChild(tilesCount).GetComponent<TileHandler>(); 
+                    currentTile.SetTile(item.image, item.name + " (" + item.setName + ")", item.Index);
+                    currentTile.Highlight = false;
+                    currentTile.IsLoaded = loadedBowls.ContainsKey(item.Index);
+
+                    activeTiles.Add(item.Index, currentTile);
+                    transform.GetChild(tilesCount).gameObject.SetActive(true);
+                    tilesCount++;
+                    if(firstIndex.Equals(-1)) firstIndex = item.Index;
+                }
+            }
+        }
+        
+        for(int i = tilesCount; i < transform.childCount; i++)
+        {
+            transform.GetChild(i).gameObject.SetActive(false);
+        }
     }
 
 

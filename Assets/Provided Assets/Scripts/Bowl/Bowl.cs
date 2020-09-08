@@ -8,7 +8,7 @@ public class Bowl : Item
     public int position;
     public Color lightColor;
     public Material material;
-    AudioSource audioSource;
+    public AudioSource audioSource;
     public Item.State currentState;
 
 

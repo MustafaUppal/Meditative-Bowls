@@ -68,11 +68,11 @@ public class GameManager : MonoBehaviour
                 break;
             case State.RepositionState:
                 VolumeChanger();
-                if (SelectedSoundBowl)
-                {
-                    VolumeSlider.onValueChanged.AddListener(delegate { VolumeChange(VolumeSlider.value); });
-                    PanningSlider.onValueChanged.AddListener(delegate { PanningSliderChange(PanningSlider.value); });
-                }
+                // if (SelectedSoundBowl)
+                // {
+                //     VolumeSlider.onValueChanged.AddListener(delegate { VolumeChange(VolumeSlider.value); });
+                //     PanningSlider.onValueChanged.AddListener(delegate { PanningSliderChange(PanningSlider.value); });
+                // }
 
                 break;
             case State.RecordingMode:
@@ -124,13 +124,13 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void PanningSliderChange(float SliderValue)
+    public void PanningSliderChange(Single SliderValue)
     {
         SelectedSoundBowl.GetComponent<AudioSource>().spatialBlend = 0;
         SelectedSoundBowl.GetComponent<AudioSource>().panStereo = SliderValue;
 
     }
-    void VolumeChange(float Value)
+    public void VolumeChange(Single Value)
     {
         SelectedSoundBowl.GetComponent<AudioSource>().volume = Value;
     }

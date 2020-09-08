@@ -68,7 +68,7 @@ public class InventoryManager : MonoBehaviour
         InitScene(isGameplayScene);
     }
 
-    private void InitScene(bool isGameplayScene)
+    public void InitScene(bool isGameplayScene)
     {
         if (isGameplayScene)
         {

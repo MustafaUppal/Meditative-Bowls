@@ -28,7 +28,7 @@ public class RotatingPaningTest : MonoBehaviour
         {
             if (!isChanged)
             {
-                AllRefs.I.shopMenu.selectedItem.resetButton.SetActive(true);
+                AllRefs.I.shopMenu.selectedItem.EnableResetButton(true);
                 isChanged = true;
             }
             camera.transform.RotateAround(transform.position, new Vector3(-Input.GetAxis("Mouse Y"), Input.GetAxis("Mouse X"), 0), Time.deltaTime * rotationSpeed);
@@ -44,7 +44,7 @@ public class RotatingPaningTest : MonoBehaviour
     public void Reset()
     {
         isChanged = false;
-        AllRefs.I.shopMenu.selectedItem.resetButton.SetActive(false);
+        AllRefs.I.shopMenu.selectedItem.EnableResetButton(false);
         camera.fieldOfView = idleFieldOfView;
         camera.transform.position = idleTransform.position;
         camera.transform.rotation = idleTransform.rotation;
@@ -85,7 +85,7 @@ public class RotatingPaningTest : MonoBehaviour
 
                 if (!isChanged)
                 {
-                    AllRefs.I.shopMenu.selectedItem.resetButton.SetActive(true);
+                    AllRefs.I.shopMenu.selectedItem.EnableResetButton(true);
                     isChanged = true;
                 }
             }
