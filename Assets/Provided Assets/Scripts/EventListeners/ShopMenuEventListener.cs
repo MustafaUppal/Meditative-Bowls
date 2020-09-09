@@ -32,7 +32,6 @@ public class ShopMenuEventListener : MonoBehaviour
     public Vector2 t1Position;
     public Vector2 t2Position;
     public Camera mainCamera;
-    public AudioHandler audioHandler;
 
     [Space]
     public float rotationSpeed;
@@ -172,8 +171,8 @@ public class ShopMenuEventListener : MonoBehaviour
     public void OnClickBackButton()
     {
         MenuManager.Instance.ChangeState(MenuManager.MenuStates.Main);
-        if (GameManager.Instance)
-            GameManager.Instance.state = GameManager.State.Normal;
+        if (AllRefs.I._GameManager)
+            AllRefs.I._GameManager.state = GameManager.State.Normal;
     }
 
     public void OnClickCarpetButton()
@@ -230,13 +229,12 @@ public class ShopMenuEventListener : MonoBehaviour
     {
         for (int i = 0; i < activeBowls.Length; i++)
         {
-            if (activeBowls[i] != -1 && activeBowls[i].Equals(activeBowls[index]))
+            if (activeBowls[i].Equals(selectedItem.index))
             {
                 Inventory.allBowls[activeBowls[i]].CurrentState = Item.State.Purchased;
-                break;
-                // OnClickItemButton(activeBowls[i]);
-                // activeBowls[i] = -1;
-                // bowlPlacementSettings.SetText(i);
+                OnClickItemButton(activeBowls[i]);
+                activeBowls[i] = -1;
+                bowlPlacementSettings.SetText(i);
             }
         }
 
@@ -246,8 +244,6 @@ public class ShopMenuEventListener : MonoBehaviour
         bowlPlacementSettings.SetText(index);
 
         bowlPlacementSettings.Enable = false;
-
-        content.SetDropdown((int)currentState, Inventory.allBowls[activeBowls[index]].set);
     }
 
     public void OnClickCloseBowlsPlacementButton()
@@ -258,53 +254,26 @@ public class ShopMenuEventListener : MonoBehaviour
     public void OnSetSelected(System.Int32 index)
     {
         OnClickItemButton(content.SetItems((int)currentState, index + 1));
-        ChangeSoundPlay(false);
     }
 
     bool imageView;
     public void OnClickChangeViewButton()
     {
         imageView = !imageView;
-        ChangeView(imageView);
+
+        selectedItem.EnableImage((int)currentState, !imageView);
+        selectedItem.image.transform.parent.gameObject.SetActive(imageView);
     }
-
-    bool isSoundPlaying;
-    public void OnClickPlaySound()
-    {
-        isSoundPlaying = !isSoundPlaying;
-
-        int time = Inventory.allBowls[selectedItem.index].CurrentState == Item.State.Locked ? 3 : -1;
-        AudioClip clip = Inventory.allBowls[selectedItem.index].audioSource.clip;
-
-        selectedItem.SetPlaySprite(isSoundPlaying);
-        audioHandler.Play(isSoundPlaying, clip, time);
-    }
-
-
 
     void DistinctFunctionality()
     {
         switch ((int)currentState)
         {
             case 0: // Carpets
-                ChangeView(false);
-
-                selectedItem.EnableSwitchButton(true);
-                selectedItem.playSoundButton.SetActive(false);
                 break;
             case 1: // Bowls
-                ChangeView(false);
-
-                selectedItem.EnableSwitchButton(true);
-                selectedItem.playSoundButton.SetActive(true);
-
-                ChangeSoundPlay(false);
                 break;
             case 2: // Musics
-                ChangeView(true);
-
-                selectedItem.EnableSwitchButton(false);
-                selectedItem.playSoundButton.SetActive(false);
                 break;
         }
     }
@@ -313,7 +282,7 @@ public class ShopMenuEventListener : MonoBehaviour
 
     public void OnClickLoadItem()
     {
-        // GameManager.Instance.FooterText.text = "Place The Bowl to yor desire location";
+        // AllRefs.I._GameManager.FooterText.text = "Place The Bowl to yor desire location";
 
         switch (currentState)
         {
@@ -333,7 +302,7 @@ public class ShopMenuEventListener : MonoBehaviour
             case ShopStates.BG_Musics:
                 if (Inventory.allMusics[selectedItem.index].CurrentState == Item.State.Purchased)
                 {
-
+                   
                 }
 
                 break;
@@ -348,20 +317,5 @@ public class ShopMenuEventListener : MonoBehaviour
                 }
                 break;
         }
-    }
-
-    void ChangeView(bool imageView)
-    {
-        this.imageView = imageView;
-        selectedItem.EnableImage((int)currentState, !imageView);
-        selectedItem.image.transform.parent.gameObject.SetActive(imageView);
-    }
-
-    void ChangeSoundPlay(bool isSoundPlaying)
-    {
-        this.isSoundPlaying = isSoundPlaying;
-        
-        selectedItem.SetPlaySprite(isSoundPlaying);
-        audioHandler.Play(isSoundPlaying);
     }
 }

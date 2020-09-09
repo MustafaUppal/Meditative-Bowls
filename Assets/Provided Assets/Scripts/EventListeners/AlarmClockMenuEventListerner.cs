@@ -9,7 +9,7 @@ using UnityEngine.Tilemaps;
 
 public class AlarmClockMenuEventListerner : MonoBehaviour
 {
-    int Hour, Min, Sec;
+    int Hou, Mi, Se;
     public InputField Hours, Mins, Second;
     public Button Okbutton;
     bool isintractable;
@@ -38,7 +38,7 @@ public class AlarmClockMenuEventListerner : MonoBehaviour
     public void ShowingTile(string TimeofAlarm, bool State, int HourtoUpdate, int MinToUpdate, int SecondToUpdate)
     {
         GameObject game = Instantiate(Tiles, NotificationPoint.transform);
-        Tiles.transform.GetChild(0).gameObject.GetComponent<Text>().text = TimeofAlarm;
+        Tiles.transform.GetChild(0).gameObject.GetComponent<Text>().text = (Hours.text)+":"+(Mins.text)+":"+(Second.text);
         // Set Alarm lists
         AlarmList.Add(TimeofAlarm);
         StatusOfAlarms.Add(State);
@@ -47,6 +47,7 @@ public class AlarmClockMenuEventListerner : MonoBehaviour
         SecList.Add(HourtoUpdate);
         ButtonState(State, game);
         SaveNotificationList();
+        //game = null;
     }
     public void ButtonState(bool State, GameObject tile)
     {
@@ -55,11 +56,13 @@ public class AlarmClockMenuEventListerner : MonoBehaviour
         if (State)
         {
             tile.transform.GetChild(1).transform.GetChild(0).GetComponent<Text>().text = "On";
-            
+            tile.transform.GetChild(1).GetComponent<Image>().color = Color.green;
         }
         else
         {
             tile.transform.GetChild(1).gameObject.transform.GetChild(0).GetComponent<Text>().text = "Off";
+            tile.transform.GetChild(1).GetComponent<Image>().color = Color.red;
+
         }
 
     }
@@ -75,23 +78,23 @@ public class AlarmClockMenuEventListerner : MonoBehaviour
 
         GleyNotifications.Initialize(false);
 
-        Hour = int.Parse(Hours.text);
-        Min = int.Parse(Mins.text);
-        Sec = int.Parse(Second.text);
+        Hou = int.Parse(Hours.text);
+        Mi = int.Parse(Mins.text);
+        Se = int.Parse(Second.text);
 
-        var ms = new System.TimeSpan(Hour, Min, Sec);
-        // NotificationManager.Instance.GetAllNotifications();
+        var ms = new System.TimeSpan(Hou, Mi, Se);
+        newAlarm = true;
+        NotificationManager.Instance.GetAllNotifications();
 
-        GleyNotifications.SendNotification("MeditativeBowls", "Time To Meditate", new System.TimeSpan(Hour, Min, Sec));
-
-        ShowingTile(Hour + ":" + Min + ":" + Min, true, Hour, Min, Sec);
-
-
+        GleyNotifications.SendNotification("MeditativeBowls", "Time To Meditate", new System.TimeSpan(Hou, Mi, Se));
+        
+        ShowingTile(Hours.text + ":" + Mins.text + ":" + Second.text, true, Hou, Mi, Se);
     }
+    
     public void SaveNotificationList()
     {
         int capacity = AlarmList.Count;
-        print(capacity);
+        PlayerPrefs.SetInt("Capacity", capacity);
 
         for (int i = 0; i < capacity; i++)
         {
@@ -104,29 +107,30 @@ public class AlarmClockMenuEventListerner : MonoBehaviour
             PlayerPrefs.SetInt("SecondList" + i, SecList[i]);
 
             //Saving Channelids
-            PlayerPrefs.SetString("ChaneelIDs" + i, ChannelId[i]);
             //Saving Bool State
             if (StatusOfAlarms[i])
                 PlayerPrefs.SetInt("AlarmStatus" + i, 0);
             else
                 PlayerPrefs.SetInt("AlarmStatus" + i, 1);
+
+            PlayerPrefs.SetString("ChaneelIDs" + i, ChannelId[i]);
         }
         //Saving Al list Capacity
-        PlayerPrefs.SetInt("Capacity", capacity);
     }
 
     public void LoadNotificationList()
     {
-
         int capacity = PlayerPrefs.GetInt("Capacity");
-
+        print(capacity);
         for (int i = 0; i < capacity; i++)
         {
             AlarmList.Add(PlayerPrefs.GetString("AlarmList" + i));
             //iNSTENTIATE Tiles
             GameObject NEWtILE = Instantiate(Tiles, NotificationPoint.transform);
+           
             NEWtILE.transform.GetChild(0).GetComponent<Text>().text = AlarmList[i];
             NEWtILE.GetComponent<ButtonStatusChanger>().id = i;
+            
             //Getting Channel id 
             ChannelId.Add(PlayerPrefs.GetString("ChaneelIDs" + i));
             HoursList.Add(PlayerPrefs.GetInt("HourList" + i));
@@ -143,7 +147,7 @@ public class AlarmClockMenuEventListerner : MonoBehaviour
             else
             {
                 StatusOfAlarms.Add(false);
-                NEWtILE.transform.GetChild(1).gameObject.transform.GetChild(0).GetComponent<Text>().text = "OFF";
+                NEWtILE.transform.GetChild(1).gameObject.transform.GetComponent<Text>().text = "OFF";
             }
         }
 
@@ -155,8 +159,8 @@ public class AlarmClockMenuEventListerner : MonoBehaviour
     }
     public void OnClickBackButton()
     {
-        // MenuManager.Instance.ChangeState(MenuManager.MenuStates.Main);
-        GameManager.Instance.state = GameManager.State.Normal;
+        MenuManager.Instance.ChangeState(MenuManager.MenuStates.Main);
+        AllRefs.I._GameManager.state = GameManager.State.Normal;
     }
 
 }

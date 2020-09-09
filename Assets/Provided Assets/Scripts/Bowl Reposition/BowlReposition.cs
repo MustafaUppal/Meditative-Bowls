@@ -33,7 +33,7 @@ public class BowlReposition : MonoBehaviour
     private void Update()
     {
         
-        if (GameManager.Instance.state == GameManager.State.RepositionState)
+        if (AllRefs.I._GameManager.state == GameManager.State.RepositionState)
         {
             RaycastHit hit;
             if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
@@ -76,10 +76,10 @@ public class BowlReposition : MonoBehaviour
             if(index >= 0)
             Inventory.allBowls[Inventory.bowlsManager.activeBowlsIndexes[i]].GetComponent<Renderer>().material = materialArray[i];
         }
-        GameManager.Instance.state = GameManager.State.Normal;
+        AllRefs.I._GameManager.state = GameManager.State.Normal;
         AllRefs.I.settingMenu.ManageFooter(false);
-        GameManager.Instance.FooterText.gameObject.SetActive(true);
-        GameManager.Instance.Footer.gameObject.SetActive(false);
+        AllRefs.I._GameManager.FooterText.gameObject.SetActive(true);
+        AllRefs.I._GameManager.Footer.gameObject.SetActive(false);
         SelectedBowl = SelectedBowl2 = null;
     }
 
@@ -142,7 +142,7 @@ public class BowlReposition : MonoBehaviour
         Selectable = true;
         
          ResetFuntion();
-        GameManager.Instance.SelectModeNormal();
+        AllRefs.I._GameManager.SelectModeNormal();
     }
     [SerializeField] private Material SubsituteMaterial;
     [SerializeField] private Material OriginalMaterial;
@@ -171,10 +171,10 @@ public class BowlReposition : MonoBehaviour
                 materialArray[i] = Inventory.allBowls[bowlIndex].GetComponent<Renderer>().material;
             // Bowl[i] = Inventory.Instance.allBowls[bowlIndex].gameObject;
         }
-        if (GameManager.Instance.state == GameManager.State.RepositionState)
+        if (AllRefs.I._GameManager.state == GameManager.State.RepositionState)
         {
-            GameManager.Instance.FooterText.gameObject.SetActive(false);
-            GameManager.Instance.Footer.gameObject.SetActive(true);
+            AllRefs.I._GameManager.FooterText.gameObject.SetActive(false);
+            AllRefs.I._GameManager.Footer.gameObject.SetActive(true);
         }
     }
 

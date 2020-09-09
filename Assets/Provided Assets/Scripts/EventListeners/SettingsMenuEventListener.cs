@@ -10,7 +10,13 @@ public class SettingsMenuEventListener : MonoBehaviour
     public GameObject FooterPanel;
     //public static SettingsMenuEventListener Instance;
     public BowlEditingSettings bowlEditingSettings;
+    public InputField GivenTimeInputField;
 
+    public void SelectRandomization()
+    {
+        if(GivenTimeInputField.text!=""&& GivenTimeInputField.text != null)
+        AllRefs.I._GameManager.SelectRandomiszation(float.Parse(GivenTimeInputField.text));
+    }
     void MessageSender(string Message)
     {
 
@@ -23,7 +29,7 @@ public class SettingsMenuEventListener : MonoBehaviour
         {
             saveSession = false
         };
-        //GameManager.Instance.VolumeSlider.gameObject.SetActive(false);
+        //AllRefs.I._GameManager.VolumeSlider.gameObject.SetActive(false);
         AllRefs.I.dock.ManageButtons(data);
     }
     private void Start()
@@ -44,27 +50,27 @@ public class SettingsMenuEventListener : MonoBehaviour
         AllRefs.I.settingMenu.ManageFooter(false);
 
         MenuManager.Instance.ChangeState(MenuManager.MenuStates.Main);
-        GameManager.Instance.SelectModeNormal();
-        GameManager.Instance.VolumeSlider.gameObject.SetActive(false);
-        GameManager.Instance.gameObject.GetComponent<BowlReposition>().ResetFuntion();
+        AllRefs.I._GameManager.SelectModeNormal();
+        AllRefs.I._GameManager.VolumeSlider.gameObject.SetActive(false);
+        AllRefs.I._GameManager.gameObject.GetComponent<BowlReposition>().ResetFuntion();
         
         MessageSender("Select an option to for setting up environment");
     }
     public void OnClickRemoveButton()
     {
-        GameManager.Instance.Remove();
+        AllRefs.I._GameManager.Remove();
         Debug.Log("normal");
-        GameManager.Instance.state = GameManager.State.Normal;
-        GameManager.Instance.GetComponent<BowlReposition>().ResetFuntion();
+        AllRefs.I._GameManager.state = GameManager.State.Normal;
+        AllRefs.I._GameManager.GetComponent<BowlReposition>().ResetFuntion();
     }
     public void OnClickStopMusicButton()
     {
-        GameManager.Instance.SoundStop();
+        AllRefs.I._GameManager.SoundStop();
     }
     public void OnClickBackGroundMusic()
     {
 
-        GameManager.Instance.OnclickBgMusicButton(); ;
+        AllRefs.I._GameManager.OnclickBgMusicButton(); ;
 
     }
 }

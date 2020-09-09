@@ -24,7 +24,13 @@ public class ObjectSeection : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.Instance.state == GameManager.State.Normal  || GameManager.Instance.state == GameManager.State.Sound  && (MenuManager.Instance.currentState == MenuManager.MenuStates.Main|| MenuManager.Instance.currentState == MenuManager.MenuStates.Settings|| MenuManager.Instance.currentState == MenuManager.MenuStates.Recording&& !(MenuManager.Instance.currentState == MenuManager.MenuStates.Library)))
+        if (AllRefs.I._GameManager.state == GameManager.State.Normal &&
+            !(MenuManager.Instance.currentState == MenuManager.MenuStates.Alram)
+            || AllRefs.I._GameManager.state == GameManager.State.Sound &&
+            (MenuManager.Instance.currentState == MenuManager.MenuStates.Main ||
+            MenuManager.Instance.currentState == MenuManager.MenuStates.Settings ||
+            MenuManager.Instance.currentState == MenuManager.MenuStates.Recording
+            && !(MenuManager.Instance.currentState == MenuManager.MenuStates.Library)) )
         {   
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -41,7 +47,7 @@ public class ObjectSeection : MonoBehaviour
                         InventoryManager.Instance.bowlsManager.PlaySound(hit.transform);
                     }
                 }
-                if (hit.transform.CompareTag("Bowl") && Input.GetMouseButton(0) && GameManager.Instance.state == GameManager.State.Normal)
+                if (hit.transform.CompareTag("Bowl") && Input.GetMouseButton(0) && AllRefs.I._GameManager.state == GameManager.State.Normal&&MenuManager.Instance.currentState==MenuManager.MenuStates.Settings)
                 {
 
                     Pressing = true;
@@ -50,10 +56,10 @@ public class ObjectSeection : MonoBehaviour
                     if (TimeUserHold >= TimeUserForLongPressState)
                     {
 
-                        GameManager.Instance.SelectModeReposition();
-                        GameManager.Instance.gameObject.GetComponent<BowlReposition>().SelectBowls(hit.transform.gameObject);
-                        GameManager.Instance.PanningSlider.value = hit.transform.GetComponent<AudioSource>().panStereo;
-                        GameManager.Instance.VolumeSlider.value = hit.transform.GetComponent<AudioSource>().volume;
+                        AllRefs.I._GameManager.SelectModeReposition();
+                        AllRefs.I._GameManager.gameObject.GetComponent<BowlReposition>().SelectBowls(hit.transform.gameObject);
+                        AllRefs.I._GameManager.PanningSlider.value = hit.transform.GetComponent<AudioSource>().panStereo;
+                        AllRefs.I._GameManager.VolumeSlider.value = hit.transform.GetComponent<AudioSource>().volume;
                         LongPressState = true;
                         Pressing = false;
                         TimeUserHold = 0;
@@ -62,7 +68,7 @@ public class ObjectSeection : MonoBehaviour
                 }
                 else
                 {
-                    //GameManager.Instance.gameObject.GetComponent<BowlReposition>().SelectedBowl = null;
+                    //AllRefs.I._GameManager.gameObject.GetComponent<BowlReposition>().SelectedBowl = null;
                     LongPressState = false;
                     Pressing = false;
                     TimeUserHold = 0;

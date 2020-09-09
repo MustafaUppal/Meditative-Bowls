@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class LibraryMenuEventListener : MonoBehaviour
 {
-    public GameObject guidelineText;
     public GameObject sessionTile;
     public Transform tilesContainer;
 
@@ -81,7 +80,5 @@ public class LibraryMenuEventListener : MonoBehaviour
         // Refresh content
         transform.GetChild(1).gameObject.SetActive(false);
         transform.GetChild(1).gameObject.SetActive(true);
-
-        guidelineText.SetActive(sessionData.Length <= 0);
     }
 }

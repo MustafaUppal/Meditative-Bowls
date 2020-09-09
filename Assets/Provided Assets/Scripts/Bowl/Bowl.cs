@@ -8,7 +8,7 @@ public class Bowl : Item
     public int position;
     public Color lightColor;
     public Material material;
-    public AudioSource audioSource;
+    AudioSource audioSource;
     public Item.State currentState;
 
 
@@ -27,9 +27,15 @@ public class Bowl : Item
     }
     public void PlaySound()
     {
-        if (!audioSource.isPlaying)
+        if (!audioSource.isPlaying&&!(AllRefs.I._GameManager.state == GameManager.State.Randomization))
         {
             audioSource.Play();
         }
+        else if (!audioSource.isPlaying)
+        {
+            audioSource.Stop();
+            audioSource.Play();
+        }
+
     }
 }

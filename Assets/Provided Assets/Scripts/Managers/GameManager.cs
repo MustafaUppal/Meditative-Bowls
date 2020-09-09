@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
     public float time;
     public float interpolationPeriod;
     public float givenTime;
+    public float givenTime1;
 
     public enum State
     {
@@ -68,11 +69,11 @@ public class GameManager : MonoBehaviour
                 break;
             case State.RepositionState:
                 VolumeChanger();
-                // if (SelectedSoundBowl)
-                // {
-                //     VolumeSlider.onValueChanged.AddListener(delegate { VolumeChange(VolumeSlider.value); });
-                //     PanningSlider.onValueChanged.AddListener(delegate { PanningSliderChange(PanningSlider.value); });
-                // }
+                if (SelectedSoundBowl)
+                {
+                    VolumeSlider.onValueChanged.AddListener(delegate { VolumeChange(VolumeSlider.value); });
+                    PanningSlider.onValueChanged.AddListener(delegate { PanningSliderChange(PanningSlider.value); });
+                }
 
                 break;
             case State.RecordingMode:
@@ -92,14 +93,21 @@ public class GameManager : MonoBehaviour
 
                 int RandomBowlIndex = UnityEngine.Random.Range(0, Inventory.bowlsManager.activeBowlsIndexes.Length);
                 time += Time.deltaTime;
-                if (time >= givenTime)
+                givenTime1 += Time.deltaTime;
+                if (givenTime1 > givenTime)
                 {
                     if (time >= interpolationPeriod)
                     {
                         Inventory.allBowls[RandomBowlIndex].GetComponent<Bowl>().PlaySound();
+                        time = 0;
                     }
-
                 }
+                else
+                {
+                    state = State.Normal;
+                }
+
+                
 
                 break;
 
@@ -123,14 +131,18 @@ public class GameManager : MonoBehaviour
         SelectedSoundBowl.GetComponent<AudioSource>().Play();
 
     }
-
-    public void PanningSliderChange(Single SliderValue)
+    public void SelectRandomiszation(float Time)
+    {
+        givenTime = Time;
+        state = State.Randomization;
+    }
+    public void PanningSliderChange(float SliderValue)
     {
         SelectedSoundBowl.GetComponent<AudioSource>().spatialBlend = 0;
         SelectedSoundBowl.GetComponent<AudioSource>().panStereo = SliderValue;
 
     }
-    public void VolumeChange(Single Value)
+    void VolumeChange(float Value)
     {
         SelectedSoundBowl.GetComponent<AudioSource>().volume = Value;
     }
@@ -205,7 +217,7 @@ public class GameManager : MonoBehaviour
                     hit.transform.gameObject.GetComponent<Bowl>().CurrentState = Item.State.Purchased;
                     Inventory.allBowls[BowlToLoad].transform.gameObject.GetComponent<Bowl>().CurrentState = Item.State.Loaded;
                     state = State.Normal;
-                    GameManager.Instance.FooterText.text = GameManager.Instance.DefaultFooterText;
+                    AllRefs.I._GameManager.FooterText.text = AllRefs.I._GameManager.DefaultFooterText;
                     MenuManager.Instance.currentState = MenuManager.MenuStates.Main;
 
                 }
@@ -219,13 +231,13 @@ public class GameManager : MonoBehaviour
                     Destroy(hit.transform.gameObject);
                     state = State.Normal;
                     Inventory.allBowls[BowlToLoad].transform.gameObject.GetComponent<Bowl>().CurrentState = Item.State.Loaded;
-                    GameManager.Instance.FooterText.text = GameManager.Instance.DefaultFooterText;
+                    AllRefs.I._GameManager.FooterText.text = AllRefs.I._GameManager.DefaultFooterText;
                     MenuManager.Instance.currentState = MenuManager.MenuStates.Main;
 
                 }
                 else
                 {
-                    GameManager.Instance.FooterText.text = "You are Placing the bowl in wrong Place";
+                    AllRefs.I._GameManager.FooterText.text = "You are Placing the bowl in wrong Place";
 
                 }
             }

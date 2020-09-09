@@ -27,14 +27,14 @@ public class DockEventListener : MonoBehaviour
 
     public void OnClickReplayBGButton()
     {
-        GameManager.Instance.SoundRestart();
+        AllRefs.I._GameManager.SoundRestart();
     }
 
     public void OnClickChangeCameraAngleButton()
     {
         cameraPosition++;
         if(cameraPosition > 3) cameraPosition = 0;
-        // GameManager.Instance.OnclickBgMusicButton();
+        // AllRefs.I._GameManager.OnclickBgMusicButton();
         camera.SetInteger("State", cameraPosition);
     }
     
@@ -42,7 +42,9 @@ public class DockEventListener : MonoBehaviour
     public void OnClickSaveSessionButton()
     {
         PopupManager.Instance.Show("Name Session", SaveBowlPosition);
-        GameManager.Instance.state = GameManager.State.SavingSession;
+
+        AllRefs.I._GameManager.state = GameManager.State.SavingSession;
+
     }
 
     void SaveBowlPosition(string name)

@@ -55,28 +55,15 @@ public class SessionManager : MonoBehaviour
 
     public void SaveSession(string name, Recording recording = null)
     {
-        int[] tempSession = Inventory.bowlsManager.activeBowlsIndexes;
-        int[] session = new int[tempSession.Length];
-        float[] panings = new float[session.Length];
-        float[] volumes = new float[session.Length];
+        int[] tempsession = Inventory.bowlsManager.activeBowlsIndexes;
+        int[] session = new int[tempsession.Length];
 
         for (int i = 0; i < session.Length; i++)
         {
-            // for creating a deep copy of session
-            session[i] = tempSession[i];
-
-            panings[i] = Inventory.allBowls[session[i]].GetComponent<AudioSource>().panStereo;
-            volumes[i] = Inventory.allBowls[session[i]].GetComponent<AudioSource>().volume;
+            session[i] = tempsession[i];
         }
 
-        SessionData.Snipt newSession = new SessionData.Snipt 
-        { 
-            name = name, 
-            volumes = volumes, 
-            panings = panings, 
-            bowlsPositions = session, 
-            recording = recording 
-        };
+        SessionData.Snipt newSession = new SessionData.Snipt { name = name, bowlsPositions = session, recording = recording };
         SessionData.AddSession(newSession);
         PersistantData.Save(SessionData);
     }
@@ -89,16 +76,11 @@ public class SessionManager : MonoBehaviour
     {
         SessionData.Snipt sessionSnipt = SessionData.GetSession(name);
         int[] tempSession = sessionSnipt.bowlsPositions;
-        float[] panings = sessionSnipt.panings;
-        float[] volumes = sessionSnipt.volumes;
         int[] session = new int[tempSession.Length];
 
         for (int i = 0; i < session.Length; i++)
         {
-            // to create a deep copy
             session[i] = tempSession[i];
-            Inventory.allBowls[session[i]].GetComponent<AudioSource>().panStereo = panings[i];
-            Inventory.allBowls[session[i]].GetComponent<AudioSource>().volume = volumes[i];
         }
 
         Inventory.bowlsManager.activeBowlsIndexes = session;
@@ -190,7 +172,7 @@ public class SessionManager : MonoBehaviour
                     i++;
                 }
 
-                if (!AllRefs.I.mainMenu.modes.playingRecording)
+                if (!AllRefs.I.mainMenu.playingMode)
                 {
                     StopAllCoroutines();
                 }
@@ -209,10 +191,9 @@ public class SessionData
     public struct Snipt
     {
         public string name;
-        public float[] panings;
-        public float[] volumes;
 
         public int[] bowlsPositions;
+
         public Recording recording;
     }
 

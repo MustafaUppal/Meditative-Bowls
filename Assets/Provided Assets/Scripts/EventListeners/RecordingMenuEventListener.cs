@@ -194,8 +194,7 @@ public class RecordingMenuEventListener : MonoBehaviour
             case RecordingStates.None:
                 recordingSettings.recordingData.Clear();
                 ChangeState(RecordingStates.Started);
-                try{newAudio = Microphone.Start(string.Empty, false, 300, 44100);}
-                catch(Exception e){Debug.LogWarning("No microphone connected"); newAudio = null;};
+                newAudio = Microphone.Start(string.Empty, false, 300, 44100);
                 break;
                 // case RecordingStates.Started:
                 //     ChangeState(RecordingStates.Paused);
@@ -241,9 +240,7 @@ public class RecordingMenuEventListener : MonoBehaviour
         // Loading true
         PopupManager.Instance.loading.Show(true, "Saving Audio...");
 
-        if(newAudio != null)
-            yield return SavWav.Save(name, newAudio);
-        // catch(Exception e){};
+        yield return SavWav.Save(name, newAudio);
 
         PopupManager.Instance.loading.Show(false);
         PopupManager.Instance.Hide();

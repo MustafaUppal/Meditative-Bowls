@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: NotificationSettingsData
   m_EditorClassIdentifier: 
   useForIos: 1
-  useForAndroid: 1
+  useForAndroid: 0
   usePlaymaker: 0
   useBolt: 0
   useGameflow: 0

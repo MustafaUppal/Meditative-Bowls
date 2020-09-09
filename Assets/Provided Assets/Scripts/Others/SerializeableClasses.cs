@@ -31,10 +31,8 @@ namespace SerializeableClasses
         public Color[] buttonColors;
         public Sprite[] buttonIcons;
 
-        [Space]
-        public Sprite playSprite;
-        public Sprite stopSprite;
-
+        public Color tileHighlight;
+        public Color tileNormal;
 
         [Header("Important References")]
         public GameObject bowlObj;
@@ -45,31 +43,12 @@ namespace SerializeableClasses
         public RawImage carpet;
         public RawImage bowl;
         public GameObject resetButton;
-        public GameObject switchImageButton;
-        [Space]
-        public GameObject playSoundButton;
-        public Image playSoundIcon;
 
         public void EnableImage(int index, bool enable = true)
         {
-            carpet.gameObject.SetActive(index.Equals(0) ? enable : false);
-            bowl.gameObject.SetActive(index.Equals(1) ? enable : false);
-            thumbnail.gameObject.SetActive(index.Equals(2) ? enable : false);
-        }
-
-        public void EnableResetButton(bool enable)
-        {
-            resetButton.SetActive(enable);
-        }
-
-        public void EnableSwitchButton(bool enable)
-        {
-            switchImageButton.SetActive(enable);
-        }
-
-        public void SetPlaySprite(bool play)
-        {
-            playSoundIcon.sprite = play ? stopSprite : playSprite;
+            carpet.gameObject.SetActive(index.Equals(0) ? enable: false);
+            bowl.gameObject.SetActive(index.Equals(1) ? enable: false);
+            thumbnail.gameObject.SetActive(index.Equals(2) ? enable: false);
         }
     }
 
@@ -139,8 +118,8 @@ namespace SerializeableClasses
         {
             timerFill.fillAmount = percentage;
 
-            int mins = timer / 60;
-            int secs = timer - mins * 60;
+            int mins = timer/60;
+            int secs = timer - mins*60;
 
             this.timer.text = mins + ":" + (secs < 10 ? "0" + secs : secs.ToString());
         }
@@ -165,20 +144,5 @@ namespace SerializeableClasses
             paning.value = paningVal;
             volume.value = volumeVal;
         }
-    }
-
-    [Serializable]
-    public class MainMenuModes
-    {
-        public bool playingRecording;
-        public bool slideShow;
-        public bool placeBowls;
-    }
-
-    [Serializable]
-    public class HighlightSettings
-    {
-        public Color tileHighlight;
-        public Color tileNormal;
     }
 }

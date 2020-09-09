@@ -12,6 +12,6 @@ EditorBuildSettings:
     path: Assets/Provided Assets/_Scenes/GamePlay.unity
     guid: 1d57482eff377f542a86bf47911abeaa
   - enabled: 1
-    path: Assets/Provided Assets/_Scenes/Shop Scene.unity
+    path: Assets/Provided Assets/_Scenes/Shop/Shop Scene.unity
     guid: 7348ca187d8b43444b3634eb18b7695c
   m_configObjects: {}
