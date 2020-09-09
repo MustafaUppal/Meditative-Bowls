@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using SerializeableClasses;
 using UnityEngine;
 
 public class AllRefs : MonoBehaviour
@@ -22,4 +23,5 @@ public class AllRefs : MonoBehaviour
     public GameManager _GameManager;
     [Header("Objects")]
     public GameObject itemContainer;
+    public HighlightSettings highlightSettings;
 }

@@ -11,7 +11,16 @@ public class Bowl : Item
     AudioSource audioSource;
     public Item.State currentState;
 
+    public AudioSource AudioSource
+    {
+        get 
+        {
+            if(audioSource == null)
+                audioSource = GetComponent<AudioSource>();
 
+            return audioSource;
+        }
+    }
 
 
     private void Awake()
