@@ -14,7 +14,8 @@ public class MenuManager : MonoBehaviour
         Alram,
         Recording,
         Settings,
-        SavingSession
+        SavingSession,
+        BowlPlacement
     }
 
     public static MenuManager Instance;

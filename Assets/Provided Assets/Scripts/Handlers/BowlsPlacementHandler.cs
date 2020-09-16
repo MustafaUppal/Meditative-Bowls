@@ -12,6 +12,8 @@ public class BowlsPlacementHandler : MonoBehaviour
 
     int currentIndex = -1;
     int prevIndex = -1;
+    float panningvalue = 0;
+
     InventoryManager Inventory => InventoryManager.Instance;
     int[] activeBowls => InventoryManager.Instance.bowlsManager.activeBowlsIndexes;
 
@@ -20,11 +22,13 @@ public class BowlsPlacementHandler : MonoBehaviour
         content.SetPurchasedBowls();
         bowlPlacementSettings.Enable = true;
         bowlPlacementSettings.Init();
+        MenuManager.Instance.currentState = MenuManager.MenuStates.BowlPlacement;
     }
 
-    private void OnDisable() 
+    private void OnDisable()
     {
         Inventory.InitScene(true);
+        MenuManager.Instance.currentState = MenuManager.MenuStates.Main;
     }
 
     public void Enable(bool enable)
@@ -34,7 +38,7 @@ public class BowlsPlacementHandler : MonoBehaviour
 
     public void OnClickBowlButton(GameObject itemObj)
     {
-        if(!itemObj.GetComponent<TileHandler>().IsLoaded)
+        if (!itemObj.GetComponent<TileHandler>().IsLoaded)
             OnClickBowlButton(itemObj.GetComponent<TileHandler>().Index);
     }
 
@@ -52,14 +56,14 @@ public class BowlsPlacementHandler : MonoBehaviour
 
     public void OnClickPlaceBowlButton(int index)
     {
-        if(currentIndex.Equals(-1))
+        if (currentIndex.Equals(-1))
             return;
-
         for (int i = 0; i < activeBowls.Length; i++)
         {
             if (activeBowls[i] != -1 && activeBowls[i].Equals(activeBowls[index]))
             {
                 Inventory.allBowls[activeBowls[i]].CurrentState = Item.State.Purchased;
+                panningvalue = Inventory.bowlsManager.BowlPanningValues[activeBowls[i]] = Inventory.allBowls[activeBowls[i]].GetComponent<AudioSource>().panStereo;
                 break;
                 // OnClickItemButton(activeBowls[i]);
                 // activeBowls[i] = -1;
@@ -69,6 +73,7 @@ public class BowlsPlacementHandler : MonoBehaviour
 
         activeBowls[index] = currentIndex;
         Inventory.allBowls[activeBowls[index]].CurrentState = Item.State.Loaded;
+        Inventory.allBowls[activeBowls[index]].GetComponent<AudioSource>().panStereo = panningvalue;
         OnClickBowlButton(currentIndex);
         bowlPlacementSettings.SetText(index);
 

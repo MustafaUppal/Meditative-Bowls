@@ -136,6 +136,7 @@
 #endif
 
 #if EnableNotificationsIos
+            print("I am Notification Manager");
             iOSNotificationTimeIntervalTrigger timeTrigger = new iOSNotificationTimeIntervalTrigger()
             {
                 TimeInterval = timeDelayFromNow,
@@ -194,8 +195,8 @@
             }
 #else
             return null;
-        }
 #endif
+        }
     }
 }
 

@@ -88,7 +88,7 @@ public class ShopMenuEventListener : MonoBehaviour
             //loop through all products
 
 
-            for (int i = 8; i <= 14; i++)
+            for (int i = 9; i <= 15; i++)
             {
                 print(i);
                 if (shopProducts[i].productName == ((ShopProductNames)i).ToString())
@@ -108,7 +108,7 @@ public class ShopMenuEventListener : MonoBehaviour
                     }
                 }
             }
-            for (int i = 15; i <= 21; i++)
+            for (int i = 16; i <= 22; i++)
             {
 
                 if (shopProducts[i].productName == ((ShopProductNames)i).ToString())
@@ -124,7 +124,7 @@ public class ShopMenuEventListener : MonoBehaviour
                     }
                 }
             }
-            for (int i = 22; i <= 28; i++)
+            for (int i = 23; i < 29; i++)
             {
 
                 if (shopProducts[i].productName == ((ShopProductNames)i).ToString())
@@ -142,6 +142,39 @@ public class ShopMenuEventListener : MonoBehaviour
                         Inventory.allBowls[i].GetComponent<Bowl>().currentState = Item.State.Locked;
 
                     }
+                }
+            }
+            for (int i = 0; i <=8 ; i++)
+            {
+
+                if (shopProducts[i].productName == ((ShopProductNames)i).ToString())
+                {
+                    //if active variable is true, means that user had bought that product
+                    if (shopProducts[i].active)
+                    {
+
+                        Inventory.allBowls[i].GetComponent<Carpet>().currentState = Item.State.Purchased;
+
+                    }
+                    else
+                    {
+
+                        Inventory.allBowls[i].GetComponent<Carpet>().currentState = Item.State.Locked;
+
+                    }
+                }
+            }
+            if (shopProducts[30].productName == ((ShopProductNames)30).ToString())
+            {
+                //if active variable is true, means that user had bought that product
+                if (shopProducts[30].active)
+                {
+
+                    Inventory.allBowls[30].GetComponent<BG_Music>().currentState = Item.State.Purchased;
+                }
+                else
+                {
+                    Inventory.allBowls[30].GetComponent<BG_Music>().currentState = Item.State.Locked;
                 }
             }
         }
@@ -331,11 +364,11 @@ public class ShopMenuEventListener : MonoBehaviour
                 }
                 break;
             case ShopStates.BG_Musics:
-                if (Inventory.allMusics[selectedItem.index].CurrentState == Item.State.Purchased)
+                if (Inventory.allMusics[selectedItem.index].currentState == Item.State.Purchased)
                 {
 
                 }
-
+                
                 break;
             case ShopStates.Carpets:
                 if (Inventory.allCarpets[selectedItem.index].CurrentState == Item.State.Purchased)
@@ -345,6 +378,11 @@ public class ShopMenuEventListener : MonoBehaviour
 
                     InventoryManager.Instance.carpetsManager.activeCarpetIndex = selectedItem.index;
                     OnClickItemButton(selectedItem.index);
+                }
+                else if (Inventory.allCarpets[selectedItem.index].currentState == Item.State.Locked)
+                {
+                    print("Working");
+                    IAPManager.Instance.BuyProduct(ProductName, ProductBoughtCallback);
                 }
                 break;
         }

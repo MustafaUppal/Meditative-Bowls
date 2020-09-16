@@ -42,11 +42,11 @@ public class BowlsManager : MonoBehaviour
             Inventory.allBowls[activeBowlsIndexes[i]].CurrentState = Item.State.Loaded;
         }
 
-        BowlPanningValues = new float[activeBowlsIndexes.Length];
+        BowlPanningValues = new float[Inventory.allBowls.Count];
 
-        for (int i = 0; i < activeBowlsIndexes.Length; i++)
+        for (int i = 0; i < Inventory.allBowls.Count; i++)
         {
-            BowlPanningValues[i] = Inventory.allBowls[activeBowlsIndexes[i]].GetComponent<AudioSource>().panStereo;
+            BowlPanningValues[i] = Inventory.allBowls[i].GetComponent<AudioSource>().panStereo;
         }
 
         // Disabling all used bowls

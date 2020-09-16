@@ -14,7 +14,7 @@ public class SettingsMenuEventListener : MonoBehaviour
 
     public void SelectRandomization()
     {
-        if(GivenTimeInputField.text!=""&& GivenTimeInputField.text != null)
+        if(GivenTimeInputField.text!="" && GivenTimeInputField.text != null)
         AllRefs.I._GameManager.SelectRandomiszation(float.Parse(GivenTimeInputField.text));
     }
     void MessageSender(string Message)
@@ -47,14 +47,8 @@ public class SettingsMenuEventListener : MonoBehaviour
     public void OnClickBackButton()
     {
         //SettingsMenuEventListener.Instance.ManageFooter(false);
-        AllRefs.I.settingMenu.ManageFooter(false);
-
-        MenuManager.Instance.ChangeState(MenuManager.MenuStates.Main);
         AllRefs.I._GameManager.SelectModeNormal();
-        AllRefs.I._GameManager.VolumeSlider.gameObject.SetActive(false);
         AllRefs.I._GameManager.gameObject.GetComponent<BowlReposition>().ResetFuntion();
-        
-        MessageSender("Select an option to for setting up environment");
     }
     public void OnClickRemoveButton()
     {
@@ -69,8 +63,7 @@ public class SettingsMenuEventListener : MonoBehaviour
     }
     public void OnClickBackGroundMusic()
     {
-
-        AllRefs.I._GameManager.OnclickBgMusicButton(); ;
+        AllRefs.I._GameManager.SelectModeNormal();
 
     }
 }

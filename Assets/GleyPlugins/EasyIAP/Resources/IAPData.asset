@@ -21,192 +21,282 @@ MonoBehaviour:
   useForAmazon: 0
   useForIos: 1
   shopProducts:
-  - productName: SingingBowlsSet2,Bowl1
+  - productName: Carpetno1Set1
+    productType: 1
+    idGooglePlay: 
+    idAmazon: 
+    idIOS: com.HimalayanBowls.SingingBowls.Set1.Carpet1
+    value: 0
+    localizedPriceString: '-'
+    price: 0
+    isoCurrencyCode: 
+  - productName: Carpetno1Set2
+    productType: 1
+    idGooglePlay: 
+    idAmazon: 
+    idIOS: com.HimalayanBowls.SingingBowls.Set2.Carpet1
+    value: 0
+    localizedPriceString: '-'
+    price: 0
+    isoCurrencyCode: 
+  - productName: Carpetno1Set3
+    productType: 1
+    idGooglePlay: 
+    idAmazon: 
+    idIOS: com.HimalayanBowls.SingingBowls.Set3.Carpet1
+    value: 0
+    localizedPriceString: '-'
+    price: 0
+    isoCurrencyCode: 
+  - productName: Carpetno2Set1
+    productType: 1
+    idGooglePlay: 
+    idAmazon: 
+    idIOS: com.HimalayanBowls.SingingBowls.Set1.Carpet2
+    value: 0
+    localizedPriceString: '-'
+    price: 0
+    isoCurrencyCode: 
+  - productName: Carpetno2Set2
+    productType: 1
+    idGooglePlay: 
+    idAmazon: 
+    idIOS: com.HimalayanBowls.SingingBowls.Set2.Carpet2
+    value: 0
+    localizedPriceString: '-'
+    price: 0
+    isoCurrencyCode: 
+  - productName: Carpetno2Set3
+    productType: 1
+    idGooglePlay: 
+    idAmazon: 
+    idIOS: com.HimalayanBowls.SingingBowls.Set2.Carpet3
+    value: 0
+    localizedPriceString: '-'
+    price: 0
+    isoCurrencyCode: 
+  - productName: Carpetno3Set1
+    productType: 1
+    idGooglePlay: 
+    idAmazon: 
+    idIOS: com.HimalayanBowls.SingingBowls.Set1.Carpet3
+    value: 0
+    localizedPriceString: '-'
+    price: 0
+    isoCurrencyCode: 
+  - productName: Carpetno3Set2
+    productType: 1
+    idGooglePlay: 
+    idAmazon: 
+    idIOS: com.HimalayanBowls.SingingBowls.Set2.Carpet3
+    value: 0
+    localizedPriceString: '-'
+    price: 0
+    isoCurrencyCode: 
+  - productName: Carpetno3Set3
+    productType: 1
+    idGooglePlay: 
+    idAmazon: 
+    idIOS: com.HimalayanBowls.SingingBowls.Set3.Carpet3
+    value: 0
+    localizedPriceString: '-'
+    price: 0
+    isoCurrencyCode: 
+  - productName: SingingBowlsSet2Bowl1
     productType: 1
     idGooglePlay: 
     idAmazon: 
     idIOS: com.HimalayanBowls.SingingBowls.Set2.Bowl1
-    value: 1
+    value: 0
     localizedPriceString: '-'
     price: 0
     isoCurrencyCode: 
-  - productName: SingingBowlsSet2,Bowl2
+  - productName: SingingBowlsSet2Bowl2
     productType: 1
     idGooglePlay: 
     idAmazon: 
-    idIOS: com.HimalayanBowls.SingingBowls.Set2Bowl2
-    value: 1
+    idIOS: 'com.HimalayanBowls.SingingBowls.Set2Bowl2 '
+    value: 0
     localizedPriceString: '-'
     price: 0
     isoCurrencyCode: 
-  - productName: SingingBowlsSet2,Bowl3
-    productType: 0
+  - productName: SingingBowlsSet2Bowl3
+    productType: 1
     idGooglePlay: 
     idAmazon: 
     idIOS: com.HimalayanBowls.SingingBowls.Set2Bowl3
-    value: 1
+    value: 0
     localizedPriceString: '-'
     price: 0
     isoCurrencyCode: 
-  - productName: SingingBowlsSet2,Bowl4
+  - productName: SingingBowlsSet2Bowl4
     productType: 1
     idGooglePlay: 
     idAmazon: 
     idIOS: com.HimalayanBowls.SingingBowls.Set2.Bowl4
-    value: 1
+    value: 0
     localizedPriceString: '-'
     price: 0
     isoCurrencyCode: 
-  - productName: SingingBowlsSet2,Bowl5
+  - productName: SingingBowlsSet2Bowl5
     productType: 1
     idGooglePlay: 
     idAmazon: 
     idIOS: com.HimalayanBowls.SingingBowls.Set2.Bowl5
-    value: 1
+    value: 0
     localizedPriceString: '-'
     price: 0
     isoCurrencyCode: 
-  - productName: SingingBowlsSet2,Bowl6
+  - productName: SingingBowlsSet2Bowl6
     productType: 1
     idGooglePlay: 
     idAmazon: 
     idIOS: com.HimalayanBowls.SingingBowls.Set2.Bowl6
-    value: 1
+    value: 0
     localizedPriceString: '-'
     price: 0
     isoCurrencyCode: 
-  - productName: SingingBowlsSet2,Bowl7
+  - productName: SingingBowlsSet2Bowl7
     productType: 1
     idGooglePlay: 
     idAmazon: 
     idIOS: com.HimalayanBowls.SingingBowls.Set2.Bowl7
-    value: 1
+    value: 0
     localizedPriceString: '-'
     price: 0
     isoCurrencyCode: 
-  - productName: SingingBowlsSet3,Bowl1
+  - productName: SingingBowlsSet3Bowl1
     productType: 1
     idGooglePlay: 
     idAmazon: 
     idIOS: com.HimalayanBowls.SingingBowls.Set3.Bowl1
-    value: 1
+    value: 0
     localizedPriceString: '-'
     price: 0
     isoCurrencyCode: 
-  - productName: SingingBowlsSet3,Bowl2
+  - productName: SingingBowlsSet3Bowl2
     productType: 1
     idGooglePlay: 
     idAmazon: 
     idIOS: com.HimalayanBowls.SingingBowls.Set3.Bowl2
-    value: 1
+    value: 0
     localizedPriceString: '-'
     price: 0
     isoCurrencyCode: 
-  - productName: SingingBowlsSet3,Bowl3
+  - productName: SingingBowlsSet3Bowl3
     productType: 1
     idGooglePlay: 
     idAmazon: 
     idIOS: com.HimalayanBowls.SingingBowls.Set3.Bowl3
-    value: 1
+    value: 0
     localizedPriceString: '-'
     price: 0
     isoCurrencyCode: 
-  - productName: SingingBowlsSet3,Bowl4
+  - productName: SingingBowlsSet3Bowl4
     productType: 1
     idGooglePlay: 
     idAmazon: 
-    idIOS: com.HimalayanBowls.SingingBowls.Set3.Bowl4
-    value: 1
+    idIOS: SingingBowlsSet3Bowl4
+    value: 0
     localizedPriceString: '-'
     price: 0
     isoCurrencyCode: 
-  - productName: SingingBowlsSet3,Bowl5
+  - productName: SingingBowlsSet3Bowl5
     productType: 1
     idGooglePlay: 
     idAmazon: 
-    idIOS: 'Singing Bowls Set 3, Bowl 5 '
-    value: 1
+    idIOS: com.HimalayanBowls.SingingBowls.Set3.Bowl5
+    value: 0
     localizedPriceString: '-'
     price: 0
     isoCurrencyCode: 
-  - productName: SingingBowlsSet3,Bowl6
-    productType: 0
+  - productName: SingingBowlsSet3Bowl6
+    productType: 1
     idGooglePlay: 
     idAmazon: 
     idIOS: com.HimalayanBowls.SingingBowls.Set3.Bowl6
-    value: 1
+    value: 0
     localizedPriceString: '-'
     price: 0
     isoCurrencyCode: 
-  - productName: SingingBowlsSet3,Bowl7
+  - productName: SingingBowlsSet3Bowl7
     productType: 1
     idGooglePlay: 
     idAmazon: 
     idIOS: com.HimalayanBowls.SingingBowls.Set3.Bowl7
-    value: 1
+    value: 0
     localizedPriceString: '-'
     price: 0
     isoCurrencyCode: 
-  - productName: SingingBowlsSet4,Bowl1
+  - productName: SingingBowlsSet4Bowl1
     productType: 1
     idGooglePlay: 
     idAmazon: 
     idIOS: com.HimalayanBowls.SingingBowls.Set4.Bowl1
-    value: 1
+    value: 0
     localizedPriceString: '-'
     price: 0
     isoCurrencyCode: 
-  - productName: SingingBowlsSet4,Bowl2
+  - productName: SingingBowlsSet4Bowl2
     productType: 1
     idGooglePlay: 
     idAmazon: 
     idIOS: com.HimalayanBowls.SingingBowls.Set4.Bowl2
-    value: 1
+    value: 0
     localizedPriceString: '-'
     price: 0
     isoCurrencyCode: 
-  - productName: SingingBowlsSet4,Bowl3
+  - productName: SingingBowlsSet4Bowl3
     productType: 1
     idGooglePlay: 
     idAmazon: 
     idIOS: com.HimalayanBowls.SingingBowls.Set4.Bowl3
-    value: 1
+    value: 0
     localizedPriceString: '-'
     price: 0
     isoCurrencyCode: 
-  - productName: SingingBowlsSet4,Bowl4
+  - productName: SingingBowlsSet4Bowl4
     productType: 1
     idGooglePlay: 
     idAmazon: 
     idIOS: com.HimalayanBowls.SingingBowls.Set4.Bowl4
-    value: 1
+    value: 0
     localizedPriceString: '-'
     price: 0
     isoCurrencyCode: 
-  - productName: SingingBowlsSet4,Bowl5
+  - productName: SingingBowlsSet4Bowl5
     productType: 1
     idGooglePlay: 
     idAmazon: 
     idIOS: com.HimalayanBowls.SingingBowls.Set4.Bowl5
-    value: 1
+    value: 0
     localizedPriceString: '-'
     price: 0
     isoCurrencyCode: 
-  - productName: SingingBowlsSet4,Bowl6
+  - productName: SingingBowlsSet4Bowl6
     productType: 1
     idGooglePlay: 
     idAmazon: 
     idIOS: com.HimalayanBowls.SingingBowls.Set4.Bowl6
-    value: 1
+    value: 0
     localizedPriceString: '-'
     price: 0
     isoCurrencyCode: 
-  - productName: SingingBowlsSet4,Bowl7
+  - productName: SingingBowlsSet4Bowl7
     productType: 1
     idGooglePlay: 
     idAmazon: 
     idIOS: com.HimalayanBowls.SingingBowls.Set4.Bowl7
-    value: 1
+    value: 0
+    localizedPriceString: '-'
+    price: 0
+    isoCurrencyCode: 
+  - productName: SlideShow
+    productType: 1
+    idGooglePlay: 
+    idAmazon: 
+    idIOS: com.HimalayanBowls.SingingBowls.SlideShow
+    value: 0
     localizedPriceString: '-'
     price: 0
     isoCurrencyCode: 

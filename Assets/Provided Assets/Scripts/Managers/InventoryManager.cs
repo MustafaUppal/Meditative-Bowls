@@ -16,6 +16,7 @@ public class InventoryManager : MonoBehaviour
     public List<Bowl> allBowls;
     public List<Carpet> allCarpets;
     public List<BG_Music> allMusics;
+    public List<GameObject> AllProduct;
 
     private void Awake()
     {
@@ -49,6 +50,19 @@ public class InventoryManager : MonoBehaviour
             //     allBowls.Add(bowlsManager.transform.GetChild(i).GetComponent<Bowl>());
             // }
         }
+        for(int i = 0; i < allBowls.Count; i++)
+        {
+            AllProduct.Add(allBowls[i].gameObject);
+        }
+        for (int i = 0; i < allCarpets.Count; i++)
+        {
+            AllProduct.Add(allCarpets[i].gameObject);
+        }
+        for (int i = 0; i < allMusics.Count; i++)
+        {
+            AllProduct.Add(allCarpets[i].gameObject);
+        }
+
     }
 
     private void OnEnable()

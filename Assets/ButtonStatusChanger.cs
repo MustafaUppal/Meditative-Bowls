@@ -10,6 +10,8 @@ public class ButtonStatusChanger : MonoBehaviour
 
     public void OnClickRemoveButton()
     {
+        AlarmClockMenuEventListerner.instance.AlarmList.Remove(AlarmClockMenuEventListerner.instance.AlarmList[id]);
+
         AlarmClockMenuEventListerner.instance.HoursList.Remove(AlarmClockMenuEventListerner.instance.HoursList[id]);
         AlarmClockMenuEventListerner.instance.MinList.Remove(AlarmClockMenuEventListerner.instance.MinList[id]);
         AlarmClockMenuEventListerner.instance.SecList.Remove(AlarmClockMenuEventListerner.instance.SecList[id]);
@@ -23,8 +25,8 @@ public class ButtonStatusChanger : MonoBehaviour
        AlarmClockMenuEventListerner.instance.newAlarm = false;
         if (PlayerPrefs.GetInt("AlarmStatus"+id)==0)
         {
-            this.transform.GetChild(1).transform.GetChild(0).GetComponent<Text>().text = "On";
             this.transform.GetChild(1).GetComponent<Image>().color = Color.green;
+            this.transform.GetChild(1).transform.GetChild(0).GetComponent<Text>().text = "On";
             GleyNotifications.SendNotification("MediatativeBowl", "Time To Meditate",             
                 new System.TimeSpan(AlarmClockMenuEventListerner.instance.HoursList[id], 
                 AlarmClockMenuEventListerner.instance.MinList[id], AlarmClockMenuEventListerner.instance.SecList[id]));
@@ -33,8 +35,8 @@ public class ButtonStatusChanger : MonoBehaviour
         }
         else
         {
-            this.transform.GetChild(1).transform.GetChild(0).GetComponent<Text>().text = "Off";
             this.transform.GetChild(1).GetComponent<Image>().color = Color.red;
+            this.transform.GetChild(1).transform.GetChild(0).GetComponent<Text>().text = "Off";
 
             PlayerPrefs.SetInt("AlarmStatus" + id, 0);
             AlarmClockMenuEventListerner.instance.StatusOfAlarms[id] = false;

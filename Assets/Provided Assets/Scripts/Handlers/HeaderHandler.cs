@@ -95,8 +95,9 @@ public class HeaderHandler : MonoBehaviour
                 {
                     menuButtonState = MenuButtonState.Close;
                     MenuManager.Instance.ChangeState(MenuManager.MenuStates.Main);
-                    // SelectButton();
                     ManageState();
+                 
+                    // SelectButton();
                     return;
                 }
                 EnableHeader(true);

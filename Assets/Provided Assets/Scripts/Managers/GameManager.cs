@@ -19,7 +19,6 @@ public class GameManager : MonoBehaviour
     public GameObject Bowl;
     public GameObject Footer;
     public GameObject FooterText1;
-
     public int BowlToLoad;
     public Slider VolumeSlider;
     public Text FooterText;
@@ -56,7 +55,7 @@ public class GameManager : MonoBehaviour
     {
         Instance = this;
         DefaultFooterText = FooterText.text;
-
+        SelectedSoundBowl = Inventory.allBowls[Inventory.bowlsManager.activeBowlsIndexes[0]].gameObject;
     }
 
     private void Update()
@@ -91,10 +90,10 @@ public class GameManager : MonoBehaviour
                 break;
             case State.Randomization:
 
-                int RandomBowlIndex = UnityEngine.Random.Range(0, Inventory.bowlsManager.activeBowlsIndexes.Length);
+                int RandomBowlIndex = UnityEngine.Random.Range(0, Inventory.bowlsManager.activeBowlsIndexes.Length-1);
                 time += Time.deltaTime;
                 givenTime1 += Time.deltaTime;
-                if (givenTime1 > givenTime)
+                if (givenTime1 < givenTime)
                 {
                     if (time >= interpolationPeriod)
                     {
@@ -102,10 +101,7 @@ public class GameManager : MonoBehaviour
                         time = 0;
                     }
                 }
-                else
-                {
-                    state = State.Normal;
-                }
+                
 
                 
 
@@ -133,7 +129,8 @@ public class GameManager : MonoBehaviour
     }
     public void SelectRandomiszation(float Time)
     {
-        givenTime = Time;
+        givenTime = (Time*60);
+        print(givenTime);
         state = State.Randomization;
     }
     public void PanningSliderChange(float SliderValue)

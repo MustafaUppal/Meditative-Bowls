@@ -26,11 +26,13 @@ public class ObjectSeection : MonoBehaviour
     {
         if (AllRefs.I._GameManager.state == GameManager.State.Normal &&
             !(MenuManager.Instance.currentState == MenuManager.MenuStates.Alram)
+            && !(MenuManager.Instance.currentState == MenuManager.MenuStates.Library)
+            && !(MenuManager.Instance.currentState == MenuManager.MenuStates.BowlPlacement)
             || AllRefs.I._GameManager.state == GameManager.State.Sound &&
             (MenuManager.Instance.currentState == MenuManager.MenuStates.Main ||
             MenuManager.Instance.currentState == MenuManager.MenuStates.Settings ||
             MenuManager.Instance.currentState == MenuManager.MenuStates.Recording
-            && !(MenuManager.Instance.currentState == MenuManager.MenuStates.Library)) )
+            ) )
         {   
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);

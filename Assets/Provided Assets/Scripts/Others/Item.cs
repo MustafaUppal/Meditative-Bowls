@@ -11,7 +11,7 @@ public class Item : MonoBehaviour
         Loaded
     }
 
-    [SerializeField]private State currentState;
+    public State currentState;
     public new string name;
     public string setName;
     public int set;

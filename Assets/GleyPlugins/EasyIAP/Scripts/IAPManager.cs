@@ -4,12 +4,12 @@
 
 using UnityEngine.Events;
 using System.Collections.Generic;
-
-#if GleyIAPEnabled
+using UnityEngine.Apple;
 using UnityEngine;
 using UnityEngine.Purchasing;
-using GleyEasyIAP;
+#if GleyIAPEnabled
 using System;
+using GleyEasyIAP;
 using UnityEngine.Purchasing.Security;
 using System.Linq;
 
