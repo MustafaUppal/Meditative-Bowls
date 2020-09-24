@@ -2806,6 +2806,7 @@ MonoBehaviour:
   - {fileID: 1985439548}
   allMusics:
   - {fileID: 1688204961}
+  AllProduct: []
 --- !u!1 &92556082
 GameObject:
   m_ObjectHideFlags: 0
@@ -20801,7 +20802,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 856662235}
+      - m_Target: {fileID: 1764215465}
         m_MethodName: SetActive
         m_Mode: 6
         m_Arguments:
@@ -32022,13 +32023,13 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1349118630}
   m_TextComponent: {fileID: 1304379358}
   m_Placeholder: {fileID: 52174445}
-  m_ContentType: 0
+  m_ContentType: 2
   m_InputType: 0
   m_AsteriskChar: 42
-  m_KeyboardType: 0
+  m_KeyboardType: 4
   m_LineType: 0
   m_HideMobileInput: 0
-  m_CharacterValidation: 0
+  m_CharacterValidation: 1
   m_CharacterLimit: 0
   m_OnEndEdit:
     m_PersistentCalls:
@@ -38340,13 +38341,13 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1640674177}
   m_TextComponent: {fileID: 742142811}
   m_Placeholder: {fileID: 1090325943}
-  m_ContentType: 0
+  m_ContentType: 2
   m_InputType: 0
   m_AsteriskChar: 42
-  m_KeyboardType: 0
+  m_KeyboardType: 4
   m_LineType: 0
   m_HideMobileInput: 0
-  m_CharacterValidation: 0
+  m_CharacterValidation: 1
   m_CharacterLimit: 0
   m_OnEndEdit:
     m_PersistentCalls:
@@ -44582,13 +44583,13 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1852233203}
   m_TextComponent: {fileID: 285469682}
   m_Placeholder: {fileID: 1092642930}
-  m_ContentType: 0
+  m_ContentType: 2
   m_InputType: 0
   m_AsteriskChar: 42
-  m_KeyboardType: 0
+  m_KeyboardType: 4
   m_LineType: 0
   m_HideMobileInput: 0
-  m_CharacterValidation: 0
+  m_CharacterValidation: 1
   m_CharacterLimit: 0
   m_OnEndEdit:
     m_PersistentCalls:

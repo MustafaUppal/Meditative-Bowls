@@ -45,7 +45,7 @@ public class ShopMenuEventListener : MonoBehaviour
     {
         selectedItem.index = 0;
         ChangeState(defaultState);
-        IAPManager.Instance.InitializeIAPManager(InitializeResultCallback);
+        //IAPManager.Instance.InitializeIAPManager(InitializeResultCallback);
         MessageSender("Carpet");
     }
 
@@ -78,129 +78,129 @@ public class ShopMenuEventListener : MonoBehaviour
         content.SetDropdown((int)currentState);
         OnClickItemButton(0); // select first tile in the start
     }
-    #region IAP
-    private void InitializeResultCallback(IAPOperationStatus status, string message, List<StoreProduct> shopProducts)
-    {
+    //#region IAP
+    //private void InitializeResultCallback(IAPOperationStatus status, string message, List<StoreProduct> shopProducts)
+    //{
 
-        if (status == IAPOperationStatus.Success)
-        {
-            //IAP was successfully initialized
-            //loop through all products
+    //    if (status == IAPOperationStatus.Success)
+    //    {
+    //        //IAP was successfully initialized
+    //        //loop through all products
 
 
-            for (int i = 9; i <= 15; i++)
-            {
-                print(i);
-                if (shopProducts[i].productName == ((ShopProductNames)i).ToString())
-                {
-                    //if active variable is true, means that user had bought that product
-                    //so enable access
-                    if (shopProducts[i].active)
-                    {
-                        Inventory.allBowls[i].GetComponent<Bowl>().currentState = Item.State.Purchased;
-                        //PurchasedProduct = true;
-                    }
-                    else
-                    {
-                        Inventory.allBowls[i].GetComponent<Bowl>().currentState = Item.State.Locked;
-                        //PurchasedProduct = false;
+    //        for (int i = 9; i <= 15; i++)
+    //        {
+    //            print(i);
+    //            if (shopProducts[i].productName == ((ShopProductNames)i).ToString())
+    //            {
+    //                //if active variable is true, means that user had bought that product
+    //                //so enable access
+    //                if (shopProducts[i].active)
+    //                {
+    //                    Inventory.allBowls[i].GetComponent<Bowl>().currentState = Item.State.Purchased;
+    //                    //PurchasedProduct = true;
+    //                }
+    //                else
+    //                {
+    //                    Inventory.allBowls[i].GetComponent<Bowl>().currentState = Item.State.Locked;
+    //                    //PurchasedProduct = false;
 
-                    }
-                }
-            }
-            for (int i = 16; i <= 22; i++)
-            {
+    //                }
+    //            }
+    //        }
+    //        for (int i = 16; i <= 22; i++)
+    //        {
 
-                if (shopProducts[i].productName == ((ShopProductNames)i).ToString())
-                {
-                    //if active variable is true, means that user had bought that product
-                    if (shopProducts[i].active)
-                    {
-                        Inventory.allBowls[i].GetComponent<Bowl>().currentState = Item.State.Purchased;
-                    }
-                    else
-                    {
-                        Inventory.allBowls[i].GetComponent<Bowl>().currentState = Item.State.Locked;
-                    }
-                }
-            }
-            for (int i = 23; i < 29; i++)
-            {
+    //            if (shopProducts[i].productName == ((ShopProductNames)i).ToString())
+    //            {
+    //                //if active variable is true, means that user had bought that product
+    //                if (shopProducts[i].active)
+    //                {
+    //                    Inventory.allBowls[i].GetComponent<Bowl>().currentState = Item.State.Purchased;
+    //                }
+    //                else
+    //                {
+    //                    Inventory.allBowls[i].GetComponent<Bowl>().currentState = Item.State.Locked;
+    //                }
+    //            }
+    //        }
+    //        for (int i = 23; i < 29; i++)
+    //        {
 
-                if (shopProducts[i].productName == ((ShopProductNames)i).ToString())
-                {
-                    //if active variable is true, means that user had bought that product
-                    if (shopProducts[i].active)
-                    {
+    //            if (shopProducts[i].productName == ((ShopProductNames)i).ToString())
+    //            {
+    //                //if active variable is true, means that user had bought that product
+    //                if (shopProducts[i].active)
+    //                {
 
-                        Inventory.allBowls[i].GetComponent<Bowl>().currentState = Item.State.Purchased;
+    //                    Inventory.allBowls[i].GetComponent<Bowl>().currentState = Item.State.Purchased;
 
-                    }
-                    else
-                    {
+    //                }
+    //                else
+    //                {
 
-                        Inventory.allBowls[i].GetComponent<Bowl>().currentState = Item.State.Locked;
+    //                    Inventory.allBowls[i].GetComponent<Bowl>().currentState = Item.State.Locked;
 
-                    }
-                }
-            }
-            for (int i = 0; i <=8 ; i++)
-            {
+    //                }
+    //            }
+    //        }
+    //        for (int i = 0; i <=8 ; i++)
+    //        {
 
-                if (shopProducts[i].productName == ((ShopProductNames)i).ToString())
-                {
-                    //if active variable is true, means that user had bought that product
-                    if (shopProducts[i].active)
-                    {
+    //            if (shopProducts[i].productName == ((ShopProductNames)i).ToString())
+    //            {
+    //                //if active variable is true, means that user had bought that product
+    //                if (shopProducts[i].active)
+    //                {
 
-                        Inventory.allBowls[i].GetComponent<Carpet>().currentState = Item.State.Purchased;
+    //                    Inventory.allBowls[i].GetComponent<Carpet>().currentState = Item.State.Purchased;
 
-                    }
-                    else
-                    {
+    //                }
+    //                else
+    //                {
 
-                        Inventory.allBowls[i].GetComponent<Carpet>().currentState = Item.State.Locked;
+    //                    Inventory.allBowls[i].GetComponent<Carpet>().currentState = Item.State.Locked;
 
-                    }
-                }
-            }
-            if (shopProducts[30].productName == ((ShopProductNames)30).ToString())
-            {
-                //if active variable is true, means that user had bought that product
-                if (shopProducts[30].active)
-                {
+    //                }
+    //            }
+    //        }
+    //        if (shopProducts[30].productName == ((ShopProductNames)30).ToString())
+    //        {
+    //            //if active variable is true, means that user had bought that product
+    //            if (shopProducts[30].active)
+    //            {
 
-                    Inventory.allBowls[30].GetComponent<BG_Music>().currentState = Item.State.Purchased;
-                }
-                else
-                {
-                    Inventory.allBowls[30].GetComponent<BG_Music>().currentState = Item.State.Locked;
-                }
-            }
-        }
+    //                Inventory.allBowls[30].GetComponent<BG_Music>().currentState = Item.State.Purchased;
+    //            }
+    //            else
+    //            {
+    //                Inventory.allBowls[30].GetComponent<BG_Music>().currentState = Item.State.Locked;
+    //            }
+    //        }
+    //    }
 
-    }
-    public ShopProductNames ProductName;
-    private void ProductBoughtCallback(IAPOperationStatus status, string message, StoreProduct product)
-    {
-        if (status == IAPOperationStatus.Success)
-        {
-            if (product.productName == ProductName.ToString())
-            {
-                Inventory.allBowls[(int)ProductName].currentState = Item.State.Purchased;
-            }
-            else
-            {
-                print("Purchased Failed");
-            }
-        }
-        else
-        {
-            //an error occurred in the buy process, log the message for more details
-            Debug.Log("Buy product failed: " + message);
-        }
-    }
-    #endregion
+    //}
+    //public ShopProductNames ProductName;
+    //private void ProductBoughtCallback(IAPOperationStatus status, string message, StoreProduct product)
+    //{
+    //    if (status == IAPOperationStatus.Success)
+    //    {
+    //        if (product.productName == ProductName.ToString())
+    //        {
+    //            Inventory.allBowls[(int)ProductName].currentState = Item.State.Purchased;
+    //        }
+    //        else
+    //        {
+    //            print("Purchased Failed");
+    //        }
+    //    }
+    //    else
+    //    {
+    //        //an error occurred in the buy process, log the message for more details
+    //        Debug.Log("Buy product failed: " + message);
+    //    }
+    //}
+    //#endregion
     #region Button Clicks
     public void OnClickBackButton()
     {
@@ -360,7 +360,7 @@ public class ShopMenuEventListener : MonoBehaviour
                 else if (Inventory.allBowls[selectedItem.index].currentState == Item.State.Locked)
                 {
                     print("Working");
-                    IAPManager.Instance.BuyProduct(ProductName, ProductBoughtCallback);
+                 //   IAPManager.Instance.BuyProduct(ProductName, ProductBoughtCallback);
                 }
                 break;
             case ShopStates.BG_Musics:
@@ -382,7 +382,7 @@ public class ShopMenuEventListener : MonoBehaviour
                 else if (Inventory.allCarpets[selectedItem.index].currentState == Item.State.Locked)
                 {
                     print("Working");
-                    IAPManager.Instance.BuyProduct(ProductName, ProductBoughtCallback);
+                   // IAPManager.Instance.BuyProduct(ProductName, ProductBoughtCallback);
                 }
                 break;
         }

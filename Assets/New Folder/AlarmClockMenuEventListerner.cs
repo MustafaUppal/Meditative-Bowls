@@ -34,21 +34,24 @@ public class AlarmClockMenuEventListerner : MonoBehaviour
     void Start()
     {
         instance = this;
+        GleyNotifications.Initialize();
         LoadNotificationList();
     }
     public void ShowingTile(string TimeofAlarm, bool State, int HourtoUpdate, int MinToUpdate, int SecondToUpdate)
     {
-        GameObject game = Instantiate(Tiles, NotificationPoint.transform);
-        Tiles.transform.GetChild(0).gameObject.GetComponent<Text>().text = (Hours.text)+":"+(Mins.text)+":"+(Second.text);
         // Set Alarm lists
         AlarmList.Add(TimeofAlarm);
         StatusOfAlarms.Add(State);
         HoursList.Add(HourtoUpdate);
-        MinList.Add(HourtoUpdate);
-        SecList.Add(HourtoUpdate);
-        ButtonState(State, game);
+        MinList.Add(MinToUpdate);
+        SecList.Add(SecondToUpdate);
+        GameObject game = Instantiate(Tiles, NotificationPoint.transform);
+        game.transform.GetChild(0).gameObject.GetComponent<Text>().text = TimeofAlarm;
+        game.GetComponent<ButtonStatusChanger>().id = AlarmList.IndexOf(PlayerPrefs.GetString(TimeofAlarm));
+
         SaveNotificationList();
-        //game = null;
+        ButtonState(State, game);
+        game = null;
     }
     public void ButtonState(bool State, GameObject tile)
     {
@@ -63,14 +66,15 @@ public class AlarmClockMenuEventListerner : MonoBehaviour
         {
             tile.transform.GetChild(1).gameObject.transform.GetChild(0).GetComponent<Text>().text = "Off";
             tile.transform.GetChild(1).GetComponent<Image>().color = Color.red;
-
         }
 
     }
 
     private void Update()
     {
-        isintractable = (Hours.text != "") && (Second.text != "") && (Mins.text != "");
+        isintractable = (Hours.text != "") && (Second.text != "")
+            && (Mins.text != "") && (int.Parse(Hours.text) > 0) &&
+            (int.Parse(Second.text) > 0) && (int.Parse(Mins.text) > 0);
         Okbutton.interactable = isintractable;
     }
 
@@ -89,8 +93,9 @@ public class AlarmClockMenuEventListerner : MonoBehaviour
         NotificationManager.Instance.GetAllNotifications();
 
         GleyNotifications.SendNotification("MeditativeBowls", "Time To Meditate", new System.TimeSpan(Hou, Mi, Se));
-        
-        ShowingTile(Hours.text + ":" + Mins.text + ":" + Second.text, true, Hou, Mi, Se);
+        string TotalTimeString = (Hou.ToString() + ":" + Mi.ToString() + ":" + Se.ToString());
+        print(TotalTimeString);
+        ShowingTile(TotalTimeString, true, Hou, Mi, Se);
     }
     
     public void SaveNotificationList()
@@ -139,16 +144,13 @@ public class AlarmClockMenuEventListerner : MonoBehaviour
             AlarmList.Add(PlayerPrefs.GetString("AlarmList" + i));
             //iNSTENTIATE Tiles
             GameObject NEWtILE = Instantiate(Tiles, NotificationPoint.transform);
-           
+            NEWtILE.GetComponent<ButtonStatusChanger>().id = AlarmList.IndexOf(PlayerPrefs.GetString("AlarmList" + i));
             NEWtILE.transform.GetChild(0).GetComponent<Text>().text = AlarmList[i];
-            NEWtILE.GetComponent<ButtonStatusChanger>().id = i;
-            NEWtILE.GetComponent<ButtonStatusChanger>().id = i;
             if (PlayerPrefs.GetInt("AlarmStatus" + i) == 0)
             {
                 StatusOfAlarms.Add(true);
                 NEWtILE.transform.GetChild(1).gameObject.transform.GetChild(0).GetComponent<Text>().text = "On";
                 NEWtILE.transform.GetChild(1).GetComponent<Image>().color = Color.green;
-
             }
             else
             {
@@ -157,7 +159,6 @@ public class AlarmClockMenuEventListerner : MonoBehaviour
                 NEWtILE.transform.GetChild(1).GetComponent<Image>().color = Color.red;
             }
         }
-
     }
 
     private void MessageSender(string v)

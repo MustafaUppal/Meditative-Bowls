@@ -7,17 +7,20 @@ using UnityEngine.UI;
 public class ButtonStatusChanger : MonoBehaviour
 {
     public int id;
-
+    private void Start()
+    {
+        
+    }
     public void OnClickRemoveButton()
     {
         AlarmClockMenuEventListerner.instance.AlarmList.Remove(AlarmClockMenuEventListerner.instance.AlarmList[id]);
-
         AlarmClockMenuEventListerner.instance.HoursList.Remove(AlarmClockMenuEventListerner.instance.HoursList[id]);
         AlarmClockMenuEventListerner.instance.MinList.Remove(AlarmClockMenuEventListerner.instance.MinList[id]);
         AlarmClockMenuEventListerner.instance.SecList.Remove(AlarmClockMenuEventListerner.instance.SecList[id]);
         AlarmClockMenuEventListerner.instance.ChannelId.Remove(AlarmClockMenuEventListerner.instance.ChannelId[id]);
-        Destroy(this.gameObject);
         AlarmClockMenuEventListerner.instance.SaveNotificationList();
+        Destroy(this.gameObject);
+
     }
 
     public void Cancelnotification(string channel)

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f6cea9e7abb81e46966073c6cb58bb9, type: 3}
   m_Name: NotificationSettingsData
   m_EditorClassIdentifier: 
-  useForIos: 0
+  useForIos: 1
   useForAndroid: 0
   usePlaymaker: 0
   useBolt: 0
