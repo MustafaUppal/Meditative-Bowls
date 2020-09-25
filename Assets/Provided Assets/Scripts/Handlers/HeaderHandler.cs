@@ -35,7 +35,7 @@ public class HeaderHandler : MonoBehaviour
             menuButtonState = MenuButtonState.Back;
 
         ChangeState(menuButtonState);
-        Debug.Log("HH");
+        // Debug.Log("HH");
     }
 
     // ****************
@@ -109,7 +109,7 @@ public class HeaderHandler : MonoBehaviour
 
     public void EnableHeader(bool enable)
     {
-        Debug.Log("Enable: " + enable);
+        // Debug.Log("Enable: " + enable);
         // string headerAnim = enable ? "Header In" : "Header out";
 
         // if (!animator.GetCurrentAnimatorStateInfo(0).IsName(headerAnim))

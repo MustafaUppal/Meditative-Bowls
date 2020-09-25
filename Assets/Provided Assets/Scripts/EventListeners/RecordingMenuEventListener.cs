@@ -187,14 +187,18 @@ public class RecordingMenuEventListener : MonoBehaviour
     }
 
     AudioClip newAudio;
+    Coroutine microPhoneC;
     public void OnClickRecordButton()
     {
         switch (currentState)
         {
             case RecordingStates.None:
                 recordingSettings.recordingData.Clear();
-                ChangeState(RecordingStates.Started);
-                newAudio = Microphone.Start(string.Empty, false, 300, 44100);
+                if(microPhoneC != null)
+                    StopCoroutine(microPhoneC);
+
+                microPhoneC = StartCoroutine(GetMicrophone());
+                
                 break;
                 // case RecordingStates.Started:
                 //     ChangeState(RecordingStates.Paused);
@@ -203,6 +207,26 @@ public class RecordingMenuEventListener : MonoBehaviour
                 //     ChangeState(RecordingStates.Started);
                 //     break;
         }
+    }
+
+    IEnumerator GetMicrophone()
+    {
+        yield return Application.RequestUserAuthorization(UserAuthorization.Microphone);
+        if (Application.HasUserAuthorization(UserAuthorization.Microphone))
+        {
+            Debug.Log("We received the mic");
+            ChangeState(RecordingStates.Started);
+            newAudio = Microphone.Start(string.Empty, false, 300, 44100);
+            //StartRecording
+        }
+        else
+        {
+            Debug.Log("We encountered an error");
+            PopupManager.Instance.messagePopup.Show("Access Denied!", "Failed to get microphone access from device. Please press record button again.");
+            //Error
+        }
+
+        microPhoneC = null;
     }
 
     Coroutine savingC;
@@ -214,8 +238,8 @@ public class RecordingMenuEventListener : MonoBehaviour
         if (status.Equals("Pass"))
         {
             SessionManager.Instance.SaveSession(name, recordingSettings.recordingData);
-            
-            if(savingC != null)
+
+            if (savingC != null)
                 StopCoroutine(savingC);
 
             savingC = StartCoroutine(SaveSound(name));

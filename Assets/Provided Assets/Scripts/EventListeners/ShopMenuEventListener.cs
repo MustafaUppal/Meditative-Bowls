@@ -1,9 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using SerializeableClasses;
+﻿using SerializeableClasses;
 using UnityEngine;
-using UnityEngine.Assertions.Must;
 using UnityEngine.UI;
 
 public class ShopMenuEventListener : MonoBehaviour
@@ -14,6 +10,7 @@ public class ShopMenuEventListener : MonoBehaviour
         Bowls,
         BG_Musics
     }
+
     [Header("State Settings")]
     public ShopStates defaultState;
     public ShopStates currentState;
@@ -23,6 +20,7 @@ public class ShopMenuEventListener : MonoBehaviour
     public HeaderSettings headerSettings;
     public SelectedItemSettings selectedItem;
     public BowlPlacementSettings bowlPlacementSettings;
+    public GameObject restoreButton;
 
     [Space]
     public ContentHandler content;
@@ -43,6 +41,8 @@ public class ShopMenuEventListener : MonoBehaviour
 
     private void OnEnable()
     {
+        restoreButton.SetActive(!PlayerPreferencesManager.GetItemsRestored(false));
+
         selectedItem.index = 0;
         ChangeState(defaultState);
         //IAPManager.Instance.InitializeIAPManager(InitializeResultCallback);
@@ -78,129 +78,7 @@ public class ShopMenuEventListener : MonoBehaviour
         content.SetDropdown((int)currentState);
         OnClickItemButton(0); // select first tile in the start
     }
-    //#region IAP
-    //private void InitializeResultCallback(IAPOperationStatus status, string message, List<StoreProduct> shopProducts)
-    //{
 
-    //    if (status == IAPOperationStatus.Success)
-    //    {
-    //        //IAP was successfully initialized
-    //        //loop through all products
-
-
-    //        for (int i = 9; i <= 15; i++)
-    //        {
-    //            print(i);
-    //            if (shopProducts[i].productName == ((ShopProductNames)i).ToString())
-    //            {
-    //                //if active variable is true, means that user had bought that product
-    //                //so enable access
-    //                if (shopProducts[i].active)
-    //                {
-    //                    Inventory.allBowls[i].GetComponent<Bowl>().currentState = Item.State.Purchased;
-    //                    //PurchasedProduct = true;
-    //                }
-    //                else
-    //                {
-    //                    Inventory.allBowls[i].GetComponent<Bowl>().currentState = Item.State.Locked;
-    //                    //PurchasedProduct = false;
-
-    //                }
-    //            }
-    //        }
-    //        for (int i = 16; i <= 22; i++)
-    //        {
-
-    //            if (shopProducts[i].productName == ((ShopProductNames)i).ToString())
-    //            {
-    //                //if active variable is true, means that user had bought that product
-    //                if (shopProducts[i].active)
-    //                {
-    //                    Inventory.allBowls[i].GetComponent<Bowl>().currentState = Item.State.Purchased;
-    //                }
-    //                else
-    //                {
-    //                    Inventory.allBowls[i].GetComponent<Bowl>().currentState = Item.State.Locked;
-    //                }
-    //            }
-    //        }
-    //        for (int i = 23; i < 29; i++)
-    //        {
-
-    //            if (shopProducts[i].productName == ((ShopProductNames)i).ToString())
-    //            {
-    //                //if active variable is true, means that user had bought that product
-    //                if (shopProducts[i].active)
-    //                {
-
-    //                    Inventory.allBowls[i].GetComponent<Bowl>().currentState = Item.State.Purchased;
-
-    //                }
-    //                else
-    //                {
-
-    //                    Inventory.allBowls[i].GetComponent<Bowl>().currentState = Item.State.Locked;
-
-    //                }
-    //            }
-    //        }
-    //        for (int i = 0; i <=8 ; i++)
-    //        {
-
-    //            if (shopProducts[i].productName == ((ShopProductNames)i).ToString())
-    //            {
-    //                //if active variable is true, means that user had bought that product
-    //                if (shopProducts[i].active)
-    //                {
-
-    //                    Inventory.allBowls[i].GetComponent<Carpet>().currentState = Item.State.Purchased;
-
-    //                }
-    //                else
-    //                {
-
-    //                    Inventory.allBowls[i].GetComponent<Carpet>().currentState = Item.State.Locked;
-
-    //                }
-    //            }
-    //        }
-    //        if (shopProducts[30].productName == ((ShopProductNames)30).ToString())
-    //        {
-    //            //if active variable is true, means that user had bought that product
-    //            if (shopProducts[30].active)
-    //            {
-
-    //                Inventory.allBowls[30].GetComponent<BG_Music>().currentState = Item.State.Purchased;
-    //            }
-    //            else
-    //            {
-    //                Inventory.allBowls[30].GetComponent<BG_Music>().currentState = Item.State.Locked;
-    //            }
-    //        }
-    //    }
-
-    //}
-    //public ShopProductNames ProductName;
-    //private void ProductBoughtCallback(IAPOperationStatus status, string message, StoreProduct product)
-    //{
-    //    if (status == IAPOperationStatus.Success)
-    //    {
-    //        if (product.productName == ProductName.ToString())
-    //        {
-    //            Inventory.allBowls[(int)ProductName].currentState = Item.State.Purchased;
-    //        }
-    //        else
-    //        {
-    //            print("Purchased Failed");
-    //        }
-    //    }
-    //    else
-    //    {
-    //        //an error occurred in the buy process, log the message for more details
-    //        Debug.Log("Buy product failed: " + message);
-    //    }
-    //}
-    //#endregion
     #region Button Clicks
     public void OnClickBackButton()
     {
@@ -233,7 +111,7 @@ public class ShopMenuEventListener : MonoBehaviour
     }
     public void OnClickItemButton(int index)
     {
-        Debug.Log("index: " + index);
+        // Debug.Log("index: " + index);
         selectedItem.prevIndex = selectedItem.index;
         selectedItem.index = index;
 
@@ -241,6 +119,11 @@ public class ShopMenuEventListener : MonoBehaviour
         content.GetTile(selectedItem.index).Highlight = true;
 
         Item item = Inventory.GetItem((int)currentState, index);
+        
+        if((int)currentState != 2)
+            selectedItem.position = int.Parse(item.name.Split(' ')[1]);
+        else 
+            selectedItem.position = index;
 
         string setName = item.setName.Equals("") ? "" : " (" + item.setName + ")";
 
@@ -313,8 +196,6 @@ public class ShopMenuEventListener : MonoBehaviour
         audioHandler.Play(isSoundPlaying, clip, time);
     }
 
-
-
     void DistinctFunctionality()
     {
         switch ((int)currentState)
@@ -344,46 +225,101 @@ public class ShopMenuEventListener : MonoBehaviour
 
     #endregion Button Clicks end
 
+    public void OnItemPurchased(int type)
+    {
+        PopupManager.Instance.messagePopup.Show("Purchase Successfull!", "Seleted item has been successfully purchased.");
+        switch (type)
+        {
+            case 0: // carpet
+                Inventory.allCarpets[selectedItem.index].CurrentState = Item.State.Purchased;
+                OnClickItemButton(selectedItem.index);
+                break;
+            case 1: // bowl
+                Inventory.allBowls[selectedItem.index].CurrentState = Item.State.Purchased;
+                OnClickItemButton(selectedItem.index);
+                break;
+            case 2: // slideshow
+                Inventory.allMusics[selectedItem.index].CurrentState = Item.State.Purchased;
+                OnClickItemButton(selectedItem.index);
+                Inventory.musicsManager.activeMusicIndex = 0;
+                break;
+        }
+
+        PlayerPreferencesManager.SetPurchasedState((int)currentState, selectedItem.index, true);
+    }
+
     public void OnClickLoadItem()
     {
         // GameManager.Instance.FooterText.text = "Place The Bowl to yor desire location";
 
+        Debug.Log("State: " + (int)currentState);
+        Debug.Log("Index: " + selectedItem.position);
+
+
         switch (currentState)
         {
             case ShopStates.Bowls:
-                if (Inventory.allBowls[selectedItem.index].CurrentState == Item.State.Purchased)
-                {
-                    MessageSender("Tip: Select a position to place or replace. Click on carpet to close Placement setting.");
-                    bowlPlacementSettings.Enable = true;
-                    bowlPlacementSettings.Init();
-                }
-                else if (Inventory.allBowls[selectedItem.index].currentState == Item.State.Locked)
-                {
-                    print("Working");
-                 //   IAPManager.Instance.BuyProduct(ProductName, ProductBoughtCallback);
-                }
+                HandleLoadBowlClick();
                 break;
             case ShopStates.BG_Musics:
-                if (Inventory.allMusics[selectedItem.index].currentState == Item.State.Purchased)
-                {
-
-                }
-                
+                HandleLoadSlideShowClick();
                 break;
             case ShopStates.Carpets:
-                if (Inventory.allCarpets[selectedItem.index].CurrentState == Item.State.Purchased)
-                {
-                    Inventory.allCarpets[selectedItem.prevIndex].CurrentState = Item.State.Purchased;
-                    Inventory.allCarpets[selectedItem.index].CurrentState = Item.State.Loaded;
+                HandleLoadCarpetClick();
+                break;
+        }
+    }
 
-                    InventoryManager.Instance.carpetsManager.activeCarpetIndex = selectedItem.index;
-                    OnClickItemButton(selectedItem.index);
-                }
-                else if (Inventory.allCarpets[selectedItem.index].currentState == Item.State.Locked)
-                {
-                    print("Working");
-                   // IAPManager.Instance.BuyProduct(ProductName, ProductBoughtCallback);
-                }
+    public void OnClickRestoreButton()
+    {
+        MeditativeBowls.IAPManager.instance.RestorePurchases();
+    }
+
+    void HandleLoadBowlClick()
+    {
+        switch (Inventory.allBowls[selectedItem.index].CurrentState)
+        {
+            case Item.State.Locked:
+                // purchase bowl
+                MeditativeBowls.IAPManager.instance.PurchaseItem(selectedItem.position - 1, (int)currentState);
+                break;
+            case Item.State.Purchased:
+                // load selected bowl
+                MessageSender("Tip: Select a position to place or replace. Click on carpet to close Placement setting.");
+                bowlPlacementSettings.Enable = true;
+                bowlPlacementSettings.Init();
+                break;
+        }
+    }
+
+    void HandleLoadCarpetClick()
+    {
+        switch (Inventory.allCarpets[selectedItem.index].CurrentState)
+        {
+            case Item.State.Locked:
+                // purchase bowl
+                MeditativeBowls.IAPManager.instance.PurchaseItem(selectedItem.position - 1, (int)currentState);
+                break;
+            case Item.State.Purchased:
+                // load selected bowl
+                Inventory.allCarpets[selectedItem.prevIndex].CurrentState = Item.State.Purchased;
+                Inventory.allCarpets[selectedItem.index].CurrentState = Item.State.Loaded;
+
+                InventoryManager.Instance.carpetsManager.activeCarpetIndex = selectedItem.index;
+                OnClickItemButton(selectedItem.index);
+
+                content.SetDropdown((int)currentState, Inventory.allCarpets[selectedItem.index].set);
+                break;
+        }
+    }
+
+    void HandleLoadSlideShowClick()
+    {
+        switch (Inventory.allMusics[selectedItem.index].CurrentState)
+        {
+            case Item.State.Locked:
+                // purchase bowl
+                MeditativeBowls.IAPManager.instance.PurchaseItem(selectedItem.position, (int)currentState);
                 break;
         }
     }

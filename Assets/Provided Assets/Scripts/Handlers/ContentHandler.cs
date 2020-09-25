@@ -44,11 +44,7 @@ public class ContentHandler : MonoBehaviour
         int tilesCount = 0;
         int firstIndex = -1;
 
-        Dictionary<int, int> loadedBowls = new Dictionary<int, int>();
-        for(int i = 0; i < Inventory.bowlsManager.activeBowlsIndexes.Length; i++)
-        {
-            loadedBowls.Add(Inventory.bowlsManager.activeBowlsIndexes[i], i);
-        }
+        Dictionary<int, int> loadedItem = GetLoadedItems(currentState);
 
         for (int i = 0; i < Inventory.GetItemCount(currentState); i++)
         {
@@ -58,12 +54,12 @@ public class ContentHandler : MonoBehaviour
             {
                 if(item.set.Equals(setNumber))
                 {
-                    Debug.Log("item.Name:" + item.name);
-                    Debug.Log("item.Index: " + item.Index);
+                    // Debug.Log("item.Name:" + item.name);
+                    // Debug.Log("item.Index: " + item.Index);
                     currentTile = transform.GetChild(tilesCount).GetComponent<TileHandler>(); 
                     currentTile.SetTile(item.image, item.name, item.Index);
                     currentTile.Highlight = false;
-                    currentTile.IsLoaded = loadedBowls.ContainsKey(item.Index);
+                    currentTile.IsLoaded = loadedItem.ContainsKey(item.Index);
 
                     activeTiles.Add(item.Index, currentTile);
                     transform.GetChild(tilesCount).gameObject.SetActive(true);
@@ -79,6 +75,29 @@ public class ContentHandler : MonoBehaviour
         }
 
         return firstIndex;
+    }
+
+    Dictionary<int, int> GetLoadedItems(int type)
+    {
+        Dictionary<int, int> loadedItem = new Dictionary<int, int>();
+
+        switch (type)
+        {
+            case 0: // carpets
+                loadedItem.Add(Inventory.carpetsManager.activeCarpetIndex, 0);
+                break;
+            case 1: // bowls
+                for (int i = 0; i < Inventory.bowlsManager.activeBowlsIndexes.Length; i++)
+                {
+                    loadedItem.Add(Inventory.bowlsManager.activeBowlsIndexes[i], i);
+                }
+                break;
+            case 2: // slide show
+                loadedItem.Add(Inventory.musicsManager.activeMusicIndex, 0);
+                break;
+        }
+
+        return loadedItem;
     }
 
     public void SetPurchasedBowls()
@@ -125,7 +144,7 @@ public class ContentHandler : MonoBehaviour
 
     public TileHandler GetTile(int index)
     {
-        Debug.Log("Index: " + index);
+        // Debug.Log("Index: " + index);
         return activeTiles[index];
     }
 }

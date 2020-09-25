@@ -24,7 +24,7 @@ public class MainMenuEventListener : MonoBehaviour
 
         ManageDock(true);
 
-        slideShowButton.interactable = PlayerPreferencesManager.GetSlideShowPurchedState(false);
+        
     }
 
     public void ManageFooter(bool val)
@@ -81,6 +81,13 @@ public class MainMenuEventListener : MonoBehaviour
 
     public void OnClickStartSlideShowButton()
     {
+        // if slide show is not purcased
+        if(!PlayerPreferencesManager.GetPurchasedState(2, 0, false))
+        {
+            PopupManager.Instance.messagePopup.Show("Not Purchased!", "Please purchase slideshow from shop to unlock this feature.");
+            return;
+        }
+
         if(modes.placeBowls)
             return;
 

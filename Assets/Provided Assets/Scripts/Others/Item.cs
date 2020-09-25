@@ -21,13 +21,13 @@ public class Item : MonoBehaviour
     {
         get
         {
-            if(index == -1)
+            if (index == -1)
                 index = int.Parse(gameObject.name.Split('(')[1].Trim(')')) - 1;
 
             return index;
         }
     }
-    
+
     public float price;
     public Sprite image;
     [TextArea(2, 4)] public string description;
@@ -55,6 +55,16 @@ public class Item : MonoBehaviour
         {
             // Debug.Log("currentState: " + currentState + " -> " + value);
             currentState = value;
+        }
+    }
+
+    public bool IsPurchased
+    {
+        get
+        {
+            // Debug.Log("currentState: " + currentState + " -> " + value);
+
+            return currentState != State.Locked;
         }
     }
 }

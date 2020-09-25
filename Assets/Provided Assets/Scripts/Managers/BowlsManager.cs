@@ -13,6 +13,29 @@ public class BowlsManager : MonoBehaviour
     InventoryManager Inventory => InventoryManager.Instance;
     public List<int> unusedBowls;
 
+    private void Start() 
+    {
+        int itemType = (int)ShopMenuEventListener.ShopStates.Bowls;
+
+        for (int i = 0; i < Inventory.GetItemCount(itemType); i++)
+        {
+            if (!PlayerPreferencesManager.IsItemInitialized(itemType, i, false))
+                PlayerPreferencesManager.SetPurchasedState
+                (
+                    itemType, i,
+                    Inventory.allBowls[i].IsPurchased
+                );
+        }
+
+        for (int i = 0; i < Inventory.GetItemCount(itemType); i++)
+        {
+            if(Inventory.allBowls[i].CurrentState != Item.State.Loaded)
+                Inventory.allBowls[i].CurrentState 
+                = PlayerPreferencesManager.GetPurchasedState(itemType, i, false) 
+                ? Item.State.Purchased : Item.State.Locked;
+        }
+    }
+
     /// <summary>
     /// Reposition all bowls according to active bowls indeces
     /// </summary>
@@ -52,7 +75,7 @@ public class BowlsManager : MonoBehaviour
         // Disabling all used bowls
         for (int i = 0; i < unusedBowls.Count; i++)
         {
-            Inventory.allBowls[unusedBowls[i]].CurrentState = unusedBowls[i] < 25 ? Item.State.Purchased : Item.State.Locked;
+            // Inventory.allBowls[unusedBowls[i]].CurrentState = /* unusedBowls[i] < 25 ? Item.State.Purchased :  */Item.State.Locked;
             Inventory.allBowls[unusedBowls[i]].gameObject.SetActive(false);
         }
     }

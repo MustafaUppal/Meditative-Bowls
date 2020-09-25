@@ -93,7 +93,7 @@ public class MenuManager : MonoBehaviour
         ApplyChanges();
         AllRefs.I.headerHandler.SelectButton();
 
-        Debug.Log("MM");
+        // Debug.Log("MM");
     }
 
     IEnumerator ChangeStateE(MenuStates newState)

@@ -18,6 +18,7 @@ namespace SerializeableClasses
     {
         public int index;
         public int prevIndex;
+        public int position;
 
         [Header("Item References")]
 

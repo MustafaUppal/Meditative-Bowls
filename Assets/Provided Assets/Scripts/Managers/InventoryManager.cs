@@ -155,4 +155,15 @@ public class InventoryManager : MonoBehaviour
                 return 0;
         }
     }
+
+    public string GetItemProductId(int type, int index)
+    {
+        Item i = GetItem(type, index);
+        int bowlNo = int.Parse(i.name.Split(' ')[1]);
+        string itemName = (type == 0 ? "Carpet" : "Bowl");
+        string productId = "com.HimalayanBowls.SingingBowls.Set" + i.set + "." + itemName + (bowlNo);
+
+        Debug.Log(productId);
+        return productId;
+    }
 }

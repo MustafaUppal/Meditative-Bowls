@@ -13,6 +13,8 @@ public class PopupManager : MonoBehaviour
 
     public Popup1 popup;
     public GeneralLoading loading;
+    public MessagePopup messagePopup;
+
     Action<string> method;
 
     private void Awake()
@@ -49,4 +51,8 @@ public class PopupManager : MonoBehaviour
         Hide();
     }
 
+    public void ShowMessage(string header, string body, string buttonText)
+    {
+
+    }
 }
