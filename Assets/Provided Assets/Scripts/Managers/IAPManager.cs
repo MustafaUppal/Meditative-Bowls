@@ -17,6 +17,20 @@ namespace MeditativeBowls
             public string id = "com.HimalayanBowls.SingingBowls.Set2.Carpet1";
             public UnityEngine.Purchasing.ProductType type = UnityEngine.Purchasing.ProductType.NonConsumable;
         }
+
+        [Header("Purchase Failure Reasons")]
+        public string[] purchaseFailureReasons = new string[8]
+        {
+            "Purchase Unavailable",
+            "Existing Purchase Pending",
+            "Product Unavailable",
+            "Signature Invalid",
+            "User Cancelled",
+            "Payment Declined",
+            "Duplicate Transaction",
+            "Something went wrong"
+        };
+
         //Step 1 create your products
         public CustomProduct[] carpets;
         public CustomProduct[] bowls;
@@ -77,7 +91,7 @@ namespace MeditativeBowls
                     break;
             }
 
-            Debug.Log("Purchasing: " + productId);
+            // Debug.Log("Purchasing: " + productId);
             BuyProductID(productId);
         }
 
@@ -87,13 +101,13 @@ namespace MeditativeBowls
         public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs args)
         {
             bool productFound = false;
-            
+
             // check slideshow
             if (String.Equals(args.purchasedProduct.definition.id, slideShow.id, StringComparison.Ordinal))
             {
-                Debug.Log("Purchased: " + slideShow.id);
+                // Debug.Log("Purchased: " + slideShow.id);
                 productFound = true;
-                AllRefs.I.shopMenu.OnItemPurchased(2);
+                AllRefs.I.shopMenu.OnItemPurchased(2, 0);
             }
 
             // check carpets
@@ -101,41 +115,32 @@ namespace MeditativeBowls
             {
                 if (String.Equals(args.purchasedProduct.definition.id, carpets[i].id, StringComparison.Ordinal))
                 {
-                    Debug.Log("Purchased: " + carpets[i].id);
+                    // Debug.Log("Purchased: " + carpets[i].id);
                     productFound = true;
 
-                    AllRefs.I.shopMenu.OnItemPurchased(0);
+                    AllRefs.I.shopMenu.OnItemPurchased(0, i);
                     break;
                 }
             }
-            
+
             // check bowls
             for (int i = 0; i < bowls.Length && !productFound; i++)
             {
                 if (String.Equals(args.purchasedProduct.definition.id, bowls[i].id, StringComparison.Ordinal))
                 {
-                    Debug.Log("Purchased: " + bowls[i].id);
+                    // Debug.Log("Purchased: " + bowls[i].id);
                     productFound = true;
 
-                    AllRefs.I.shopMenu.OnItemPurchased(1);
+                    AllRefs.I.shopMenu.OnItemPurchased(1, i);
                     break;
                 }
             }
 
-            if(!productFound)
+            if (!productFound)
                 Debug.Log("Purchase Failed");
 
             return PurchaseProcessingResult.Complete;
         }
-
-
-
-
-
-
-
-
-
 
         //**************************** Dont worry about these methods ***********************************
         private void Awake()
@@ -218,7 +223,50 @@ namespace MeditativeBowls
         }
 
         public void OnPurchaseFailed(Product product, PurchaseFailureReason failureReason)
-        {
+        {   
+            // if duplication purchase
+            if ((int)failureReason == 6)
+            {
+
+                bool productFound = false;
+
+                // check slideshow
+                if (String.Equals(product.definition.storeSpecificId, slideShow.id, StringComparison.Ordinal))
+                {
+                    Debug.Log("Purchased: " + slideShow.id);
+                    productFound = true;
+                    AllRefs.I.shopMenu.OnItemPurchased(2, 0);
+                }
+
+                // check carpets
+                for (int i = 0; i < carpets.Length && !productFound; i++)
+                {
+                    if (String.Equals(product.definition.storeSpecificId, carpets[i].id, StringComparison.Ordinal))
+                    {
+                        Debug.Log("Purchased: " + carpets[i].id);
+                        productFound = true;
+
+                        AllRefs.I.shopMenu.OnItemPurchased(0, i);
+                        break;
+                    }
+                }
+
+                // check bowls
+                for (int i = 0; i < bowls.Length && !productFound; i++)
+                {
+                    if (String.Equals(product.definition.storeSpecificId, bowls[i].id, StringComparison.Ordinal))
+                    {
+                        Debug.Log("Purchased: " + bowls[i].id);
+                        productFound = true;
+
+                        AllRefs.I.shopMenu.OnItemPurchased(1, i);
+                        break;
+                    }
+                }
+            }
+
+            PopupManager.Instance.messagePopup.Show("Purchase Failed!", purchaseFailureReasons[(int)failureReason]);
+
             Debug.Log(string.Format("OnPurchaseFailed: FAIL. Product: '{0}', PurchaseFailureReason: {1}", product.definition.storeSpecificId, failureReason));
         }
     }

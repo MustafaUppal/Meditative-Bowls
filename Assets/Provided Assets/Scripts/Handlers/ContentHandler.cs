@@ -29,7 +29,7 @@ public class ContentHandler : MonoBehaviour
             {
                 categories.Add(item.set, true);
                 categoryOptions.Add(new OptionData { text = item.setName });
-                Debug.Log("item.set:" + item.set);
+                // Debug.Log("item.set:" + item.set);
             }
         }
 

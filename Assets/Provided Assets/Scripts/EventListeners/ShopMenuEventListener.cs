@@ -225,35 +225,39 @@ public class ShopMenuEventListener : MonoBehaviour
 
     #endregion Button Clicks end
 
-    public void OnItemPurchased(int type)
+    public void OnItemPurchased(int type, int index)
     {
         PopupManager.Instance.messagePopup.Show("Purchase Successfull!", "Seleted item has been successfully purchased.");
+        
+        // Debug.Log("Selected Index: " + selectedItem.index);
+        // Debug.Log("Index: " + index);
+
         switch (type)
         {
             case 0: // carpet
-                Inventory.allCarpets[selectedItem.index].CurrentState = Item.State.Purchased;
-                OnClickItemButton(selectedItem.index);
+                Inventory.allCarpets[index].CurrentState = Item.State.Purchased;
+                OnClickItemButton(index);
                 break;
             case 1: // bowl
-                Inventory.allBowls[selectedItem.index].CurrentState = Item.State.Purchased;
-                OnClickItemButton(selectedItem.index);
+                Inventory.allBowls[index].CurrentState = Item.State.Purchased;
+                OnClickItemButton(index);
                 break;
             case 2: // slideshow
-                Inventory.allMusics[selectedItem.index].CurrentState = Item.State.Purchased;
-                OnClickItemButton(selectedItem.index);
+                Inventory.allMusics[index].CurrentState = Item.State.Purchased;
+                OnClickItemButton(index);
                 Inventory.musicsManager.activeMusicIndex = 0;
                 break;
         }
 
-        PlayerPreferencesManager.SetPurchasedState((int)currentState, selectedItem.index, true);
+        PlayerPreferencesManager.SetPurchasedState((int)currentState, index, true);
     }
 
     public void OnClickLoadItem()
     {
         // GameManager.Instance.FooterText.text = "Place The Bowl to yor desire location";
 
-        Debug.Log("State: " + (int)currentState);
-        Debug.Log("Index: " + selectedItem.position);
+        // Debug.Log("State: " + (int)currentState);
+        // Debug.Log("Index: " + selectedItem.position);
 
 
         switch (currentState)
@@ -281,7 +285,7 @@ public class ShopMenuEventListener : MonoBehaviour
         {
             case Item.State.Locked:
                 // purchase bowl
-                MeditativeBowls.IAPManager.instance.PurchaseItem(selectedItem.position - 1, (int)currentState);
+                MeditativeBowls.IAPManager.instance.PurchaseItem(selectedItem.index, (int)currentState);
                 break;
             case Item.State.Purchased:
                 // load selected bowl
