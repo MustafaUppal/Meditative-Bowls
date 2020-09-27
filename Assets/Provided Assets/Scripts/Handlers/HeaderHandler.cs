@@ -20,6 +20,7 @@ public class HeaderHandler : MonoBehaviour
     public Animator[] buttonSelectors;
 
     public MenuButtonState menuButtonState;
+    public bool isHelpOpened;
 
     // *******************
     // * Unity Callbacks *
@@ -55,6 +56,13 @@ public class HeaderHandler : MonoBehaviour
             MenuManager.Instance.ChangeState((MenuManager.MenuStates)newState);
             // SelectButton();
         }
+    }
+
+    public void OnClickHelpButton()
+    {
+        isHelpOpened = !isHelpOpened;
+        buttonSelectors[5].SetInteger("State", isHelpOpened ? 1 : 0);
+        MenuManager.Instance.EnableHelp(isHelpOpened);
     }
 
     // ********************

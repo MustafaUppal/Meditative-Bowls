@@ -22,7 +22,9 @@ namespace SerializeableClasses
 
         [Header("Item References")]
 
+        public Image largeImage;
         public Image image;
+
         public Text description;
         public Button b_itemActionButton;
         public Text t_itemActionButton;
@@ -36,17 +38,20 @@ namespace SerializeableClasses
         public Sprite playSprite;
         public Sprite stopSprite;
 
+        [Space]
+        public Image thumbnail;
+        public RawImage carpet;
+        public RawImage bowl;
+        public RawImage Largebowl;
+        public bool isLargeView;
 
         [Header("Important References")]
         public GameObject bowlObj;
         public GameObject carpetObj;
         public GameObject bowlCam;
         public GameObject carpetCam;
-        public Image thumbnail;
-        public RawImage carpet;
-        public RawImage bowl;
         public GameObject resetButton;
-        public GameObject switchImageButton;
+        public GameObject expandImageButton;
         [Space]
         public GameObject playSoundButton;
         public Image playSoundIcon;
@@ -54,7 +59,12 @@ namespace SerializeableClasses
         public void EnableImage(int index, bool enable = true)
         {
             carpet.gameObject.SetActive(index.Equals(0) ? enable : false);
-            bowl.gameObject.SetActive(index.Equals(1) ? enable : false);
+
+            if (isLargeView)
+                Largebowl.gameObject.SetActive(index.Equals(1) ? enable : false);
+            else
+                bowl.gameObject.SetActive(index.Equals(1) ? enable : false);
+
             thumbnail.gameObject.SetActive(index.Equals(2) ? enable : false);
         }
 
@@ -63,9 +73,9 @@ namespace SerializeableClasses
             resetButton.SetActive(enable);
         }
 
-        public void EnableSwitchButton(bool enable)
+        public void EnableExpandButton(bool enable)
         {
-            switchImageButton.SetActive(enable);
+            expandImageButton.SetActive(enable);
         }
 
         public void SetPlaySprite(bool play)

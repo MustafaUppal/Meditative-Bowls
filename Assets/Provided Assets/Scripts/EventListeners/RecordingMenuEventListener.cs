@@ -173,7 +173,7 @@ public class RecordingMenuEventListener : MonoBehaviour
 
                 headerSettings.icon.sprite = headerSettings.startRecoding;
 
-                Microphone.End(string.Empty);
+                if(wavIncluded) Microphone.End(string.Empty);
                 recordingSettings.stopwatch.Stop();
                 PopupManager.Instance.Show("Name Session", SaveRecording);
                 break;
@@ -188,6 +188,7 @@ public class RecordingMenuEventListener : MonoBehaviour
 
     AudioClip newAudio;
     Coroutine microPhoneC;
+    bool wavIncluded = false;
     public void OnClickRecordButton()
     {
         switch (currentState)
@@ -211,22 +212,30 @@ public class RecordingMenuEventListener : MonoBehaviour
 
     IEnumerator GetMicrophone()
     {
+        Debug.Log("Microphone count: " + Microphone.devices.Length);
         yield return Application.RequestUserAuthorization(UserAuthorization.Microphone);
-        if (Application.HasUserAuthorization(UserAuthorization.Microphone))
+        if (Microphone.devices.Length > 0 && Application.HasUserAuthorization(UserAuthorization.Microphone))
         {
             Debug.Log("We received the mic");
             ChangeState(RecordingStates.Started);
             newAudio = Microphone.Start(string.Empty, false, 300, 44100);
+            wavIncluded = true;
             //StartRecording
         }
         else
         {
             Debug.Log("We encountered an error");
-            PopupManager.Instance.messagePopup.Show("Access Denied!", "Failed to get microphone access from device. Please press record button again.");
+            wavIncluded = false;
+            PopupManager.Instance.messagePopup.Show("Access Denied!", "Failed to get microphone access from device. Please press record button again.", "OK", OnClickMessagePopupButton);
             //Error
         }
 
         microPhoneC = null;
+    }
+
+    void OnClickMessagePopupButton()
+    {
+        ChangeState(RecordingStates.Started);
     }
 
     Coroutine savingC;

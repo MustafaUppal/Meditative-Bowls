@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,13 +13,22 @@ public class MessagePopup : MonoBehaviour
     public Text button;
     public Animator animator;
 
-     public void Show(string header, string body, string buttonText = "OK")
+    public Action buttonCallBack;
+
+    public void OnClickButton()
+    {
+        if(buttonCallBack != null) buttonCallBack();
+    }
+
+     public void Show(string header, string body, string buttonText = "OK", Action buttonCallBack = null)
     {
         root.SetActive(true);
         animator.Play("Popup In");
         this.header.text = header;
         this.body.text = body;
         this.button.text = buttonText;
+
+        this.buttonCallBack = buttonCallBack;
     }
 
     Coroutine hide = null;

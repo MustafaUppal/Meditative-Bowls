@@ -25,6 +25,7 @@ public class MenuManager : MonoBehaviour
     public MenuStates prevState;
 
     public GameObject[] AllPanels;
+    public HelpMenuEventListener helpMenu;
 
     void Awake()
     {
@@ -58,54 +59,14 @@ public class MenuManager : MonoBehaviour
         else if(!SceneManager.Instance.IsSceneLoaded(2))
             SceneManager.Instance.LoadScene(2);
 
-        // if (prevState.Equals(MenuStates.Settings)&&!AllRefs.I.settingMenu.bowlEditingSettings.root.activeInHierarchy)
-        // {
-        //     print("Pakistan");
-        //     AllRefs.I.settingMenu.ManageFooter(false);
-        //     AllRefs.I.settingMenu.OnClickBackButton();
-        // }
-        // if (currentState.Equals(MenuStates.Library))
-        // {
-        //     AllRefs.I._GameManager.state = GameManager.State.Libarary;
-        // }
-        // if (currentState.Equals(MenuStates.Main))
-        // {
-        //     try
-        //     {
-        //         AllRefs.I._GameManager.SelectModeNormal();
-        //     }
-        //     catch
-        //     {
-
-        //     }
-        // }
-        // if (AllRefs.I._GameManager.state.Equals(GameManager.State.Randomization))
-        // {
-        //     try
-        //     {
-        //         AllRefs.I._GameManager.SelectModeNormal();
-        //     }
-        //     catch
-        //     {
-
-        //     }
-        // }
-        ApplyChanges();
         AllRefs.I.headerHandler.SelectButton();
 
         // Debug.Log("MM");
     }
 
-    IEnumerator ChangeStateE(MenuStates newState)
+    public void EnableHelp(bool enable)
     {
-        prevState = currentState;
-        currentState = newState;
-        yield return null;
+        helpMenu.gameObject.SetActive(enable);
+        helpMenu.Enable(enable);
     }
-
-    private void ApplyChanges()
-    {
-
-    }
-
 }

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class DockEventListener : MonoBehaviour
 {
     public new Animator camera;
-    public int cameraPosition;
+    public int cameraPosition = 2;
     public class ButtonsData
     {
         public bool replayBG = true;

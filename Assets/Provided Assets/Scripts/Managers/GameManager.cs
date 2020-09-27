@@ -55,7 +55,8 @@ public class GameManager : MonoBehaviour
     {
         Instance = this;
         DefaultFooterText = FooterText.text;
-        SelectedSoundBowl = Inventory.allBowls[Inventory.bowlsManager.activeBowlsIndexes[0]].gameObject;
+        // if(Inventory.bowlsManager.activeBowlsIndexes[0] != -1)
+        SelectedSoundBowl = Inventory.allBowls[Inventory.bowlsManager.activeBowlsIndexes[3]].gameObject;
     }
 
     private void Update()

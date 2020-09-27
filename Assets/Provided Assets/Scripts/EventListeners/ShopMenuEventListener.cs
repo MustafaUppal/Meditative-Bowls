@@ -21,6 +21,7 @@ public class ShopMenuEventListener : MonoBehaviour
     public SelectedItemSettings selectedItem;
     public BowlPlacementSettings bowlPlacementSettings;
     public GameObject restoreButton;
+    public GameObject largeView;
 
     [Space]
     public ContentHandler content;
@@ -128,7 +129,9 @@ public class ShopMenuEventListener : MonoBehaviour
         string setName = item.setName.Equals("") ? "" : " (" + item.setName + ")";
 
         // Image
+        selectedItem.largeImage.sprite = item.image;
         selectedItem.image.sprite = item.image;
+
         // Description
         selectedItem.description.text = "<size=35>" + item.name + setName + "</size>\n" + item.description;
         // Button
@@ -184,6 +187,12 @@ public class ShopMenuEventListener : MonoBehaviour
         ChangeView(imageView);
     }
 
+    public void OnClickExpandImage(bool enable)
+    {
+        selectedItem.isLargeView = enable;
+        largeView.SetActive(enable);
+        ChangeView(false);
+    }
     bool isSoundPlaying;
     public void OnClickPlaySound()
     {
@@ -203,13 +212,14 @@ public class ShopMenuEventListener : MonoBehaviour
             case 0: // Carpets
                 ChangeView(false);
 
-                selectedItem.EnableSwitchButton(true);
+                selectedItem.resetButton.SetActive(false);
+                selectedItem.EnableExpandButton(false);
                 selectedItem.playSoundButton.SetActive(false);
                 break;
             case 1: // Bowls
                 ChangeView(false);
 
-                selectedItem.EnableSwitchButton(true);
+                selectedItem.EnableExpandButton(true);
                 selectedItem.playSoundButton.SetActive(true);
 
                 ChangeSoundPlay(false);
@@ -217,7 +227,8 @@ public class ShopMenuEventListener : MonoBehaviour
             case 2: // Musics
                 ChangeView(true);
 
-                selectedItem.EnableSwitchButton(false);
+                selectedItem.resetButton.SetActive(false);
+                selectedItem.EnableExpandButton(false);
                 selectedItem.playSoundButton.SetActive(false);
                 break;
         }
@@ -332,7 +343,11 @@ public class ShopMenuEventListener : MonoBehaviour
     {
         this.imageView = imageView;
         selectedItem.EnableImage((int)currentState, !imageView);
-        selectedItem.image.transform.parent.gameObject.SetActive(imageView);
+
+        if(selectedItem.isLargeView)
+            selectedItem.largeImage.transform.parent.gameObject.SetActive(imageView);
+        else
+            selectedItem.image.transform.parent.gameObject.SetActive(imageView);
     }
 
     void ChangeSoundPlay(bool isSoundPlaying)
