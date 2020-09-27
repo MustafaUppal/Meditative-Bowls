@@ -122,9 +122,10 @@ public class ShopMenuEventListener : MonoBehaviour
         Item item = Inventory.GetItem((int)currentState, index);
         
         if((int)currentState != 2)
-            selectedItem.position = int.Parse(item.name.Split(' ')[1]);
+            selectedItem.position = item.Position;
         else 
             selectedItem.position = index;
+            Debug.Log("Poaition: " + selectedItem.position);
 
         string setName = item.setName.Equals("") ? "" : " (" + item.setName + ")";
 

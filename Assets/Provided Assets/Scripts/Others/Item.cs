@@ -17,6 +17,8 @@ public class Item : MonoBehaviour
     public int set;
     public int index = -1;
 
+    int[] startingIndeces = {0, 7, 15, 22};
+
     public int Index
     {
         get
@@ -25,6 +27,14 @@ public class Item : MonoBehaviour
                 index = int.Parse(gameObject.name.Split('(')[1].Trim(')')) - 1;
 
             return index;
+        }
+    }
+
+    public int Position
+    {
+        get
+        {
+            return index - startingIndeces[set - 1] + 1;
         }
     }
 

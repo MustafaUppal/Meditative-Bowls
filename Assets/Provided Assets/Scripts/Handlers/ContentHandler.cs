@@ -89,7 +89,8 @@ public class ContentHandler : MonoBehaviour
             case 1: // bowls
                 for (int i = 0; i < Inventory.bowlsManager.activeBowlsIndexes.Length; i++)
                 {
-                    loadedItem.Add(Inventory.bowlsManager.activeBowlsIndexes[i], i);
+                    if(Inventory.bowlsManager.activeBowlsIndexes[i] != -1)
+                        loadedItem.Add(Inventory.bowlsManager.activeBowlsIndexes[i], i);
                 }
                 break;
             case 2: // slide show

@@ -4099,7 +4099,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 820b329146143224d81a437b870052db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState: 2
+  currentState: 1
   name: Bowl 3
   setName: Set 1
   set: 1
@@ -11122,7 +11122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 820b329146143224d81a437b870052db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState: 2
+  currentState: 1
   name: Bowl 6
   setName: Set 1
   set: 1
@@ -11131,7 +11131,7 @@ MonoBehaviour:
   image: {fileID: 21300000, guid: 256913dfc2abd8c438fd1bf45c8652fd, type: 3}
   description: '     This is the description of a bowl.'
   position: 0
-  lightColor: {r: 0.1882353, g: 0.09803922, b: 0.20392157, a: 1}
+  lightColor: {r: 0.49803922, g: 0.3254902, b: 0.5294118, a: 1}
   material: {fileID: 2100000, guid: b8492fd1358f5ba4eb19d0027fa8ea91, type: 2}
   currentState: 2
 --- !u!54 &245460688
@@ -22045,7 +22045,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 820b329146143224d81a437b870052db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState: 2
+  currentState: 1
   name: Bowl 1
   setName: Set 1
   set: 1
@@ -30467,7 +30467,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 820b329146143224d81a437b870052db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState: 2
+  currentState: 1
   name: Bowl 7
   setName: Set 1
   set: 1
@@ -68677,7 +68677,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 820b329146143224d81a437b870052db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState: 2
+  currentState: 1
   name: Bowl 2
   setName: Set 1
   set: 1
@@ -76204,7 +76204,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 820b329146143224d81a437b870052db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState: 2
+  currentState: 1
   name: Bowl 5
   setName: Set 1
   set: 1
@@ -98127,7 +98127,7 @@ MonoBehaviour:
   image: {fileID: 21300000, guid: 816a37c157319eb47ba0692225ecbf08, type: 3}
   description: '     This is the description of a bowl.'
   position: 0
-  lightColor: {r: 0.1882353, g: 0.09803922, b: 0.20392157, a: 1}
+  lightColor: {r: 0.49803922, g: 0.3254902, b: 0.5294118, a: 1}
   material: {fileID: 2100000, guid: af740b46f49a7a74bb867cd35a7ab9b1, type: 2}
   currentState: 0
 --- !u!54 &3006688202935718741
@@ -98213,7 +98213,7 @@ MonoBehaviour:
   image: {fileID: 21300000, guid: 4cb80126952388d4bbf64d5cb8baa27f, type: 3}
   description: '     This is the description of a bowl.'
   position: 0
-  lightColor: {r: 0.1882353, g: 0.09803922, b: 0.20392157, a: 1}
+  lightColor: {r: 0.49803922, g: 0.3254902, b: 0.5294118, a: 1}
   material: {fileID: 2100000, guid: bbb1d352a01c7c544a27d50ca3a324cc, type: 2}
   currentState: 0
 --- !u!114 &3006688202973836705
@@ -99260,7 +99260,7 @@ MonoBehaviour:
   image: {fileID: 21300000, guid: 9573a37b5210f23409d9dcc5a8f8805b, type: 3}
   description: '     This is the description of a bowl.'
   position: 0
-  lightColor: {r: 0.1882353, g: 0.09803922, b: 0.20392157, a: 1}
+  lightColor: {r: 0.49803922, g: 0.3254902, b: 0.5294118, a: 1}
   material: {fileID: 2100000, guid: e65b75312c3240641aa6b2b0dc2496ea, type: 2}
   currentState: 0
 --- !u!54 &3006688204185404037
