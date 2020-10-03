@@ -110,7 +110,8 @@ public class ContentHandler : MonoBehaviour
         Dictionary<int, int> loadedBowls = new Dictionary<int, int>();
         for(int i = 0; i < Inventory.bowlsManager.activeBowlsIndexes.Length; i++)
         {
-            loadedBowls.Add(Inventory.bowlsManager.activeBowlsIndexes[i], i);
+            if(Inventory.bowlsManager.activeBowlsIndexes[i] != -1)
+                loadedBowls.Add(Inventory.bowlsManager.activeBowlsIndexes[i], i);
         }
 
         for (int i = 0; i < Inventory.GetItemCount(1); i++)

@@ -5,6 +5,20 @@ using UnityEngine;
 public class Carpet : Item
 {
     public Material material;
+
+    // int[] startingIndeces = {0, 3, 6};
+
+    
+    // public int Position
+    // {
+    //     get
+    //     {
+    //         Debug.Log("C | index: " + index + ", set: " + set + ", si: " + startingIndeces[set - 1]);
+    //         Debug.Log((index - startingIndeces[set - 1] + 1));
+    //         return index - startingIndeces[set - 1] + 1;
+    //     }
+    // }
+
     // Start is called before the first frame update
 
     private void Awake()

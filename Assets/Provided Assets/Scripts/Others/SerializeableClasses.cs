@@ -18,7 +18,7 @@ namespace SerializeableClasses
     {
         public int index;
         public int prevIndex;
-        public int position;
+        // private int position;
 
         [Header("Item References")]
 
@@ -55,6 +55,8 @@ namespace SerializeableClasses
         [Space]
         public GameObject playSoundButton;
         public Image playSoundIcon;
+
+        // public int Position { get => position; set { Debug.Log("position " + position + " -> " + value); position = value;} }
 
         public void EnableImage(int index, bool enable = true)
         {

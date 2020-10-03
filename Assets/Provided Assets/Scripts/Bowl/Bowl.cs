@@ -9,7 +9,18 @@ public class Bowl : Item
     public Color lightColor;
     public Material material;
     AudioSource audioSource;
-    public Item.State currentState;
+    // public Item.State currentState;
+    // int[] startingIndeces = {0, 8, 15, 22};
+
+    
+    // public int Position
+    // {
+    //     get
+    //     {
+    //         Debug.Log("B | index: " + index + ", set: " + set + ", si: " + startingIndeces[set - 1]);
+    //         return index - startingIndeces[set - 1] + 1;
+    //     }
+    // }
 
     public AudioSource AudioSource
     {

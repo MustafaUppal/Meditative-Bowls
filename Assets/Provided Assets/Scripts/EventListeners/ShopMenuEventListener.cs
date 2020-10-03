@@ -116,16 +116,31 @@ public class ShopMenuEventListener : MonoBehaviour
         selectedItem.prevIndex = selectedItem.index;
         selectedItem.index = index;
 
-        try{content.GetTile(selectedItem.prevIndex).Highlight = false;}catch(System.Exception e){};
+        try { content.GetTile(selectedItem.prevIndex).Highlight = false; } catch (System.Exception e) { };
         content.GetTile(selectedItem.index).Highlight = true;
 
         Item item = Inventory.GetItem((int)currentState, index);
-        
-        if((int)currentState != 2)
-            selectedItem.position = item.Position;
-        else 
-            selectedItem.position = index;
-            Debug.Log("Poaition: " + selectedItem.position);
+
+        // if (currentState == ShopStates.Carpets) // carpets
+        // {
+        //     int pos = (item as Carpet).Position;
+        //     Debug.Log("C | Pos: " + pos);
+        //     selectedItem.Position = (item as Carpet).Position;
+        // }
+        // if (currentState == ShopStates.Bowls) // bowls
+        // {
+        //     int pos = (item as Bowl).Position;
+        //     Debug.Log("B | Pos: " + pos);
+        //     selectedItem.Position = (item as Bowl).Position;
+        // }
+        // else // slideshow
+        //     selectedItem.Position = index;
+
+        // Debug.Log("Position: " + selectedItem.Position);
+        Debug.Log("index: " + selectedItem.index);
+
+        // Debug.Log("Index: " + item.Index);
+
 
         string setName = item.setName.Equals("") ? "" : " (" + item.setName + ")";
 
@@ -271,7 +286,6 @@ public class ShopMenuEventListener : MonoBehaviour
         // Debug.Log("State: " + (int)currentState);
         // Debug.Log("Index: " + selectedItem.position);
 
-
         switch (currentState)
         {
             case ShopStates.Bowls:
@@ -314,7 +328,7 @@ public class ShopMenuEventListener : MonoBehaviour
         {
             case Item.State.Locked:
                 // purchase bowl
-                MeditativeBowls.IAPManager.instance.PurchaseItem(selectedItem.position - 1, (int)currentState);
+                MeditativeBowls.IAPManager.instance.PurchaseItem(selectedItem.index, (int)currentState);
                 break;
             case Item.State.Purchased:
                 // load selected bowl
@@ -335,7 +349,7 @@ public class ShopMenuEventListener : MonoBehaviour
         {
             case Item.State.Locked:
                 // purchase bowl
-                MeditativeBowls.IAPManager.instance.PurchaseItem(selectedItem.position, (int)currentState);
+                MeditativeBowls.IAPManager.instance.PurchaseItem(0, (int)currentState);
                 break;
         }
     }
