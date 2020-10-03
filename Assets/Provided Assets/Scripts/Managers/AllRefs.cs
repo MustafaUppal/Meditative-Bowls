@@ -21,7 +21,9 @@ public class AllRefs : MonoBehaviour
     public HeaderHandler headerHandler;
     public SettingsMenuEventListener settingMenu;
     public GameManager _GameManager;
+
     [Header("Objects")]
     public GameObject itemContainer;
     public HighlightSettings highlightSettings;
+    public ObjectSeection objectSelection;
 }

@@ -163,7 +163,7 @@ public class InventoryManager : MonoBehaviour
         string itemName = (type == 0 ? "Carpet" : "Bowl");
         string productId = "com.HimalayanBowls.SingingBowls.Set" + i.set + "." + itemName + (bowlNo);
 
-        // Debug.Log(productId);
+       Debug.Log(productId);
         return productId;
     }
 }

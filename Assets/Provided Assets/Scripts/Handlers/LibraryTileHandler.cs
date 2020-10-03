@@ -24,24 +24,21 @@ public class LibraryTileHandler : MonoBehaviour
     public void OnClickLoadButton()
     {
         // MenuManager.Instance.ChangeState(MenuManager.MenuStates.Main);
-
+        AllRefs.I._GameManager.SoundRestart();
         AllRefs.I.headerHandler.OnClickMenuButton();
         SessionManager.Instance.LoadSession(name.text);
     }
 
     public void OnClickPlayRecordingButton()
     {
+        AllRefs.I._GameManager.SoundRestart();
         // MenuManager.Instance.ChangeState(MenuManager.MenuStates.Main);
         AllRefs.I.headerHandler.OnClickMenuButton();
         SessionManager.Instance.LoadSession(name.text, true);
         // TODO: playrecording
     }
 
-    public void OnClickPlayMp3Button()
-    {
-       
-    }
-
+    
     public void OnClickDeleteButton()
     {
         SessionManager.Instance.DeleteSession(name.text);

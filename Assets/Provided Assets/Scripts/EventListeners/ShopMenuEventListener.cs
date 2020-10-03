@@ -254,6 +254,7 @@ public class ShopMenuEventListener : MonoBehaviour
 
     public void OnItemPurchased(int type, int index)
     {
+        PopupManager.Instance.spinnerLoading.Hide();
         PopupManager.Instance.messagePopup.Show("Purchase Successfull!", "Seleted item has been successfully purchased.");
         
         // Debug.Log("Selected Index: " + selectedItem.index);

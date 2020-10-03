@@ -123,9 +123,13 @@ public class GameManager : MonoBehaviour
 
     public void SoundRestart()
     {
-        if (SelectedSoundBowl && SelectedSoundBowl.GetComponent<AudioSource>().isPlaying)
-            SelectedSoundBowl.GetComponent<AudioSource>().Stop();
-        SelectedSoundBowl.GetComponent<AudioSource>().Play();
+        for (int i = 0; i < Inventory.bowlsManager.activeBowlsIndexes.Length; i++)
+        {
+            if (Inventory.bowlsManager.activeBowlsIndexes[i] != -1)
+            {
+                Inventory.allBowls[Inventory.bowlsManager.activeBowlsIndexes[i]].AudioSource.Stop();
+            }
+        }
 
     }
     public void SelectRandomiszation(float Time)

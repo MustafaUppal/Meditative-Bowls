@@ -24,7 +24,7 @@ public class MainMenuEventListener : MonoBehaviour
 
         ManageDock(true);
 
-        
+        AllRefs.I.objectSelection.EnableClick(true);
     }
 
     public void ManageFooter(bool val)
@@ -91,7 +91,9 @@ public class MainMenuEventListener : MonoBehaviour
         if(modes.placeBowls)
             return;
 
+        AllRefs.I.objectSelection.EnableClick(modes.slideShow);    
         modes.slideShow = !modes.slideShow;
+        AllRefs.I.objectSelection.EnableClick(!modes.slideShow);    
         slideShow.StartSlideShow(modes.slideShow);
     }
 
@@ -101,6 +103,7 @@ public class MainMenuEventListener : MonoBehaviour
             return;
             
         modes.placeBowls = !modes.placeBowls;
+        AllRefs.I.objectSelection.EnableClick(!modes.placeBowls);    
         bowlsPlacement.Enable(modes.placeBowls);
     }
 }

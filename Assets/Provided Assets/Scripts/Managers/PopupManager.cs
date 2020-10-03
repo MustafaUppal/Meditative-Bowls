@@ -14,6 +14,7 @@ public class PopupManager : MonoBehaviour
     public Popup1 popup;
     public GeneralLoading loading;
     public MessagePopup messagePopup;
+    public SpiinerLoading spinnerLoading;
 
     Action<string> method;
 
@@ -24,13 +25,14 @@ public class PopupManager : MonoBehaviour
 
     public void Show(string header, Action<string> OnClickSave)
     {
-        
+        AllRefs.I.objectSelection.EnableClick(false);
         popup.Show(header);
         method = OnClickSave;
     }
 
     public void Hide()
     {
+        AllRefs.I.objectSelection.EnableClick(true);
         popup.Hide();
     }
 
@@ -42,7 +44,6 @@ public class PopupManager : MonoBehaviour
     public void OnClickPopup1Save()
     {
         method(popup.GetName());
-
     }
 
     public void OnClickPopup1Cancel()

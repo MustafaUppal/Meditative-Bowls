@@ -22,13 +22,13 @@ public class BowlsPlacementHandler : MonoBehaviour
         content.SetPurchasedBowls();
         bowlPlacementSettings.Enable = true;
         bowlPlacementSettings.Init();
-        MenuManager.Instance.currentState = MenuManager.MenuStates.BowlPlacement;
+        // MenuManager.Instance.currentState = MenuManager.MenuStates.BowlPlacement;
     }
 
     private void OnDisable()
     {
         Inventory.InitScene(true);
-        MenuManager.Instance.currentState = MenuManager.MenuStates.Main;
+        // MenuManager.Instance.currentState = MenuManager.MenuStates.Main;
     }
 
     public void Enable(bool enable)

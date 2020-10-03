@@ -45,7 +45,8 @@ public class MenuManager : MonoBehaviour
     {
         prevState = currentState;
         currentState = newState;
-
+    print(prevState);
+    print(currentState);
         SceneManager.Instance.prevState = prevState;
         SceneManager.Instance.currentState = currentState;
         
@@ -58,7 +59,9 @@ public class MenuManager : MonoBehaviour
             AllPanels[(int)currentState].SetActive(true);
         else if(!SceneManager.Instance.IsSceneLoaded(2))
             SceneManager.Instance.LoadScene(2);
-
+        if(prevState==MenuStates.Settings){
+            AllRefs.I._GameManager.gameObject.GetComponent<BowlReposition>().ResetFuntion();
+        }
         AllRefs.I.headerHandler.SelectButton();
 
         // Debug.Log("MM");

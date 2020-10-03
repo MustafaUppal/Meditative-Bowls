@@ -17,11 +17,13 @@ public class MessagePopup : MonoBehaviour
 
     public void OnClickButton()
     {
-        if(buttonCallBack != null) buttonCallBack();
+        if (buttonCallBack != null) buttonCallBack();
     }
 
-     public void Show(string header, string body, string buttonText = "OK", Action buttonCallBack = null)
+    public void Show(string header, string body, string buttonText = "OK", Action buttonCallBack = null)
     {
+        if (AllRefs.I.objectSelection != null)
+            AllRefs.I.objectSelection.EnableClick(false);
         root.SetActive(true);
         animator.Play("Popup In");
         this.header.text = header;
@@ -35,13 +37,15 @@ public class MessagePopup : MonoBehaviour
 
     public void Hide()
     {
-        if(hide != null)
+        if (AllRefs.I.objectSelection != null)
+            AllRefs.I.objectSelection.EnableClick(true);
+        if (hide != null)
             StopCoroutine(hide);
-        
+
         hide = StartCoroutine(HideE());
         animator.Play("Popup Out");
     }
-    
+
     IEnumerator HideE()
     {
         yield return new WaitForSecondsRealtime(1);

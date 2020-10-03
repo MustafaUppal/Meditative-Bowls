@@ -31,6 +31,7 @@ public class SettingsMenuEventListener : MonoBehaviour
         };
         //AllRefs.I._GameManager.VolumeSlider.gameObject.SetActive(false);
         AllRefs.I.dock.ManageButtons(data);
+        AllRefs.I.objectSelection.EnableClick(true);
     }
     private void Start()
     {
@@ -43,7 +44,16 @@ public class SettingsMenuEventListener : MonoBehaviour
         bowlEditingSettings.root.SetActive((isEditingBowl));
         FooterPanel.SetActive(!isEditingBowl);
     }
+    public void OnClickStopRandomizationButton()
+    {
+        AllRefs.I._GameManager.SoundRestart();
+        AllRefs.I._GameManager.state=GameManager.State.Normal;
+    }
 
+    public void OnClickStopRepositioningButton()
+    {
+        AllRefs.I._GameManager.gameObject.GetComponent<BowlReposition>().ResetFuntion();
+    }
     public void OnClickBackButton()
     {
         //SettingsMenuEventListener.Instance.ManageFooter(false);

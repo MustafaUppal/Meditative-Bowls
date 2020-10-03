@@ -14,8 +14,18 @@ public class HelpMenuEventListener : MonoBehaviour
 
         if(enable)
         {
+            print((int)MenuManager.Instance.prevState);
+            print((int)MenuManager.Instance.currentState);
+
             allPages[(int)MenuManager.Instance.prevState].SetActive(false);
             allPages[(int)MenuManager.Instance.currentState].SetActive(true);
         }
+
+        AllRefs.I.objectSelection.EnableClick(false);
+    }
+
+    void OnDisable()
+    {
+        AllRefs.I.objectSelection.EnableClick(false);
     }
 }

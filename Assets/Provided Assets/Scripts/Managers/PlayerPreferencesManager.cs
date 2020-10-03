@@ -6,6 +6,8 @@ public class PlayerPreferencesManager
 {
     public static readonly string SESSION = "SESSION";
     public static readonly string ITEMS_RESTORED = "ITEMS_RESTORED";
+    public static readonly string ALARM_ITEM = "ALARM_ITEM";
+
 
     public static void SetItemsRestored(bool value)
     {
@@ -25,6 +27,16 @@ public class PlayerPreferencesManager
     public static bool GetPurchasedState(int type, int index, bool defaultVal)
     {
         return PlayerPrefs.GetInt(GetItemID(type, index), defaultVal ? 1 : 0).Equals(1);
+    }
+
+    public static void SetAlarmItemState(bool activate, int id)
+    {
+        PlayerPrefs.SetInt(ALARM_ITEM + id, activate ? 1 : 0);
+    }
+
+    public static bool GetAlarmItemState(int id, bool defaultVal)
+    {
+        return PlayerPrefs.GetInt(ALARM_ITEM + id, default ? 1 : 0).Equals(1);
     }
 
     public static bool IsItemInitialized(int type, int index, bool defaultVal)

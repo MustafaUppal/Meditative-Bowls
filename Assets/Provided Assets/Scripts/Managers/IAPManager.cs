@@ -76,6 +76,7 @@ namespace MeditativeBowls
         //Step 3 Create methods
         public void PurchaseItem(int index, int type)
         {
+            PopupManager.Instance.spinnerLoading.Show("Getting IAP Details");
             string productId = "";
 
             switch (type)

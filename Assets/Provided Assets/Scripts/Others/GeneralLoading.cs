@@ -13,6 +13,7 @@ public class GeneralLoading : MonoBehaviour
 
     public void Show(bool enable, string text = "")
     {
+        AllRefs.I.objectSelection.EnableClick(enable);
         this.text.text = text;
         if(enable) gameObject.SetActive(enable);
 

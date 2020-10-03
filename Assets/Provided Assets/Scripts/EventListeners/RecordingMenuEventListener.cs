@@ -62,6 +62,7 @@ public class RecordingMenuEventListener : MonoBehaviour
         recordingSettings.stopwatch = new Stopwatch();
 
         PopupManager.Instance.cancelAtion += OnRecordingDeleted;
+        AllRefs.I.objectSelection.EnableClick(true);
     }
 
     private void OnDisable()
@@ -195,11 +196,11 @@ public class RecordingMenuEventListener : MonoBehaviour
         {
             case RecordingStates.None:
                 recordingSettings.recordingData.Clear();
-                if(microPhoneC != null)
-                    StopCoroutine(microPhoneC);
+                // if(microPhoneC != null)
+                //     StopCoroutine(microPhoneC);
 
-                microPhoneC = StartCoroutine(GetMicrophone());
-                
+                // microPhoneC = StartCoroutine(GetMicrophone());
+                ChangeState(RecordingStates.Started);
                 break;
                 // case RecordingStates.Started:
                 //     ChangeState(RecordingStates.Paused);
@@ -273,7 +274,9 @@ public class RecordingMenuEventListener : MonoBehaviour
         // Loading true
         PopupManager.Instance.loading.Show(true, "Saving Audio...");
 
-        yield return SavWav.Save(name, newAudio);
+        // yield return SavWav.Save(name, newAudio);
+        yield return null;
+
 
         PopupManager.Instance.loading.Show(false);
         PopupManager.Instance.Hide();

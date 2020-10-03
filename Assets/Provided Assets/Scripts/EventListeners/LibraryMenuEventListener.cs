@@ -27,6 +27,7 @@ public class LibraryMenuEventListener : MonoBehaviour
         AllRefs.I.dock.ManageButtons(data);
 
         LoadAllSessions();
+        AllRefs.I.objectSelection.EnableClick(false);
     }
 
     public void OnClickBackButton()
