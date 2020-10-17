@@ -38,7 +38,15 @@ public class MainMenuEventListener : MonoBehaviour
     {
         dock.SetInteger("State", enable ? 1 : 0);
     }
+    public void SelectRandomization()
+    {
+        if (!(GameManager.Instance.state == GameManager.State.Randomization))
+            GameManager.Instance.state = GameManager.State.Randomization;
+        else
+            GameManager.Instance.state = GameManager.State.Normal;
 
+
+    }
     public void OnClickBackButtonInRepositionMode(){
          GameManager.Instance.GetComponent<BowlReposition>().ResetFuntion();
     }
@@ -47,32 +55,7 @@ public class MainMenuEventListener : MonoBehaviour
         Footertext.text = Message;
     }
 
-    // public void OnClickBackButton()
-    // {
-    //     Application.Quit();
-    // }
-
-    // public void OnClickLibraryButton()
-    // {
-    //     MenuManager.Instance.ChangeState(MenuManager.MenuStates.Library);
-    // }
-
-    // public void OnClickShopButton()
-    // {
-    //     MenuManager.Instance.ChangeState(MenuManager.MenuStates.Shop);
-    //     GameManager.Instance.state = GameManager.State.Shop;
-    // }
-
-    // public void OnClickRecordingButton()
-    // {
-    //     MenuManager.Instance.ChangeState(MenuManager.MenuStates.Recording);
-    // }
-
-    // public void OnClickAlramButton()
-    // {
-    //     MenuManager.Instance.ChangeState(MenuManager.MenuStates.Alram);
-    //     GameManager.Instance.state=GameManager.State.Alarm;
-    // }
+   
 
     public void OnClickLoopButton(bool increase)
     {

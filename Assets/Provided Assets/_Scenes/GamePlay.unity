@@ -481,13 +481,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
-  name: Bowl 1
+  name: C3 - Deep
   setName: Set 2
   set: 2
   index: -1
   price: 0.99
   image: {fileID: 21300000, guid: bf2da09fda5ab9349b5d26039fdb8f53, type: 3}
-  description: '     This is the description of a bowl.'
+  description: Perfect full C. A wonderful musical voice that fills the room with
+    vibes and harmony.
   position: 0
   lightColor: {r: 1, g: 0, b: 0, a: 1}
   material: {fileID: 2100000, guid: 7888bb3c70abd8f45ba91e87645a6bd8, type: 2}
@@ -4177,13 +4178,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
-  name: Bowl 3
+  name: E2 - Extra Deep
   setName: Set 1
   set: 1
   index: -1
   price: 0.99
   image: {fileID: 21300000, guid: bef529ddea6f12044965263eb93b2fec, type: 3}
-  description: '     This is the description of a bowl.'
+  description: 'Amazing transforming low tone. An exceptionally beautiful spotted
+    antique bowl. '
   position: 0
   lightColor: {r: 1, g: 1, b: 0, a: 1}
   material: {fileID: 2100000, guid: bc7929497a7a2e14184dcc6bce0de76d, type: 2}
@@ -11199,13 +11201,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
-  name: Bowl 6
+  name: A2 - Extra Deep
   setName: Set 1
   set: 1
   index: -1
   price: 0.99
   image: {fileID: 21300000, guid: 256913dfc2abd8c438fd1bf45c8652fd, type: 3}
-  description: '     This is the description of a bowl.'
+  description: Warm and wonderful with classic looks. A magical voice blending gorgeous
+    tones.
   position: 0
   lightColor: {r: 0.49803922, g: 0.3254902, b: 0.5294118, a: 1}
   material: {fileID: 2100000, guid: b8492fd1358f5ba4eb19d0027fa8ea91, type: 2}
@@ -15976,7 +15979,7 @@ GameObject:
   - component: {fileID: 362131537}
   - component: {fileID: 362131536}
   m_Layer: 5
-  m_Name: Library (4)
+  m_Name: Start Randomization
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21853,13 +21856,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
-  name: Bowl 2
+  name: D3 - Deep
   setName: Set 2
   set: 2
   index: -1
   price: 0.99
   image: {fileID: 21300000, guid: 3ac4cbd8339bead419cad9be61dc2f59, type: 3}
-  description: '     This is the description of a bowl.'
+  description: Uplifting bell tone from a real antique treasure. Symmetry and beauty
+    perfected.
   position: 0
   lightColor: {r: 1, g: 0.4745098, b: 0, a: 1}
   material: {fileID: 2100000, guid: c18fddb7e3fdc5b40991aa82b4ae53bf, type: 2}
@@ -22120,13 +22124,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
-  name: Bowl 1
+  name: C2 - Extra Deep
   setName: Set 1
   set: 1
   index: -1
   price: 0.99
   image: {fileID: 21300000, guid: 9d379d6489f5b4547bc013d3f956208d, type: 3}
-  description: '     This is the description of a bowl.'
+  description: Super deep golden treasure. One of the only C-2 antique singing bowls
+    in existence.
   position: 0
   lightColor: {r: 1, g: 0, b: 0, a: 1}
   material: {fileID: 2100000, guid: 3089aa80d2b7739409e8ce93e7f6e429, type: 2}
@@ -26455,13 +26460,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 2
-  name: Bowl 4
+  name: F2 - Extra Deep
   setName: Set 1
   set: 1
   index: -1
   price: 0.99
   image: {fileID: 21300000, guid: bb37eb8b7a13149438f984ff151afe9f, type: 3}
-  description: '     This is the description of a bowl.'
+  description: Elegant and beautiful smooth antique. Deep with exceptional harmonic
+    overtones.
   position: 0
   lightColor: {r: 0.19607843, g: 0.8039216, b: 0.19607843, a: 1}
   material: {fileID: 2100000, guid: 68965369eb2ab8b44afde92cb23c0a62, type: 2}
@@ -30429,13 +30435,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
-  name: Bowl 7
+  name: B2 - Extra Deep
   setName: Set 1
   set: 1
   index: -1
   price: 0.99
   image: {fileID: 21300000, guid: 35124ffc1efab3945ba41cd4d66b8e56, type: 3}
-  description: '     This is the description of a bowl.'
+  description: Regal and majestic looks and sound. An awesome antique presence you
+    can feel.
   position: 0
   lightColor: {r: 1, g: 0, b: 1, a: 1}
   material: {fileID: 2100000, guid: 886c97920f832344f977ec2c2160fd98, type: 2}
@@ -31889,13 +31896,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
-  name: Bowl 7
+  name: B4 - Middle
   setName: Set 3
   set: 3
   index: -1
   price: 0.99
   image: {fileID: 21300000, guid: 0add9b5fdfe53d54b87822eee7056830, type: 3}
-  description: '     This is the description of a bowl.'
+  description: An elegant antique of the finest artisanship with a clear, steady,
+    moving voice.
   position: 0
   lightColor: {r: 1, g: 0, b: 1, a: 1}
   material: {fileID: 2100000, guid: 18ba46c697e6d524593f53f058b0da79, type: 2}
@@ -55665,8 +55673,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 85297493}
-  - {fileID: 1843103865}
-  - {fileID: 1966975179}
   m_Father: {fileID: 1807735388}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -59966,8 +59972,8 @@ RectTransform:
   m_Father: {fileID: 2067242380}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.30276948, y: 0}
+  m_AnchorMax: {x: 0.827543, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -68705,13 +68711,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
-  name: Bowl 2
+  name: D2 - Extra Deep
   setName: Set 1
   set: 1
   index: -1
   price: 0.99
   image: {fileID: 21300000, guid: 3a7ef268225f77d41818f9d97b39b3be, type: 3}
-  description: '     This is the description of a bowl.'
+  description: Deeply relaxing museum piece. A centuries old antique with an amazing
+    deep tone.
   position: 0
   lightColor: {r: 1, g: 0.4745098, b: 0, a: 1}
   material: {fileID: 2100000, guid: 99e7528a6fccae545b183ef8b166c826, type: 2}
@@ -76107,13 +76114,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
-  name: Bowl 5
+  name: G2 - Extra Deep
   setName: Set 1
   set: 1
   index: -1
   price: 0.99
   image: {fileID: 21300000, guid: ad4d854540ee6a542a04d8e7401a9c92, type: 3}
-  description: '     This is the description of a bowl.'
+  description: Low, mid and high tones blend in sublime harmony. A rustic and humble
+    antique.
   position: 0
   lightColor: {r: 0, g: 1, b: 1, a: 1}
   material: {fileID: 2100000, guid: 03419623206e90c4894199cedc419494, type: 2}
@@ -80809,14 +80817,14 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1843103864}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 182.25018}
+  m_LocalPosition: {x: 0, y: 0, z: 182.25017}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 362131535}
   - {fileID: 1167323498}
   - {fileID: 1434933585}
-  m_Father: {fileID: 1284643141}
-  m_RootOrder: 1
+  m_Father: {fileID: 2067242380}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
@@ -80865,7 +80873,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 0
+    m_Mode: 3
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -80873,10 +80881,10 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.84313726, g: 0.84313726, b: 0.84313726, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.84313726, g: 0.84313726, b: 0.84313726, a: 1}
-    m_DisabledColor: {r: 1, g: 1, b: 1, a: 0.39215687}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -80888,23 +80896,23 @@ MonoBehaviour:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
-    m_SelectedTrigger: Highlighted
+    m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 1843103866}
+  m_TargetGraphic: {fileID: 444298640}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1764215465}
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 1698709689}
+        m_MethodName: SelectRandomization
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 1
+          m_BoolArgument: 0
         m_CallState: 2
 --- !u!222 &1843103868
 CanvasRenderer:
@@ -82722,7 +82730,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Paning:'
+  m_Text: 'Pan L/R :'
 --- !u!222 &1871551969
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -82744,13 +82752,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
-  name: Bowl 4
+  name: F3 - Deep
   setName: Set 2
   set: 2
   index: -1
   price: 0.99
   image: {fileID: 21300000, guid: 946aa4f0d04ac4242b1eeb78d9f89e46, type: 3}
-  description: '     This is the description of a bowl.'
+  description: The relaxing voice feels like flying.  A magic tone produced by a
+    gorgeous antique.
   position: 0
   lightColor: {r: 0.19607843, g: 0.8039216, b: 0.19607843, a: 1}
   material: {fileID: 2100000, guid: 271cf9e1f842f424bb65aadd3e3f580d, type: 2}
@@ -83941,13 +83950,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
-  name: Bowl 3
+  name: ' E3 - Deep'
   setName: Set 2
   set: 2
   index: -1
   price: 0.99
   image: {fileID: 21300000, guid: c62640cadadc585468c3c8198649ad07, type: 3}
-  description: '     This is the description of a bowl.'
+  description: An ancient singing bowl with a gorgeous E tone sings and sweet musical
+    vibrato.
   position: 0
   lightColor: {r: 1, g: 1, b: 0, a: 1}
   material: {fileID: 2100000, guid: f33642295e51f9948af7de6102da6b9e, type: 2}
@@ -86343,14 +86353,14 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1966975178}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 182.25018}
+  m_LocalPosition: {x: 0, y: 0, z: 182.25017}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 34134106}
   - {fileID: 367685587}
   - {fileID: 314917825}
-  m_Father: {fileID: 1284643141}
-  m_RootOrder: 2
+  m_Father: {fileID: 2067242380}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
@@ -90770,6 +90780,8 @@ RectTransform:
   m_Children:
   - {fileID: 1361339605}
   - {fileID: 1691075176}
+  - {fileID: 1843103865}
+  - {fileID: 1966975179}
   m_Father: {fileID: 1698709685}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -95904,7 +95916,7 @@ MonoBehaviour:
   DefaultFooterText: 
   state: 0
   time: 0
-  interpolationPeriod: 5
+  interpolationPeriod: 1
   givenTime: 0
   givenTime1: 0
 --- !u!114 &559566324590841288
@@ -97915,13 +97927,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
-  name: Bowl 5
+  name: G5 - High
   setName: Set 4
   set: 4
   index: -1
   price: 0.99
   image: {fileID: 21300000, guid: a56b7b3e7bae8ec4dae74b9eab815340, type: 3}
-  description: '     This is the description of a bowl.'
+  description: A small engraved beauty with a warm and friendly voice, in the favorite
+    G note.
   position: 0
   lightColor: {r: 0, g: 1, b: 1, a: 1}
   material: {fileID: 2100000, guid: 7b0aec89dac1a3c458423b46f98ac5a6, type: 2}
@@ -97985,13 +97998,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
-  name: Bowl 3
+  name: E5 - High
   setName: Set 4
   set: 4
   index: -1
   price: 0.99
   image: {fileID: 21300000, guid: 8aa02164133f15142935dc582b1f4152, type: 3}
-  description: '     This is the description of a bowl.'
+  description: The higher octave E has a lovely clear and nuanced tone with subtle
+    harmonics.
   position: 0
   lightColor: {r: 1, g: 1, b: 0, a: 1}
   material: {fileID: 2100000, guid: 7b5567e6d372c8f4da3487697a5bd526, type: 2}
@@ -98067,13 +98081,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
-  name: Bowl 6
+  name: A4 - Middle
   setName: Set 3
   set: 3
   index: -1
   price: 0.99
   image: {fileID: 21300000, guid: 816a37c157319eb47ba0692225ecbf08, type: 3}
-  description: '     This is the description of a bowl.'
+  description: A stunning extra thick antique singing bowl with a spiraling, dancing,
+    lovely tone.
   position: 0
   lightColor: {r: 0.49803922, g: 0.3254902, b: 0.5294118, a: 1}
   material: {fileID: 2100000, guid: af740b46f49a7a74bb867cd35a7ab9b1, type: 2}
@@ -98152,13 +98167,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
-  name: Bowl 6
+  name: A5 - High
   setName: Set 4
   set: 4
   index: -1
   price: 0.99
   image: {fileID: 21300000, guid: 4cb80126952388d4bbf64d5cb8baa27f, type: 3}
-  description: '     This is the description of a bowl.'
+  description: An amazing antique, one of the very best, with a shimmering tone from
+    heaven.
   position: 0
   lightColor: {r: 0.49803922, g: 0.3254902, b: 0.5294118, a: 1}
   material: {fileID: 2100000, guid: bbb1d352a01c7c544a27d50ca3a324cc, type: 2}
@@ -98322,13 +98338,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
-  name: Bowl 4
+  name: F4 - Middle
   setName: Set 3
   set: 3
   index: -1
   price: 0.99
   image: {fileID: 21300000, guid: 1d2a635fea27aff43af286fa871013d1, type: 3}
-  description: '     This is the description of a bowl.'
+  description: A stunning antique with a lilting, generous tone that seems to go
+    on and on.
   position: 0
   lightColor: {r: 0.19607843, g: 0.8039216, b: 0.19607843, a: 1}
   material: {fileID: 2100000, guid: 08f3a68751f4ff94cb4d69c483598e44, type: 2}
@@ -98436,13 +98453,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
-  name: Bowl 1
+  name: C5 - High
   setName: Set 4
   set: 4
   index: -1
   price: 0.99
   image: {fileID: 21300000, guid: c1d0eab80a77f8b43a38c3cfb513f8d4, type: 3}
-  description: '     This is the description of a bowl.'
+  description: A sublime small antique  with a surprisingly mellow voice improved
+    by old age.
   position: 0
   lightColor: {r: 1, g: 0, b: 0, a: 1}
   material: {fileID: 2100000, guid: 7d4a588aecf9d6e4a9e9d5506bbcb027, type: 2}
@@ -98519,13 +98537,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
-  name: Bowl 5
+  name: A3 - Deep
   setName: Set 2
   set: 2
   index: -1
   price: 0.99
   image: {fileID: 21300000, guid: f641e134b91147744a049e0dec9b7208, type: 3}
-  description: '     This is the description of a bowl.'
+  description: Sublime tone and gentle vibrations from one of the best singing bowls
+    ever made.
   position: 0
   lightColor: {r: 0, g: 1, b: 1, a: 1}
   material: {fileID: 2100000, guid: 4fb36b0b4a2ab4644a33a5ca34bba2e1, type: 2}
@@ -98573,13 +98592,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
-  name: Bowl 2
+  name: D5 - High
   setName: Set 4
   set: 4
   index: -1
   price: 0.99
   image: {fileID: 21300000, guid: f200830cd09367b40b6742e4160697a5, type: 3}
-  description: '     This is the description of a bowl.'
+  description: An angelic clear and harmonious tone with a gentle waver creating
+    a lifelike voice.
   position: 0
   lightColor: {r: 1, g: 0.4745098, b: 0, a: 1}
   material: {fileID: 2100000, guid: 8d5c0be2a9ff6134690f5514fe2e7bc9, type: 2}
@@ -98715,13 +98735,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
-  name: Bowl 3
+  name: ' E4 - Middle'
   setName: Set 3
   set: 3
   index: -1
   price: 0.99
   image: {fileID: 21300000, guid: 1325a98f59f49f84ab1604c0badb81a1, type: 3}
-  description: '     This is the description of a bowl.'
+  description: A fantastic museum piece with a full and musical voice. Beautiful
+    looks and sound.
   position: 0
   lightColor: {r: 1, g: 1, b: 0, a: 1}
   material: {fileID: 2100000, guid: 30f3c9a808062e24c896fca6c27aa17d, type: 2}
@@ -98828,13 +98849,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
-  name: Bowl 7
+  name: B5 - High
   setName: Set 4
   set: 4
   index: -1
   price: 0.99
   image: {fileID: 21300000, guid: ceac31623714e23489b50042afb1f027, type: 3}
-  description: '     This is the description of a bowl.'
+  description: An exquisite small treasure with an incredibly harmonious high pitched
+    bell tone.
   position: 0
   lightColor: {r: 1, g: 0, b: 1, a: 1}
   material: {fileID: 2100000, guid: 380519754dafad34597afa3c0f760401, type: 2}
@@ -98851,13 +98873,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
-  name: Bowl 5
+  name: G4 - Middle
   setName: Set 3
   set: 3
   index: -1
   price: 0.99
   image: {fileID: 21300000, guid: f50558decd5ae734097fce5627b20c30, type: 3}
-  description: This is the description of a bowl.
+  description: Simply amazing voice from this G bowl with lovely complexity and gentleness.
   position: 0
   lightColor: {r: 0, g: 1, b: 1, a: 1}
   material: {fileID: 2100000, guid: ddf6800a5e852f24eaebe565d45cde62, type: 2}
@@ -99024,13 +99046,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
-  name: Bowl 1
+  name: C4 - Middle
   setName: Set 3
   set: 3
   index: -1
   price: 0.99
   image: {fileID: 21300000, guid: cb3d520bbb7471541a427ea23828b909, type: 3}
-  description: '     This is the description of a bowl.'
+  description: The oldest singing bowl in the collection, this ancient wonder has
+    a magical tone.
   position: 0
   lightColor: {r: 1, g: 0, b: 0, a: 1}
   material: {fileID: 2100000, guid: 17c3493fd522acd4a87ee3fd44fa3ee9, type: 2}
@@ -99151,13 +99174,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
-  name: Bowl 7
+  name: A3 - Deep
   setName: Set 2
   set: 2
   index: -1
   price: 0.99
   image: {fileID: 21300000, guid: 7234c28a18099364b8179d7853d92ef9, type: 3}
-  description: '     This is the description of a bowl.'
+  description: Sublime tone and gentle vibrations from one of the best singing bowls
+    ever made.
   position: 0
   lightColor: {r: 1, g: 0, b: 1, a: 1}
   material: {fileID: 2100000, guid: 200bbcd10be3a8b4ea22ade9558175c0, type: 2}
@@ -99189,13 +99213,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
-  name: Bowl 6
+  name: G3 - Deep
   setName: Set 2
   set: 2
   index: -1
   price: 0.99
   image: {fileID: 21300000, guid: 9573a37b5210f23409d9dcc5a8f8805b, type: 3}
-  description: '     This is the description of a bowl.'
+  description: Exquisite G voice, instantly relaxing, steady and musical. Sweet,
+    subtle overtones.
   position: 0
   lightColor: {r: 0.49803922, g: 0.3254902, b: 0.5294118, a: 1}
   material: {fileID: 2100000, guid: e65b75312c3240641aa6b2b0dc2496ea, type: 2}
@@ -99347,13 +99372,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
-  name: Bowl 8
+  name: C6 - High
   setName: Set 4
   set: 4
   index: -1
   price: 0.99
   image: {fileID: 21300000, guid: 00042cc940b41ac44885bc46a2e71bcb, type: 3}
-  description: '     This is the description of a bowl.'
+  description: This sublime C completes the 4 octaves and is an ancient treasure
+    among the best.
   position: 0
   lightColor: {r: 1, g: 0, b: 0, a: 1}
   material: {fileID: 2100000, guid: 3a15f706e9932b846977eb3cda5a7b86, type: 2}
@@ -99444,13 +99470,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
-  name: Bowl 2
+  name: D4 - Middle
   setName: Set 3
   set: 3
   index: -1
   price: 0.99
   image: {fileID: 21300000, guid: a6af62e02636bf04095fc143d12c1975, type: 3}
-  description: '     This is the description of a bowl.'
+  description: A perfectly engraved relic with a cosmic voice. Watery, soothing and
+    inspiring.
   position: 0
   lightColor: {r: 1, g: 0.4745098, b: 0, a: 1}
   material: {fileID: 2100000, guid: d841369289a81de489325598db070b91, type: 2}
@@ -99499,13 +99526,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
-  name: Bowl 4
+  name: F5 - High
   setName: Set 4
   set: 4
   index: -1
   price: 0.99
   image: {fileID: 21300000, guid: 5c9a185c065ffb4438a35ba4cadcfbbc, type: 3}
-  description: '     This is the description of a bowl.'
+  description: A gorgeous sounding small antique with a steady tone and gentle harmonics.
   position: 0
   lightColor: {r: 0.19607843, g: 0.8039216, b: 0.19607843, a: 1}
   material: {fileID: 2100000, guid: 2e8082f8ae3c67e4da30383192bbbca5, type: 2}

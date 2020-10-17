@@ -92,16 +92,18 @@ public class GameManager : MonoBehaviour
             case State.Randomization:
 
                 int RandomBowlIndex = UnityEngine.Random.Range(0, Inventory.bowlsManager.activeBowlsIndexes.Length-1);
+                Debug.Log("Bwol"+RandomBowlIndex);
                 time += Time.deltaTime;
                 givenTime1 += Time.deltaTime;
-                if (givenTime1 < givenTime)
-                {
+
+                //if (givenTime1 < givenTime)
+                //{
                     if (time >= interpolationPeriod)
                     {
                         Inventory.allBowls[RandomBowlIndex].GetComponent<Bowl>().PlaySound();
                         time = 0;
                     }
-                }
+                //}
                 
 
                 

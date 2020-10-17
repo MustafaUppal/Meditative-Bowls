@@ -45,17 +45,32 @@ public class Bowl : Item
         if (audioSource)
             gameObject.transform.GetChild(0).gameObject.SetActive(audioSource.isPlaying);
     }
+
+
+
     public void PlaySound()
     {
-        if (!audioSource.isPlaying&&!(AllRefs.I._GameManager.state == GameManager.State.Randomization))
+    
+        if (!audioSource.isPlaying && !(AllRefs.I._GameManager.state == GameManager.State.Randomization))
         {
+
+            audioSource.Play();
+        }
+        else if((AllRefs.I._GameManager.state == GameManager.State.Randomization) && audioSource.isPlaying)
+        {
+            audioSource.Stop();
+
             audioSource.Play();
         }
         else if (!audioSource.isPlaying)
         {
+
             audioSource.Stop();
+        
             audioSource.Play();
+        
         }
+
 
     }
 }

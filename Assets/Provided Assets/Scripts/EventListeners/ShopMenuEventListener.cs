@@ -47,13 +47,10 @@ public class ShopMenuEventListener : MonoBehaviour
         selectedItem.index = 0;
         ChangeState(defaultState);
         //IAPManager.Instance.InitializeIAPManager(InitializeResultCallback);
-        MessageSender("Carpet");
+        MessageSender("Himalayan Bowls Store");
     }
 
-    private void Update()
-    {
-
-    }
+    
 
     void MessageSender(string Message)
     {
@@ -91,18 +88,18 @@ public class ShopMenuEventListener : MonoBehaviour
     public void OnClickCarpetButton()
     {
         ChangeState(ShopStates.Carpets);
-        MessageSender("Carpet");
+        MessageSender("Purchase Tibetan Carpets");
     }
 
     public void OnClickBowlsButton()
     {
-        MessageSender("Bowl");
+        MessageSender("Purchase Additional Singing Bowls");
         ChangeState(ShopStates.Bowls);
     }
 
     public void OnClickBGMusicsButton()
     {
-        MessageSender("BGMusic");
+        MessageSender("Purchase Sets of Slideshow Images");
         ChangeState(ShopStates.BG_Musics);
     }
 
