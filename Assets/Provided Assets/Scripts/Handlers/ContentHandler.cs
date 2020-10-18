@@ -14,6 +14,7 @@ public class ContentHandler : MonoBehaviour
     public InventoryManager Inventory => InventoryManager.Instance;
     TileHandler currentTile;
 
+
     public void SetDropdown(int currentState, int setNumber = 1)
     {
         categoryDropdown.ClearOptions();
@@ -57,7 +58,7 @@ public class ContentHandler : MonoBehaviour
                     // Debug.Log("item.Name:" + item.name);
                     // Debug.Log("item.Index: " + item.Index);
                     currentTile = transform.GetChild(tilesCount).GetComponent<TileHandler>(); 
-                    currentTile.SetTile(item.image, item.name, item.Index);
+                    currentTile.SetTile(item.image, item.name, item.Index, (int)item.currentState);
                     currentTile.Highlight = false;
                     currentTile.IsLoaded = loadedItem.ContainsKey(item.Index);
 
@@ -94,7 +95,7 @@ public class ContentHandler : MonoBehaviour
                 }
                 break;
             case 2: // slide show
-                loadedItem.Add(Inventory.musicsManager.activeMusicIndex, 0);
+                loadedItem.Add(Inventory.slideShowManager.activeMusicIndex, 0);
                 break;
         }
 
@@ -125,7 +126,7 @@ public class ContentHandler : MonoBehaviour
                     // Debug.Log("item.Name:" + item.name);
                     // Debug.Log("item.Index: " + item.Index);
                     currentTile = transform.GetChild(tilesCount).GetComponent<TileHandler>(); 
-                    currentTile.SetTile(item.image, item.name + " (" + item.setName + ")", item.Index);
+                    currentTile.SetTile(item.image, item.name + " (" + item.setName + ")", item.Index, (int)item.currentState);
                     currentTile.Highlight = false;
                     currentTile.IsLoaded = loadedBowls.ContainsKey(item.Index);
 

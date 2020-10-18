@@ -32,7 +32,7 @@ public class PersistantData
         FileStream file = File.Open(Application.persistentDataPath + "/appData.dat", FileMode.Open);
         SessionData sessionData = binaryFormatter.Deserialize(file) as SessionData;
 
-        Debug.Log("L: " + sessionData.Length);
+        // Debug.Log("L: " + sessionData.Length);
         file.Close();
 
         return sessionData;

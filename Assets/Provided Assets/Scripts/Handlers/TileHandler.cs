@@ -7,7 +7,7 @@ public class TileHandler : MonoBehaviour
 {
     public Image image;
     public new Text name;
-    public GameObject loadedCheck;
+    public Image stateIcon;
     public Image bg;
     public int Index;
     public ShopProductNames MyName;
@@ -31,13 +31,15 @@ public class TileHandler : MonoBehaviour
     public bool IsLoaded
     {
         get => isLoaded;
-        set {isLoaded = value; loadedCheck.SetActive(value);}
+        set {isLoaded = value;}
     }
 
-    public void SetTile(Sprite sprite, string name, int index)
+    public void SetTile(Sprite sprite, string name, int index, int iconIndex)
     {
         image.sprite = sprite;
         this.name.text = name;
         this.Index = index;
+        this.stateIcon.sprite = AllRefs.I.shopMenu.selectedItem.buttonIcons[iconIndex];
+        this.stateIcon.color = AllRefs.I.shopMenu.selectedItem.buttonColors[iconIndex];
     }
 }

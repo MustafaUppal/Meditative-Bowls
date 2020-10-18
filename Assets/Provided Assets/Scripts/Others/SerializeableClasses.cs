@@ -127,25 +127,26 @@ namespace SerializeableClasses
     public class RecordingFooter
     {
         public GameObject root;
-        public int loopCount = 0;
-        public int currentLoop = 1;
-        public Text loopCountText;
-        public Button minusButton;
+
+        [Header("Loop settings")]
+        public bool loop;
+        public Color loopingEnabled;
+        public Color loopingDisabled;
+        public Image loopButton;
+
+        [Header("Timer Settings")]
         public Image timerFill;
         public Text timer;
 
         public void Enable(bool enable)
         {
             root.gameObject.SetActive(true);
-            minusButton.interactable = false;
         }
 
-        public void UpdateLoopCount(int value, bool useExact = false)
+        public void SetLoop(bool overide, bool loop = false)
         {
-            loopCount = useExact ? value : loopCount + value;
-
-            minusButton.interactable = loopCount > currentLoop;
-            loopCountText.text = loopCount.ToString();
+            this.loop = overide ? loop : !this.loop;
+            loopButton.color = this.loop ? loopingEnabled : loopingDisabled;
         }
 
         public void UpdateTimer(float percentage, int timer)
@@ -156,11 +157,6 @@ namespace SerializeableClasses
             int secs = timer - mins * 60;
 
             this.timer.text = mins + ":" + (secs < 10 ? "0" + secs : secs.ToString());
-        }
-
-        public void InitLoopCount(int val)
-        {
-            loopCount = currentLoop = val;
         }
     }
 

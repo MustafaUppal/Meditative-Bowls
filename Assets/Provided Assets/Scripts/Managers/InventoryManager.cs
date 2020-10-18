@@ -10,64 +10,39 @@ public class InventoryManager : MonoBehaviour
     [Header("Managers")]
     public BowlsManager bowlsManager;
     public CarpetsManager carpetsManager;
-    public MusicsManager musicsManager;
+    public SlideShowManager slideShowManager;
 
     [Header("Items")]
     public List<Bowl> allBowls;
     public List<Carpet> allCarpets;
-    public List<BG_Music> allMusics;
-    public List<GameObject> AllProduct;
+    public List<SlideShow> allSlideShows;
+
+    // Arrays to calculate position of item in set
+    int[] CSI = { 0, 3, 6 };
+    int[] BSI = { 0, 7, 14, 21 };
 
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
-
         if (Instance)
             Destroy(gameObject);
         else
         {
             Instance = this;
-
-            // bowlsManager = transform.GetChild(0).GetComponent<BowlsManager>();
-            // carpetsManager = transform.GetChild(1).GetComponent<CarpetsManager>();
-            // musicsManager = transform.GetChild(2).GetComponent<MusicsManager>();
-
-            // allBowls = new List<Bowl>();
-            // for (int i = 0; i < bowlsManager.transform.childCount; i++)
-            // {
-            //     allBowls.Add(bowlsManager.transform.GetChild(i).GetComponent<Bowl>());
-            // }
-
-            // allCarpets = new List<Carpet>();
-            // for (int i = 0; i < carpetsManager.transform.childCount; i++)
-            // {
-            //     allCarpets.Add(carpetsManager.transform.GetChild(i).GetComponent<Carpet>());
-            // }
-
-            // allBowls = new List<Bowl>();
-            // for (int i = 0; i < bowlsManager.transform.childCount; i++)
-            // {
-            //     allBowls.Add(bowlsManager.transform.GetChild(i).GetComponent<Bowl>());
-            // }
+            DontDestroyOnLoad(gameObject);
         }
-        for(int i = 0; i < allBowls.Count; i++)
-        {
-            AllProduct.Add(allBowls[i].gameObject);
-        }
-        for (int i = 0; i < allCarpets.Count; i++)
-        {
-            AllProduct.Add(allCarpets[i].gameObject);
-        }
-        for (int i = 0; i < allMusics.Count; i++)
-        {
-            AllProduct.Add(allCarpets[i].gameObject);
-        }
-
     }
+
 
     private void OnEnable()
     {
+        // Debug.Log("OnEnable");
         SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void Start()
+    {
+        // Debug.Log("Start");
+        SessionManager.Instance.Init();
     }
 
     private void OnDisable()
@@ -86,6 +61,7 @@ public class InventoryManager : MonoBehaviour
     {
         if (isGameplayScene)
         {
+            SessionManager.Instance.Init();
             bowlsManager.SetUpBowls();
             carpetsManager.SetUpCarpets();
         }
@@ -135,7 +111,7 @@ public class InventoryManager : MonoBehaviour
             case 1:
                 return allBowls[index].GetComponent<Item>();
             case 2:
-                return allMusics[index].GetComponent<Item>();
+                return allSlideShows[index].GetComponent<Item>();
             default:
                 return null;
         }
@@ -150,20 +126,87 @@ public class InventoryManager : MonoBehaviour
             case 1:
                 return allBowls.Count;
             case 2:
-                return allMusics.Count;
+                return allSlideShows.Count;
             default:
                 return 0;
         }
     }
 
+    public int GetItemPositionInSet(int type, int set, int index)
+    {
+        int position = 0;
+
+        switch (type)
+        {
+            case 0:
+                position = index - CSI[set - 1] + 1;
+                break;
+            case 1:
+                position = index - BSI[set - 1] + 1;
+                break;
+            case 2:
+                position = index + 1;
+                break;
+        }
+
+        return position;
+    }
+
+    public bool IsAnySlideShowAvailible()
+    {
+        int itemType = (int)ShopMenuEventListener.ShopStates.SlideShows;
+
+        for (int i = 0; i < GetItemCount(itemType); i++)
+        {
+            if (allSlideShows[i].currentState == Item.State.Purchased)
+                return true;
+        }
+
+        return false;
+    }
+
     public string GetItemProductId(int type, int index)
     {
         Item i = GetItem(type, index);
-        int bowlNo = int.Parse(i.name.Split(' ')[1]);
-        string itemName = (type == 0 ? "Carpet" : "Bowl");
-        string productId = "com.HimalayanBowls.SingingBowls.Set" + i.set + "." + itemName + (bowlNo);
 
-       Debug.Log(productId);
+        int position = GetItemPositionInSet(type, i.set, index);
+        string itemName = GetItemName(type);
+
+        string productId = "com.HimalayanBowls.SingingBowls";
+
+        if (type == 2)
+            productId += "." + itemName + (position);
+        else
+            productId += ".Set" + i.set + "." + itemName + (position) + GetFloatingPoint(type, i.set, position);
+
+        Debug.Log(productId);
         return productId;
+    }
+
+    private string GetItemName(int type)
+    {
+        switch (type)
+        {
+            case 0:
+                return "Carpet";
+            case 1:
+                return "Bowl";
+            case 2:
+                return "SlideShow";
+            default:
+                return "";
+        }
+    }
+
+    private string GetFloatingPoint(int type, int set, int positionInSet)
+    {
+        if (type == 0 && set == 2 && positionInSet == 3)
+            return ".1";
+        else if (type == 1 && set == 2 && positionInSet == 2)
+            return ".1";
+        else if (type == 2)
+            return "";
+        else
+            return ".0";
     }
 }

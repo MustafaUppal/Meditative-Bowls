@@ -36,11 +36,19 @@ public class BowlsManager : MonoBehaviour
         }
     }
 
+    private void OnDestroy() 
+    {
+        SessionManager.Instance.SessionData.InitDefault(activeBowlsIndexes);
+        SessionManager.Instance.Save();
+    }
+
     /// <summary>
     /// Reposition all bowls according to active bowls indeces
     /// </summary>
-    public void SetUpBowls()
+    public void SetUpBowls(bool overwirte = false)
     {
+        SessionManager.Instance.SessionData.InitDefault(activeBowlsIndexes, overwirte);
+
         int itemType = (int)ShopMenuEventListener.ShopStates.Bowls;
         unusedBowls = new List<int>();
 
@@ -52,6 +60,9 @@ public class BowlsManager : MonoBehaviour
 
         for (int i = 0; i < activeBowlsIndexes.Length; i++)
         {
+            Debug.Log(i + " -> " + SessionManager.Instance.SessionData.defaultSnipt.bowlsPositions[i]);
+            activeBowlsIndexes[i] = SessionManager.Instance.SessionData.defaultSnipt.bowlsPositions[i];
+
             // -1 means no bowl is there, so look for next bowl
             if (activeBowlsIndexes[i].Equals(-1))
                 continue;
@@ -59,10 +70,13 @@ public class BowlsManager : MonoBehaviour
             // Removing used bowls from the list
             unusedBowls.Remove(activeBowlsIndexes[i]);
 
-            // Managing used bowls
+            // Managing loaded bowls
             Inventory.allBowls[activeBowlsIndexes[i]].gameObject.SetActive(true);
             Inventory.allBowls[activeBowlsIndexes[i]].transform.localPosition = bowlsPositions[i];
             Inventory.allBowls[activeBowlsIndexes[i]].CurrentState = Item.State.Loaded;
+
+            Inventory.allBowls[activeBowlsIndexes[i]].PanStereo = SessionManager.Instance.SessionData.defaultSnipt.panings[i];
+            Inventory.allBowls[activeBowlsIndexes[i]].Volume = SessionManager.Instance.SessionData.defaultSnipt.volumes[i];
         }
 
         BowlPanningValues = new float[Inventory.allBowls.Count];

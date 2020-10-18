@@ -9,8 +9,11 @@ public class MainMenuEventListener : MonoBehaviour
     public MainMenuModes modes;
     public Animator dock;
     public Button slideShowButton;
-    public Text Footertext;
 
+    [Header("Footer Settings")]
+    public Text footertext;
+    public GameObject simpleFooter;
+    
     [Header("Handlers")]
     public SlideShowHandler slideShow;
     public BowlsPlacementHandler bowlsPlacement;
@@ -30,7 +33,7 @@ public class MainMenuEventListener : MonoBehaviour
     public void ManageFooter(bool val)
     {
         modes.playingRecording = val;
-        Footertext.gameObject.SetActive(!modes.playingRecording);
+        simpleFooter.SetActive(!modes.playingRecording);
         recordingFooter.root.SetActive(modes.playingRecording);
     }
 
@@ -52,32 +55,31 @@ public class MainMenuEventListener : MonoBehaviour
     }
     void MessageSender(string Message)
     {
-        Footertext.text = Message;
+        footertext.text = Message;
     }
 
    
 
-    public void OnClickLoopButton(bool increase)
+    public void OnClickLoopButton()
     {
-        recordingFooter.UpdateLoopCount(increase ? 1 : -1);
+        recordingFooter.SetLoop(false);
     }
 
-    public void OnClickStartSlideShowButton()
+    public void OnClickSlideShowButton()
     {
-        // if slide show is not purcased
-        if(!PlayerPreferencesManager.GetPurchasedState(2, 0, false))
+        if(!InventoryManager.Instance.IsAnySlideShowAvailible())
         {
             PopupManager.Instance.messagePopup.Show("Not Purchased!", "Please purchase slideshow from shop to unlock this feature.");
             return;
         }
 
+        // if in other mode don't allow this mode to work
         if(modes.placeBowls)
             return;
 
-        AllRefs.I.objectSelection.EnableClick(modes.slideShow);    
         modes.slideShow = !modes.slideShow;
         AllRefs.I.objectSelection.EnableClick(!modes.slideShow);    
-        slideShow.StartSlideShow(modes.slideShow);
+        slideShow.EnableSlideShow(modes.slideShow);
     }
 
     public void OnClickPlaceBowlsButton()

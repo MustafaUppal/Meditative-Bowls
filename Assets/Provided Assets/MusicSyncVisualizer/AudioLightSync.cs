@@ -6,15 +6,23 @@ public class AudioLightSync : MonoBehaviour
 {
     AudioLoudness audioLoudness;
     public float intensityMultiplier;
-    
-    public float maxValue;
+
+    [Header("Required Range")]
+    public float reqMin = 0;
+    public float reqMax = 25;
+    // new range value will be intensity of the light
+
+    [Header("Given Range")]
+    public float peakVal; // will be calculated on runtime
+    public float bottomVal = 0;
+    public float currentValue;
 
     [Space]
     public bool alowChangeColor;
     public float minimumColorChangeTime;
     public Color[] randomColors;
 
-    [HideInInspector] public bool emit; 
+    [HideInInspector] public bool emit;
     new Light light;
     // Start is called before the first frame update
     void Start()
@@ -27,15 +35,21 @@ public class AudioLightSync : MonoBehaviour
     void Update()
     {
 
-        if ((AllRefs.I._GameManager.state == GameManager.State.Randomization || AllRefs.I._GameManager.state == 
-           GameManager.State.Normal|| AllRefs.I._GameManager.state == GameManager.State.RepositionState 
-            || AllRefs.I._GameManager.state==GameManager.State.Sound&& emit))
+        if ((AllRefs.I._GameManager.state == GameManager.State.Randomization || AllRefs.I._GameManager.state ==
+           GameManager.State.Normal || AllRefs.I._GameManager.state == GameManager.State.RepositionState
+            || AllRefs.I._GameManager.state == GameManager.State.Sound && emit))
         {
-            light.intensity = audioLoudness.clipLoudness * intensityMultiplier;
-            light.intensity = Mathf.Clamp(light.intensity, 1, 50) / 2;
 
-            if(maxValue < light.intensity)
-                maxValue = light.intensity;
+            currentValue = audioLoudness.clipLoudness * intensityMultiplier;
+
+            if (peakVal < currentValue)
+                peakVal = currentValue;
+
+            light.intensity = ConvertRange(bottomVal, peakVal, reqMin, reqMax, currentValue);
+
+            // light.intensity = Mathf.Clamp(light.intensity, 1, 50) / 2;
+            // if (maxValue < light.intensity)
+            //     maxValue = light.intensity;
 
             if (alowChangeColor)
             {
@@ -51,5 +65,23 @@ public class AudioLightSync : MonoBehaviour
             yield return new WaitForSeconds(minimumColorChangeTime);
             alowChangeColor = true;
         }
+    }
+
+    public float ConvertRange(float oldMin, float oldMax, float newMin, float newMax, float oldVal)
+    {
+        float newVal = 0;
+
+        float newRange = 0;
+        float oldRange = (oldMax - oldMin);
+
+        if (oldRange == 0)
+            newVal = newMin;
+        else
+        {
+            newRange = (newMax - newMin);
+            newVal = (((oldVal - oldMin) * newRange) / oldRange) + newMin;
+        }
+
+        return newVal;
     }
 }

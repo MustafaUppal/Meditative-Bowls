@@ -9,47 +9,26 @@ using Debug = UnityEngine.Debug;
 
 public class RecordingMenuEventListener : MonoBehaviour
 {
-    public enum RecordingStates
-    {
-        None,
-        Started,
-        Paused,
-        Saving
-    }
-
     public RecordingStates currentState;
-
-    [System.Serializable]
-    public class HeaderSettings
-    {
-        public Button[] buttons;
-        public Image icon;
-        public Sprite startRecoding;
-        public Sprite pauseRecording;
-    }
-    public HeaderSettings headerSettings;
-
-    [Serializable]
-    public class RecordingSettings
-    {
-        public Recording recordingData;
-        public Stopwatch stopwatch = new Stopwatch();
-
-        [Range(120, 300)]
-        public int recordingMaxTime;
-        public float currentTime;
-    }
     public RecordingSettings recordingSettings;
+    public FooterSettings footerSettings;
 
     [Header("Footer")]
     public Text Footertext;
     public Text timer;
     public Image fill;
 
-    void MessageSender(string Message)
-    {
-        Footertext.text = Message;
-    }
+    // Private Variables
+    AudioClip newAudio;
+    Coroutine microPhoneC;
+    bool wavIncluded = false;
+    bool isButtonPressed;
+    Coroutine savingC;
+
+    // *******************
+    // * Unity Callbacks *
+    // *******************
+
     private void OnEnable()
     {
         DockEventListener.ButtonsData data = new DockEventListener.ButtonsData
@@ -90,7 +69,55 @@ public class RecordingMenuEventListener : MonoBehaviour
         SetTimer((int)recordingSettings.stopwatch.Elapsed.TotalSeconds);
     }
 
-    bool isButtonPressed;
+    // ************************
+    // * Buttons Click Events *
+    // ************************
+
+    public void OnClickBackButton()
+    {
+        MenuManager.Instance.ChangeState(MenuManager.MenuStates.Main);
+    }
+
+    public void OnClickRecordButton()
+    {
+        switch (currentState)
+        {
+            case RecordingStates.None:
+                recordingSettings.recordingData.Clear();
+                // if(microPhoneC != null)
+                //     StopCoroutine(microPhoneC);
+
+                // microPhoneC = StartCoroutine(GetMicrophone());
+                ChangeState(RecordingStates.Started);
+                break;
+            case RecordingStates.Started:
+                ChangeState(RecordingStates.Saving);
+                break;
+                // case RecordingStates.Paused:
+                //     ChangeState(RecordingStates.Started);
+                //     break;
+        }
+    }
+
+    public void OnClickSaveButton()
+    {
+        if (currentState.Equals(RecordingStates.Paused) || currentState.Equals(RecordingStates.Started))
+            ChangeState(RecordingStates.Saving);
+    }
+
+    void OnClickMessagePopupButton()
+    {
+        ChangeState(RecordingStates.Started);
+    }
+
+    // *******************
+    // * Functionalities *
+    // *******************
+
+    void MessageSender(string Message)
+    {
+        Footertext.text = Message;
+    }
 
     void Record()
     {
@@ -143,71 +170,30 @@ public class RecordingMenuEventListener : MonoBehaviour
         switch (currentState)
         {
             case RecordingStates.None:
-                headerSettings.buttons[0].interactable = true;
-                headerSettings.buttons[1].interactable = false;
-
-                headerSettings.icon.sprite = headerSettings.startRecoding;
+                footerSettings.icon.sprite = footerSettings.startRecoding;
 
                 recordingSettings.stopwatch.Stop();
                 recordingSettings.stopwatch.Reset();
                 break;
             case RecordingStates.Started:
-                headerSettings.buttons[0].interactable = true;
-                headerSettings.buttons[1].interactable = true;
-
-                headerSettings.icon.sprite = headerSettings.pauseRecording;
+                footerSettings.icon.sprite = footerSettings.saveRecording;
 
                 recordingSettings.stopwatch.Start();
                 break;
             case RecordingStates.Paused:
-                headerSettings.buttons[0].interactable = true;
-                headerSettings.buttons[1].interactable = true;
-
-                headerSettings.icon.sprite = headerSettings.startRecoding;
+                footerSettings.icon.sprite = footerSettings.startRecoding;
 
                 recordingSettings.stopwatch.Stop();
                 break;
             case RecordingStates.Saving:
                 Debug.Log("Saving");
-                headerSettings.buttons[0].interactable = false;
-                headerSettings.buttons[1].interactable = true;
 
-                headerSettings.icon.sprite = headerSettings.startRecoding;
+                footerSettings.icon.sprite = footerSettings.startRecoding;
 
-                if(wavIncluded) Microphone.End(string.Empty);
+                if (wavIncluded) Microphone.End(string.Empty);
                 recordingSettings.stopwatch.Stop();
-                PopupManager.Instance.Show("Name Session", SaveRecording);
+                PopupManager.Instance.Show("Save Recording", SaveRecording);
                 break;
-        }
-    }
-
-
-    public void OnClickBackButton()
-    {
-        MenuManager.Instance.ChangeState(MenuManager.MenuStates.Main);
-    }
-
-    AudioClip newAudio;
-    Coroutine microPhoneC;
-    bool wavIncluded = false;
-    public void OnClickRecordButton()
-    {
-        switch (currentState)
-        {
-            case RecordingStates.None:
-                recordingSettings.recordingData.Clear();
-                // if(microPhoneC != null)
-                //     StopCoroutine(microPhoneC);
-
-                // microPhoneC = StartCoroutine(GetMicrophone());
-                ChangeState(RecordingStates.Started);
-                break;
-                // case RecordingStates.Started:
-                //     ChangeState(RecordingStates.Paused);
-                //     break;
-                // case RecordingStates.Paused:
-                //     ChangeState(RecordingStates.Started);
-                //     break;
         }
     }
 
@@ -234,13 +220,6 @@ public class RecordingMenuEventListener : MonoBehaviour
         microPhoneC = null;
     }
 
-    void OnClickMessagePopupButton()
-    {
-        ChangeState(RecordingStates.Started);
-    }
-
-    Coroutine savingC;
-
     void SaveRecording(string name)
     {
         string status = SessionManager.Instance.ValidateSessionName(name);
@@ -256,12 +235,6 @@ public class RecordingMenuEventListener : MonoBehaviour
         }
         else
             PopupManager.Instance.ShowError(status);
-    }
-
-    public void OnClickSaveButton()
-    {
-        if (currentState.Equals(RecordingStates.Paused) || currentState.Equals(RecordingStates.Started))
-            ChangeState(RecordingStates.Saving);
     }
 
     void OnRecordingDeleted() // not saved from popup
@@ -283,5 +256,36 @@ public class RecordingMenuEventListener : MonoBehaviour
         ChangeState(RecordingStates.None);
 
         savingC = null;
+    }
+
+    // ************************
+    // * Serializable Classes *
+    // ************************
+
+    [Serializable]
+    public class RecordingSettings
+    {
+        public Recording recordingData;
+        public Stopwatch stopwatch = new Stopwatch();
+
+        [Range(120, 300)]
+        public int recordingMaxTime;
+        public float currentTime;
+    }
+
+    [System.Serializable]
+    public class FooterSettings
+    {
+        public Image icon;
+        public Sprite startRecoding;
+        public Sprite saveRecording;
+    }
+
+    public enum RecordingStates
+    {
+        None,
+        Started,
+        Paused,
+        Saving
     }
 }

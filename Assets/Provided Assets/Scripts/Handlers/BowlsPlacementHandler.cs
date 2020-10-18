@@ -27,7 +27,7 @@ public class BowlsPlacementHandler : MonoBehaviour
 
     private void OnDisable()
     {
-        Inventory.InitScene(true);
+        Inventory.bowlsManager.SetUpBowls(true);
         // MenuManager.Instance.currentState = MenuManager.MenuStates.Main;
     }
 
@@ -58,12 +58,13 @@ public class BowlsPlacementHandler : MonoBehaviour
     {
         if (currentIndex.Equals(-1))
             return;
+
         for (int i = 0; i < activeBowls.Length; i++)
         {
             if (activeBowls[i] != -1 && activeBowls[i].Equals(activeBowls[index]))
             {
                 Inventory.allBowls[activeBowls[i]].CurrentState = Item.State.Purchased;
-                panningvalue = Inventory.bowlsManager.BowlPanningValues[activeBowls[i]] = Inventory.allBowls[activeBowls[i]].GetComponent<AudioSource>().panStereo;
+                panningvalue = Inventory.bowlsManager.BowlPanningValues[activeBowls[i]] = Inventory.allBowls[activeBowls[i]].PanStereo;
                 break;
                 // OnClickItemButton(activeBowls[i]);
                 // activeBowls[i] = -1;
@@ -73,11 +74,12 @@ public class BowlsPlacementHandler : MonoBehaviour
 
         activeBowls[index] = currentIndex;
         Inventory.allBowls[activeBowls[index]].CurrentState = Item.State.Loaded;
-        Inventory.allBowls[activeBowls[index]].GetComponent<AudioSource>().panStereo = panningvalue;
+        Inventory.allBowls[activeBowls[index]].PanStereo = panningvalue;
         OnClickBowlButton(currentIndex);
         bowlPlacementSettings.SetText(index);
 
         currentIndex = -1;
         content.SetPurchasedBowls();
+        // Inventory.bowlsManager.SetUpBowls(true);
     }
 }

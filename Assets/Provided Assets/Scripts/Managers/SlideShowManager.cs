@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MusicsManager : MonoBehaviour
+public class SlideShowManager : MonoBehaviour
 {
     public int activeMusicIndex = -1;
 
@@ -10,7 +10,7 @@ public class MusicsManager : MonoBehaviour
 
     private void Start()
     {
-        int itemType = (int)ShopMenuEventListener.ShopStates.BG_Musics;
+        int itemType = (int)ShopMenuEventListener.ShopStates.SlideShows;
 
         for (int i = 0; i < Inventory.GetItemCount(itemType); i++)
         {
@@ -18,20 +18,20 @@ public class MusicsManager : MonoBehaviour
                 PlayerPreferencesManager.SetPurchasedState
                 (
                     itemType, i,
-                    Inventory.allMusics[i].IsPurchased
+                    Inventory.allSlideShows[i].IsPurchased
                 );
         }
 
         for (int i = 0; i < Inventory.GetItemCount(itemType); i++)
         {
-            if(Inventory.allMusics[i].CurrentState != Item.State.Loaded)
-                Inventory.allMusics[i].CurrentState 
-                = PlayerPreferencesManager.GetPurchasedState(itemType, i, false) 
+            if (Inventory.allSlideShows[i].CurrentState != Item.State.Loaded)
+                Inventory.allSlideShows[i].CurrentState
+                = PlayerPreferencesManager.GetPurchasedState(itemType, i, false)
                 ? Item.State.Purchased : Item.State.Locked;
         }
     }
 
-    public void SetUpMusic()
+    public void SetUpSlideShow()
     {
         // int itemType = (int)ShopMenuEventListener.ShopStates.BG_Musics;
 

@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BG_Music : Item
+public class SlideShow : Item
 {
-
-    public AudioClip audioClip;
+    public Sprite[] images;
+    // Start is called before the first frame update
     void Start()
     {
         

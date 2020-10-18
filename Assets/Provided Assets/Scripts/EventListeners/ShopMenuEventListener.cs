@@ -8,7 +8,7 @@ public class ShopMenuEventListener : MonoBehaviour
     {
         Carpets,
         Bowls,
-        BG_Musics
+        SlideShows
     }
 
     [Header("State Settings")]
@@ -100,7 +100,7 @@ public class ShopMenuEventListener : MonoBehaviour
     public void OnClickBGMusicsButton()
     {
         MessageSender("Purchase Sets of Slideshow Images");
-        ChangeState(ShopStates.BG_Musics);
+        ChangeState(ShopStates.SlideShows);
     }
 
     public void OnClickItemButton(GameObject itemObj)
@@ -109,36 +109,15 @@ public class ShopMenuEventListener : MonoBehaviour
     }
     public void OnClickItemButton(int index)
     {
-        // Debug.Log("index: " + index);
+        Debug.Log("index: " + index);
         selectedItem.prevIndex = selectedItem.index;
         selectedItem.index = index;
+        Debug.Log("index: " + selectedItem.index);
 
         try { content.GetTile(selectedItem.prevIndex).Highlight = false; } catch (System.Exception e) { };
         content.GetTile(selectedItem.index).Highlight = true;
 
         Item item = Inventory.GetItem((int)currentState, index);
-
-        // if (currentState == ShopStates.Carpets) // carpets
-        // {
-        //     int pos = (item as Carpet).Position;
-        //     Debug.Log("C | Pos: " + pos);
-        //     selectedItem.Position = (item as Carpet).Position;
-        // }
-        // if (currentState == ShopStates.Bowls) // bowls
-        // {
-        //     int pos = (item as Bowl).Position;
-        //     Debug.Log("B | Pos: " + pos);
-        //     selectedItem.Position = (item as Bowl).Position;
-        // }
-        // else // slideshow
-        //     selectedItem.Position = index;
-
-        // Debug.Log("Position: " + selectedItem.Position);
-        Debug.Log("index: " + selectedItem.index);
-
-        // Debug.Log("Index: " + item.Index);
-
-
         string setName = item.setName.Equals("") ? "" : " (" + item.setName + ")";
 
         // Image
@@ -268,9 +247,9 @@ public class ShopMenuEventListener : MonoBehaviour
                 OnClickItemButton(index);
                 break;
             case 2: // slideshow
-                Inventory.allMusics[index].CurrentState = Item.State.Purchased;
+                Inventory.allSlideShows[index].CurrentState = Item.State.Purchased;
                 OnClickItemButton(index);
-                Inventory.musicsManager.activeMusicIndex = 0;
+                Inventory.slideShowManager.activeMusicIndex = 0;
                 break;
         }
 
@@ -289,7 +268,7 @@ public class ShopMenuEventListener : MonoBehaviour
             case ShopStates.Bowls:
                 HandleLoadBowlClick();
                 break;
-            case ShopStates.BG_Musics:
+            case ShopStates.SlideShows:
                 HandleLoadSlideShowClick();
                 break;
             case ShopStates.Carpets:
@@ -343,11 +322,11 @@ public class ShopMenuEventListener : MonoBehaviour
 
     void HandleLoadSlideShowClick()
     {
-        switch (Inventory.allMusics[selectedItem.index].CurrentState)
+        switch (Inventory.allSlideShows[selectedItem.index].CurrentState)
         {
             case Item.State.Locked:
                 // purchase bowl
-                MeditativeBowls.IAPManager.instance.PurchaseItem(0, (int)currentState);
+                MeditativeBowls.IAPManager.instance.PurchaseItem(selectedItem.index, (int)currentState);
                 break;
         }
     }

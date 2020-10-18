@@ -35,7 +35,7 @@ namespace MeditativeBowls
         public CustomProduct[] carpets;
         public CustomProduct[] bowls;
 
-        public CustomProduct slideShow;
+        public CustomProduct[] slideShows;
 
         InventoryManager Inventory => InventoryManager.Instance;
 
@@ -61,7 +61,11 @@ namespace MeditativeBowls
                 builder.AddProduct(bowls[i].id, bowls[i].type);
             }
 
-            builder.AddProduct(slideShow.id, slideShow.type);
+            for (int i = 0; i < slideShows.Length; i++)
+            {
+                slideShows[i].id = Inventory.GetItemProductId(2, i);
+                builder.AddProduct(slideShows[i].id, slideShows[i].type);
+            }
 
             UnityPurchasing.Initialize(this, builder);
         }
@@ -88,7 +92,7 @@ namespace MeditativeBowls
                     productId = bowls[index].id;
                     break;
                 case 2: // slideshow
-                    productId = slideShow.id;
+                    productId = slideShows[index].id;
                     break;
             }
 
@@ -104,11 +108,15 @@ namespace MeditativeBowls
             bool productFound = false;
 
             // check slideshow
-            if (String.Equals(args.purchasedProduct.definition.id, slideShow.id, StringComparison.Ordinal))
+            for (int i = 0; i < slideShows.Length && !productFound; i++)
             {
-                // Debug.Log("Purchased: " + slideShow.id);
-                productFound = true;
-                AllRefs.I.shopMenu.OnItemPurchased(2, 0);
+                if (String.Equals(args.purchasedProduct.definition.id, slideShows[i].id, StringComparison.Ordinal))
+                {
+                    productFound = true;
+
+                    AllRefs.I.shopMenu.OnItemPurchased(2, i);
+                    break;
+                }
             }
 
             // check carpets
@@ -156,9 +164,9 @@ namespace MeditativeBowls
 
         private void TestSingleton()
         {
-            // if (instance != null) { Destroy(gameObject); return; }
+            if (instance != null) { Destroy(gameObject); return; }
             instance = this;
-            // DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(gameObject);
         }
 
         void BuyProductID(string productId)
@@ -232,11 +240,16 @@ namespace MeditativeBowls
                 bool productFound = false;
 
                 // check slideshow
-                if (String.Equals(product.definition.storeSpecificId, slideShow.id, StringComparison.Ordinal))
+                for (int i = 0; i < slideShows.Length && !productFound; i++)
                 {
-                    Debug.Log("Purchased: " + slideShow.id);
-                    productFound = true;
-                    AllRefs.I.shopMenu.OnItemPurchased(2, 0);
+                    if (String.Equals(product.definition.storeSpecificId, slideShows[i].id, StringComparison.Ordinal))
+                    {
+                        Debug.Log("Purchased: " + slideShows[i].id);
+                        productFound = true;
+
+                        AllRefs.I.shopMenu.OnItemPurchased(2, i);
+                        break;
+                    }
                 }
 
                 // check carpets

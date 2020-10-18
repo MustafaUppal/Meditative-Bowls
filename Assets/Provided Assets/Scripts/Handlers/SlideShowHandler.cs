@@ -5,10 +5,11 @@ using UnityEngine.UI;
 
 public class SlideShowHandler : MonoBehaviour
 {
+    public GameObject root;
     public float perImageTime;
 
     [Header("Objects")]
-    public Animator button;
+    public GameObject blocker;
 
     [Header("Animators")]
     public Animator sliderAnim;
@@ -20,30 +21,58 @@ public class SlideShowHandler : MonoBehaviour
     public Image currentImage;
     public Sprite[] images;
 
+    [Header("Buttons")]
+    public Button[] setsButton;
+
     Coroutine slideShowC;
     Sprite prevSprite;
     Sprite currenSprite;
     int currentSpriteIndex;
 
+    InventoryManager Inventory => InventoryManager.Instance;
 
-    public void StartSlideShow(bool start)
+    private void OnEnable() 
+    {
+        for(int i = 0; i < Inventory.GetItemCount(2); i++)
+        {
+            setsButton[i].interactable = Inventory.allSlideShows[i].currentState == Item.State.Purchased;
+        }
+
+        blocker.SetActive(true);
+    }
+
+    private void OnDisable() 
+    {
+        if(slideShowC != null)
+            StopCoroutine(slideShowC);
+    }
+
+    public void EnableSlideShow(bool start)
     {
         if(start) gameObject.SetActive(start);
-        
+        sliderAnim.SetInteger("State", start ? 1 : 0);
+
+        // if(slideShowC != null)
+        //     StopCoroutine(slideShowC);
+
+        // slideShowC = StartCoroutine(StartSlideShowE(start));
+
+    }
+
+    public void OnClickSlideShowSetBitton(int index) 
+    {
+        images = Inventory.allSlideShows[index].images;
+        blocker.SetActive(false);
+
         if(slideShowC != null)
             StopCoroutine(slideShowC);
 
-        slideShowC = StartCoroutine(StartSlideShowE(start));
-
+        slideShowC = StartCoroutine(StartSlideShowE(true));
     }
 
     IEnumerator StartSlideShowE(bool start)
     {
         WaitForSeconds wait = new WaitForSeconds(perImageTime);
-
-        sliderAnim.SetInteger("State", start ? 1 : 0);
-
-        yield return new WaitForSeconds(1);
 
         while(start)
         {
@@ -59,8 +88,6 @@ public class SlideShowHandler : MonoBehaviour
             yield return wait;
         }
 
-        
-        gameObject.SetActive(start);
         slideShowC = null;
     }
 
