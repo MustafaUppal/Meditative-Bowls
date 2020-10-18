@@ -131,7 +131,7 @@ public class ShopMenuEventListener : MonoBehaviour
         selectedItem.i_itemActionButton.sprite = selectedItem.buttonIcons[(int)item.CurrentState];
         selectedItem.b_itemActionButton.interactable = !item.CurrentState.Equals(Bowl.State.Loaded);
         // Price
-        selectedItem.t_itemActionButton.text = item.price + "$";
+        selectedItem.t_itemActionButton.text =  "$ "+item.price ;
 
         Inventory.Manage3DItems((int)currentState, index);
         DistinctFunctionality();
