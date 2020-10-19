@@ -8624,7 +8624,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -15931,7 +15931,7 @@ GameObject:
   m_Component:
   - component: {fileID: 555168585}
   m_Layer: 0
-  m_Name: Camera idle position
+  m_Name: Bowl idle position
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15944,13 +15944,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 555168584}
-  m_LocalRotation: {x: 0.17364815, y: 0, z: 0, w: 0.9848077}
-  m_LocalPosition: {x: 1.04, y: 0.3, z: -2.94}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.22, y: -1.44, z: 1.4}
+  m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 13
-  m_LocalEulerAnglesHint: {x: 20, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &558904949
 GameObject:
   m_ObjectHideFlags: 0
@@ -30474,7 +30474,7 @@ RectTransform:
   m_LocalScale: {x: 0.7680221, y: 0.81602347, z: 0.81602347}
   m_Children: []
   m_Father: {fileID: 1217074195}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -30768,7 +30768,7 @@ RectTransform:
   m_LocalScale: {x: 0.7680221, y: 0.81602347, z: 0.81602347}
   m_Children: []
   m_Father: {fileID: 1217074195}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -31224,7 +31224,7 @@ RectTransform:
   m_LocalScale: {x: 0.7680221, y: 0.81602347, z: 0.81602347}
   m_Children: []
   m_Father: {fileID: 1217074195}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -31552,12 +31552,11 @@ RectTransform:
   m_Children:
   - {fileID: 1309773104}
   - {fileID: 142506703}
-  - {fileID: 2021128840}
   - {fileID: 1140603350}
   - {fileID: 1180786193}
   - {fileID: 1153266301}
-  - {fileID: 129287170}
   - {fileID: 1237334360}
+  - {fileID: 129287170}
   m_Father: {fileID: 1465396690}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -31789,7 +31788,7 @@ RectTransform:
   - {fileID: 1453672539}
   - {fileID: 582265225}
   m_Father: {fileID: 1217074195}
-  m_RootOrder: 7
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -44366,6 +44365,36 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8296172668004589276}
+          m_MethodName: OnPress
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+  - eventID: 3
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8296172668004589276}
+          m_MethodName: OnPress
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!114 &1658117338
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -52258,7 +52287,8 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 15}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 2021128840}
   m_Father: {fileID: 1658117336}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -52345,6 +52375,36 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 8296172668004589276}
           m_MethodName: OnPanel
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8296172668004589276}
+          m_MethodName: OnPress
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+  - eventID: 3
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8296172668004589276}
+          m_MethodName: OnPress
           m_Mode: 6
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -54304,19 +54364,19 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2021128839}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.000005722046}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 558904950}
   - {fileID: 1866575932}
   - {fileID: 1040084813}
-  m_Father: {fileID: 1217074195}
-  m_RootOrder: 2
+  m_Father: {fileID: 1971355713}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -20, y: -20}
-  m_SizeDelta: {x: 80, y: 80}
+  m_AnchoredPosition: {x: -100, y: -15}
+  m_SizeDelta: {x: 70, y: 70}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &2021128841
 MonoBehaviour:
@@ -59593,8 +59653,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   camera: {fileID: 963194227}
   zoomSpeed: -50
-  rotationSpeed: 200
+  rotationSpeed: 8
   isOnPanel: 0
+  isPressed: 0
+  rotationScript: {fileID: 8296172668004589277}
   idleTransform: {fileID: 555168585}
   idleFieldOfView: 55
   isChanged: 0

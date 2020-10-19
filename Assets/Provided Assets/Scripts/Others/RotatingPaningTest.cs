@@ -10,6 +10,9 @@ public class RotatingPaningTest : MonoBehaviour
     public float zoomSpeed;
     public float rotationSpeed = 20f;
     public bool isOnPanel;
+    public bool isPressed;
+    public RotateObj rotationScript;
+
 
     [Header("Defualt Positions")]
     public Transform idleTransform;
@@ -24,14 +27,20 @@ public class RotatingPaningTest : MonoBehaviour
         if (!AllRefs.I.shopMenu.currentState.Equals(ShopMenuEventListener.ShopStates.Bowls))
             return;
 
-        if (Input.GetMouseButton(0) && Input.touches.Length != 2 && isOnPanel)
+        if (isOnPanel && Input.touches.Length != 2 && isPressed)
         {
+            rotationScript.rotate = false;
             if (!isChanged)
             {
                 AllRefs.I.shopMenu.selectedItem.resetButton.SetActive(true);
                 isChanged = true;
             }
-            camera.transform.RotateAround(transform.position, new Vector3(-Input.GetAxis("Mouse Y"), Input.GetAxis("Mouse X"), 0), Time.deltaTime * rotationSpeed);
+            // camera.transform.RotateAround(transform.position, new Vector3(-Input.GetAxis("Mouse Y"), Input.GetAxis("Mouse X"), 0), Time.deltaTime * rotationSpeed);
+            transform.Rotate(Input.GetAxis("Mouse Y") * rotationSpeed, -Input.GetAxis("Mouse X") * rotationSpeed, 0, Space.World);
+        }
+        else
+        {
+            rotationScript.rotate = true;
         }
 
         if (Input.touches.Length == 2)
@@ -46,13 +55,18 @@ public class RotatingPaningTest : MonoBehaviour
         isChanged = false;
         AllRefs.I.shopMenu.selectedItem.resetButton.SetActive(false);
         camera.fieldOfView = idleFieldOfView;
-        camera.transform.position = idleTransform.position;
-        camera.transform.rotation = idleTransform.rotation;
+        transform.position = idleTransform.position;
+        transform.rotation = idleTransform.rotation;
     }
 
     public void OnPanel(bool isOnPanel)
     {
         this.isOnPanel = isOnPanel;
+    }
+
+    public void OnPress(bool isPressed)
+    {
+        this.isPressed = isPressed;
     }
 
     void _Scaling()

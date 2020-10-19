@@ -241,15 +241,18 @@ public class ShopMenuEventListener : MonoBehaviour
             case 0: // carpet
                 Inventory.allCarpets[index].CurrentState = Item.State.Purchased;
                 OnClickItemButton(index);
+                content.SetDropdown((int)currentState, Inventory.allCarpets[index].set);
                 break;
             case 1: // bowl
                 Inventory.allBowls[index].CurrentState = Item.State.Purchased;
                 OnClickItemButton(index);
+                content.SetDropdown((int)currentState, Inventory.allBowls[index].set);
                 break;
             case 2: // slideshow
                 Inventory.allSlideShows[index].CurrentState = Item.State.Purchased;
                 OnClickItemButton(index);
                 Inventory.slideShowManager.activeMusicIndex = 0;
+                content.SetDropdown((int)currentState, Inventory.allSlideShows[index].set);
                 break;
         }
 
