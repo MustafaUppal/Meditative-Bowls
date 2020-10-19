@@ -50,7 +50,7 @@ public class NumberHandler : MonoBehaviour
         if(sensitivityVal <= 0 && (isPlusPressed || isMinusPressed))
         {
             sensitivityVal = changeSensitivity;
-            number += isPlusPressed ? 1 : -1;
+            number += isPlusPressed ? increment : -decrement;
             ApplyLimits();
             numberText.text = number.ToString();
         }
@@ -93,9 +93,9 @@ public class NumberHandler : MonoBehaviour
         if(applyLimits)
         {
             if(number < minLimit)
-                number = roundRobin ? maxLimit : minLimit;
+                number = roundRobin ? maxLimit - number : minLimit;
             else if(number > maxLimit)
-                number = roundRobin ? minLimit : maxLimit;
+                number = roundRobin ? minLimit + (number - maxLimit) : maxLimit;
         }
     }
 }

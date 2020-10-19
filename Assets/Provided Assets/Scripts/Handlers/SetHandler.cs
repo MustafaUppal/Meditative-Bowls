@@ -35,7 +35,7 @@ public class SetHandler : MonoBehaviour
 
     public void Refresh()
     {
-        AllRefs.I.itemContainer.SetActive(false);
-        AllRefs.I.itemContainer.SetActive(true);
+        AllRefs.I.tilesContainer.gameObject.SetActive(false);
+        AllRefs.I.tilesContainer.gameObject.SetActive(true);
     }
 }

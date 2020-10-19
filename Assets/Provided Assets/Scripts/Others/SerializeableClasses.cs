@@ -90,7 +90,10 @@ namespace SerializeableClasses
     public struct BowlPlacementSettings
     {
         [SerializeField] private GameObject panel;
+
+        public GameObject[] bowlsIcons;
         public Text[] bowlsText;
+        public Image[] bGs;
 
         public bool Enable { set => panel.SetActive(value); }
 
@@ -109,17 +112,23 @@ namespace SerializeableClasses
         {
             int i = activeBowls[index];
 
-            Color color = Color.black;
-            string text = "Empty\nPosition";
+            Color color = Color.white;
+
+            string text = "";
 
             if (i > -1)
             {
                 color = bowls[i].lightColor;
-                text = bowls[i].name + "\n(" + bowls[i].setName + ")";
+                string name = bowls[i].name;
+                string[] parts = name.Split(' ');
+                text = parts[0] + (i < 7 ? (parts[2][1] - 32) : parts[2][0]);
+                bowlsIcons[index].SetActive(true);
             }
+            else
+                bowlsIcons[index].SetActive(false);
 
             bowlsText[index].text = text;
-            bowlsText[index].color = color;
+            bGs[index].color = color;
         }
     }
 
@@ -158,6 +167,29 @@ namespace SerializeableClasses
 
             this.timer.text = mins + ":" + (secs < 10 ? "0" + secs : secs.ToString());
         }
+    }
+
+        [System.Serializable]
+    public class BowlRandomizationSettings
+    {
+        public GameObject root;
+        public NumberHandler hours;
+        public NumberHandler mins;
+        public NumberHandler secs;
+
+        public float timer;
+
+        [Header("Icon Settings")]
+        public Image icon;
+        public Sprite startIcon;
+        public Sprite stopIcon;
+
+        public void SetIcon(bool isStared)
+        {
+            icon.sprite = isStared ? stopIcon : startIcon;
+        }
+
+        public float TimeLimit => (hours.number * 60 * 60) + (mins.number * 60) + secs.number;
     }
 
     [System.Serializable]

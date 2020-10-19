@@ -39,7 +39,7 @@ public class TileHandler : MonoBehaviour
         image.sprite = sprite;
         this.name.text = name;
         this.Index = index;
-        this.stateIcon.sprite = AllRefs.I.shopMenu.selectedItem.buttonIcons[iconIndex];
-        this.stateIcon.color = AllRefs.I.shopMenu.selectedItem.buttonColors[iconIndex];
+        this.stateIcon.sprite = AllRefs.I.tilesContainer.buttonIcons[iconIndex];
+        this.stateIcon.color = AllRefs.I.tilesContainer.buttonColors[iconIndex];
     }
 }

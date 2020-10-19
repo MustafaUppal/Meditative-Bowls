@@ -23,7 +23,9 @@ public class AllRefs : MonoBehaviour
     public GameManager _GameManager;
 
     [Header("Objects")]
-    public GameObject itemContainer;
     public HighlightSettings highlightSettings;
     public ObjectSeection objectSelection;
+
+    [Header("Scripts")]
+    public ContentHandler tilesContainer;
 }

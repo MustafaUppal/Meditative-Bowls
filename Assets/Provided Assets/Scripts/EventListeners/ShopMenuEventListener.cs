@@ -118,14 +118,14 @@ public class ShopMenuEventListener : MonoBehaviour
         content.GetTile(selectedItem.index).Highlight = true;
 
         Item item = Inventory.GetItem((int)currentState, index);
-        string setName = item.setName.Equals("") ? "" : " (" + item.setName + ")";
+        // string setName = item.setName.Equals("") ? "" : " (" + item.setName + ")";
 
         // Image
         selectedItem.largeImage.sprite = item.image;
         selectedItem.image.sprite = item.image;
 
         // Description
-        selectedItem.description.text = "<size=35>" + item.name + setName + "</size>\n" + item.description;
+        selectedItem.description.text = "<size=35><color=#FF7900>" + item.name /* + setName */ + "</color></size>\n" + item.description;
         // Button
         selectedItem.b_itemActionButton.transform.GetChild(0).GetComponent<Image>().color = selectedItem.buttonColors[(int)item.CurrentState];
         selectedItem.i_itemActionButton.sprite = selectedItem.buttonIcons[(int)item.CurrentState];

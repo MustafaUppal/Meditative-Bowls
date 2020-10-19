@@ -14,6 +14,9 @@ public class ContentHandler : MonoBehaviour
     public InventoryManager Inventory => InventoryManager.Instance;
     TileHandler currentTile;
 
+    [Header("Tile Settings")]
+    public Sprite[] buttonIcons;
+    public Color[] buttonColors;
 
     public void SetDropdown(int currentState, int setNumber = 1)
     {
@@ -126,7 +129,7 @@ public class ContentHandler : MonoBehaviour
                     // Debug.Log("item.Name:" + item.name);
                     // Debug.Log("item.Index: " + item.Index);
                     currentTile = transform.GetChild(tilesCount).GetComponent<TileHandler>(); 
-                    currentTile.SetTile(item.image, item.name + " (" + item.setName + ")", item.Index, (int)item.currentState);
+                    currentTile.SetTile(item.image, item.name, item.Index, (int)item.currentState);
                     currentTile.Highlight = false;
                     currentTile.IsLoaded = loadedBowls.ContainsKey(item.Index);
 
