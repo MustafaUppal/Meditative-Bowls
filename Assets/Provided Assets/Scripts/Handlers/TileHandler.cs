@@ -21,8 +21,8 @@ public class TileHandler : MonoBehaviour
     {
         set
         {
-            bg.color = value 
-            ? AllRefs.I.highlightSettings.tileHighlight : 
+            bg.color = value
+            ? AllRefs.I.highlightSettings.tileHighlight :
             AllRefs.I.highlightSettings.tileNormal;
         }
     }
@@ -31,7 +31,7 @@ public class TileHandler : MonoBehaviour
     public bool IsLoaded
     {
         get => isLoaded;
-        set {isLoaded = value;}
+        set { isLoaded = value; }
     }
 
     public void SetTile(Sprite sprite, string name, int index, int iconIndex)
@@ -39,7 +39,11 @@ public class TileHandler : MonoBehaviour
         image.sprite = sprite;
         this.name.text = name;
         this.Index = index;
-        this.stateIcon.sprite = AllRefs.I.tilesContainer.buttonIcons[iconIndex];
-        this.stateIcon.color = AllRefs.I.tilesContainer.buttonColors[iconIndex];
+
+        if (iconIndex != -1)
+        {
+            this.stateIcon.sprite = AllRefs.I.tilesContainer.buttonIcons[iconIndex];
+            this.stateIcon.color = AllRefs.I.tilesContainer.buttonColors[iconIndex];
+        }
     }
 }

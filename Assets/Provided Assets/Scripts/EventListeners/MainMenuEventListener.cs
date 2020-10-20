@@ -3,19 +3,20 @@ using System.Collections.Generic;
 using SerializeableClasses;
 using UnityEngine;
 using UnityEngine.UI;
-public class MainMenuEventListener : MonoBehaviour {
-    [Header ("References")]
+public class MainMenuEventListener : MonoBehaviour
+{
+    [Header("References")]
     public MainMenuModes modes;
     public Animator dock;
     public Button slideShowButton;
     public GameObject webContent;
 
 
-    [Header ("Footer Settings")]
+    [Header("Footer Settings")]
     public Text footertext;
     public GameObject simpleFooter;
 
-    [Header ("Handlers")]
+    [Header("Handlers")]
     public SlideShowHandler slideShow;
     public BowlsPlacementHandler bowlsPlacement;
     public RecordingFooter recordingFooter;
@@ -25,26 +26,27 @@ public class MainMenuEventListener : MonoBehaviour {
     // * Unity Callbacks *
     // *******************
 
-    private void OnEnable () {
+    private void OnEnable()
+    {
         DockEventListener.ButtonsData data = new DockEventListener.ButtonsData { };
 
-        AllRefs.I.dock.ManageButtons (data);
+        AllRefs.I.dock.ManageButtons(data);
 
-        ManageDock (true);
+        ManageDock(true);
 
-        AllRefs.I.objectSelection.EnableClick (true);
+        AllRefs.I.objectSelection.EnableClick(true);
     }
 
-    private void OnDisable () {
+    private void OnDisable()
+    {
         GameManager.Instance.state = GameManager.State.Randomization;
     }
 
-    private void Update () {
-        if (randomizationSettings.timer > 0) {
-            randomizationSettings.timer -= Time.timeScale;
-
-            if (randomizationSettings.timer <= 0)
-                SelectRandomization ();
+    private void Update()
+    {
+        if (randomizationSettings.isStarted && randomizationSettings.TimeLimit < randomizationSettings.stopwatch.Elapsed.TotalSeconds)
+        {
+            OnClickStartRandomization(false);
         }
     }
 
@@ -52,40 +54,60 @@ public class MainMenuEventListener : MonoBehaviour {
     // * Buttons Clicks *
     // ******************
 
-    public void SelectRandomization () {
-        if (randomizationSettings.timer == 0) {
-            randomizationSettings.SetIcon (true);
-            AllRefs.I.objectSelection.EnableClick (false);
-            randomizationSettings.root.SetActive (true);
-            randomizationSettings.hours.SetNumber (0);
-            randomizationSettings.mins.SetNumber (2);
-            randomizationSettings.secs.SetNumber (0);
+    public void OnClickOpenRandomizationPanelButton()
+    {
+        if (!randomizationSettings.isStarted)
+        {
+            randomizationSettings.root.SetActive(true);
+            AllRefs.I.objectSelection.EnableClick(false);
 
-        } else {
-            randomizationSettings.SetIcon (false);
+            randomizationSettings.hours.SetNumber(0);
+            randomizationSettings.mins.SetNumber(2);
+            randomizationSettings.secs.SetNumber(0);
+        }
+        else
+            OnClickStartRandomization(false);
+    }
+
+    public void OnClickStartRandomization(bool start)
+    {
+        randomizationSettings.isStarted = start;
+
+        if (start)
+        {
+            randomizationSettings.SetIcon(true);
+            randomizationSettings.stopwatch.Start();
+
+            GameManager.Instance.state = GameManager.State.Randomization;
+            AllRefs.I.objectSelection.EnableClick(true);
+            randomizationSettings.root.SetActive(false);
+        }
+        else
+        {
+            randomizationSettings.stopwatch.Stop();
+            randomizationSettings.stopwatch.Reset();
+
+            randomizationSettings.SetIcon(false);
             randomizationSettings.timer = 0;
             GameManager.Instance.state = GameManager.State.Normal;
         }
     }
 
-    public void OnClickStartRandomization () {
-        randomizationSettings.timer = randomizationSettings.TimeLimit;
-        GameManager.Instance.state = GameManager.State.Randomization;
-        AllRefs.I.objectSelection.EnableClick (true);
-        randomizationSettings.root.SetActive (false);
+    public void OnClickBackButtonInRepositionMode()
+    {
+        GameManager.Instance.GetComponent<BowlReposition>().ResetFuntion();
     }
 
-    public void OnClickBackButtonInRepositionMode () {
-        GameManager.Instance.GetComponent<BowlReposition> ().ResetFuntion ();
+    public void OnClickLoopButton()
+    {
+        recordingFooter.SetLoop(false);
     }
 
-    public void OnClickLoopButton () {
-        recordingFooter.SetLoop (false);
-    }
-
-    public void OnClickSlideShowButton () {
-        if (!InventoryManager.Instance.IsAnySlideShowAvailible ()) {
-            PopupManager.Instance.messagePopup.Show ("Not Purchased!", "Please purchase slideshow from shop to unlock this feature.");
+    public void OnClickSlideShowButton()
+    {
+        if (!InventoryManager.Instance.IsAnySlideShowAvailible())
+        {
+            PopupManager.Instance.messagePopup.Show("Not Purchased!", "Please purchase slideshow from shop to unlock this feature.");
             return;
         }
 
@@ -94,26 +116,29 @@ public class MainMenuEventListener : MonoBehaviour {
             return;
 
         modes.slideShow = !modes.slideShow;
-        AllRefs.I.objectSelection.EnableClick (!modes.slideShow);
-        slideShow.EnableSlideShow (modes.slideShow);
+        AllRefs.I.objectSelection.EnableClick(!modes.slideShow);
+        slideShow.EnableSlideShow(modes.slideShow);
     }
 
-    public void OnClickPlaceBowlsButton () {
+    public void OnClickPlaceBowlsButton()
+    {
         if (modes.slideShow)
             return;
 
         modes.placeBowls = !modes.placeBowls;
-        AllRefs.I.objectSelection.EnableClick (!modes.placeBowls);
-        bowlsPlacement.Enable (modes.placeBowls);
+        AllRefs.I.objectSelection.EnableClick(!modes.placeBowls);
+        bowlsPlacement.Enable(modes.placeBowls);
     }
 
     public void OnClickOpenLinkButton(string url)
     {
-        Application.OpenURL(url);
+        if (url.Length != 0)
+            Application.OpenURL(url);
     }
 
     public void OnClickEnableWebContent(bool enable)
     {
+        AllRefs.I.objectSelection.EnableClick(!enable);
         webContent.SetActive(enable);
     }
 
@@ -121,17 +146,20 @@ public class MainMenuEventListener : MonoBehaviour {
     // * Functionalities *
     // *******************
 
-    public void ManageFooter (bool val) {
+    public void ManageFooter(bool val)
+    {
         modes.playingRecording = val;
-        simpleFooter.SetActive (!modes.playingRecording);
-        recordingFooter.root.SetActive (modes.playingRecording);
+        simpleFooter.SetActive(!modes.playingRecording);
+        recordingFooter.root.SetActive(modes.playingRecording);
     }
 
-    public void ManageDock (bool enable) {
-        dock.SetInteger ("State", enable ? 1 : 0);
+    public void ManageDock(bool enable)
+    {
+        dock.SetInteger("State", enable ? 1 : 0);
     }
 
-    void MessageSender (string Message) {
+    void MessageSender(string Message)
+    {
         footertext.text = Message;
     }
 }

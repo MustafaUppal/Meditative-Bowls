@@ -5,13 +5,14 @@ using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.UI;
 using Debug = UnityEngine.Debug;
+using SerializeableClasses;
 
 
 public class RecordingMenuEventListener : MonoBehaviour
 {
     public RecordingStates currentState;
     public RecordingSettings recordingSettings;
-    public FooterSettings footerSettings;
+    public ButtonOnOffSettings playStopButton;
 
     [Header("Footer")]
     public Text Footertext;
@@ -170,25 +171,23 @@ public class RecordingMenuEventListener : MonoBehaviour
         switch (currentState)
         {
             case RecordingStates.None:
-                footerSettings.icon.sprite = footerSettings.startRecoding;
+                playStopButton.SetIcon(false);
 
                 recordingSettings.stopwatch.Stop();
                 recordingSettings.stopwatch.Reset();
                 break;
             case RecordingStates.Started:
-                footerSettings.icon.sprite = footerSettings.saveRecording;
+                playStopButton.SetIcon(true);
 
                 recordingSettings.stopwatch.Start();
                 break;
             case RecordingStates.Paused:
-                footerSettings.icon.sprite = footerSettings.startRecoding;
+                // playStopButton.icon.sprite = playStopButton.startRecoding;
 
                 recordingSettings.stopwatch.Stop();
                 break;
             case RecordingStates.Saving:
-                Debug.Log("Saving");
-
-                footerSettings.icon.sprite = footerSettings.startRecoding;
+                playStopButton.SetIcon(false);
 
                 if (wavIncluded) Microphone.End(string.Empty);
                 recordingSettings.stopwatch.Stop();
@@ -271,14 +270,6 @@ public class RecordingMenuEventListener : MonoBehaviour
         [Range(120, 300)]
         public int recordingMaxTime;
         public float currentTime;
-    }
-
-    [System.Serializable]
-    public class FooterSettings
-    {
-        public Image icon;
-        public Sprite startRecoding;
-        public Sprite saveRecording;
     }
 
     public enum RecordingStates

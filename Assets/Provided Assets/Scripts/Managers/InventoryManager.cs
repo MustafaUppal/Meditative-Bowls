@@ -86,15 +86,15 @@ public class InventoryManager : MonoBehaviour
     public void Manage3DItems(int currentState, int materialIndex)
     {
         AllRefs.I.shopMenu.selectedItem.carpetObj.SetActive(currentState.Equals(0));
-        AllRefs.I.shopMenu.selectedItem.bowlObj.SetActive(currentState.Equals(1));
         AllRefs.I.shopMenu.selectedItem.carpetCam.SetActive(currentState.Equals(0));
+        
+        AllRefs.I.shopMenu.selectedItem.bowlObj.SetActive(currentState.Equals(1));
         AllRefs.I.shopMenu.selectedItem.bowlCam.SetActive(currentState.Equals(1));
 
         switch (currentState)
         {
             case 0:
                 AllRefs.I.shopMenu.selectedItem.carpetObj.GetComponent<Renderer>().material = allCarpets[materialIndex].material;
-                AllRefs.I.shopMenu.selectedItem.carpetObj.transform.GetChild(0).GetComponent<Renderer>().material = allCarpets[materialIndex].material;
                 break;
             case 1:
                 AllRefs.I.shopMenu.selectedItem.bowlObj.GetComponent<Renderer>().material = allBowls[materialIndex].material;
@@ -179,7 +179,7 @@ public class InventoryManager : MonoBehaviour
         else
             productId += ".Set" + i.set + "." + itemName + (position) + GetFloatingPoint(type, i.set, position);
 
-        Debug.Log(productId);
+        // Debug.Log(productId);
         return productId;
     }
 

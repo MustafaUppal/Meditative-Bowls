@@ -60,7 +60,7 @@ public class BowlsManager : MonoBehaviour
 
         for (int i = 0; i < activeBowlsIndexes.Length; i++)
         {
-            Debug.Log(i + " -> " + SessionManager.Instance.SessionData.defaultSnipt.bowlsPositions[i]);
+            // Debug.Log(i + " -> " + SessionManager.Instance.SessionData.defaultSnipt.bowlsPositions[i]);
             activeBowlsIndexes[i] = SessionManager.Instance.SessionData.defaultSnipt.bowlsPositions[i];
 
             // -1 means no bowl is there, so look for next bowl

@@ -29,7 +29,7 @@ public class RotatingPaningTest : MonoBehaviour
 
         if (isOnPanel && Input.touches.Length != 2 && isPressed)
         {
-            rotationScript.rotate = false;
+            // rotationScript.rotate = false;
             if (!isChanged)
             {
                 AllRefs.I.shopMenu.selectedItem.resetButton.SetActive(true);
@@ -40,7 +40,7 @@ public class RotatingPaningTest : MonoBehaviour
         }
         else
         {
-            rotationScript.rotate = true;
+            // rotationScript.rotate = true;
         }
 
         if (Input.touches.Length == 2)

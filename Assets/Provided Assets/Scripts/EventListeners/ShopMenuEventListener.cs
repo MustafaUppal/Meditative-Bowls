@@ -193,7 +193,7 @@ public class ShopMenuEventListener : MonoBehaviour
         int time = Inventory.allBowls[selectedItem.index].CurrentState == Item.State.Locked ? 3 : -1;
         AudioClip clip = Inventory.allBowls[selectedItem.index].AudioSource.clip;
 
-        selectedItem.SetPlaySprite(isSoundPlaying);
+        selectedItem.playStopSound.SetIcon(isSoundPlaying);
         audioHandler.Play(isSoundPlaying, clip, time);
     }
 
@@ -206,13 +206,13 @@ public class ShopMenuEventListener : MonoBehaviour
 
                 selectedItem.resetButton.SetActive(false);
                 selectedItem.EnableExpandButton(false);
-                selectedItem.playSoundButton.SetActive(false);
+                selectedItem.playStopSound.root.SetActive(false);
                 break;
             case 1: // Bowls
                 ChangeView(false);
 
                 selectedItem.EnableExpandButton(true);
-                selectedItem.playSoundButton.SetActive(true);
+                selectedItem.playStopSound.root.SetActive(true);
 
                 ChangeSoundPlay(false);
                 break;
@@ -221,7 +221,7 @@ public class ShopMenuEventListener : MonoBehaviour
 
                 selectedItem.resetButton.SetActive(false);
                 selectedItem.EnableExpandButton(false);
-                selectedItem.playSoundButton.SetActive(false);
+                selectedItem.playStopSound.root.SetActive(false);
                 break;
         }
     }
@@ -231,7 +231,7 @@ public class ShopMenuEventListener : MonoBehaviour
     public void OnItemPurchased(int type, int index)
     {
         PopupManager.Instance.spinnerLoading.Hide();
-        PopupManager.Instance.messagePopup.Show("Purchase Successfull!", "Seleted item has been successfully purchased.");
+        PopupManager.Instance.messagePopup.Show("Congratulations!", "Your purchase was successful.");
         
         // Debug.Log("Selected Index: " + selectedItem.index);
         // Debug.Log("Index: " + index);
@@ -312,7 +312,14 @@ public class ShopMenuEventListener : MonoBehaviour
                 break;
             case Item.State.Purchased:
                 // load selected bowl
-                Inventory.allCarpets[selectedItem.prevIndex].CurrentState = Item.State.Purchased;
+
+                for(int i = 0; i < Inventory.allCarpets.Count; i++)
+                {
+                    if(Inventory.allCarpets[i].CurrentState != Item.State.Locked)
+                        Inventory.allCarpets[i].CurrentState = Item.State.Purchased;
+                }
+
+                // Inventory.allCarpets[selectedItem.prevIndex].CurrentState = Item.State.Purchased;
                 Inventory.allCarpets[selectedItem.index].CurrentState = Item.State.Loaded;
 
                 InventoryManager.Instance.carpetsManager.activeCarpetIndex = selectedItem.index;
@@ -349,7 +356,7 @@ public class ShopMenuEventListener : MonoBehaviour
     {
         this.isSoundPlaying = isSoundPlaying;
         
-        selectedItem.SetPlaySprite(isSoundPlaying);
+        selectedItem.playStopSound.SetIcon(isSoundPlaying);
         audioHandler.Play(isSoundPlaying);
     }
 }

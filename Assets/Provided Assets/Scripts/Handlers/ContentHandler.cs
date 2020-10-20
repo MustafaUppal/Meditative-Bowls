@@ -60,7 +60,7 @@ public class ContentHandler : MonoBehaviour
                 {
                     // Debug.Log("item.Name:" + item.name);
                     // Debug.Log("item.Index: " + item.Index);
-                    currentTile = transform.GetChild(tilesCount).GetComponent<TileHandler>(); 
+                    currentTile = transform.GetChild(tilesCount).GetComponent<TileHandler>();
                     currentTile.SetTile(item.image, item.name, item.Index, (int)item.currentState);
                     currentTile.Highlight = false;
                     currentTile.IsLoaded = loadedItem.ContainsKey(item.Index);

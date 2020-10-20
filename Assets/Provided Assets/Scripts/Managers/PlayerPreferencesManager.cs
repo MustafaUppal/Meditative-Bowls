@@ -7,6 +7,9 @@ public class PlayerPreferencesManager
     public static readonly string SESSION = "SESSION";
     public static readonly string ITEMS_RESTORED = "ITEMS_RESTORED";
     public static readonly string ALARM_ITEM = "ALARM_ITEM";
+    public static readonly string GENERAL_TIMERS = "GENERAL_TIMERS";
+    public static readonly string GENERAL_TIMERS_INDEX = "GENERAL_TIMERS_INDEX";
+
 
 
     public static void SetItemsRestored(bool value)
@@ -27,6 +30,32 @@ public class PlayerPreferencesManager
     public static bool GetPurchasedState(int type, int index, bool defaultVal)
     {
         return PlayerPrefs.GetInt(GetItemID(type, index), defaultVal ? 1 : 0).Equals(1);
+    }
+
+    public static void SaveTimer(int index, CustomTime time)
+    {
+        Debug.Log("Time: " + time.GetTimeString());
+        PlayerPrefs.SetString(GENERAL_TIMERS + index, time.GetTimeString());
+    }
+
+    public static CustomTime GetTimer(int index)
+    {
+        return new CustomTime((PlayerPrefs.GetString(GENERAL_TIMERS + index, "0:0:0")));
+    }
+
+    public static bool HasTimer(int index)
+    {
+        return PlayerPrefs.HasKey(GENERAL_TIMERS + index);
+    }
+
+    public static void SetTimerIndex(int index)
+    {
+        PlayerPrefs.SetInt(GENERAL_TIMERS_INDEX, index);
+    }
+
+    public static int GetTimerIndex(int defaultVal)
+    {
+        return PlayerPrefs.GetInt(GENERAL_TIMERS_INDEX, defaultVal);
     }
 
     public static void SetAlarmItemState(bool activate, int id)

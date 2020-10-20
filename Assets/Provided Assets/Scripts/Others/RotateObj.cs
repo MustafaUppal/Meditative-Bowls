@@ -35,4 +35,9 @@ public class RotateObj : MonoBehaviour
         // Debug.Log("---------------------");
 
     }
+
+    public void StartRotation(bool start)
+    {
+        rotate = start;
+    }
 }

@@ -20,6 +20,7 @@ public class AllRefs : MonoBehaviour
     public RecordingMenuEventListener recordingMenu;
     public HeaderHandler headerHandler;
     public SettingsMenuEventListener settingMenu;
+    public AlarmClockMenuEventListerner alarmMenu;
     public GameManager _GameManager;
 
     [Header("Objects")]

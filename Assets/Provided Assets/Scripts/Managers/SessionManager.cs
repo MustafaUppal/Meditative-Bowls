@@ -183,6 +183,7 @@ public class SessionManager : MonoBehaviour
             StopAllCoroutines();
         float totalTime = recording.recodingSnipts[lastIndex].time;
         int i = 0;
+        bool isPlaying = true;
 
         AllRefs.I.mainMenu.recordingFooter.SetLoop(true, false);
         AllRefs.I.mainMenu.ManageFooter(true);
@@ -191,7 +192,7 @@ public class SessionManager : MonoBehaviour
         {
             timer = 0;
 
-            for (i = 0; i < recording.recodingSnipts.Count;)
+            for (i = 0; isPlaying;)
             {
                 timer += Time.deltaTime;
                 Debug.Log("timer/totalTime: " + timer / totalTime);
@@ -206,8 +207,11 @@ public class SessionManager : MonoBehaviour
                 }
 
                 if (!AllRefs.I.mainMenu.modes.playingRecording)
-                {
                     StopAllCoroutines();
+
+                if(i == recording.recodingSnipts.Count -1) // last index
+                {
+                    isPlaying = InventoryManager.Instance.allBowls[recording.recodingSnipts[i].bowlIndex].AudioSource.isPlaying;
                 }
             }
 

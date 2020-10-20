@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class SlideShowHandler : MonoBehaviour
 {
+    public int prevState = -1;
+    public int currentState = -1;
+
     public GameObject root;
     public float perImageTime;
 
@@ -15,6 +18,7 @@ public class SlideShowHandler : MonoBehaviour
     public Animator sliderAnim;
     public Animator pervImageAnim;
     public Animator currenImageAnim;
+    public Animator[] buttonSelectors;
 
     [Header("Images")]
     public Image prevImage;
@@ -36,6 +40,8 @@ public class SlideShowHandler : MonoBehaviour
         for(int i = 0; i < Inventory.GetItemCount(2); i++)
         {
             setsButton[i].interactable = Inventory.allSlideShows[i].currentState == Item.State.Purchased;
+            prevState = i;
+            SelectButton();
         }
 
         blocker.SetActive(true);
@@ -59,8 +65,16 @@ public class SlideShowHandler : MonoBehaviour
 
     }
 
-    public void OnClickSlideShowSetBitton(int index) 
+    public void ChangeState(int state)
     {
+        prevState = currentState;
+        currentState = state;
+        SelectButton();
+    }
+
+    public void OnClickSlideShowSetButton(int index) 
+    {
+        ChangeState(index);
         images = Inventory.allSlideShows[index].images;
         blocker.SetActive(false);
 
@@ -89,6 +103,16 @@ public class SlideShowHandler : MonoBehaviour
         }
 
         slideShowC = null;
+    }
+
+    public void SelectButton()
+    {
+        
+        if(prevState != -1)
+        buttonSelectors[prevState].Play("Deselect");
+
+        if(currentState != -1)
+        buttonSelectors[currentState].Play("Select");
     }
 
     void UpdateSprites()

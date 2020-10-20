@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -34,9 +35,6 @@ namespace SerializeableClasses
         public Color[] buttonColors;
         public Sprite[] buttonIcons;
 
-        [Space]
-        public Sprite playSprite;
-        public Sprite stopSprite;
 
         [Space]
         public Image thumbnail;
@@ -53,8 +51,7 @@ namespace SerializeableClasses
         public GameObject resetButton;
         public GameObject expandImageButton;
         [Space]
-        public GameObject playSoundButton;
-        public Image playSoundIcon;
+        public ButtonOnOffSettings playStopSound;
 
         // public int Position { get => position; set { Debug.Log("position " + position + " -> " + value); position = value;} }
 
@@ -78,11 +75,6 @@ namespace SerializeableClasses
         public void EnableExpandButton(bool enable)
         {
             expandImageButton.SetActive(enable);
-        }
-
-        public void SetPlaySprite(bool play)
-        {
-            playSoundIcon.sprite = play ? stopSprite : playSprite;
         }
     }
 
@@ -119,9 +111,9 @@ namespace SerializeableClasses
             if (i > -1)
             {
                 color = bowls[i].lightColor;
-                string name = bowls[i].name;
+                string name = bowls[i].name.ToUpper();
                 string[] parts = name.Split(' ');
-                text = parts[0] + (i < 7 ? (parts[2][1] - 32) : parts[2][0]);
+                text = parts[0] + " " + (i < 7 ? parts[2].Substring(1,1) + parts[3].Substring(0,1) : parts[2].Substring(0, 1));
                 bowlsIcons[index].SetActive(true);
             }
             else
@@ -173,11 +165,16 @@ namespace SerializeableClasses
     public class BowlRandomizationSettings
     {
         public GameObject root;
+        public bool isStarted;
+
+        [Header("Timer Settings")]
         public NumberHandler hours;
         public NumberHandler mins;
         public NumberHandler secs;
 
         public float timer;
+        public Stopwatch stopwatch = new Stopwatch();
+        
 
         [Header("Icon Settings")]
         public Image icon;
@@ -189,7 +186,7 @@ namespace SerializeableClasses
             icon.sprite = isStared ? stopIcon : startIcon;
         }
 
-        public float TimeLimit => (hours.number * 60 * 60) + (mins.number * 60) + secs.number;
+        public float TimeLimit => (hours.number * 60 * 60 * 100) + (mins.number * 60 * 100) + secs.number * 100;
     }
 
     [System.Serializable]
@@ -221,5 +218,26 @@ namespace SerializeableClasses
     {
         public Color tileHighlight;
         public Color tileNormal;
+    }
+
+       [System.Serializable]
+    public class ButtonOnOffSettings
+    {
+        public GameObject root;
+        public Image icon;
+
+        [Header("Image Settings")]
+        public Sprite startRecoding;
+        public Sprite saveRecording;
+
+        [Header("Color Settings")]
+        public Color cStartRecoding;
+        public Color cSaveRecording;
+
+        public void SetIcon(bool isStarted)
+        {
+            icon.sprite = isStarted ? saveRecording : startRecoding;
+            icon.color = isStarted ? cSaveRecording : cStartRecoding;
+        }
     }
 }
