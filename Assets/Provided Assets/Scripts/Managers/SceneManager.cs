@@ -10,6 +10,10 @@ namespace MeditativeBowls
     {
         public static SceneManager Instance;
 
+        [Header("Version Settings")]
+        public string appVersion;
+        public Text versionText;
+
         [Header("States Handling")]
         public MenuManager.MenuStates prevState;
         public MenuManager.MenuStates currentState;
@@ -38,6 +42,7 @@ namespace MeditativeBowls
         private void OnEnable()
         {
             UnityEngine.SceneManagement.SceneManager.sceneLoaded += OnSceneLoaded;
+            SetAppVersion();
         }
 
         private void OnDisable()
@@ -48,6 +53,11 @@ namespace MeditativeBowls
         void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
             panelAnim.gameObject.SetActive(false);
+        }
+
+        public void SetAppVersion()
+        {
+            versionText.text = appVersion;
         }
 
         public void LoadScene(int sceneIndex)

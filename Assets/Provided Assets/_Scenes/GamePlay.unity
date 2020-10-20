@@ -15633,7 +15633,7 @@ MonoBehaviour:
   index: -1
   price: 0.99
   image: {fileID: 21300000, guid: 443e9c90e62572844a3c564cb11017a5, type: 3}
-  description: '     This is slide show for bowls of set 3.'
+  description: Real Images of bowls of set 3.
   images:
   - {fileID: 21300000, guid: cb3d520bbb7471541a427ea23828b909, type: 3}
   - {fileID: 21300000, guid: a6af62e02636bf04095fc143d12c1975, type: 3}
@@ -42867,7 +42867,7 @@ MonoBehaviour:
   index: -1
   price: 0.99
   image: {fileID: 21300000, guid: 443e9c90e62572844a3c564cb11017a5, type: 3}
-  description: '     This is slide show for bowls of set 4.'
+  description: Real Images of bowls of set 4.
   images:
   - {fileID: 21300000, guid: c1d0eab80a77f8b43a38c3cfb513f8d4, type: 3}
   - {fileID: 21300000, guid: f200830cd09367b40b6742e4160697a5, type: 3}
@@ -75733,7 +75733,7 @@ MonoBehaviour:
   index: -1
   price: 0.99
   image: {fileID: 21300000, guid: 443e9c90e62572844a3c564cb11017a5, type: 3}
-  description: '     This is slide show for bowls of set 2.'
+  description: Real Images of bowls of set 2.
   images:
   - {fileID: 21300000, guid: bf2da09fda5ab9349b5d26039fdb8f53, type: 3}
   - {fileID: 21300000, guid: 3ac4cbd8339bead419cad9be61dc2f59, type: 3}
@@ -78506,7 +78506,7 @@ MonoBehaviour:
   index: -1
   price: 0.99
   image: {fileID: 21300000, guid: 443e9c90e62572844a3c564cb11017a5, type: 3}
-  description: '     This is slide show for bowls of set 1.'
+  description: Real Images of bowls of set 1.
   images:
   - {fileID: 21300000, guid: 9d379d6489f5b4547bc013d3f956208d, type: 3}
   - {fileID: 21300000, guid: 3a7ef268225f77d41818f9d97b39b3be, type: 3}
@@ -82179,7 +82179,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: b1e6f6354ec637f44be6266471740dd6, type: 3}
+    m_Font: {fileID: 12800000, guid: 265db39b6a413b44db94545bae45e55b, type: 3}
     m_FontSize: 14
     m_FontStyle: 0
     m_BestFit: 1
