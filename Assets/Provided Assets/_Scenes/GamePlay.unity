@@ -86700,7 +86700,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Stop Selected Bowl Sound
+  m_Text: Stop Selected Bowl's Sound
 --- !u!222 &1858849215
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -99438,7 +99438,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: After selecting a perticular bowl, tap another bowl to swap their positions.
+  m_Text: After selecting a particular bowl, tap another bowl to swap their positions.
 --- !u!222 &2113212597
 CanvasRenderer:
   m_ObjectHideFlags: 0
