@@ -67,10 +67,14 @@ public class SessionManager : MonoBehaviour
     {
         int[] tempSession = Inventory.bowlsManager.activeBowlsIndexes;
 
-        SessionData.Snipt newSession = new SessionData.Snipt { name = name};
+        SessionData.Snipt newSession = new SessionData.Snipt { name = name };
 
-        newSession.recording = new Recording();
-        newSession.recording.DeepCopy(recording);
+        if (recording != null)
+        {
+            newSession.recording = new Recording();
+            newSession.recording.DeepCopy(recording);
+        }
+        
         newSession.bowlsPositions = new int[tempSession.Length];
         newSession.panings = new float[tempSession.Length];
         newSession.volumes = new float[tempSession.Length];
@@ -121,7 +125,7 @@ public class SessionManager : MonoBehaviour
             }
         }
 
-        Inventory.bowlsManager.SetUpBowls();
+        Inventory.bowlsManager.SetUpBowls(true);
 
         if (playRecording && sessionSnipt.recording != null)
         {
@@ -179,7 +183,10 @@ public class SessionManager : MonoBehaviour
         float timer = 0;
         int lastIndex = recording.recodingSnipts.Count - 1;
         if (lastIndex < 0)
-            StopAllCoroutines();
+        {
+            StopCoroutine(recordingTimerC);
+            recordingTimerC = null;
+        }
 
         // totalTime = last click + length of last sound
         float totalTime = recording.recodingSnipts[lastIndex].time + InventoryManager.Instance.allBowls[recording.recodingSnipts[lastIndex].bowlIndex].AudioSource.clip.length;

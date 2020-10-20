@@ -1721,7 +1721,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Save Alarm
+  m_Text: Set
 --- !u!222 &27354125
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4901,14 +4901,14 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 49.45
+  m_fontSize: 30
   m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 30
   m_fontStyle: 0
-  m_textAlignment: 514
+  m_textAlignment: 513
   m_characterSpacing: 0
   m_wordSpacing: 0
   m_lineSpacing: 0
@@ -16953,7 +16953,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Setting an Alarm
+  m_Text: Set a Reminder
 --- !u!222 &354736629
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -29839,7 +29839,7 @@ MonoBehaviour:
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 30
   m_fontStyle: 0
   m_textAlignment: 514
   m_characterSpacing: 0
@@ -32879,7 +32879,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Set Notification button.
+  m_Text: Add Reminder button
 --- !u!222 &676539990
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -34811,7 +34811,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Notifications Help
+  m_Text: Reminder Help
 --- !u!222 &694327066
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -37272,7 +37272,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Enter text...
+  m_Text: Enter session name...
 --- !u!222 &759937556
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -49443,7 +49443,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Unselect a selected bowl.
+  m_Text: Unselect a Selected Bowl
 --- !u!222 &1049527797
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -52847,7 +52847,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Remove Bowl.
+  m_Text: Remove Bowl
 --- !u!222 &1110556933
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -63193,8 +63193,8 @@ RectTransform:
   m_Father: {fileID: 378303894}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.30276948, y: 0}
-  m_AnchorMax: {x: 0.827543, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -81404,10 +81404,10 @@ RectTransform:
   m_Father: {fileID: 1610870952}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 388.2046, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1778807911
 MonoBehaviour:
@@ -81441,7 +81441,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Set Notification
+  m_Text: Add a reminder to meditate
 --- !u!222 &1778807912
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -84881,7 +84881,7 @@ MonoBehaviour:
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 30
   m_fontStyle: 0
   m_textAlignment: 514
   m_characterSpacing: 0

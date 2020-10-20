@@ -150,7 +150,8 @@ public class AlarmClockMenuEventListerner : MonoBehaviour
             else
                 PlayerPrefs.SetInt("AlarmStatus" + i, 0);
 
-            PlayerPrefs.SetString("ChaneelIDs" + i, ChannelId[i]);
+            try {PlayerPrefs.SetString("ChaneelIDs" + i, ChannelId[i]);}
+            catch(Exception e) {};
         }
 
         //Saving Al list Capacity

@@ -17,6 +17,10 @@ public class InventoryManager : MonoBehaviour
     public List<Carpet> allCarpets;
     public List<SlideShow> allSlideShows;
 
+    [Header("States")]
+    public int prevState = -1;
+    public int currentState = -1;
+
     // Arrays to calculate position of item in set
     int[] CSI = { 0, 3, 6 };
     int[] BSI = { 0, 7, 14, 21 };
@@ -52,7 +56,8 @@ public class InventoryManager : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        bool isGameplayScene = scene.buildIndex.Equals(1);
+        ChangeState(scene.buildIndex);
+        bool isGameplayScene = currentState.Equals(1);
 
         InitScene(isGameplayScene);
     }
@@ -62,7 +67,7 @@ public class InventoryManager : MonoBehaviour
         if (isGameplayScene)
         {
             SessionManager.Instance.Init();
-            bowlsManager.SetUpBowls();
+            bowlsManager.SetUpBowls(prevState.Equals(2));
             carpetsManager.SetUpCarpets();
         }
         else
@@ -81,6 +86,12 @@ public class InventoryManager : MonoBehaviour
                     allCarpets[i].gameObject.SetActive(isGameplayScene);
             }
         }
+    }
+
+    void ChangeState(int state)
+    {
+        prevState = currentState;
+        currentState = state;
     }
 
     public void Manage3DItems(int currentState, int materialIndex)
