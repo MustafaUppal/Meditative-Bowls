@@ -89,7 +89,8 @@ public class BowlsManager : MonoBehaviour
         // Disabling all used bowls
         for (int i = 0; i < unusedBowls.Count; i++)
         {
-            // Inventory.allBowls[unusedBowls[i]].CurrentState = /* unusedBowls[i] < 25 ? Item.State.Purchased :  */Item.State.Locked;
+            if(Inventory.allBowls[unusedBowls[i]].CurrentState != Item.State.Locked)
+                Inventory.allBowls[unusedBowls[i]].CurrentState = Item.State.Purchased;
             Inventory.allBowls[unusedBowls[i]].gameObject.SetActive(false);
         }
     }

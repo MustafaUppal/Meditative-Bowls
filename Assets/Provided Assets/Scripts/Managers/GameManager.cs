@@ -66,7 +66,14 @@ public class GameManager : MonoBehaviour
         Instance = this;
         DefaultFooterText = FooterText.text;
         // if(Inventory.bowlsManager.activeBowlsIndexes[0] != -1)
-        SelectedSoundBowl = Inventory.allBowls[Inventory.bowlsManager.activeBowlsIndexes[3]].gameObject;
+        for(int i = 0; i < Inventory.bowlsManager.activeBowlsIndexes.Length; i++)
+        {
+            if(Inventory.bowlsManager.activeBowlsIndexes[i] != -1)
+            {
+                SelectedSoundBowl = Inventory.allBowls[Inventory.bowlsManager.activeBowlsIndexes[i]].gameObject;
+                break;
+            }
+        }
     }
 
     private void Update()

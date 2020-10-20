@@ -1,4 +1,5 @@
 ﻿using GleyPushNotifications;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -34,7 +35,8 @@ public class ButtonStatusChanger : MonoBehaviour
                 AlarmClockMenuEventListerner.instance.HoursList.Remove(AlarmClockMenuEventListerner.instance.HoursList[i]);
                 AlarmClockMenuEventListerner.instance.MinList.Remove(AlarmClockMenuEventListerner.instance.MinList[i]);
                 AlarmClockMenuEventListerner.instance.SecList.Remove(AlarmClockMenuEventListerner.instance.SecList[i]);
-                AlarmClockMenuEventListerner.instance.ChannelId.Remove(AlarmClockMenuEventListerner.instance.ChannelId[i]);
+                try{AlarmClockMenuEventListerner.instance.ChannelId.Remove(AlarmClockMenuEventListerner.instance.ChannelId[i]);}
+                catch(Exception e){};
             }
         }
         AlarmClockMenuEventListerner.instance.SaveNotificationList();
@@ -68,7 +70,8 @@ public class ButtonStatusChanger : MonoBehaviour
 
             PlayerPrefs.SetInt("AlarmStatus" + id, 0);
             AlarmClockMenuEventListerner.instance.StatusOfAlarms[id] = false;
-            NotificationManager.Instance.CancelANotiFication(AlarmClockMenuEventListerner.instance.ChannelId[id]);
+            try{NotificationManager.Instance.CancelANotiFication(AlarmClockMenuEventListerner.instance.ChannelId[id]);}
+            catch(Exception e){};
             AlarmClockMenuEventListerner.instance.SaveNotificationList();
             print("kashif");
 

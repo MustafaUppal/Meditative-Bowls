@@ -74,7 +74,7 @@ public class SessionManager : MonoBehaviour
             newSession.recording = new Recording();
             newSession.recording.DeepCopy(recording);
         }
-        
+
         newSession.bowlsPositions = new int[tempSession.Length];
         newSession.panings = new float[tempSession.Length];
         newSession.volumes = new float[tempSession.Length];
@@ -225,6 +225,8 @@ public class SessionManager : MonoBehaviour
 
             if (!AllRefs.I.mainMenu.recordingFooter.loop)
                 break;
+            else 
+                isPlaying = true;
         }
 
         recordingTimerC = null;
