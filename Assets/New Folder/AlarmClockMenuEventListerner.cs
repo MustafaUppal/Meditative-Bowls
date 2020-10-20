@@ -132,29 +132,27 @@ public class AlarmClockMenuEventListerner : MonoBehaviour
         int capacity = AlarmList.Count;
         PlayerPrefs.SetInt("Capacity", capacity);
         //print(capacity);
-        if (capacity != -1)
+
+        for (int i = 0; i < capacity; i++)
         {
-            for (int i = 0; i < capacity; i++)
-            {
-                //Saving Time tO SHOW
-                PlayerPrefs.SetString("AlarmList" + i, AlarmList[i]);
+            //Saving Time tO SHOW
+            PlayerPrefs.SetString("AlarmList" + i, AlarmList[i]);
 
-                //SavingTime:
-                PlayerPrefs.SetInt("HourList" + i, HoursList[i]);
-                PlayerPrefs.SetInt("MinList" + i, MinList[i]);
-                PlayerPrefs.SetInt("SecondList" + i, SecList[i]);
+            //SavingTime:
+            PlayerPrefs.SetInt("HourList" + i, HoursList[i]);
+            PlayerPrefs.SetInt("MinList" + i, MinList[i]);
+            PlayerPrefs.SetInt("SecondList" + i, SecList[i]);
 
-                //Saving Channelids
-                //Saving Bool State
-                if (StatusOfAlarms[i])
-                    PlayerPrefs.SetInt("AlarmStatus" + i, 1);
+            //Saving Channelids
+            //Saving Bool State
+            if (StatusOfAlarms[i])
+                PlayerPrefs.SetInt("AlarmStatus" + i, 1);
+            else
+                PlayerPrefs.SetInt("AlarmStatus" + i, 0);
 
-                else
-                    PlayerPrefs.SetInt("AlarmStatus" + i, 0);
-
-                PlayerPrefs.SetString("ChaneelIDs" + i, ChannelId[i]);
-            }
+            PlayerPrefs.SetString("ChaneelIDs" + i, ChannelId[i]);
         }
+
         //Saving Al list Capacity
     }
 

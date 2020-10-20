@@ -58,13 +58,13 @@ public class MainMenuEventListener : MonoBehaviour
     // * Buttons Clicks *
     // ******************
 
-    public void OnClickOpenRandomizationPanelButton()
+    public void OnClickOpenRandomizationPanelButton(bool enable)
     {
         if (!randomizationSettings.isStarted)
         {
-            randomizationSettings.root.SetActive(true);
-            AllRefs.I.objectSelection.EnableClick(false);
-
+            randomizationSettings.root.SetActive(enable);
+            AllRefs.I.objectSelection.EnableClick(!enable);
+            
             randomizationSettings.hours.SetNumber(0);
             randomizationSettings.mins.SetNumber(2);
             randomizationSettings.secs.SetNumber(0);

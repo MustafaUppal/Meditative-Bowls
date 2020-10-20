@@ -104,24 +104,23 @@ public class SessionManager : MonoBehaviour
     public void LoadSession(string name, bool playRecording = false)
     {
         SessionData.Snipt sessionSnipt = SessionData.GetSession(name);
-        int[] tempSession = sessionSnipt.bowlsPositions;
-        float[] panings = sessionSnipt.panings;
-        float[] volumes = sessionSnipt.volumes;
-        int[] session = new int[tempSession.Length];
 
-        for (int i = 0; i < session.Length; i++)
+        Inventory.bowlsManager.activeBowlsIndexes = new int[sessionSnipt.bowlsPositions.Length];
+        float[] panings = new float[Inventory.bowlsManager.activeBowlsIndexes.Length];
+        float[] volumes = new float[Inventory.bowlsManager.activeBowlsIndexes.Length];
+
+        for (int i = 0; i < Inventory.bowlsManager.activeBowlsIndexes.Length; i++)
         {
             // to create a deep copy
-            session[i] = tempSession[i];
+            Inventory.bowlsManager.activeBowlsIndexes[i] = sessionSnipt.bowlsPositions[i];
 
-            if (session[i] != -1)
+            if (Inventory.bowlsManager.activeBowlsIndexes[i] != -1)
             {
-                Inventory.allBowls[session[i]].PanStereo = panings[i];
-                Inventory.allBowls[session[i]].Volume = volumes[i];
+                Inventory.allBowls[Inventory.bowlsManager.activeBowlsIndexes[i]].PanStereo = panings[i];
+                Inventory.allBowls[Inventory.bowlsManager.activeBowlsIndexes[i]].Volume = volumes[i];
             }
         }
 
-        Inventory.bowlsManager.activeBowlsIndexes = session;
         Inventory.bowlsManager.SetUpBowls();
 
         if (playRecording && sessionSnipt.recording != null)

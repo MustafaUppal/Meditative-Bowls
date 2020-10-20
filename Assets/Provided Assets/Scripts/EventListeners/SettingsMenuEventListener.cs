@@ -33,6 +33,12 @@ public class SettingsMenuEventListener : MonoBehaviour
         AllRefs.I.dock.ManageButtons(data);
         AllRefs.I.objectSelection.EnableClick(true);
     }
+
+    private void OnDisable() 
+    {
+        OnClickBackButton();
+    }
+
     private void Start()
     {
         //Instance = this;

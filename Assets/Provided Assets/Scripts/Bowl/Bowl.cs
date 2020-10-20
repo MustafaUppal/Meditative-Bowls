@@ -66,6 +66,8 @@ public class Bowl : Item
 
     public void PlaySound()
     {
+        if(!gameObject.activeInHierarchy) return;
+        
         if (!audioSource.isPlaying && !(AllRefs.I._GameManager.State1 == GameManager.State.Randomization))
         {
             audioSource.Play();

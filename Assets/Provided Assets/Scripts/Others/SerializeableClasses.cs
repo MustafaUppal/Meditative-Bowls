@@ -186,7 +186,7 @@ namespace SerializeableClasses
             icon.sprite = isStared ? stopIcon : startIcon;
         }
 
-        public float TimeLimit => (hours.number * 60 * 60 * 100) + (mins.number * 60 * 100) + secs.number * 100;
+        public float TimeLimit => (hours.number * 60 * 60) + (mins.number * 60) + secs.number;
     }
 
     [System.Serializable]
