@@ -66,11 +66,11 @@ public class Bowl : Item
 
     public void PlaySound()
     {
-        if (!audioSource.isPlaying && !(AllRefs.I._GameManager.state == GameManager.State.Randomization))
+        if (!audioSource.isPlaying && !(AllRefs.I._GameManager.State1 == GameManager.State.Randomization))
         {
             audioSource.Play();
         }
-        else if ((AllRefs.I._GameManager.state == GameManager.State.Randomization) && audioSource.isPlaying)
+        else if ((AllRefs.I._GameManager.State1 == GameManager.State.Randomization) && audioSource.isPlaying)
         {
             audioSource.Stop();
             audioSource.Play();

@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Text SoundChangerIndicatorText;
     public string DefaultFooterText;
     [Header("State")]
-    public State state;
+    private State state1;
     public float time;
     public float interpolationPeriod;
     public float givenTime;
@@ -51,6 +51,16 @@ public class GameManager : MonoBehaviour
     }
     public InventoryManager Inventory => InventoryManager.Instance;
 
+    public State State1 
+    { 
+        get => state1; 
+        set 
+        { 
+            Debug.Log("GM State: " + state1 + " -> " + value);
+            state1 = value;
+        } 
+    }
+
     void Start()
     {
         Instance = this;
@@ -63,7 +73,7 @@ public class GameManager : MonoBehaviour
     {
 
 
-        switch (state)
+        switch (State1)
         {
             case State.Normal:
                 break;
@@ -138,7 +148,7 @@ public class GameManager : MonoBehaviour
     {
         givenTime = (Time*60);
         print(givenTime);
-        state = State.Randomization;
+        State1 = State.Randomization;
     }
     public void PanningSliderChange(float SliderValue)
     {
@@ -220,7 +230,7 @@ public class GameManager : MonoBehaviour
                     //Changing State
                     hit.transform.gameObject.GetComponent<Bowl>().CurrentState = Item.State.Purchased;
                     Inventory.allBowls[BowlToLoad].transform.gameObject.GetComponent<Bowl>().CurrentState = Item.State.Loaded;
-                    state = State.Normal;
+                    State1 = State.Normal;
                     AllRefs.I._GameManager.FooterText.text = AllRefs.I._GameManager.DefaultFooterText;
                     MenuManager.Instance.currentState = MenuManager.MenuStates.Main;
 
@@ -233,7 +243,7 @@ public class GameManager : MonoBehaviour
                     int hitItemIndex = hit.transform.GetComponent<indexHolder>().index;
                     Inventory.bowlsManager.activeBowlsIndexes[hitItemIndex] = BowlToLoad;
                     Destroy(hit.transform.gameObject);
-                    state = State.Normal;
+                    State1 = State.Normal;
                     Inventory.allBowls[BowlToLoad].transform.gameObject.GetComponent<Bowl>().CurrentState = Item.State.Loaded;
                     AllRefs.I._GameManager.FooterText.text = AllRefs.I._GameManager.DefaultFooterText;
                     MenuManager.Instance.currentState = MenuManager.MenuStates.Main;
@@ -251,7 +261,7 @@ public class GameManager : MonoBehaviour
     public void SelectModeReposition()
     {
 
-        state = State.RepositionState;
+        State1 = State.RepositionState;
 
         this.gameObject.GetComponent<BowlReposition>().RepositionBowlInitializer();
         this.gameObject.GetComponent<BowlReposition>().FadeEffect();
@@ -260,17 +270,17 @@ public class GameManager : MonoBehaviour
 
     public void SelectModeNormal()
     {
-        state = State.Normal;
+        State1 = State.Normal;
     }
 
     public void SelectModeRecording()
     {
-        state = State.RecordingMode;
+        State1 = State.RecordingMode;
     }
     public void SelectShopModeState()
     {
 
-        state = State.Shop;
+        State1 = State.Shop;
     }
 
 }

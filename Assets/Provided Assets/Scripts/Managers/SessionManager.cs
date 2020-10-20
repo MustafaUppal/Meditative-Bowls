@@ -181,7 +181,9 @@ public class SessionManager : MonoBehaviour
         int lastIndex = recording.recodingSnipts.Count - 1;
         if (lastIndex < 0)
             StopAllCoroutines();
-        float totalTime = recording.recodingSnipts[lastIndex].time;
+
+        // totalTime = last click + length of last sound
+        float totalTime = recording.recodingSnipts[lastIndex].time + InventoryManager.Instance.allBowls[recording.recodingSnipts[lastIndex].bowlIndex].AudioSource.clip.length;
         int i = 0;
         bool isPlaying = true;
 
@@ -199,7 +201,7 @@ public class SessionManager : MonoBehaviour
                 AllRefs.I.mainMenu.recordingFooter.UpdateTimer(timer / totalTime, (int)timer);
                 yield return null;
 
-                if (recording.recodingSnipts[i].time < timer)
+                if (i <= lastIndex && recording.recodingSnipts[i].time < timer)
                 {
                     Transform bowl = InventoryManager.Instance.allBowls[recording.recodingSnipts[i].bowlIndex].transform;
                     InventoryManager.Instance.bowlsManager.PlaySound(bowl);
@@ -209,9 +211,9 @@ public class SessionManager : MonoBehaviour
                 if (!AllRefs.I.mainMenu.modes.playingRecording)
                     StopAllCoroutines();
 
-                if(i == recording.recodingSnipts.Count -1) // last index
+                if(i - 1 == lastIndex)
                 {
-                    isPlaying = InventoryManager.Instance.allBowls[recording.recodingSnipts[i].bowlIndex].AudioSource.isPlaying;
+                    isPlaying = InventoryManager.Instance.allBowls[recording.recodingSnipts[i - 1].bowlIndex].AudioSource.isPlaying;
                 }
             }
 
@@ -332,6 +334,7 @@ public class Recording
 
     public void DeepCopy(Recording recording)
     {
+        if(recording == null) return;
         recodingSnipts = new List<Snipt>();
 
         foreach (var recodingSnipt in recording.recodingSnipts)

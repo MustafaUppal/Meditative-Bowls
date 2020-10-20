@@ -82,7 +82,7 @@ public class ShopMenuEventListener : MonoBehaviour
     {
         MenuManager.Instance.ChangeState(MenuManager.MenuStates.Main);
         if (GameManager.Instance)
-            GameManager.Instance.state = GameManager.State.Normal;
+            GameManager.Instance.State1 = GameManager.State.Normal;
     }
 
     public void OnClickCarpetButton()
@@ -130,8 +130,10 @@ public class ShopMenuEventListener : MonoBehaviour
         selectedItem.b_itemActionButton.transform.GetChild(0).GetComponent<Image>().color = selectedItem.buttonColors[(int)item.CurrentState];
         selectedItem.i_itemActionButton.sprite = selectedItem.buttonIcons[(int)item.CurrentState];
         selectedItem.b_itemActionButton.interactable = !item.CurrentState.Equals(Bowl.State.Loaded);
+        
         // Price
-        selectedItem.t_itemActionButton.text =  "$ "+item.price ;
+        selectedItem.t_itemActionButton.gameObject.SetActive(item.CurrentState.Equals(Bowl.State.Locked));
+        selectedItem.t_itemActionButton.text =  "$ " + item.price;
 
         Inventory.Manage3DItems((int)currentState, index);
         DistinctFunctionality();

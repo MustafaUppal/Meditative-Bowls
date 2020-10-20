@@ -47,7 +47,7 @@ public class SettingsMenuEventListener : MonoBehaviour
     public void OnClickStopRandomizationButton()
     {
         AllRefs.I._GameManager.SoundRestart();
-        AllRefs.I._GameManager.state=GameManager.State.Normal;
+        AllRefs.I._GameManager.State1=GameManager.State.Normal;
     }
 
     public void OnClickStopRepositioningButton()
@@ -64,7 +64,7 @@ public class SettingsMenuEventListener : MonoBehaviour
     {
         AllRefs.I._GameManager.Remove();
         Debug.Log("normal");
-        AllRefs.I._GameManager.state = GameManager.State.Normal;
+        AllRefs.I._GameManager.State1 = GameManager.State.Normal;
         AllRefs.I._GameManager.GetComponent<BowlReposition>().ResetFuntion();
     }
     public void OnClickStopMusicButton()

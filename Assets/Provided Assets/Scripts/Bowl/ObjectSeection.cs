@@ -62,7 +62,7 @@ public class ObjectSeection : MonoBehaviour
 
                 if(MenuManager.Instance.currentState == MenuManager.MenuStates.Settings)
                 {
-                    if (AllRefs.I._GameManager.state == GameManager.State.Normal &&  hit.transform.CompareTag("Bowl") && Input.GetMouseButton(0))
+                    if (AllRefs.I._GameManager.State1 == GameManager.State.Normal &&  hit.transform.CompareTag("Bowl") && Input.GetMouseButton(0))
                     {
 
                         Pressing = true;
@@ -87,7 +87,6 @@ public class ObjectSeection : MonoBehaviour
                         LongPressState = false;
                         Pressing = false;
                         TimeUserHold = 0;
-
                     }
                 }
                 else

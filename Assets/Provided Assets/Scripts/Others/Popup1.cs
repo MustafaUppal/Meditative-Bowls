@@ -41,7 +41,7 @@ public class Popup1: MonoBehaviour
         
         hide = StartCoroutine(HideE());
         animator.Play("Popup Out");
-        AllRefs.I._GameManager.state = GameManager.State.Normal;
+        AllRefs.I._GameManager.State1 = GameManager.State.Normal;
 
     }
 

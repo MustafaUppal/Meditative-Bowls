@@ -45,7 +45,9 @@ public class HeaderHandler : MonoBehaviour
     public void OnClickMenuButton()
     {
         if(AllRefs.I.mainMenu != null)
+        {
             AllRefs.I.mainMenu.ManageFooter(false);
+        }
         ManageState(true);
     }
 
@@ -126,6 +128,12 @@ public class HeaderHandler : MonoBehaviour
 
         // if (!a_dock.GetCurrentAnimatorStateInfo(0).IsName(dockAnim))
         a_dock.SetInteger("State", enable ? 1 : 0);
+
+        if(AllRefs.I.mainMenu != null && MenuManager.Instance.currentState == MenuManager.MenuStates.Main)
+        {
+            AllRefs.I.mainMenu.ManageDock(enable);
+            AllRefs.I.mainMenu.EnableFooter(enable);
+        }
 
     }
 

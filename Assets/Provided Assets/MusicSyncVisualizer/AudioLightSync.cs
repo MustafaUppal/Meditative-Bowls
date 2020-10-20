@@ -35,9 +35,9 @@ public class AudioLightSync : MonoBehaviour
     void Update()
     {
 
-        if ((AllRefs.I._GameManager.state == GameManager.State.Randomization || AllRefs.I._GameManager.state ==
-           GameManager.State.Normal || AllRefs.I._GameManager.state == GameManager.State.RepositionState
-            || AllRefs.I._GameManager.state == GameManager.State.Sound && emit))
+        if ((AllRefs.I._GameManager.State1 == GameManager.State.Randomization || AllRefs.I._GameManager.State1 ==
+           GameManager.State.Normal || AllRefs.I._GameManager.State1 == GameManager.State.RepositionState
+            || AllRefs.I._GameManager.State1 == GameManager.State.Sound && emit))
         {
 
             currentValue = audioLoudness.clipLoudness * intensityMultiplier;

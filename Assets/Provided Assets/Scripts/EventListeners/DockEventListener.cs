@@ -41,9 +41,9 @@ public class DockEventListener : MonoBehaviour
 
     public void OnClickSaveSessionButton()
     {
-        PopupManager.Instance.Show("Save Bowl Arrangement Name this session", SaveBowlPosition);
+        PopupManager.Instance.Show("Save Bowl Arrangement", SaveBowlPosition);
 
-        AllRefs.I._GameManager.state = GameManager.State.SavingSession;
+        AllRefs.I._GameManager.State1 = GameManager.State.SavingSession;
 
     }
 

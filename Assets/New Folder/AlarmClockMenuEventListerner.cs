@@ -200,7 +200,7 @@ public class AlarmClockMenuEventListerner : MonoBehaviour
     public void OnClickBackButton()
     {
         MenuManager.Instance.ChangeState(MenuManager.MenuStates.Main);
-        AllRefs.I._GameManager.state = GameManager.State.Normal;
+        AllRefs.I._GameManager.State1 = GameManager.State.Normal;
     }
 
 }

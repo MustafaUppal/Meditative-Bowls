@@ -15,6 +15,7 @@ public class MainMenuEventListener : MonoBehaviour
     [Header("Footer Settings")]
     public Text footertext;
     public GameObject simpleFooter;
+    public Animator footerAnim;
 
     [Header("Handlers")]
     public SlideShowHandler slideShow;
@@ -32,14 +33,17 @@ public class MainMenuEventListener : MonoBehaviour
 
         AllRefs.I.dock.ManageButtons(data);
 
-        ManageDock(true);
-
         AllRefs.I.objectSelection.EnableClick(true);
     }
 
     private void OnDisable()
     {
-        GameManager.Instance.state = GameManager.State.Randomization;
+        OnClickStartRandomization(false);
+    }
+
+    private void Start() {
+        ManageDock(false);
+        EnableFooter(false);
     }
 
     private void Update()
@@ -78,7 +82,7 @@ public class MainMenuEventListener : MonoBehaviour
             randomizationSettings.SetIcon(true);
             randomizationSettings.stopwatch.Start();
 
-            GameManager.Instance.state = GameManager.State.Randomization;
+            GameManager.Instance.State1 = GameManager.State.Randomization;
             AllRefs.I.objectSelection.EnableClick(true);
             randomizationSettings.root.SetActive(false);
         }
@@ -89,7 +93,7 @@ public class MainMenuEventListener : MonoBehaviour
 
             randomizationSettings.SetIcon(false);
             randomizationSettings.timer = 0;
-            GameManager.Instance.state = GameManager.State.Normal;
+            GameManager.Instance.State1 = GameManager.State.Normal;
         }
     }
 
@@ -151,6 +155,11 @@ public class MainMenuEventListener : MonoBehaviour
         modes.playingRecording = val;
         simpleFooter.SetActive(!modes.playingRecording);
         recordingFooter.root.SetActive(modes.playingRecording);
+    }
+
+    public void EnableFooter(bool enable)
+    {
+        footerAnim.SetInteger("State", enable ? 1 : 0);
     }
 
     public void ManageDock(bool enable)
