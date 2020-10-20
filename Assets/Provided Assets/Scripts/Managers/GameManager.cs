@@ -109,7 +109,7 @@ public class GameManager : MonoBehaviour
             case State.Randomization:
 
                 int RandomBowlIndex = UnityEngine.Random.Range(0, Inventory.bowlsManager.activeBowlsIndexes.Length-1);
-                Debug.Log("Bwol"+RandomBowlIndex);
+                // Debug.Log("Bwol"+RandomBowlIndex);
                 time += Time.deltaTime;
                 givenTime1 += Time.deltaTime;
 
@@ -202,8 +202,7 @@ public class GameManager : MonoBehaviour
                 if (hit.transform.CompareTag("Bowl"))
                 {
                     SelectedSoundBowl = hit.transform.gameObject;
-                    SoundChangerIndicatorText.text = SelectedSoundBowl.name + " (" + SelectedSoundBowl.GetComponent<Bowl>().setName + ") ";
-
+                    SoundChangerIndicatorText.text = SelectedSoundBowl.GetComponent<Bowl>().name;
                 }
 
             }
@@ -267,7 +266,6 @@ public class GameManager : MonoBehaviour
 
     public void SelectModeReposition()
     {
-
         State1 = State.RepositionState;
 
         this.gameObject.GetComponent<BowlReposition>().RepositionBowlInitializer();
