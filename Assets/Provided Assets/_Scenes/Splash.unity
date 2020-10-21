@@ -681,7 +681,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5630ec9a78229624294f9f0b49b7eaf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  appVersion: 1 (1.1)
+  appVersion: 1 (1.1.2)
   versionText: {fileID: 1945489999}
   prevState: 0
   currentState: 0

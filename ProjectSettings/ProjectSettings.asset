@@ -660,7 +660,7 @@ PlayerSettings:
   webGLThreadsSupport: 0
   webGLWasmStreaming: 0
   scriptingDefineSymbols:
-    4: GleyIAPiOS
+    4: GleyIAPiOS;EnableNotificationsIos
     7: 
   platformArchitecture:
     iPhone: 1
