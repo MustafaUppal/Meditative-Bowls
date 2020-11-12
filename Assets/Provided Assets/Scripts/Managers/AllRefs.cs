@@ -29,4 +29,6 @@ public class AllRefs : MonoBehaviour
 
     [Header("Scripts")]
     public ContentHandler tilesContainer;
+    public BowlsPlacementHandler bowlsPlacementHandler;
+    public AudioHandler audioHandler;
 }

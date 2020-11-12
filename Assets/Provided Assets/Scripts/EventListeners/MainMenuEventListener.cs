@@ -68,6 +68,8 @@ public class MainMenuEventListener : MonoBehaviour
             randomizationSettings.hours.SetNumber(0);
             randomizationSettings.mins.SetNumber(2);
             randomizationSettings.secs.SetNumber(0);
+            randomizationSettings.delay.SetNumber(1);
+
         }
         else
             OnClickStartRandomization(false);
@@ -83,6 +85,8 @@ public class MainMenuEventListener : MonoBehaviour
             randomizationSettings.stopwatch.Start();
 
             GameManager.Instance.State1 = GameManager.State.Randomization;
+            // Setting time of randomization
+            GameManager.Instance.interpolationPeriod = randomizationSettings.delay.number;
             AllRefs.I.objectSelection.EnableClick(true);
             randomizationSettings.root.SetActive(false);
         }
@@ -170,5 +174,14 @@ public class MainMenuEventListener : MonoBehaviour
     void MessageSender(string Message)
     {
         footertext.text = Message;
+    }
+
+    // *****************
+    // * Randomization *
+    // *****************
+
+    IEnumerator RandoBowlsPlay()
+    {
+        yield return null;
     }
 }

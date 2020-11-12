@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
     [Header("State")]
     private State state1;
     public float time;
-    public float interpolationPeriod;
+    public float interpolationPeriod = 1;
     public float givenTime;
     public float givenTime1;
 
@@ -108,22 +108,23 @@ public class GameManager : MonoBehaviour
                 break;
             case State.Randomization:
 
-                int RandomBowlIndex = UnityEngine.Random.Range(0, Inventory.bowlsManager.activeBowlsIndexes.Length-1);
+                int RandomBowlIndex = UnityEngine.Random.Range(0, Inventory.bowlsManager.activeBowlsIndexes.Length - 1);
                 // Debug.Log("Bwol"+RandomBowlIndex);
                 time += Time.deltaTime;
                 givenTime1 += Time.deltaTime;
 
-                //if (givenTime1 < givenTime)
-                //{
+                if (Inventory.bowlsManager.activeBowlsIndexes[RandomBowlIndex] != -1)
+                    //if (givenTime1 < givenTime)
+                    //{
                     if (time >= interpolationPeriod)
                     {
-                        Inventory.allBowls[RandomBowlIndex].GetComponent<Bowl>().PlaySound();
+                        Inventory.allBowls[Inventory.bowlsManager.activeBowlsIndexes[RandomBowlIndex]].GetComponent<Bowl>().PlaySound();
                         time = 0;
                     }
                 //}
-                
 
-                
+
+
 
                 break;
 

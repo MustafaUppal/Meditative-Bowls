@@ -31,7 +31,6 @@ public class ShopMenuEventListener : MonoBehaviour
     public Vector2 t1Position;
     public Vector2 t2Position;
     public Camera mainCamera;
-    public AudioHandler audioHandler;
 
     [Space]
     public float rotationSpeed;
@@ -49,8 +48,6 @@ public class ShopMenuEventListener : MonoBehaviour
         //IAPManager.Instance.InitializeIAPManager(InitializeResultCallback);
         MessageSender("Himalayan Bowls Store");
     }
-
-    
 
     void MessageSender(string Message)
     {
@@ -73,7 +70,8 @@ public class ShopMenuEventListener : MonoBehaviour
         selectedItem.EnableImage((int)currentState);
 
         //Setting tiles
-        content.SetDropdown((int)currentState);
+        // content.SetDropdown((int)currentState);
+        content.SetItems((int)currentState);
         OnClickItemButton(0); // select first tile in the start
     }
 
@@ -105,7 +103,7 @@ public class ShopMenuEventListener : MonoBehaviour
 
     public void OnClickItemButton(GameObject itemObj)
     {
-        OnClickItemButton(itemObj.GetComponent<TileHandler>().Index);
+        OnClickItemButton(itemObj.GetComponent<TileHandler>().index);
     }
     public void OnClickItemButton(int index)
     {
@@ -126,14 +124,12 @@ public class ShopMenuEventListener : MonoBehaviour
 
         // Description
         selectedItem.description.text = "<size=35><color=#FF7900>" + item.name /* + setName */ + "</color></size>\n" + item.description;
+        
         // Button
-        selectedItem.b_itemActionButton.transform.GetChild(0).GetComponent<Image>().color = selectedItem.buttonColors[(int)item.CurrentState];
-        selectedItem.i_itemActionButton.sprite = selectedItem.buttonIcons[(int)item.CurrentState];
-        selectedItem.b_itemActionButton.interactable = !item.CurrentState.Equals(Bowl.State.Loaded);
+        selectedItem.SetButton((int)item.CurrentState);
         
         // Price
-        selectedItem.t_itemActionButton.gameObject.SetActive(item.CurrentState.Equals(Bowl.State.Locked));
-        selectedItem.t_itemActionButton.text =  "$ " + item.price;
+        selectedItem.SetPrice((int)item.CurrentState, item.price);
 
         Inventory.Manage3DItems((int)currentState, index);
         DistinctFunctionality();
@@ -160,7 +156,7 @@ public class ShopMenuEventListener : MonoBehaviour
 
         bowlPlacementSettings.Enable = false;
 
-        content.SetDropdown((int)currentState, Inventory.allBowls[activeBowls[index]].set);
+        content.SetItems((int)currentState);
     }
 
     public void OnClickCloseBowlsPlacementButton()
@@ -195,8 +191,8 @@ public class ShopMenuEventListener : MonoBehaviour
         int time = Inventory.allBowls[selectedItem.index].CurrentState == Item.State.Locked ? 3 : -1;
         AudioClip clip = Inventory.allBowls[selectedItem.index].AudioSource.clip;
 
-        selectedItem.playStopSound.SetIcon(isSoundPlaying);
-        audioHandler.Play(isSoundPlaying, clip, time);
+        // selectedItem.playStopSound.SetIcon(isSoundPlaying);
+        // audioHandler.Play(isSoundPlaying, clip, time);
     }
 
     void DistinctFunctionality()
@@ -208,13 +204,13 @@ public class ShopMenuEventListener : MonoBehaviour
 
                 selectedItem.resetButton.SetActive(false);
                 selectedItem.EnableExpandButton(false);
-                selectedItem.playStopSound.root.SetActive(false);
+                // selectedItem.playStopSound.root.SetActive(false);
                 break;
             case 1: // Bowls
                 ChangeView(false);
 
                 selectedItem.EnableExpandButton(true);
-                selectedItem.playStopSound.root.SetActive(true);
+                // selectedItem.playStopSound.root.SetActive(true);
 
                 ChangeSoundPlay(false);
                 break;
@@ -223,7 +219,7 @@ public class ShopMenuEventListener : MonoBehaviour
 
                 selectedItem.resetButton.SetActive(false);
                 selectedItem.EnableExpandButton(false);
-                selectedItem.playStopSound.root.SetActive(false);
+                // selectedItem.playStopSound.root.SetActive(false);
                 break;
         }
     }
@@ -233,7 +229,7 @@ public class ShopMenuEventListener : MonoBehaviour
     public void OnItemPurchased(int type, int index)
     {
         PopupManager.Instance.spinnerLoading.Hide();
-        PopupManager.Instance.messagePopup.Show("Congratulations!", "Your purchase was successful.");
+        // PopupManager.Instance.messagePopup.Show("Congratulations!", "Your purchase was successful.");
         
         // Debug.Log("Selected Index: " + selectedItem.index);
         // Debug.Log("Index: " + index);
@@ -243,18 +239,18 @@ public class ShopMenuEventListener : MonoBehaviour
             case 0: // carpet
                 Inventory.allCarpets[index].CurrentState = Item.State.Purchased;
                 OnClickItemButton(index);
-                content.SetDropdown((int)currentState, Inventory.allCarpets[index].set);
+                content.SetItems((int)currentState);
                 break;
             case 1: // bowl
                 Inventory.allBowls[index].CurrentState = Item.State.Purchased;
                 OnClickItemButton(index);
-                content.SetDropdown((int)currentState, Inventory.allBowls[index].set);
+                content.SetItems((int)currentState);
                 break;
             case 2: // slideshow
                 Inventory.allSlideShows[index].CurrentState = Item.State.Purchased;
                 OnClickItemButton(index);
                 Inventory.slideShowManager.activeMusicIndex = 0;
-                content.SetDropdown((int)currentState, Inventory.allSlideShows[index].set);
+                content.SetItems((int)currentState);
                 break;
         }
 
@@ -295,12 +291,12 @@ public class ShopMenuEventListener : MonoBehaviour
                 // purchase bowl
                 MeditativeBowls.IAPManager.instance.PurchaseItem(selectedItem.index, (int)currentState);
                 break;
-            case Item.State.Purchased:
-                // load selected bowl
-                MessageSender("Tip: Select a position to place or replace. Click on carpet to close Placement setting.");
-                bowlPlacementSettings.Enable = true;
-                bowlPlacementSettings.Init();
-                break;
+            // case Item.State.Purchased:
+            //     // load selected bowl
+            //     MessageSender("Tip: Select a position to place or replace. Click on carpet to close Placement setting.");
+            //     bowlPlacementSettings.Enable = true;
+            //     bowlPlacementSettings.Init();
+            //     break;
         }
     }
 
@@ -327,7 +323,7 @@ public class ShopMenuEventListener : MonoBehaviour
                 InventoryManager.Instance.carpetsManager.activeCarpetIndex = selectedItem.index;
                 OnClickItemButton(selectedItem.index);
 
-                content.SetDropdown((int)currentState, Inventory.allCarpets[selectedItem.index].set);
+                content.SetItems((int)currentState/* , Inventory.allCarpets[selectedItem.index].set */);
                 break;
         }
     }
@@ -358,7 +354,7 @@ public class ShopMenuEventListener : MonoBehaviour
     {
         this.isSoundPlaying = isSoundPlaying;
         
-        selectedItem.playStopSound.SetIcon(isSoundPlaying);
-        audioHandler.Play(isSoundPlaying);
+        // selectedItem.playStopSound.SetIcon(isSoundPlaying);
+        // audioHandler.Play(isSoundPlaying);
     }
 }

@@ -42,7 +42,7 @@ public class ContentHandler : MonoBehaviour
     }
 
 
-    public int SetItems(int currentState, int setNumber)
+    public int SetItems(int currentState, int setNumber = -1)
     {
         activeTiles.Clear();
         int tilesCount = 0;
@@ -56,8 +56,6 @@ public class ContentHandler : MonoBehaviour
             
             if(tilesCount < transform.childCount)
             {
-                if(item.set.Equals(setNumber))
-                {
                     // Debug.Log("item.Name:" + item.name);
                     // Debug.Log("item.Index: " + item.Index);
                     currentTile = transform.GetChild(tilesCount).GetComponent<TileHandler>();
@@ -67,9 +65,9 @@ public class ContentHandler : MonoBehaviour
 
                     activeTiles.Add(item.Index, currentTile);
                     transform.GetChild(tilesCount).gameObject.SetActive(true);
+                    
                     tilesCount++;
                     if(firstIndex.Equals(-1)) firstIndex = item.Index;
-                }
             }
         }
         
@@ -104,49 +102,6 @@ public class ContentHandler : MonoBehaviour
 
         return loadedItem;
     }
-
-    public void SetPurchasedBowls()
-    {
-        activeTiles.Clear();
-        int tilesCount = 0;
-        int firstIndex = -1;
-
-        Dictionary<int, int> loadedBowls = new Dictionary<int, int>();
-        for(int i = 0; i < Inventory.bowlsManager.activeBowlsIndexes.Length; i++)
-        {
-            if(Inventory.bowlsManager.activeBowlsIndexes[i] != -1)
-                loadedBowls.Add(Inventory.bowlsManager.activeBowlsIndexes[i], i);
-        }
-
-        for (int i = 0; i < Inventory.GetItemCount(1); i++)
-        {
-            Item item = Inventory.GetItem(1, i);
-            
-            if(tilesCount < transform.childCount)
-            {
-                if(!item.CurrentState.Equals(Item.State.Locked))
-                {
-                    // Debug.Log("item.Name:" + item.name);
-                    // Debug.Log("item.Index: " + item.Index);
-                    currentTile = transform.GetChild(tilesCount).GetComponent<TileHandler>(); 
-                    currentTile.SetTile(item.image, item.name, item.Index, (int)item.currentState);
-                    currentTile.Highlight = false;
-                    currentTile.IsLoaded = loadedBowls.ContainsKey(item.Index);
-
-                    activeTiles.Add(item.Index, currentTile);
-                    transform.GetChild(tilesCount).gameObject.SetActive(true);
-                    tilesCount++;
-                    if(firstIndex.Equals(-1)) firstIndex = item.Index;
-                }
-            }
-        }
-        
-        for(int i = tilesCount; i < transform.childCount; i++)
-        {
-            transform.GetChild(i).gameObject.SetActive(false);
-        }
-    }
-
 
     public TileHandler GetTile(int index)
     {

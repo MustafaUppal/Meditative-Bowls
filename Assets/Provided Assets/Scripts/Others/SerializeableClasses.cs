@@ -50,8 +50,8 @@ namespace SerializeableClasses
         public GameObject carpetCam;
         public GameObject resetButton;
         public GameObject expandImageButton;
-        [Space]
-        public ButtonOnOffSettings playStopSound;
+        // [Space]
+        // public ButtonOnOffSettings playStopSound;
 
         // public int Position { get => position; set { Debug.Log("position " + position + " -> " + value); position = value;} }
 
@@ -75,6 +75,21 @@ namespace SerializeableClasses
         public void EnableExpandButton(bool enable)
         {
             expandImageButton.SetActive(enable);
+        }
+
+        public void SetButton(int currentState)
+        {
+            UnityEngine.Debug.Log("SetButton: " + currentState);;
+            b_itemActionButton.transform.GetChild(0).GetComponent<Image>().color = buttonColors[currentState];
+            i_itemActionButton.sprite = buttonIcons[currentState];
+            b_itemActionButton.interactable = !currentState.Equals((int)Bowl.State.Loaded);
+        }
+
+        public void SetPrice(int currentState, float price)
+        {
+            UnityEngine.Debug.Log("SetPrice: " + currentState);;
+            t_itemActionButton.gameObject.SetActive(currentState.Equals((int)Bowl.State.Locked));
+            t_itemActionButton.text = "$ " + price;
         }
     }
 
@@ -171,6 +186,7 @@ namespace SerializeableClasses
         public NumberHandler hours;
         public NumberHandler mins;
         public NumberHandler secs;
+        public NumberHandler delay;
 
         public float timer;
         public Stopwatch stopwatch = new Stopwatch();

@@ -19,7 +19,7 @@ public class BowlsPlacementHandler : MonoBehaviour
 
     private void OnEnable()
     {
-        content.SetPurchasedBowls();
+        content.SetItems((int)ShopMenuEventListener.ShopStates.Bowls);
         bowlPlacementSettings.Enable = true;
         bowlPlacementSettings.Init();
         // MenuManager.Instance.currentState = MenuManager.MenuStates.BowlPlacement;
@@ -38,8 +38,13 @@ public class BowlsPlacementHandler : MonoBehaviour
 
     public void OnClickBowlButton(GameObject itemObj)
     {
+        TileHandler tile = itemObj.GetComponent<TileHandler>();
+
+        // if dock is not enabled means this bowl is not purchased, so do not select this bwol/l.
+        if(!tile.toggle.gameObject.activeInHierarchy) return;
+
         if (!itemObj.GetComponent<TileHandler>().IsLoaded)
-            OnClickBowlButton(itemObj.GetComponent<TileHandler>().Index);
+            OnClickBowlButton(itemObj.GetComponent<TileHandler>().index);
     }
 
     public void OnClickBowlButton(int index)
@@ -56,7 +61,10 @@ public class BowlsPlacementHandler : MonoBehaviour
 
     public void OnClickPlaceBowlButton(int index)
     {
-        if (currentIndex.Equals(-1))
+        // currentIndex = selected bowl index
+        // bowl position to place selected bowl = index
+
+        if (currentIndex.Equals(-1) || activeBowls[index] != -1)
             return;
 
         for (int i = 0; i < activeBowls.Length; i++)
@@ -75,11 +83,34 @@ public class BowlsPlacementHandler : MonoBehaviour
         activeBowls[index] = currentIndex;
         Inventory.allBowls[activeBowls[index]].CurrentState = Item.State.Loaded;
         Inventory.allBowls[activeBowls[index]].PanStereo = panningvalue;
+        // Inventory.allBowls[activeBowls[index]].transform.localPosition = Inventory.bowlsManager.bowlsPositions[index];
         OnClickBowlButton(currentIndex);
         bowlPlacementSettings.SetText(index);
 
         currentIndex = -1;
-        content.SetPurchasedBowls();
+        content.SetItems((int)ShopMenuEventListener.ShopStates.Bowls);
         // Inventory.bowlsManager.SetUpBowls(true);
+    }
+
+    public void OnClickOffBowl(int index)
+    {
+        for (int i = 0; i < activeBowls.Length; i++)
+        {
+            // find bowl in active bowls
+            if (activeBowls[i] != -1 && activeBowls[i].Equals(index))
+            {
+                // set it to purchased
+                Inventory.allBowls[activeBowls[i]].CurrentState = Item.State.Purchased;
+                panningvalue = Inventory.bowlsManager.BowlPanningValues[activeBowls[i]] = Inventory.allBowls[activeBowls[i]].PanStereo;
+                activeBowls[i] = -1;
+                // Set it on placement button
+                bowlPlacementSettings.SetText(i);
+                content.SetItems((int)ShopMenuEventListener.ShopStates.Bowls);
+                break;
+                // OnClickItemButton(activeBowls[i]);
+                // activeBowls[i] = -1;
+                // bowlPlacementSettings.SetText(i);
+            }
+        }
     }
 }

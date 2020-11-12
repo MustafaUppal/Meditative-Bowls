@@ -190,7 +190,10 @@ public class RecordingMenuEventListener : MonoBehaviour
                 playStopButton.SetIcon(false);
 
                 if (wavIncluded) Microphone.End(string.Empty);
+                double hitTime = recordingSettings.stopwatch.Elapsed.TotalSeconds;
+                recordingSettings.recordingData.endTime = (float)hitTime;
                 recordingSettings.stopwatch.Stop();
+                
                 PopupManager.Instance.Show("Save Recording", SaveRecording);
                 break;
         }

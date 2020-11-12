@@ -21,7 +21,7 @@ public class NumberHandler : MonoBehaviour
     public int maxLimit;
     public int minLimit;
 
-    [Header("")]
+    [Header("Text Field")]
     public Text numberText;
 
     // Private Vars
@@ -76,7 +76,7 @@ public class NumberHandler : MonoBehaviour
 
     public void OnClickButton(bool isPlus)
     {
-        number += isPlus ? 1 : -1;
+        number += isPlus ? increment : -decrement;
         ApplyLimits();
         numberText.text = number.ToString();
     }

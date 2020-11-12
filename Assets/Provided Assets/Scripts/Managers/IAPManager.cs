@@ -146,7 +146,10 @@ namespace MeditativeBowls
             }
 
             if (!productFound)
+            {
                 Debug.Log("Purchase Failed");
+                PopupManager.Instance.spinnerLoading.Hide();
+            }
 
             return PurchaseProcessingResult.Complete;
         }
@@ -181,11 +184,13 @@ namespace MeditativeBowls
                 }
                 else
                 {
+                    PopupManager.Instance.spinnerLoading.Hide();
                     Debug.Log("BuyProductID: FAIL. Not purchasing product, either is not found or is not available for purchase");
                 }
             }
             else
             {
+                PopupManager.Instance.spinnerLoading.Hide();
                 Debug.Log("BuyProductID FAIL. Not initialized.");
             }
         }
@@ -236,7 +241,6 @@ namespace MeditativeBowls
             // if duplication purchase
             if ((int)failureReason == 6)
             {
-
                 bool productFound = false;
 
                 // check slideshow
@@ -280,6 +284,7 @@ namespace MeditativeBowls
             }
 
             PopupManager.Instance.messagePopup.Show("Purchase Failed!", purchaseFailureReasons[(int)failureReason]);
+            PopupManager.Instance.spinnerLoading.Hide();
 
             Debug.Log(string.Format("OnPurchaseFailed: FAIL. Product: '{0}', PurchaseFailureReason: {1}", product.definition.storeSpecificId, failureReason));
         }
