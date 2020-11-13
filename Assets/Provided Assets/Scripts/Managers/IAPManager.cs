@@ -49,11 +49,11 @@ namespace MeditativeBowls
 
 
             //Step 2 choose if your product is a consumable or non consumable
-            for (int i = 0; i < carpets.Length; i++)
-            {
-                carpets[i].id = Inventory.GetItemProductId(0, i);
-                builder.AddProduct(carpets[i].id, carpets[i].type);
-            }
+            // for (int i = 0; i < carpets.Length; i++)
+            // {
+            //     carpets[i].id = Inventory.GetItemProductId(0, i);
+            //     builder.AddProduct(carpets[i].id, carpets[i].type);
+            // }
 
             for (int i = 0; i < bowls.Length; i++)
             {
@@ -120,17 +120,17 @@ namespace MeditativeBowls
             }
 
             // check carpets
-            for (int i = 0; i < carpets.Length && !productFound; i++)
-            {
-                if (String.Equals(args.purchasedProduct.definition.id, carpets[i].id, StringComparison.Ordinal))
-                {
-                    // Debug.Log("Purchased: " + carpets[i].id);
-                    productFound = true;
+            // for (int i = 0; i < carpets.Length && !productFound; i++)
+            // {
+            //     if (String.Equals(args.purchasedProduct.definition.id, carpets[i].id, StringComparison.Ordinal))
+            //     {
+            //         // Debug.Log("Purchased: " + carpets[i].id);
+            //         productFound = true;
 
-                    AllRefs.I.shopMenu.OnItemPurchased(0, i);
-                    break;
-                }
-            }
+            //         AllRefs.I.shopMenu.OnItemPurchased(0, i);
+            //         break;
+            //     }
+            // }
 
             // check bowls
             for (int i = 0; i < bowls.Length && !productFound; i++)
@@ -257,17 +257,17 @@ namespace MeditativeBowls
                 }
 
                 // check carpets
-                for (int i = 0; i < carpets.Length && !productFound; i++)
-                {
-                    if (String.Equals(product.definition.storeSpecificId, carpets[i].id, StringComparison.Ordinal))
-                    {
-                        Debug.Log("Purchased: " + carpets[i].id);
-                        productFound = true;
+                // for (int i = 0; i < carpets.Length && !productFound; i++)
+                // {
+                //     if (String.Equals(product.definition.storeSpecificId, carpets[i].id, StringComparison.Ordinal))
+                //     {
+                //         Debug.Log("Purchased: " + carpets[i].id);
+                //         productFound = true;
 
-                        AllRefs.I.shopMenu.OnItemPurchased(0, i);
-                        break;
-                    }
-                }
+                //         AllRefs.I.shopMenu.OnItemPurchased(0, i);
+                //         break;
+                //     }
+                // }
 
                 // check bowls
                 for (int i = 0; i < bowls.Length && !productFound; i++)

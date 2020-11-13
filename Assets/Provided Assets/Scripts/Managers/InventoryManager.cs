@@ -68,22 +68,22 @@ public class InventoryManager : MonoBehaviour
         {
             SessionManager.Instance.Init();
             bowlsManager.SetUpBowls(prevState.Equals(2));
-            carpetsManager.SetUpCarpets();
+            // carpetsManager.SetUpCarpets();
         }
         else
         {
             int bowlsCount = GetItemCount((int)ShopMenuEventListener.ShopStates.Bowls);
-            int carpetsCount = GetItemCount((int)ShopMenuEventListener.ShopStates.Carpets);
+            // int carpetsCount = GetItemCount((int)ShopMenuEventListener.ShopStates.Carpets);
 
-            int largerNumber = bowlsCount > carpetsCount ? bowlsCount : carpetsCount;
+            // int largerNumber = bowlsCount > carpetsCount ? bowlsCount : carpetsCount;
 
-            for (int i = 0; i < largerNumber; i++)
+            for (int i = 0; i < bowlsCount; i++)
             {
                 if (i < bowlsCount)
                     allBowls[i].gameObject.SetActive(isGameplayScene);
 
-                if (i < carpetsCount)
-                    allCarpets[i].gameObject.SetActive(isGameplayScene);
+                // if (i < carpetsCount)
+                //     allCarpets[i].gameObject.SetActive(isGameplayScene);
             }
         }
     }
