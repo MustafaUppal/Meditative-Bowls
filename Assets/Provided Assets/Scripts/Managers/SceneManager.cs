@@ -74,28 +74,35 @@ namespace MeditativeBowls
         {
             panelAnim.gameObject.SetActive(true);
             panelAnim.Play("Load In");
-            yield return new WaitForSeconds(.5f);
-
             progressBar.fillAmount = 0;
-            float randomDelay = 0;
-            float randomStop = Random.Range(0.65f, 0.85f);
-            while (progressBar.fillAmount < randomStop)
-            {
-                randomDelay = Random.Range(0, 0.2f);
-                progressBar.fillAmount += randomDelay;
-                yield return new WaitForSeconds(randomDelay);
-            }
+            yield return new WaitForSeconds(.5f);
+            
+            // float randomDelay = 0;
+            // float randomStop = Random.Range(0.65f, 0.85f);
+            // while (progressBar.fillAmount < randomStop)
+            // {
+            //     randomDelay = Random.Range(0, 0.2f);
+            //     progressBar.fillAmount += randomDelay;
+            //     yield return new WaitForSeconds(randomDelay);
+            // }
 
-            loadingOperation = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(sceneIndex, LoadSceneMode.Single);
+            
+            loadingOperation = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(sceneIndex);
+            loadingOperation.allowSceneActivation = false;
 
             while (!loadingOperation.isDone)
             {
+                progressBar.fillAmount = loadingOperation.progress;
                 yield return null;
+
+                if(loadingOperation.progress >= 0.9f)
+                    loadingOperation.allowSceneActivation = true;
             }
 
             progressBar.fillAmount = 1;
+            
 
-            yield return new WaitForSeconds(randomStop);
+            // yield return new WaitForSeconds(randomStop);
         }
     }
 }
