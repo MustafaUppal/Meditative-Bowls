@@ -79,7 +79,7 @@ namespace SerializeableClasses
 
         public void SetButton(int currentState)
         {
-            UnityEngine.Debug.Log("SetButton: " + currentState);;
+            // UnityEngine.Debug.Log("SetButton: " + currentState);;
             b_itemActionButton.transform.GetChild(0).GetComponent<Image>().color = buttonColors[currentState];
             i_itemActionButton.sprite = buttonIcons[currentState];
             b_itemActionButton.interactable = !currentState.Equals((int)Bowl.State.Loaded);
@@ -87,7 +87,7 @@ namespace SerializeableClasses
 
         public void SetPrice(int currentState, float price)
         {
-            UnityEngine.Debug.Log("SetPrice: " + currentState);;
+            // UnityEngine.Debug.Log("SetPrice: " + currentState);;
             t_itemActionButton.gameObject.SetActive(currentState.Equals((int)Bowl.State.Locked));
             t_itemActionButton.text = "$ " + price;
         }

@@ -107,10 +107,10 @@ public class ShopMenuEventListener : MonoBehaviour
     }
     public void OnClickItemButton(int index)
     {
-        Debug.Log("index: " + index);
+        // Debug.Log("index: " + index);
         selectedItem.prevIndex = selectedItem.index;
         selectedItem.index = index;
-        Debug.Log("index: " + selectedItem.index);
+        // Debug.Log("index: " + selectedItem.index);
 
         try { content.GetTile(selectedItem.prevIndex).Highlight = false; } catch (System.Exception e) { };
         content.GetTile(selectedItem.index).Highlight = true;

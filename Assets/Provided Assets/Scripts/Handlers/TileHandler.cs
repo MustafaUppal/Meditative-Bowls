@@ -61,7 +61,7 @@ public class TileHandler : MonoBehaviour
 
     void DockSettings(int iconIndex)
     {
-        Debug.Log("iconIndex: " + iconIndex);
+        // Debug.Log("iconIndex: " + iconIndex);
         if (iconIndex == 1 || iconIndex == 2) // is purchased or loaded
         {
             // Then show dock
