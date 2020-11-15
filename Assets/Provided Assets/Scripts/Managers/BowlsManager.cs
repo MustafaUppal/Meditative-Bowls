@@ -97,7 +97,7 @@ public class BowlsManager : MonoBehaviour
 
     public void PlaySound(Transform hit)
     {
-        Debug.Log("Playing sound: " + hit.name);
+        // Debug.Log("Playing sound: " + hit.name);
         hit.GetChild(0).gameObject.SetActive(true);
         hit.transform.GetChild(0).GetComponent<AudioLightSync>().emit = true;
 

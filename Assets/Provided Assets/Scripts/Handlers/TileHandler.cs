@@ -17,7 +17,7 @@ public class TileHandler : MonoBehaviour
     public ToggleHandler toggle;
     public ButtonOnOffSettings buttonOnOff;
 
-    bool playSound = false;
+    public bool playSound = false;
 
     private void Awake()
     {
@@ -88,7 +88,7 @@ public class TileHandler : MonoBehaviour
         float timeToPlay = InventoryManager.Instance.allBowls[index].CurrentState.Equals(Item.State.Locked) ? 3 : -1;
         AudioClip clip = InventoryManager.Instance.allBowls[index].AudioSource.clip;
 
-        AllRefs.I.audioHandler.Play(playSound, clip, timeToPlay);
+        AllRefs.I.audioHandler.Play(playSound, clip, timeToPlay, index);
     }
 
     public void OnClickToggle(bool val)

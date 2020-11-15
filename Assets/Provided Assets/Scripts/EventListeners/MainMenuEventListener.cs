@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class MainMenuEventListener : MonoBehaviour
 {
+    // public static bool isStarted;
     [Header("References")]
     public MainMenuModes modes;
     public Animator dock;
@@ -42,8 +43,11 @@ public class MainMenuEventListener : MonoBehaviour
     }
 
     private void Start() {
-        ManageDock(false);
-        EnableFooter(false);
+        if(MenuManager.Instance.prevState.Equals(MenuManager.MenuStates.Main))
+        {
+            ManageDock(false);
+            EnableFooter(false);
+        }
     }
 
     private void Update()
@@ -156,6 +160,7 @@ public class MainMenuEventListener : MonoBehaviour
 
     public void ManageFooter(bool val)
     {
+        Debug.Log("ManageFooter: " + val);
         modes.playingRecording = val;
         simpleFooter.SetActive(!modes.playingRecording);
         recordingFooter.root.SetActive(modes.playingRecording);

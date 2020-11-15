@@ -23,7 +23,7 @@ public class Carpet : Item
 
     private void Awake()
     {
-        Debug.Log(gameObject.name);
+        // Debug.Log(gameObject.name);
         // Index = int.Parse(gameObject.name.Split('(')[1].Trim(')')) - 1;
     }
     void Start()
