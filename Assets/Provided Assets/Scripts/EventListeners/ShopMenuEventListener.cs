@@ -280,7 +280,13 @@ public class ShopMenuEventListener : MonoBehaviour
 
     public void OnClickRestoreButton()
     {
-        MeditativeBowls.IAPManager.instance.RestorePurchases();
+        PopupManager.Instance.questionPopup.SetButton("Yes", "No");
+        PopupManager.Instance.questionPopup.Show("Warning!", "Do You want to restore all purcahse?", RestoreCallBack);
+    }
+
+    public void RestoreCallBack(bool responce)
+    {
+        if(responce) MeditativeBowls.IAPManager.instance.RestorePurchases();
     }
 
     void HandleLoadBowlClick()

@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviour
         get => state1; 
         set 
         { 
-            Debug.Log("GM State: " + state1 + " -> " + value);
+            // Debug.Log("GM State: " + state1 + " -> " + value);
             state1 = value;
         } 
     }

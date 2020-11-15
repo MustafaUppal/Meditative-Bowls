@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using MeditativeBowls;
 using UnityEngine;
+using SerializeableClasses;
 
 public class HeaderHandler : MonoBehaviour
 {
@@ -46,8 +47,18 @@ public class HeaderHandler : MonoBehaviour
     {
         if(AllRefs.I.mainMenu != null)
         {
+            // Debug.Log("OnClickMenuButton: " + MenuManager.Instance.currentState + ", " + AllRefs.I.mainMenu.modes.playingRecording);
+            // if player is in main menu and recording is being played
+            if(MenuManager.Instance.currentState.Equals(MenuManager.MenuStates.Main) && AllRefs.I.mainMenu.modes.playingRecording)
+            {
+                PopupManager.Instance.questionPopup.SetButton("No", "Yes");
+                PopupManager.Instance.questionPopup.Show("Warning!", "Do You want to stop recording?", PopupCallback);
+                return;
+            }
+
             AllRefs.I.mainMenu.ManageFooter(false);
         }
+        
         ManageState(true);
     }
 
@@ -70,6 +81,15 @@ public class HeaderHandler : MonoBehaviour
     // ********************
     //  * Functionalities *
     // ********************
+
+    public void PopupCallback(bool reponse)
+    {
+        if(!reponse) 
+        {
+            AllRefs.I.mainMenu.ManageFooter(false);
+            ManageState(true);
+        }
+    }
 
     public void ChangeState(MenuButtonState newState)
     {

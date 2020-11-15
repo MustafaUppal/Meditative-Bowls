@@ -203,7 +203,7 @@ public class SessionManager : MonoBehaviour
             for (i = 0; isPlaying;)
             {
                 timer += Time.deltaTime;
-                Debug.Log("timer/totalTime: " + timer / totalTime);
+                // Debug.Log("timer/totalTime: " + timer / totalTime);
                 AllRefs.I.mainMenu.recordingFooter.UpdateTimer(timer / totalTime, (int)timer);
                 yield return null;
 

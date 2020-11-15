@@ -15,6 +15,7 @@ public class PopupManager : MonoBehaviour
     public GeneralLoading loading;
     public MessagePopup messagePopup;
     public SpiinerLoading spinnerLoading;
+    public QuestionPopup questionPopup;
 
     Action<string> method;
 
