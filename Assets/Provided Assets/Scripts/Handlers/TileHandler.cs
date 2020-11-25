@@ -62,7 +62,7 @@ public class TileHandler : MonoBehaviour
 
     public HighlightProperties GetNormal()
     {
-        return enableDock ? HighlightProperties.Normal : currentState.Equals(Item.State.Loaded) ? HighlightProperties.Loaded : HighlightProperties.Normal;
+        return !enableDock ? HighlightProperties.Normal : (currentState.Equals(Item.State.Loaded) ? HighlightProperties.Loaded : HighlightProperties.Normal);
     }
     public void SetTile(Sprite sprite, string name, int index)
     {
