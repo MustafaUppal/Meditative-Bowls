@@ -33,14 +33,6 @@ public class SaveTimersHandler : MonoBehaviour
                 AllRefs.I.mainMenu.randomizationSettings.secs.number
             ));
         }
-        else
-        {
-            SaveItem(new CustomTime(
-                AllRefs.I.alarmMenu.Hours.number,
-                AllRefs.I.alarmMenu.Mins.number,
-                AllRefs.I.alarmMenu.Second.number
-            ));
-        }
     }
 
     public void OnClickLoadTimer(Text timeText)
@@ -52,12 +44,6 @@ public class SaveTimersHandler : MonoBehaviour
             AllRefs.I.mainMenu.randomizationSettings.hours.SetNumber(time.hours);
             AllRefs.I.mainMenu.randomizationSettings.mins.SetNumber(time.minutes);
             AllRefs.I.mainMenu.randomizationSettings.secs.SetNumber(time.seconds);
-        }
-        else
-        {
-            AllRefs.I.alarmMenu.Hours.SetNumber(time.hours);
-            AllRefs.I.alarmMenu.Mins.SetNumber(time.minutes);
-            AllRefs.I.alarmMenu.Second.SetNumber(time.seconds);
         }
     }
 

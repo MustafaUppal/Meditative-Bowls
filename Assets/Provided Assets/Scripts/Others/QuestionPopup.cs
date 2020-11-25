@@ -42,8 +42,8 @@ public class QuestionPopup : MonoBehaviour
         hide = StartCoroutine(HideE());
         animator.Play("Popup Out");
 
-        if(AllRefs.I._GameManager != null)
-            AllRefs.I._GameManager.State1 = GameManager.State.Normal;
+        if(GameManager.Instance != null)
+            GameManager.Instance.State1 = GameManager.State.Normal;
     }
 
     IEnumerator HideE()

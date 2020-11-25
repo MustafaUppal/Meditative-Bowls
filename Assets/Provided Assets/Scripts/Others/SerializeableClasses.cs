@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.UI;
@@ -137,6 +138,11 @@ namespace SerializeableClasses
             bowlsText[index].text = text;
             bGs[index].color = color;
         }
+
+        // public void Highlight(int index, bool highlight)
+        // {
+        //     bGs[index].transform.parent.GetComponent<Animator>().SetBool("Highlight", highlight);
+        // }
     }
 
     [System.Serializable]
@@ -232,8 +238,9 @@ namespace SerializeableClasses
     [Serializable]
     public class HighlightSettings
     {
-        public Color tileHighlight;
-        public Color tileNormal;
+        public Color selected;
+        public Color normal;
+        public Color loaded;
     }
 
        [System.Serializable]
@@ -254,6 +261,41 @@ namespace SerializeableClasses
         {
             icon.sprite = isStarted ? saveRecording : startRecoding;
             icon.color = isStarted ? cSaveRecording : cStartRecoding;
+        }
+    }
+
+    [Serializable]
+    public class AudioSourceList
+    {
+        [Serializable]
+        public class CustomAudioSource
+        {
+            public AudioSource source;
+            public int ID;
+        }
+
+        public List<CustomAudioSource> sources = new List<CustomAudioSource>();
+
+        public int Count => sources.Count;
+
+        public void Add(int id, AudioSource source)
+        {
+            sources.Add(new CustomAudioSource{ ID = id, source = source});
+        }
+
+        public void Remove(int index)
+        {
+            sources.RemoveAt(index);
+        }
+
+        public int ContainsKey(int id)
+        {
+            for(int i = 0; i < sources.Count; i++)
+            {
+                if(sources[i].ID == id)
+                    return i;
+            }
+            return -1;
         }
     }
 }

@@ -65,7 +65,8 @@ public class MenuManager : MonoBehaviour
 
         if (prevState == MenuStates.Settings && !(GameManager.Instance.State1 == GameManager.State.RepositionState))
         {
-            AllRefs.I._GameManager.gameObject.GetComponent<BowlReposition>().ResetFuntion();
+            if(GameManager.Instance.gameObject)
+            GameManager.Instance.gameObject.GetComponent<BowlReposition>().ResetFuntion();
         }
         AllRefs.I.headerHandler.SelectButton();
 

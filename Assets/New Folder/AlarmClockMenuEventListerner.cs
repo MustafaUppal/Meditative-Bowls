@@ -14,10 +14,14 @@ public class AlarmClockMenuEventListerner : MonoBehaviour
     int Hou, Mi, Se;
 
     [Header("Time Settings")]
-    public NumberHandler Hours;
-    public NumberHandler Mins;
-    public NumberHandler Second;
     public Button Okbutton;
+    public CustomeDatePicker datePicker;
+    public CustomeTimePicker timePicker;
+    public Text timeText;
+    public Text dateText;
+
+    public CustomTime selectedTime = new CustomTime(1, 0, 0);
+    public CustomDate selectedDate = new CustomDate(1, 1, 2020);
 
     bool isintractable;
 
@@ -49,17 +53,26 @@ public class AlarmClockMenuEventListerner : MonoBehaviour
     }
     void OnEnable()
     {
-        Hours.SetNumber(0);
-        Mins.SetNumber(0);
-        Second.SetNumber(0);
+        // Hours.SetNumber(0);
+        // Mins.SetNumber(0);
+        // Second.SetNumber(0);
 
         AllRefs.I.objectSelection.EnableClick(false);
+
+        CustomeTimePicker.OnClickedOk += OnTimeSet;
+        CustomeDatePicker.OnClickedOk += OnDateSet;
+    }
+
+    private void OnDisable()
+    {
+        CustomeTimePicker.OnClickedOk -= OnTimeSet;
+        CustomeDatePicker.OnClickedOk -= OnDateSet;
     }
 
     private void Update()
     {
-        isintractable = Hours.isValChanged || Mins.isValChanged || Second.isValChanged;
-        Okbutton.interactable = isintractable;
+        // isintractable = Hours.isValChanged || Mins.isValChanged || Second.isValChanged;
+        // Okbutton.interactable = isintractable;
     }
 
     public void ShowingTile(string TimeofAlarm, bool State, int HourtoUpdate, int MinToUpdate, int SecondToUpdate)
@@ -102,22 +115,39 @@ public class AlarmClockMenuEventListerner : MonoBehaviour
 
     public void OnClickSetAlarmButton()
     {
-
         GleyNotifications.Initialize(false);
 
-        Hou = Hours.number;
-        Mi = Mins.number;
-        Se = Second.number;
+        int tempHours = selectedTime.hours + (selectedTime.am_pm.Equals("AM") ? 0 : 12);
+
+        DateTime current = DateTime.Now;
+        DateTime selected = new DateTime(selectedDate.year, selectedDate.month + 1, selectedDate.day, tempHours, selectedTime.minutes, 0);
+
+        TimeSpan reqTime = selected.Subtract(current);
+
+        Debug.Log("Difference: " + (reqTime.Hours + reqTime.Days * 24) + ":" + reqTime.Minutes + ":" + reqTime.Seconds);
+
+        Hou = reqTime.Hours + reqTime.Days * 24;
+        Mi = reqTime.Minutes;
+        Se = reqTime.Seconds;
+
+        if (Hou < 0 || Mi < 0 || Se < 0)
+        {
+            PopupManager.Instance.messagePopup.Show("Invalid Date/Time!", "Please set reminder for future Date/Time only.");
+            return;
+        }
+
         AlarmSettings.SetActive(false);
         for (int i = 0; i < AlarmList.Count; i++)
         {
-            if (AlarmList[i] == (Hours.Text + Mins.Text + Second.Text))
+            if (AlarmList[i] == (Hou.ToString() + Mi.ToString() + Se.ToString()))
             {
                 PopupManager.Instance.messagePopup.Show("Duplicate Notification", "Notification Already Exits");
                 return;
             }
         }
-        var ms = new System.TimeSpan(Hou, Mi, Se);
+        // var ms = new System.TimeSpan(Hou, Mi, Se);
+        var ms = new System.TimeSpan(reqTime.Hours);
+
         newAlarm = true;
         NotificationManager.Instance.GetAllNotifications();
 
@@ -150,8 +180,8 @@ public class AlarmClockMenuEventListerner : MonoBehaviour
             else
                 PlayerPrefs.SetInt("AlarmStatus" + i, 0);
 
-            try {PlayerPrefs.SetString("ChaneelIDs" + i, ChannelId[i]);}
-            catch(Exception e) {};
+            try { PlayerPrefs.SetString("ChaneelIDs" + i, ChannelId[i]); }
+            catch (Exception e) { };
         }
 
         //Saving Al list Capacity
@@ -199,7 +229,31 @@ public class AlarmClockMenuEventListerner : MonoBehaviour
     public void OnClickBackButton()
     {
         MenuManager.Instance.ChangeState(MenuManager.MenuStates.Main);
-        AllRefs.I._GameManager.State1 = GameManager.State.Normal;
+        GameManager.Instance.State1 = GameManager.State.Normal;
     }
 
+    public void OnClickShowPickerButton(int index)
+    {
+        switch (index)
+        {
+            case 0:
+                timePicker.Show();
+                break;
+            case 1:
+                datePicker.Show();
+                break;
+        }
+    }
+
+    public void OnTimeSet(CustomTime time)
+    {
+        selectedTime = time;
+        timeText.text = time.GetTime();
+    }
+
+    public void OnDateSet(CustomDate date)
+    {
+        selectedDate = date;
+        dateText.text = date.GetDate();
+    }
 }

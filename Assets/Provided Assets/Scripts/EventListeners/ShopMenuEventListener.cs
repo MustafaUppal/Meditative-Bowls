@@ -112,8 +112,8 @@ public class ShopMenuEventListener : MonoBehaviour
         selectedItem.index = index;
         // Debug.Log("index: " + selectedItem.index);
 
-        try { content.GetTile(selectedItem.prevIndex).Highlight = false; } catch (System.Exception e) { };
-        content.GetTile(selectedItem.index).Highlight = true;
+        try { content.GetTile(selectedItem.prevIndex).Highlight = HighlightProperties.Normal; } catch (System.Exception e) { };
+        content.GetTile(selectedItem.index).Highlight = HighlightProperties.Selected;
 
         Item item = Inventory.GetItem((int)currentState, index);
         // string setName = item.setName.Equals("") ? "" : " (" + item.setName + ")";

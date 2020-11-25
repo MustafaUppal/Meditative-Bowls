@@ -48,7 +48,7 @@ public class ContentHandler : MonoBehaviour
         int tilesCount = 0;
         int firstIndex = -1;
 
-        Dictionary<int, int> loadedItem = GetLoadedItems(currentState);
+        // Dictionary<int, int> loadedItem = GetLoadedItems(currentState);
 
         for (int i = 0; i < Inventory.GetItemCount(currentState); i++)
         {
@@ -59,9 +59,9 @@ public class ContentHandler : MonoBehaviour
                     // Debug.Log("item.Name:" + item.name);
                     // Debug.Log("item.Index: " + item.Index);
                     currentTile = transform.GetChild(tilesCount).GetComponent<TileHandler>();
-                    currentTile.SetTile(item.image, item.name, item.Index, (int)item.currentState);
-                    currentTile.Highlight = false;
-                    currentTile.IsLoaded = loadedItem.ContainsKey(item.Index);
+                    currentTile.currentState = item.currentState;
+                    currentTile.SetTile(item.image, item.name, item.Index);
+                    currentTile.Highlight = currentTile.GetNormal();
 
                     activeTiles.Add(item.Index, currentTile);
                     transform.GetChild(tilesCount).gameObject.SetActive(true);

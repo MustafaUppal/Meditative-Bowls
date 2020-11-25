@@ -21,11 +21,11 @@ public class HelpMenuEventListener : MonoBehaviour
             allPages[(int)MenuManager.Instance.currentState].SetActive(true);
         }
 
-        AllRefs.I.objectSelection.EnableClick(false);
+        AllRefs.I.objectSelection.EnableClick(!enable);
     }
 
-    void OnDisable()
-    {
-        AllRefs.I.objectSelection.EnableClick(false);
-    }
+    // void OnDisable()
+    // {
+    //     AllRefs.I.objectSelection.EnableClick(true);
+    // }
 }

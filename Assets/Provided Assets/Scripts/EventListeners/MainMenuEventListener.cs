@@ -17,12 +17,15 @@ public class MainMenuEventListener : MonoBehaviour
     public Text footertext;
     public GameObject simpleFooter;
     public Animator footerAnim;
+    public ButtonOnOffSettings recordindPlayBtn;
+    public bool isPlaying;
 
     [Header("Handlers")]
     public SlideShowHandler slideShow;
     public BowlsPlacementHandler bowlsPlacement;
     public RecordingFooter recordingFooter;
     public BowlRandomizationSettings randomizationSettings;
+    public RandomPlayTimer randomPlayTimerHandler;
 
     // *******************
     // * Unity Callbacks *
@@ -35,15 +38,20 @@ public class MainMenuEventListener : MonoBehaviour
         AllRefs.I.dock.ManageButtons(data);
 
         AllRefs.I.objectSelection.EnableClick(true);
+
+        if (GameManager.Instance)
+            randomPlayTimerHandler.Activate(GameManager.Instance.State1 == GameManager.State.Randomization);
     }
 
     private void OnDisable()
     {
         OnClickStartRandomization(false);
+        SessionManager.Instance.PlayRecording(false);
     }
 
-    private void Start() {
-        if(MenuManager.Instance.prevState.Equals(MenuManager.MenuStates.Main))
+    private void Start()
+    {
+        if (MenuManager.Instance.prevState.Equals(MenuManager.MenuStates.Main))
         {
             ManageDock(false);
             EnableFooter(false);
@@ -52,9 +60,13 @@ public class MainMenuEventListener : MonoBehaviour
 
     private void Update()
     {
-        if (randomizationSettings.isStarted && randomizationSettings.TimeLimit < randomizationSettings.stopwatch.Elapsed.TotalSeconds)
+
+        if (randomizationSettings.isStarted)
         {
-            OnClickStartRandomization(false);
+            randomPlayTimerHandler.Set(randomizationSettings.TimeLimit, (float)randomizationSettings.stopwatch.Elapsed.TotalSeconds);
+            // Debug.Log(randomizationSettings.stopwatch.Elapsed.Minutes + ":" + randomizationSettings.stopwatch.Elapsed.Seconds);
+            if (randomizationSettings.TimeLimit < randomizationSettings.stopwatch.Elapsed.TotalSeconds)
+                OnClickStartRandomization(false);
         }
     }
 
@@ -68,12 +80,11 @@ public class MainMenuEventListener : MonoBehaviour
         {
             randomizationSettings.root.SetActive(enable);
             AllRefs.I.objectSelection.EnableClick(!enable);
-            
+
             randomizationSettings.hours.SetNumber(0);
             randomizationSettings.mins.SetNumber(2);
             randomizationSettings.secs.SetNumber(0);
             randomizationSettings.delay.SetNumber(1);
-
         }
         else
             OnClickStartRandomization(false);
@@ -103,6 +114,8 @@ public class MainMenuEventListener : MonoBehaviour
             randomizationSettings.timer = 0;
             GameManager.Instance.State1 = GameManager.State.Normal;
         }
+
+        randomPlayTimerHandler.Activate(GameManager.Instance.State1 == GameManager.State.Randomization);
     }
 
     public void OnClickBackButtonInRepositionMode()
@@ -113,6 +126,16 @@ public class MainMenuEventListener : MonoBehaviour
     public void OnClickLoopButton()
     {
         recordingFooter.SetLoop(false);
+    }
+
+    public void OnClickPlayButton()
+    {
+        isPlaying = !isPlaying;
+
+        recordindPlayBtn.SetIcon(isPlaying);
+        SessionManager.Instance.PlayRecording(isPlaying);
+        if (!isPlaying)
+            recordingFooter.UpdateTimer(0, 1);
     }
 
     public void OnClickSlideShowButton()
@@ -160,7 +183,7 @@ public class MainMenuEventListener : MonoBehaviour
 
     public void ManageFooter(bool val)
     {
-        Debug.Log("ManageFooter: " + val);
+        // Debug.Log("ManageFooter: " + val);
         modes.playingRecording = val;
         simpleFooter.SetActive(!modes.playingRecording);
         recordingFooter.root.SetActive(modes.playingRecording);

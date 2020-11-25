@@ -6432,7 +6432,7 @@ public class iTween : MonoBehaviour
 	}	
 	
 	//catalog new tween and add component phase of iTween:
-	public static void Launch(GameObject target, Hashtable args){
+	static void Launch(GameObject target, Hashtable args){
 		if(!args.Contains("id")){
 			args["id"] = GenerateID();
 		}

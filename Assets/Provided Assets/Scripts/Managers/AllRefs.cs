@@ -21,7 +21,6 @@ public class AllRefs : MonoBehaviour
     public HeaderHandler headerHandler;
     public SettingsMenuEventListener settingMenu;
     public AlarmClockMenuEventListerner alarmMenu;
-    public GameManager _GameManager;
 
     [Header("Objects")]
     public HighlightSettings highlightSettings;

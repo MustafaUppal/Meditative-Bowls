@@ -8,10 +8,11 @@ public class CustomTime
     public int hours;
     public int minutes;
     public int seconds;
+    public string am_pm;
 
-    public CustomTime(int hours, int minutes, int seconds)
+    public CustomTime(int hours, int minutes, int seconds, string am_pm = "AM")
     {
-        SetTime(hours, minutes, seconds);
+        SetTime(hours, minutes, seconds, am_pm);
     }
 
     public CustomTime(string timeString)
@@ -19,7 +20,7 @@ public class CustomTime
         SetTime(timeString);
     }
 
-    public void SetTime(int hours, int minutes, int seconds)
+    public void SetTime(int hours, int minutes, int seconds, string am_pm)
     {
         this.seconds = seconds;
 
@@ -28,6 +29,8 @@ public class CustomTime
 
         this.hours = hours + (this.minutes / 60);
         this.minutes %= 60;
+
+        this.am_pm = am_pm;
     }
 
     public void SetTime(string timeString)
@@ -95,33 +98,17 @@ public class CustomTime
         return hours + ":" + minutes + ":" + seconds;
     }
 
-    // public string GetFormatedTimeString()
-    // {
-    //     string formatedTime = "";
+    public string GetTime()
+    {
+        string minutes = this.minutes < 10 ? "0" + this.minutes : this.minutes.ToString();
+        string hours = this.hours < 10 ? "0" + this.hours : this.hours.ToString();
 
-    //     if(hours == 1)
-    //         formatedTime += hours + " " + Localizer("44") + " ";
-    //     else if(hours > 1)
-    //         formatedTime += hours + " " + Localizer("43") + " ";
-
-    //     if(minutes == 1)
-    //         formatedTime += minutes + " " + Localizer("45") + " ";
-    //     else if(minutes > 1)
-    //         formatedTime += minutes + " " + Localizer("42") + " ";
-
-    //     if(seconds == 1)
-    //         formatedTime += seconds + " " + Localizer("46");
-    //     else if(seconds > 1)
-    //         formatedTime += seconds + " " + Localizer("41") + " ";
-
-    //     if(formatedTime.Length == 0)
-    //         formatedTime = "0 " + Localizer("41") + " ";
-
-    //     return formatedTime;
-    // }
+        return hours + ":" + minutes + " " + am_pm;
+    }
 
     public int GetTimeInSeconds()
     {
         return seconds + minutes * 60 + hours * 3600;
     }
+    
 }

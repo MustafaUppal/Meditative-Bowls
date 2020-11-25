@@ -98,7 +98,7 @@ public class InventoryManager : MonoBehaviour
     {
         AllRefs.I.shopMenu.selectedItem.carpetObj.SetActive(currentState.Equals(0));
         AllRefs.I.shopMenu.selectedItem.carpetCam.SetActive(currentState.Equals(0));
-        
+
         AllRefs.I.shopMenu.selectedItem.bowlObj.SetActive(currentState.Equals(1));
         AllRefs.I.shopMenu.selectedItem.bowlCam.SetActive(currentState.Equals(1));
 
@@ -109,6 +109,13 @@ public class InventoryManager : MonoBehaviour
                 break;
             case 1:
                 AllRefs.I.shopMenu.selectedItem.bowlObj.GetComponent<Renderer>().material = allBowls[materialIndex].material;
+                
+                float currentScale = 10;
+                for(int i = 0; i < materialIndex; i++)
+                {
+                    currentScale *= 0.995f;
+                }
+                AllRefs.I.shopMenu.selectedItem.bowlObj.transform.localScale = new Vector3(currentScale, currentScale, currentScale);
                 break;
         }
     }

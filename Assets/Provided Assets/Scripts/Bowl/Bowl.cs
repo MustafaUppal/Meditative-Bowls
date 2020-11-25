@@ -28,30 +28,6 @@ public class Bowl : Item
         }
     }
 
-    public float PanStereo
-    {
-        get
-        {
-            if (panStereo == -1)
-                panStereo = GetComponent<AudioSource>().panStereo;
-
-            return panStereo;
-        }
-        set => panStereo = GetComponent<AudioSource>().panStereo = value;
-    }
-
-    public float Volume
-    {
-        get
-        {
-            if (volume == -1)
-                volume = GetComponent<AudioSource>().volume;
-
-            return volume;
-        }
-        set => GetComponent<AudioSource>().volume = value;
-    }
-
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
@@ -66,21 +42,14 @@ public class Bowl : Item
 
     public void PlaySound()
     {
+        transform.GetChild(0).gameObject.SetActive(true);
+        transform.GetChild(0).GetComponent<AudioLightSync>().emit = true;
+
         if(!gameObject.activeInHierarchy) return;
-        
-        if (!audioSource.isPlaying && !(AllRefs.I._GameManager.State1 == GameManager.State.Randomization))
-        {
-            audioSource.Play();
-        }
-        else if ((AllRefs.I._GameManager.State1 == GameManager.State.Randomization) && audioSource.isPlaying)
-        {
-            audioSource.Stop();
-            audioSource.Play();
-        }
-        else if (!audioSource.isPlaying)
-        {
-            audioSource.Stop();
-            audioSource.Play();
-        }
+
+        audioSource.Stop();
+        audioSource.Play();
+
+        InventoryManager.Instance.bowlsManager.AddPlayingAudio(base.Index, AudioSource);
     }
 }

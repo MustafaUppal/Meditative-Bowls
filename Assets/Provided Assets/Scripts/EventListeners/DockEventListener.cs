@@ -14,6 +14,7 @@ public class DockEventListener : MonoBehaviour
         public bool saveSession = true;
     }
     public Button[] allButtons;
+    public GameObject[] offPanels;
 
     public void ManageButtons(ButtonsData data)
     {
@@ -21,20 +22,28 @@ public class DockEventListener : MonoBehaviour
             return;
 
         allButtons[0].interactable = data.replayBG;
+        offPanels[0].SetActive(!data.replayBG);
+
         allButtons[1].interactable = data.changeCamera;
+        offPanels[1].SetActive(!data.changeCamera);
+
         allButtons[2].interactable = data.saveSession;
+        offPanels[2].SetActive(!data.saveSession);
     }
 
     public void OnClickReplayBGButton()
     {
-        AllRefs.I._GameManager.SoundRestart();
+        if(AllRefs.I.mainMenu.modes.playingRecording)
+            AllRefs.I.mainMenu.ManageFooter(false);
+
+        GameManager.Instance.SoundRestart();
     }
 
     public void OnClickChangeCameraAngleButton()
     {
         cameraPosition++;
         if(cameraPosition > 3) cameraPosition = 0;
-        // AllRefs.I._GameManager.OnclickBgMusicButton();
+        // GameManager.Instance.OnclickBgMusicButton();
         camera.SetInteger("State", cameraPosition);
     }
     
@@ -43,7 +52,7 @@ public class DockEventListener : MonoBehaviour
     {
         PopupManager.Instance.Show("Save Bowl Arrangement", SaveBowlPosition);
 
-        AllRefs.I._GameManager.State1 = GameManager.State.SavingSession;
+        GameManager.Instance.State1 = GameManager.State.SavingSession;
 
     }
 

@@ -24,9 +24,9 @@ public class GameManager : MonoBehaviour
     public Text FooterText;
     public Button[] allButtons;
     public GameObject BackgroundMusic;
-    [SerializeField] private GameObject SelectedSoundBowl;
+    [SerializeField] public GameObject SelectedSoundBowl;
 
-    [SerializeField] private Text SoundChangerIndicatorText;
+    [SerializeField] public Text SoundChangerIndicatorText;
     public string DefaultFooterText;
     [Header("State")]
     private State state1;
@@ -78,25 +78,23 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-
-
         switch (State1)
         {
             case State.Normal:
                 break;
             case State.RepositionState:
-                VolumeChanger();
-                if (SelectedSoundBowl)
-                {
-                    VolumeSlider.onValueChanged.AddListener(delegate { VolumeChange(VolumeSlider.value); });
-                    PanningSlider.onValueChanged.AddListener(delegate { PanningSliderChange(PanningSlider.value); });
-                }
+                // VolumeChanger();
+                // if (SelectedSoundBowl)
+                // {
+                //     VolumeSlider.onValueChanged.AddListener(delegate { VolumeChange(VolumeSlider.value); });
+                //     PanningSlider.onValueChanged.AddListener(delegate { PanningSliderChange(PanningSlider.value); });
+                // }
 
                 break;
             case State.RecordingMode:
                 break;
             case State.Load:
-                LoadABowl();
+                // LoadABowl();
                 break;
             case State.Sound:
 
@@ -118,23 +116,22 @@ public class GameManager : MonoBehaviour
                     //{
                     if (time >= interpolationPeriod)
                     {
-                        Inventory.allBowls[Inventory.bowlsManager.activeBowlsIndexes[RandomBowlIndex]].GetComponent<Bowl>().PlaySound();
                         time = 0;
+                        interpolationPeriod = UnityEngine.Random.Range(8, 36);
+                        Inventory.allBowls[Inventory.bowlsManager.activeBowlsIndexes[RandomBowlIndex]].GetComponent<Bowl>().PlaySound();
                     }
                 //}
-
-
-
-
                 break;
-
         }
     }
+    
+    [Obsolete]
     public void OnclickBgMusicButton()
     {
         SoundChangerIndicatorText.text = "BackGound";
         SelectedSoundBowl = BackgroundMusic;
     }
+    
     public void SoundStop()
     {
         print("SSSSS");
@@ -150,25 +147,29 @@ public class GameManager : MonoBehaviour
                 Inventory.allBowls[Inventory.bowlsManager.activeBowlsIndexes[i]].AudioSource.Stop();
             }
         }
-
     }
+    
     public void SelectRandomiszation(float Time)
     {
         givenTime = (Time*60);
         print(givenTime);
         State1 = State.Randomization;
     }
+    
     public void PanningSliderChange(float SliderValue)
     {
+        // Debug.Log("Panning: " + SelectedSoundBowl.name);
         SelectedSoundBowl.GetComponent<AudioSource>().spatialBlend = 0;
         SelectedSoundBowl.GetComponent<AudioSource>().panStereo = SliderValue;
-
     }
-    void VolumeChange(float Value)
+
+    public void VolumeChange(float Value)
     {
+        // Debug.Log("Volume: " + SelectedSoundBowl.name);
         SelectedSoundBowl.GetComponent<AudioSource>().volume = Value;
     }
 
+    [Obsolete]
     public void Remove()
     {
         SelectedSoundBowl.gameObject.GetComponent<Bowl>().CurrentState = Item.State.Purchased;
@@ -191,28 +192,13 @@ public class GameManager : MonoBehaviour
         );
         InventoryManager.Instance.bowlsManager.activeBowlsIndexes[thisBowlIndex] = -1;
     }
-    private void VolumeChanger()
-    {
-
-        if (Input.GetMouseButtonUp(0))
-        {
-            RaycastHit hit;
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out hit))
-            {
-                if (hit.transform.CompareTag("Bowl"))
-                {
-                    SelectedSoundBowl = hit.transform.gameObject;
-                    SoundChangerIndicatorText.text = SelectedSoundBowl.GetComponent<Bowl>().name;
-                }
-
-            }
-        }
-    }
+    
     public void StopMusic()
     {
         SelectedSoundBowl.GetComponent<AudioSource>().Stop();
     }
+
+    [Obsolete]
     private void LoadABowl()
     {
         if (Input.GetMouseButtonUp(0))
@@ -238,7 +224,7 @@ public class GameManager : MonoBehaviour
                     hit.transform.gameObject.GetComponent<Bowl>().CurrentState = Item.State.Purchased;
                     Inventory.allBowls[BowlToLoad].transform.gameObject.GetComponent<Bowl>().CurrentState = Item.State.Loaded;
                     State1 = State.Normal;
-                    AllRefs.I._GameManager.FooterText.text = AllRefs.I._GameManager.DefaultFooterText;
+                    GameManager.Instance.FooterText.text = GameManager.Instance.DefaultFooterText;
                     MenuManager.Instance.currentState = MenuManager.MenuStates.Main;
 
                 }
@@ -252,19 +238,18 @@ public class GameManager : MonoBehaviour
                     Destroy(hit.transform.gameObject);
                     State1 = State.Normal;
                     Inventory.allBowls[BowlToLoad].transform.gameObject.GetComponent<Bowl>().CurrentState = Item.State.Loaded;
-                    AllRefs.I._GameManager.FooterText.text = AllRefs.I._GameManager.DefaultFooterText;
+                    GameManager.Instance.FooterText.text = GameManager.Instance.DefaultFooterText;
                     MenuManager.Instance.currentState = MenuManager.MenuStates.Main;
-
                 }
                 else
                 {
-                    AllRefs.I._GameManager.FooterText.text = "You are Placing the bowl in wrong Place";
-
+                    GameManager.Instance.FooterText.text = "You are Placing the bowl in wrong Place";
                 }
             }
         }
     }
 
+    [Obsolete]
     public void SelectModeReposition()
     {
         State1 = State.RepositionState;

@@ -4,6 +4,13 @@ using SerializeableClasses;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum HighlightProperties 
+{
+    Selected,
+    Normal,
+    Loaded
+}
+
 public class TileHandler : MonoBehaviour
 {
     public Image image;
@@ -14,7 +21,8 @@ public class TileHandler : MonoBehaviour
 
     [Header("Toggles")]
     public bool enableDock;
-    public ToggleHandler toggle;
+    // public ToggleHandler toggle;
+    public GameObject removeBtn;
     public ButtonOnOffSettings buttonOnOff;
 
     public bool playSound = false;
@@ -24,56 +32,72 @@ public class TileHandler : MonoBehaviour
         bg = GetComponent<Image>();
     }
 
-    public bool Highlight
+    public HighlightProperties Highlight
     {
         set
         {
-            bg.color = value
-            ? AllRefs.I.highlightSettings.tileHighlight :
-            AllRefs.I.highlightSettings.tileNormal;
+            switch (value)
+            {
+                case HighlightProperties.Loaded:
+                    bg.color = AllRefs.I.highlightSettings.loaded;
+                    break;
+                case HighlightProperties.Normal:
+                    bg.color = AllRefs.I.highlightSettings.normal;
+                    break;
+                case HighlightProperties.Selected:
+                    bg.color = AllRefs.I.highlightSettings.selected;
+                    break;
+            }
         }
     }
 
-    bool isLoaded;
-    public bool IsLoaded
-    {
-        get => isLoaded;
-        set { isLoaded = value; }
-    }
+    // bool isLoaded;
+    // public bool IsLoaded
+    // {
+    //     get => isLoaded;
+    //     set { isLoaded = value; }
+    // }
 
-    public void SetTile(Sprite sprite, string name, int index, int iconIndex)
+    public Item.State currentState;
+
+    public HighlightProperties GetNormal()
+    {
+        return enableDock ? HighlightProperties.Normal : currentState.Equals(Item.State.Loaded) ? HighlightProperties.Loaded : HighlightProperties.Normal;
+    }
+    public void SetTile(Sprite sprite, string name, int index)
     {
         // image.sprite = sprite;
         this.name.text = name;
         this.index = index;
 
         if (enableDock)
-            DockSettings(iconIndex);
-        else if (iconIndex == 0 || iconIndex == 1)
+            DockSettings((int)currentState);
+        else 
         {
             this.stateIcon.enabled = true;
-            this.stateIcon.sprite = AllRefs.I.tilesContainer.buttonIcons[iconIndex];
-            this.stateIcon.color = AllRefs.I.tilesContainer.buttonColors[iconIndex];
+            this.stateIcon.sprite = AllRefs.I.tilesContainer.buttonIcons[(int)currentState];
+            this.stateIcon.color = AllRefs.I.tilesContainer.buttonColors[(int)currentState];
         }
-        else
-            this.stateIcon.enabled = false;
     }
 
     void DockSettings(int iconIndex)
     {
         // Debug.Log("iconIndex: " + iconIndex);
-        if (iconIndex == 1 || iconIndex == 2) // is purchased or loaded
+        if (iconIndex == 2) // if loaded
         {
             // Then show dock
             this.stateIcon.enabled = false;
-            toggle.gameObject.SetActive(true);
-            toggle.SetValue(iconIndex == 2); // enable toggle if bowl is loaded
-            toggle.isInteractable = iconIndex == 2; // disbale toggle if bowl is off and vice versa
+            // toggle.gameObject.SetActive(true);
+            // toggle.SetValue(iconIndex == 2); // enable toggle if bowl is loaded
+            // toggle.isInteractable = iconIndex == 2; // disbale toggle if bowl is off and vice versa
+            removeBtn.SetActive(true);
         }
-        // if locked
-        else if (iconIndex == 0)
+        // if locked or purchased
+        else if (iconIndex == 0 || iconIndex == 1)
         {
-            toggle.gameObject.SetActive(false);
+            // toggle.gameObject.SetActive(false);
+            removeBtn.SetActive(false);
+
             this.stateIcon.enabled = true;
             this.stateIcon.sprite = AllRefs.I.tilesContainer.buttonIcons[iconIndex];
             this.stateIcon.color = AllRefs.I.tilesContainer.buttonColors[iconIndex];
@@ -82,11 +106,15 @@ public class TileHandler : MonoBehaviour
 
     public void OnClickPlayButton()
     {
-        playSound = !playSound;
-        buttonOnOff.SetIcon(playSound);
-
         float timeToPlay = InventoryManager.Instance.allBowls[index].CurrentState.Equals(Item.State.Locked) ? 3 : -1;
         AudioClip clip = InventoryManager.Instance.allBowls[index].AudioSource.clip;
+
+        // Do not play not purchased sounds in any state other than shop
+        if(timeToPlay == 3 && !MenuManager.Instance.currentState.Equals(MenuManager.MenuStates.Shop))
+            return;
+
+        playSound = !playSound;
+        buttonOnOff.SetIcon(playSound);
 
         AllRefs.I.audioHandler.Play(playSound, clip, timeToPlay, index);
     }
@@ -94,7 +122,7 @@ public class TileHandler : MonoBehaviour
     public void OnClickToggle(bool val)
     {
         AllRefs.I.bowlsPlacementHandler.OnClickOffBowl(index);
-        toggle.SetValue(false); // disbale toggle 
-        toggle.isInteractable = false; // disbale toggle
+        // toggle.SetValue(false); // disbale toggle 
+        // toggle.isInteractable = false; // disbale toggle
     }
 }

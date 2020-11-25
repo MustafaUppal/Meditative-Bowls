@@ -21,6 +21,9 @@ public class BowlReposition : MonoBehaviour {
     [SerializeField] private float transitionspeed;
     [SerializeField] private Material[] materialArray;
 
+    [Header("Highlighting Settings")]
+    public GameObject highlightSpot;
+    
     public InventoryManager Inventory => InventoryManager.Instance;
 
     void Start () {
@@ -30,7 +33,7 @@ public class BowlReposition : MonoBehaviour {
 
     private void Update () {
 
-        if (AllRefs.I._GameManager.State1 == GameManager.State.RepositionState) {
+        if (GameManager.Instance.State1 == GameManager.State.RepositionState) {
             RaycastHit hit;
             if (Physics.Raycast (Camera.main.ScreenPointToRay (Input.mousePosition), out hit)) {
                 SelectBowl (hit);
@@ -64,16 +67,17 @@ public class BowlReposition : MonoBehaviour {
             if (index >= 0)
                 Inventory.allBowls[Inventory.bowlsManager.activeBowlsIndexes[i]].GetComponent<Renderer> ().material = materialArray[i];
         }
-        AllRefs.I._GameManager.State1 = GameManager.State.Normal;
+        GameManager.Instance.State1 = GameManager.State.Normal;
          SelectedBowl = SelectedBowl2 = null;
     }
     public void ResetFuntion () {
-        for (int i = 0; i < materialArray.Length; i++) {
-            int index = Inventory.bowlsManager.activeBowlsIndexes[i];
-            if (index >= 0)
-                Inventory.allBowls[Inventory.bowlsManager.activeBowlsIndexes[i]].GetComponent<Renderer> ().material = materialArray[i];
-        }
-        AllRefs.I._GameManager.State1 = GameManager.State.Normal;
+        // for (int i = 0; i < materialArray.Length; i++) {
+        //     int index = Inventory.bowlsManager.activeBowlsIndexes[i];
+        //     if (index >= 0)
+        //         Inventory.allBowls[Inventory.bowlsManager.activeBowlsIndexes[i]].GetComponent<Renderer> ().material = materialArray[i];
+        // }
+        HighlightBowl(false, Vector3.zero, Color.gray);
+        GameManager.Instance.State1 = GameManager.State.Normal;
         AllRefs.I.settingMenu.ManageFooter (false);
         SelectedBowl = SelectedBowl2 = null;
     }
@@ -96,11 +100,28 @@ public class BowlReposition : MonoBehaviour {
     }
     public void SelectBowls (GameObject SelectaBowl) {
 
+        GameManager.Instance.SelectedSoundBowl = SelectaBowl;
         SelectedBowl = SelectaBowl;
+
+        Bowl bowl = SelectaBowl.GetComponent<Bowl>();
+
+        GameManager.Instance.SoundChangerIndicatorText.text = bowl.name;
+        GameManager.Instance.PanningSlider.value = bowl.AudioSource.panStereo;
+        GameManager.Instance.VolumeSlider.value = bowl.AudioSource.volume;
+        
         temp = SelectaBowl.transform.position;
-        SelectedBowl.transform.GetChild (0).gameObject.SetActive (true);
-        SelectedBowl.transform.GetChild (0).gameObject.GetComponent<Light> ().intensity = 50;
-        SelectedBowl.GetComponent<Renderer> ().material = OriginalMaterial;
+        HighlightBowl(true, temp, bowl.lightColor);
+        AllRefs.I.settingMenu.ManageFooter(true);
+        AllRefs.I.settingMenu.SetResetBtn(bowl.Index, bowl.AudioSource.panStereo);
+    }
+
+    public void HighlightBowl(bool enable, Vector3 position, Color color)
+    {
+        highlightSpot.SetActive(enable);
+        if(!enable) return;
+
+        highlightSpot.GetComponent<Light>().color = color;
+        highlightSpot.transform.position = new Vector3(position.x, -7, position.z);
     }
 
     [SerializeField] float[] panningArray;
@@ -130,7 +151,7 @@ public class BowlReposition : MonoBehaviour {
         Selectable = true;
 
         ResetFuntion ();
-        AllRefs.I._GameManager.SelectModeNormal ();
+        GameManager.Instance.SelectModeNormal ();
     }
 
     [SerializeField] private Material SubsituteMaterial;
@@ -155,10 +176,9 @@ public class BowlReposition : MonoBehaviour {
                 materialArray[i] = Inventory.allBowls[bowlIndex].GetComponent<Renderer> ().material;
             // Bowl[i] = Inventory.Instance.allBowls[bowlIndex].gameObject;
         }
-        if (AllRefs.I._GameManager.State1 == GameManager.State.RepositionState) {
-            AllRefs.I._GameManager.FooterText.gameObject.SetActive (false);
-            AllRefs.I._GameManager.Footer.gameObject.SetActive (true);
+        if (GameManager.Instance.State1 == GameManager.State.RepositionState) {
+            GameManager.Instance.FooterText.gameObject.SetActive (false);
+            GameManager.Instance.Footer.gameObject.SetActive (true);
         }
-    }
-
+    } 
 }

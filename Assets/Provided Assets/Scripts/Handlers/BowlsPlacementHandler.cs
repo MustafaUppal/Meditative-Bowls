@@ -12,7 +12,6 @@ public class BowlsPlacementHandler : MonoBehaviour
 
     int currentIndex = -1;
     int prevIndex = -1;
-    float panningvalue = 0;
 
     InventoryManager Inventory => InventoryManager.Instance;
     int[] activeBowls => InventoryManager.Instance.bowlsManager.activeBowlsIndexes;
@@ -40,23 +39,23 @@ public class BowlsPlacementHandler : MonoBehaviour
     {
         TileHandler tile = itemObj.GetComponent<TileHandler>();
 
-        // if dock is not enabled means this bowl is not purchased, so do not select this bwol/l.
-        if(!tile.toggle.gameObject.activeInHierarchy) return;
+        // if item is locked don't select
+        if(tile.currentState.Equals(Item.State.Locked)) return;
 
-        if (!itemObj.GetComponent<TileHandler>().IsLoaded)
-            OnClickBowlButton(itemObj.GetComponent<TileHandler>().index);
+        // if (!tile.currentState.Equals(Item.State.Loaded))
+        OnClickBowlButton(tile.index);
     }
 
     public void OnClickBowlButton(int index)
     {
         // Item item = Inventory.GetItem(1, index);
 
-        Debug.Log("index: " + index);
+        // Debug.Log("index: " + index);
         prevIndex = currentIndex;
         currentIndex = index;
 
-        try { content.GetTile(prevIndex).Highlight = false; } catch (System.Exception e) { };
-        content.GetTile(currentIndex).Highlight = true;
+        try { content.GetTile(prevIndex).Highlight = content.GetTile(prevIndex).GetNormal(); } catch (System.Exception e) { };
+        content.GetTile(currentIndex).Highlight = HighlightProperties.Selected;
     }
 
     public void OnClickPlaceBowlButton(int index)
@@ -64,30 +63,35 @@ public class BowlsPlacementHandler : MonoBehaviour
         // currentIndex = selected bowl index
         // bowl position to place selected bowl = index
 
-        if (currentIndex.Equals(-1) || activeBowls[index] != -1)
+        if (currentIndex.Equals(-1))
             return;
 
+
+        // IF BOWL TO BE PLACED IS ALREADY PLACED ON OTHER POSITION, TURN IT OFF
         for (int i = 0; i < activeBowls.Length; i++)
         {
-            if (activeBowls[i] != -1 && activeBowls[i].Equals(activeBowls[index]))
+            if (activeBowls[i].Equals(currentIndex))
             {
-                Inventory.allBowls[activeBowls[i]].CurrentState = Item.State.Purchased;
-                panningvalue = Inventory.bowlsManager.BowlPanningValues[activeBowls[i]] = Inventory.allBowls[activeBowls[i]].PanStereo;
+                activeBowls[i] = -1;
+                bowlPlacementSettings.SetText(i);
                 break;
-                // OnClickItemButton(activeBowls[i]);
-                // activeBowls[i] = -1;
-                // bowlPlacementSettings.SetText(i);
             }
+        }
+
+        // Also remove already placed bowl on same position
+        if (activeBowls[index] != -1)
+        {
+            Inventory.allBowls[activeBowls[index]].CurrentState = Item.State.Purchased;
         }
 
         activeBowls[index] = currentIndex;
         Inventory.allBowls[activeBowls[index]].CurrentState = Item.State.Loaded;
-        Inventory.allBowls[activeBowls[index]].PanStereo = panningvalue;
+        Inventory.allBowls[activeBowls[index]].AudioSource.panStereo = InventoryManager.Instance.bowlsManager.BowlPanningValues[index];
         // Inventory.allBowls[activeBowls[index]].transform.localPosition = Inventory.bowlsManager.bowlsPositions[index];
         OnClickBowlButton(currentIndex);
         bowlPlacementSettings.SetText(index);
 
-        currentIndex = -1;
+        // currentIndex = -1;
         content.SetItems((int)ShopMenuEventListener.ShopStates.Bowls);
         // Inventory.bowlsManager.SetUpBowls(true);
     }
@@ -101,7 +105,6 @@ public class BowlsPlacementHandler : MonoBehaviour
             {
                 // set it to purchased
                 Inventory.allBowls[activeBowls[i]].CurrentState = Item.State.Purchased;
-                panningvalue = Inventory.bowlsManager.BowlPanningValues[activeBowls[i]] = Inventory.allBowls[activeBowls[i]].PanStereo;
                 activeBowls[i] = -1;
                 // Set it on placement button
                 bowlPlacementSettings.SetText(i);
@@ -112,5 +115,10 @@ public class BowlsPlacementHandler : MonoBehaviour
                 // bowlPlacementSettings.SetText(i);
             }
         }
+    }
+
+    public void Highlight(bool highlight)
+    {
+
     }
 }

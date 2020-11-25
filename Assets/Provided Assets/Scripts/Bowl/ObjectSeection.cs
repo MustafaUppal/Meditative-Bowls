@@ -17,8 +17,6 @@ public class ObjectSeection : MonoBehaviour
 
     bool allowClick;
 
-
-    Renderer renderer;
     bool _emit;
     private void Start()
     {
@@ -32,11 +30,11 @@ public class ObjectSeection : MonoBehaviour
     }
     private void Update()
     {
-        //if (AllRefs.I._GameManager.state == GameManager.State.Normal &&
+        //if (GameManager.Instance.state == GameManager.State.Normal &&
         //    !(MenuManager.Instance.currentState == MenuManager.MenuStates.Alram)
         //    && !(MenuManager.Instance.currentState == MenuManager.MenuStates.Library)
         //    && !(MenuManager.Instance.currentState == MenuManager.MenuStates.BowlPlacement)
-        //    || AllRefs.I._GameManager.state == GameManager.State.Sound &&
+        //    || GameManager.Instance.state == GameManager.State.Sound &&
         //    (MenuManager.Instance.currentState == MenuManager.MenuStates.Main ||
         //    MenuManager.Instance.currentState == MenuManager.MenuStates.Settings ||
         //    MenuManager.Instance.currentState == MenuManager.MenuStates.Recording
@@ -56,13 +54,13 @@ public class ObjectSeection : MonoBehaviour
                     if (hit.transform.GetComponent<AudioSource>() != null && hit.transform.CompareTag("Bowl"))
                     {
                         // Debug.Log("Click");
-                        InventoryManager.Instance.bowlsManager.PlaySound(hit.transform);
+                        hit.transform.GetComponent<Bowl>().PlaySound();
                     }
                 }
 
                 if(MenuManager.Instance.currentState == MenuManager.MenuStates.Settings)
                 {
-                    if (AllRefs.I._GameManager.State1 == GameManager.State.Normal &&  hit.transform.CompareTag("Bowl") && Input.GetMouseButton(0))
+                    if (GameManager.Instance.State1 == GameManager.State.Normal &&  hit.transform.CompareTag("Bowl") && Input.GetMouseButton(0))
                     {
 
                         Pressing = true;
@@ -71,19 +69,16 @@ public class ObjectSeection : MonoBehaviour
                         if (TimeUserHold >= TimeUserForLongPressState)
                         {
 
-                            AllRefs.I._GameManager.SelectModeReposition();
-                            AllRefs.I._GameManager.gameObject.GetComponent<BowlReposition>().SelectBowls(hit.transform.gameObject);
-                            AllRefs.I._GameManager.PanningSlider.value = hit.transform.GetComponent<AudioSource>().panStereo;
-                            AllRefs.I._GameManager.VolumeSlider.value = hit.transform.GetComponent<AudioSource>().volume;
+                            // GameManager.Instance.SelectModeReposition();
+                            GameManager.Instance.gameObject.GetComponent<BowlReposition>().SelectBowls(hit.transform.gameObject);
                             LongPressState = true;
                             Pressing = false;
                             TimeUserHold = 0;
-                            AllRefs.I.settingMenu.ManageFooter(true);
                         }
                     }
                     else
                     {
-                        //AllRefs.I._GameManager.gameObject.GetComponent<BowlReposition>().SelectedBowl = null;
+                        //GameManager.Instance.gameObject.GetComponent<BowlReposition>().SelectedBowl = null;
                         LongPressState = false;
                         Pressing = false;
                         TimeUserHold = 0;
@@ -91,25 +86,25 @@ public class ObjectSeection : MonoBehaviour
                 }
                 else
                 {
-                    if (hit.transform.CompareTag("Bowl") && Input.GetMouseButton(0))
-                    {
+                    // if (hit.transform.CompareTag("Bowl") && Input.GetMouseButton(0))
+                    // {
 
-                        Pressing = true;
-                        TimeUserHold += Time.deltaTime;
+                    //     Pressing = true;
+                    //     TimeUserHold += Time.deltaTime;
 
-                        if (TimeUserHold >= TimeUserForLongPressState)
-                        {
-                            PopupManager.Instance.messagePopup.Show("Invalid Action!", "This functionality can only be used in Settings Menu.");
-                        }
-                    }
-                    else
-                    {
-                        //AllRefs.I._GameManager.gameObject.GetComponent<BowlReposition>().SelectedBowl = null;
-                        LongPressState = false;
-                        Pressing = false;
-                        TimeUserHold = 0;
+                    //     if (TimeUserHold >= TimeUserForLongPressState)
+                    //     {
+                    //         // PopupManager.Instance.messagePopup.Show("Invalid Action!", "This functionality can only be used in Settings Menu.");
+                    //     }
+                    // }
+                    // else
+                    // {
+                    //     //GameManager.Instance.gameObject.GetComponent<BowlReposition>().SelectedBowl = null;
+                    //     LongPressState = false;
+                    //     Pressing = false;
+                    //     TimeUserHold = 0;
 
-                    }
+                    // }
                 }
             }
 

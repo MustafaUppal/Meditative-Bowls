@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using SerializeableClasses;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,9 +10,12 @@ public class BowlsManager : MonoBehaviour
     public int[] activeBowlsIndexes;
     public Vector3[] bowlsPositions;
     public float[] BowlPanningValues;
+    public float soundFactor;
 
     InventoryManager Inventory => InventoryManager.Instance;
     public List<int> unusedBowls;
+
+    public AudioSourceList playingAudios = new AudioSourceList();
 
     private void Start() 
     {
@@ -30,16 +34,40 @@ public class BowlsManager : MonoBehaviour
         for (int i = 0; i < Inventory.GetItemCount(itemType); i++)
         {
             if(Inventory.allBowls[i].CurrentState != Item.State.Loaded)
-                Inventory.allBowls[i].CurrentState 
-                = PlayerPreferencesManager.GetPurchasedState(itemType, i, false) 
+                Inventory.allBowls[i].CurrentState
+                = PlayerPreferencesManager.GetPurchasedState(itemType, i, false)
                 ? Item.State.Purchased : Item.State.Locked;
         }
     }
 
-    private void OnDestroy() 
+    private void OnDestroy()
     {
         SessionManager.Instance.SessionData.InitDefault(activeBowlsIndexes);
         SessionManager.Instance.Save();
+    }
+
+    private void Update()
+    {
+        for (int i = 0; i < playingAudios.Count; i++)
+        {
+            if (!playingAudios.sources[i].source.isPlaying)
+            {
+                playingAudios.Remove(i);
+                AudioListener.volume = 1 - playingAudios.Count * soundFactor;
+                i--;
+                Debug.Log("playingAudios: " + playingAudios.Count);
+            }
+        }
+    }
+
+    public void AddPlayingAudio(int id, AudioSource source)
+    {
+        if (playingAudios.ContainsKey(id) == -1)
+        {
+            playingAudios.Add(id, source);
+            AudioListener.volume = 1 - playingAudios.Count * soundFactor;
+            Debug.Log("playingAudios: " + playingAudios.Count);
+        }
     }
 
     /// <summary>
@@ -75,16 +103,16 @@ public class BowlsManager : MonoBehaviour
             Inventory.allBowls[activeBowlsIndexes[i]].transform.localPosition = bowlsPositions[i];
             Inventory.allBowls[activeBowlsIndexes[i]].CurrentState = Item.State.Loaded;
 
-            Inventory.allBowls[activeBowlsIndexes[i]].PanStereo = SessionManager.Instance.SessionData.defaultSnipt.panings[i];
-            Inventory.allBowls[activeBowlsIndexes[i]].Volume = SessionManager.Instance.SessionData.defaultSnipt.volumes[i];
+            Inventory.allBowls[activeBowlsIndexes[i]].AudioSource.panStereo = SessionManager.Instance.SessionData.defaultSnipt.panings[i];
+            Inventory.allBowls[activeBowlsIndexes[i]].AudioSource.volume = SessionManager.Instance.SessionData.defaultSnipt.volumes[i];
         }
 
-        BowlPanningValues = new float[Inventory.allBowls.Count];
+        // BowlPanningValues = new float[Inventory.allBowls.Count];
 
-        for (int i = 0; i < Inventory.allBowls.Count; i++)
-        {
-            BowlPanningValues[i] = Inventory.allBowls[i].GetComponent<AudioSource>().panStereo;
-        }
+        // for (int i = 0; i < Inventory.allBowls.Count; i++)
+        // {
+        //     BowlPanningValues[i] = Inventory.allBowls[i].GetComponent<AudioSource>().panStereo;
+        // }
 
         // Disabling all used bowls
         for (int i = 0; i < unusedBowls.Count; i++)
@@ -98,13 +126,15 @@ public class BowlsManager : MonoBehaviour
     public void PlaySound(Transform hit)
     {
         // Debug.Log("Playing sound: " + hit.name);
-        hit.GetChild(0).gameObject.SetActive(true);
-        hit.transform.GetChild(0).GetComponent<AudioLightSync>().emit = true;
+        // hit.GetChild(0).gameObject.SetActive(true);
+        // hit.transform.GetChild(0).GetComponent<AudioLightSync>().emit = true;
+        
+        hit.GetComponent<Bowl>().PlaySound();
 
-        if (hit.GetComponent<AudioSource>().isPlaying)
-            hit.GetComponent<AudioSource>().Stop();
+        // if (hit.GetComponent<AudioSource>().isPlaying)
+        //     hit.GetComponent<AudioSource>().Stop();
 
-        hit.GetComponent<AudioSource>().Play();
+        // hit.GetComponent<AudioSource>().Play();
         //hit.transform.GetChild(0).gameObject.SetActive(true);
         // return hit;
     }

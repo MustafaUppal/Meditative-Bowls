@@ -15,6 +15,7 @@ public class SessionManager : MonoBehaviour
 
     public int[] defaultSession;
 
+    public SessionData.Snipt currentSessionSnipt;
     Coroutine recordingC;
     Coroutine recordingTimerC;
 
@@ -86,8 +87,9 @@ public class SessionManager : MonoBehaviour
 
             if (newSession.bowlsPositions[i] != -1)
             {
-                newSession.panings[i] = Inventory.allBowls[newSession.bowlsPositions[i]].PanStereo;
-                newSession.volumes[i] = Inventory.allBowls[newSession.bowlsPositions[i]].Volume;
+                Debug.Log("Saving: " + Inventory.allBowls[newSession.bowlsPositions[i]].AudioSource.panStereo);
+                newSession.panings[i] = Inventory.allBowls[newSession.bowlsPositions[i]].AudioSource.panStereo;
+                newSession.volumes[i] = Inventory.allBowls[newSession.bowlsPositions[i]].AudioSource.volume;
             }
         }
 
@@ -107,37 +109,39 @@ public class SessionManager : MonoBehaviour
 
     public void LoadSession(string name, bool playRecording = false)
     {
-        SessionData.Snipt sessionSnipt = SessionData.GetSession(name);
+        currentSessionSnipt = SessionData.GetSession(name);
 
-        Inventory.bowlsManager.activeBowlsIndexes = new int[sessionSnipt.bowlsPositions.Length];
-        float[] panings = new float[Inventory.bowlsManager.activeBowlsIndexes.Length];
-        float[] volumes = new float[Inventory.bowlsManager.activeBowlsIndexes.Length];
+        Inventory.bowlsManager.activeBowlsIndexes = new int[currentSessionSnipt.bowlsPositions.Length];
 
         for (int i = 0; i < Inventory.bowlsManager.activeBowlsIndexes.Length; i++)
         {
             // to create a deep copy
-            Inventory.bowlsManager.activeBowlsIndexes[i] = sessionSnipt.bowlsPositions[i];
+            Inventory.bowlsManager.activeBowlsIndexes[i] = currentSessionSnipt.bowlsPositions[i];
 
             if (Inventory.bowlsManager.activeBowlsIndexes[i] != -1)
             {
-                Inventory.allBowls[Inventory.bowlsManager.activeBowlsIndexes[i]].PanStereo = panings[i];
-                Inventory.allBowls[Inventory.bowlsManager.activeBowlsIndexes[i]].Volume = volumes[i];
+                Inventory.allBowls[Inventory.bowlsManager.activeBowlsIndexes[i]].AudioSource.panStereo = currentSessionSnipt.panings[i];
+                Inventory.allBowls[Inventory.bowlsManager.activeBowlsIndexes[i]].AudioSource.volume = currentSessionSnipt.volumes[i];
             }
         }
 
         Inventory.bowlsManager.SetUpBowls(true);
 
-        if (playRecording && sessionSnipt.recording != null)
+        PlayRecording(playRecording);
+    }
+
+    public void PlayRecording(bool play)
+    {
+        if(currentSessionSnipt.recording != null)
         {
-            // if (recordingC != null)
-            //     StopCoroutine(recordingC);
-
-            // recordingC = StartCoroutine(PlayRecording(sessionSnipt.recording));
-
             if (recordingTimerC != null)
+            {
                 StopCoroutine(recordingTimerC);
+                recordingTimerC = null;
+            }
 
-            recordingTimerC = StartCoroutine(RecordingTimer(sessionSnipt.recording));
+            if(play)
+                recordingTimerC = StartCoroutine(RecordingTimer(currentSessionSnipt.recording));
         }
     }
 
@@ -195,6 +199,8 @@ public class SessionManager : MonoBehaviour
 
         AllRefs.I.mainMenu.recordingFooter.SetLoop(true, false);
         AllRefs.I.mainMenu.ManageFooter(true);
+        AllRefs.I.mainMenu.isPlaying = isPlaying;
+        AllRefs.I.mainMenu.recordindPlayBtn.SetIcon(isPlaying);
 
         while (true)
         {
@@ -209,8 +215,7 @@ public class SessionManager : MonoBehaviour
 
                 if (i <= lastIndex && recording.recodingSnipts[i].time < timer)
                 {
-                    Transform bowl = InventoryManager.Instance.allBowls[recording.recodingSnipts[i].bowlIndex].transform;
-                    InventoryManager.Instance.bowlsManager.PlaySound(bowl);
+                    InventoryManager.Instance.allBowls[recording.recodingSnipts[i].bowlIndex].PlaySound();
                     i++;
                 }
 
@@ -231,8 +236,9 @@ public class SessionManager : MonoBehaviour
         }
 
         recordingTimerC = null;
-        AllRefs.I.mainMenu.ManageFooter(false);
-        AllRefs.I._GameManager.SoundRestart();
+        AllRefs.I.mainMenu.isPlaying = true;
+        AllRefs.I.mainMenu.OnClickPlayButton();
+        GameManager.Instance.SoundRestart();
     }
 }
 
@@ -273,8 +279,8 @@ public class SessionData
 
                 if (activeBowls[i] != -1)
                 {
-                    defaultSnipt.volumes[i] = InventoryManager.Instance.allBowls[activeBowls[i]].Volume;
-                    defaultSnipt.panings[i] = InventoryManager.Instance.allBowls[activeBowls[i]].PanStereo;
+                    defaultSnipt.volumes[i] = InventoryManager.Instance.allBowls[activeBowls[i]].AudioSource.volume;
+                    defaultSnipt.panings[i] = InventoryManager.Instance.allBowls[activeBowls[i]].AudioSource.panStereo;
                 }
             }
         }
