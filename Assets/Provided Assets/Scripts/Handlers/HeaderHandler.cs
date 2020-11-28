@@ -52,7 +52,7 @@ public class HeaderHandler : MonoBehaviour
             if(MenuManager.Instance.currentState.Equals(MenuManager.MenuStates.Main) && AllRefs.I.mainMenu.modes.playingRecording)
             {
                 PopupManager.Instance.questionPopup.SetButton("No", "Yes");
-                PopupManager.Instance.questionPopup.Show("Warning!", "Do You want to stop recording?", PopupCallback);
+                PopupManager.Instance.questionPopup.Show("Warning!", "Do you want to stop playing the recorded sound?", PopupCallback);
                 return;
             }
 

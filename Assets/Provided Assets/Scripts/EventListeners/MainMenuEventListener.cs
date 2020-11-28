@@ -135,7 +135,7 @@ public class MainMenuEventListener : MonoBehaviour
         recordindPlayBtn.SetIcon(isPlaying);
         SessionManager.Instance.PlayRecording(isPlaying);
         if (!isPlaying)
-            recordingFooter.UpdateTimer(0, 1);
+            recordingFooter.UpdateTimer(0, 0);
     }
 
     public void OnClickSlideShowButton()

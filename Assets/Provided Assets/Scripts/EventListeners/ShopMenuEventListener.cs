@@ -182,6 +182,11 @@ public class ShopMenuEventListener : MonoBehaviour
         selectedItem.isLargeView = enable;
         largeView.SetActive(enable);
         ChangeView(false);
+        if (!enable)
+        {
+            selectedItem.bowlObj.GetComponent<RotateObj>().rotate = true;
+            selectedItem.bowlObj.GetComponent<RotatingPaningTest>().Reset();
+        }
     }
     bool isSoundPlaying;
     public void OnClickPlaySound()

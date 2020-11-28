@@ -36,7 +36,7 @@ public class RotatingPaningTest : MonoBehaviour
                 isChanged = true;
             }
             // camera.transform.RotateAround(transform.position, new Vector3(-Input.GetAxis("Mouse Y"), Input.GetAxis("Mouse X"), 0), Time.deltaTime * rotationSpeed);
-            transform.Rotate(Input.GetAxis("Mouse Y") * rotationSpeed, -Input.GetAxis("Mouse X") * rotationSpeed, 0, Space.World);
+            transform.Rotate(Input.GetAxis("Mouse Y") * rotationSpeed * Mathf.Deg2Rad, -Input.GetAxis("Mouse X") * rotationSpeed * Mathf.Deg2Rad, 0, Space.World);
         }
         else
         {

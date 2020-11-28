@@ -75,19 +75,19 @@ public class AlarmClockMenuEventListerner : MonoBehaviour
         // Okbutton.interactable = isintractable;
     }
 
-    public void ShowingTile(string TimeofAlarm, bool State, int HourtoUpdate, int MinToUpdate, int SecondToUpdate)
+    public void ShowingTile(string TimeofAlarm, bool State, int HourtoUpdate, int MinToUpdate, int SecondToUpdate, string dateTime)
     {
         // Set Alarm lists
-        AlarmList.Add(TimeofAlarm);
+        AlarmList.Add(dateTime);
         StatusOfAlarms.Add(State);
         HoursList.Add(HourtoUpdate);
         MinList.Add(MinToUpdate);
         SecList.Add(SecondToUpdate);
         GameObject game = Instantiate(Tiles, NotificationPoint.transform);
-        game.GetComponent<ButtonStatusChanger>().Time.text = TimeofAlarm;
+        game.GetComponent<ButtonStatusChanger>().Time.text = dateTime;
         for (int i = 0; i < AlarmList.Count; i++)
         {
-            if (AlarmList[i] == TimeofAlarm)
+            if (AlarmList[i] == dateTime)
                 game.GetComponent<ButtonStatusChanger>().id = i;
 
         }
@@ -154,7 +154,7 @@ public class AlarmClockMenuEventListerner : MonoBehaviour
         GleyNotifications.SendNotification("MeditativeBowls", "Time To Meditate", new System.TimeSpan(Hou, Mi, Se));
         string TotalTimeString = (Hou.ToString() + ":" + Mi.ToString() + ":" + Se.ToString());
         print(TotalTimeString);
-        ShowingTile(TotalTimeString, true, Hou, Mi, Se);
+        ShowingTile(TotalTimeString, true, Hou, Mi, Se, selected.ToString("dd/MM/yyyy hh:mm tt"));
     }
 
     public void SaveNotificationList()
