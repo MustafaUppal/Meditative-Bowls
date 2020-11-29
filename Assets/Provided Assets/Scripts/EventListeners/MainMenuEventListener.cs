@@ -101,7 +101,7 @@ public class MainMenuEventListener : MonoBehaviour
 
             GameManager.Instance.State1 = GameManager.State.Randomization;
             // Setting time of randomization
-            GameManager.Instance.interpolationPeriod = Random.Range(8, 36);
+            GameManager.Instance.interpolationPeriod = Random.Range(2, 8);
             AllRefs.I.objectSelection.EnableClick(true);
             randomizationSettings.root.SetActive(false);
         }
