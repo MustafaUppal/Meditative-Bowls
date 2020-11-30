@@ -37,7 +37,7 @@ public class MessagePopup : MonoBehaviour
 
     public void Hide()
     {
-        if (AllRefs.I.objectSelection != null)
+        if (AllRefs.I.objectSelection != null && MenuManager.Instance.currentState == MenuManager.MenuStates.Main)
             AllRefs.I.objectSelection.EnableClick(true);
         if (hide != null)
             StopCoroutine(hide);
