@@ -61,11 +61,11 @@ namespace MeditativeBowls
                 builder.AddProduct(bowls[i].id, bowls[i].type);
             }
 
-            for (int i = 0; i < slideShows.Length; i++)
-            {
-                slideShows[i].id = Inventory.GetItemProductId(2, i);
-                builder.AddProduct(slideShows[i].id, slideShows[i].type);
-            }
+            // for (int i = 0; i < slideShows.Length; i++)
+            // {
+            //     slideShows[i].id = Inventory.GetItemProductId(2, i);
+            //     builder.AddProduct(slideShows[i].id, slideShows[i].type);
+            // }
 
             UnityPurchasing.Initialize(this, builder);
         }
