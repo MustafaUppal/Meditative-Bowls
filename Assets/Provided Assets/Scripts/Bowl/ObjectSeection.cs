@@ -25,7 +25,7 @@ public class ObjectSeection : MonoBehaviour
     }
     public void EnableClick(bool enable)
     {
-        Debug.Log("EnableClick: " + enable);
+        // Debug.Log("EnableClick: " + enable);
         allowClick = enable;
     }
     private void Update()

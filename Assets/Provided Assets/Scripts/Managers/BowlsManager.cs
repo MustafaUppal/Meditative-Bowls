@@ -17,6 +17,15 @@ public class BowlsManager : MonoBehaviour
 
     public AudioSourceList playingAudios = new AudioSourceList();
 
+    //  public int[] loadedBowlClips = new int[10];
+    public List<bool> loadingBowls = new List<bool>();
+    public bool showNotified = false;
+    public bool closeNotified = false;
+    public int bowlsCount = -1;
+    public int spareAudioIndex = -1;
+
+    // public BowlAudioSystem BowlAudioSystem = new BowlAudioSystem();
+
     private void Start() 
     {
         int itemType = (int)ShopMenuEventListener.ShopStates.Bowls;
@@ -58,6 +67,28 @@ public class BowlsManager : MonoBehaviour
                 Debug.Log("playingAudios: " + playingAudios.Count);
             }
         }
+
+        // if(bowlsCount != loadingBowls.Count)
+        //     Debug.Log("Loading Count: " + loadingBowls.Count);
+
+        // bowlsCount = loadingBowls.Count;
+        
+        if(loadingBowls.Count > 0 && !showNotified)
+        {
+            showNotified = true;
+            closeNotified = false;
+
+            PopupManager.Instance.spinnerLoading.Show("Preparing Bowls...");
+            AllRefs.I.objectSelection.EnableClick(false);
+        }
+        else if(loadingBowls.Count == 0 && !closeNotified)
+        {
+            showNotified = false;
+            closeNotified = true;
+
+            PopupManager.Instance.spinnerLoading.Hide();
+            AllRefs.I.objectSelection.EnableClick(true);
+        }
     }
 
     public void AddPlayingAudio(int id, AudioSource source)
@@ -66,7 +97,7 @@ public class BowlsManager : MonoBehaviour
         {
             playingAudios.Add(id, source);
             AudioListener.volume = 1 - playingAudios.Count * soundFactor;
-            Debug.Log("playingAudios: " + playingAudios.Count);
+            // Debug.Log("playingAudios: " + playingAudios.Count);
         }
     }
 
@@ -137,5 +168,17 @@ public class BowlsManager : MonoBehaviour
         // hit.GetComponent<AudioSource>().Play();
         //hit.transform.GetChild(0).gameObject.SetActive(true);
         // return hit;
+    }
+
+    public void AddBowlLoading()
+    {
+        showNotified = false;
+        loadingBowls.Add(true);
+    }
+
+    public void RemoveBowlLoading()
+    {
+        closeNotified = false;
+        loadingBowls.RemoveAt(loadingBowls.Count - 1);
     }
 }

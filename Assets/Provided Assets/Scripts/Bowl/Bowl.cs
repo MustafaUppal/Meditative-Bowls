@@ -34,6 +34,32 @@ public class Bowl : Item
         transform.GetChild(0).GetComponent<Light>().color = lightColor;
     }
 
+    Coroutine coroutine;
+    private void OnEnable()
+    {
+        if(coroutine != null)
+            StopCoroutine(coroutine);
+        coroutine = StartCoroutine(LoadBowSound());
+    }
+
+    IEnumerator LoadBowSound()
+    {
+        if (AudioSource.clip.loadState != AudioDataLoadState.Loaded)
+        {
+            yield return null;
+            InventoryManager.Instance.bowlsManager.AddBowlLoading();
+            yield return AudioSource.clip.LoadAudioData();
+            InventoryManager.Instance.bowlsManager.RemoveBowlLoading();
+        }
+        coroutine = null;
+    }
+
+    private void OnDisable()
+    {
+        if (AudioSource.clip.loadState == AudioDataLoadState.Loaded)
+            AudioSource.clip.UnloadAudioData();
+    }
+
     private void Update()
     {
         if (audioSource)
@@ -45,7 +71,7 @@ public class Bowl : Item
         transform.GetChild(0).gameObject.SetActive(true);
         transform.GetChild(0).GetComponent<AudioLightSync>().emit = true;
 
-        if(!gameObject.activeInHierarchy) return;
+        if (!gameObject.activeInHierarchy) return;
 
         audioSource.Stop();
         audioSource.Play();

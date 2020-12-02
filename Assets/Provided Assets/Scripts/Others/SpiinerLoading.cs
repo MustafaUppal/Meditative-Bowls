@@ -20,6 +20,8 @@ public class SpiinerLoading : MonoBehaviour
 
     public void Hide()
     {
+        if(!gameObject.activeInHierarchy) return;
+        
         if (hide != null)
             StopCoroutine(hide);
 

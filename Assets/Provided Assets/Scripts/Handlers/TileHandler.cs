@@ -4,7 +4,7 @@ using SerializeableClasses;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum HighlightProperties 
+public enum HighlightProperties
 {
     Selected,
     Normal,
@@ -72,7 +72,7 @@ public class TileHandler : MonoBehaviour
 
         if (enableDock)
             DockSettings((int)currentState);
-        else 
+        else
         {
             this.stateIcon.enabled = true;
             this.stateIcon.sprite = AllRefs.I.tilesContainer.buttonIcons[(int)currentState];
@@ -104,18 +104,46 @@ public class TileHandler : MonoBehaviour
         }
     }
 
+    Coroutine coroutine;
     public void OnClickPlayButton()
+    {
+        if (coroutine != null)
+            StopCoroutine(coroutine);
+
+        coroutine = StartCoroutine(LoadBeforePlay());
+    }
+
+    IEnumerator LoadBeforePlay()
     {
         float timeToPlay = InventoryManager.Instance.allBowls[index].CurrentState.Equals(Item.State.Locked) ? 3 : -1;
         AudioClip clip = InventoryManager.Instance.allBowls[index].AudioSource.clip;
 
         // Do not play not purchased sounds in any state other than shop
-        if(timeToPlay == 3 && !MenuManager.Instance.currentState.Equals(MenuManager.MenuStates.Shop))
-            return;
+        if (timeToPlay == 3 && !MenuManager.Instance.currentState.Equals(MenuManager.MenuStates.Shop))
+        {
+            StopCoroutine(coroutine);
+        }
 
         playSound = !playSound;
         buttonOnOff.SetIcon(playSound);
 
+        if (clip.loadState != AudioDataLoadState.Loaded)
+        {
+            PopupManager.Instance.spinnerLoading.Show("Loading Sound");
+            // if previous audio is loaded then unload it
+            int spareIndex = InventoryManager.Instance.bowlsManager.spareAudioIndex;
+            if (spareIndex != -1 && InventoryManager.Instance.allBowls[spareIndex].AudioSource.clip.loadState == AudioDataLoadState.Loaded)
+            {
+                yield return InventoryManager.Instance.allBowls[spareIndex].AudioSource.clip.UnloadAudioData();
+            }
+
+            // load new auido to play
+            yield return InventoryManager.Instance.allBowls[index].AudioSource.clip.LoadAudioData();
+            InventoryManager.Instance.bowlsManager.spareAudioIndex = index;
+            PopupManager.Instance.spinnerLoading.Hide();
+        }
+        
+        // Play
         AllRefs.I.audioHandler.Play(playSound, clip, timeToPlay, index);
     }
 

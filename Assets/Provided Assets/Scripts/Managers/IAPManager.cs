@@ -179,7 +179,7 @@ namespace MeditativeBowls
                 Product product = m_StoreController.products.WithID(productId);
                 if (product != null && product.availableToPurchase)
                 {
-                    Debug.Log(string.Format("Purchasing product asychronously: '{0}'", product.definition.id));
+                    // Debug.Log(string.Format("Purchasing product asychronously: '{0}'", product.definition.id));
                     m_StoreController.InitiatePurchase(product);
                 }
                 else

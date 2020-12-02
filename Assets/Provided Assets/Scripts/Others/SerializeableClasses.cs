@@ -129,7 +129,7 @@ namespace SerializeableClasses
                 color = bowls[i].lightColor;
                 string name = bowls[i].name.ToUpper();
                 string[] parts = name.Split(' ');
-                text = parts[0] + " " + (i < 7 ? parts[2].Substring(1,1) + parts[3].Substring(0,1) : parts[2].Substring(0, 1));
+                text = parts[0] + " " + (i < 7 ? parts[2].Substring(1, 1) + parts[3].Substring(0, 1) : parts[2].Substring(0, 1));
                 bowlsIcons[index].SetActive(true);
             }
             else
@@ -182,7 +182,7 @@ namespace SerializeableClasses
         }
     }
 
-        [System.Serializable]
+    [System.Serializable]
     public class BowlRandomizationSettings
     {
         public GameObject root;
@@ -196,7 +196,7 @@ namespace SerializeableClasses
 
         public float timer;
         public Stopwatch stopwatch = new Stopwatch();
-        
+
 
         [Header("Icon Settings")]
         public Image icon;
@@ -243,7 +243,7 @@ namespace SerializeableClasses
         public Color loaded;
     }
 
-       [System.Serializable]
+    [System.Serializable]
     public class ButtonOnOffSettings
     {
         public GameObject root;
@@ -280,7 +280,7 @@ namespace SerializeableClasses
 
         public void Add(int id, AudioSource source)
         {
-            sources.Add(new CustomAudioSource{ ID = id, source = source});
+            sources.Add(new CustomAudioSource { ID = id, source = source });
         }
 
         public void Remove(int index)
@@ -290,11 +290,69 @@ namespace SerializeableClasses
 
         public int ContainsKey(int id)
         {
-            for(int i = 0; i < sources.Count; i++)
+            for (int i = 0; i < sources.Count; i++)
             {
-                if(sources[i].ID == id)
+                if (sources[i].ID == id)
                     return i;
             }
+            return -1;
+        }
+    }
+
+    [Serializable]
+    public class BowlAudioSystem
+    {
+        public class Data
+        {
+            public int audioIndex = -1;
+            public int audioStatus = 0;
+            // 0 nothing placed
+            // 1 placed but sound not loaded
+            // 2 placed and sound loaded
+        }
+
+        public Data[] audioData = new Data[10];
+        List<int> freeIndeces = new List<int>();
+        public int spareAudioIndex = -1;
+
+        public BowlAudioSystem()
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                freeIndeces.Add(i);
+            }
+        }
+
+        public void Load(int index)
+        {
+            // if already loaded
+            if(Find(index) != -1) return;
+
+            if(freeIndeces.Count > 0)
+            {
+                audioData[freeIndeces.Count - 1].audioIndex = index;
+                audioData[freeIndeces.Count - 1].audioStatus = 1;
+            }
+        }
+
+        public void AddInActives(int index)
+        {
+            int dataIndex = Find(index);
+
+            // if load call is not made
+            if(dataIndex == -1) return;
+
+            audioData[dataIndex].audioStatus = 2;
+        }
+
+        int Find(int index)
+        {
+            for (int i = 0; i < audioData.Length; i++)
+            {
+                if(audioData[i].audioIndex == index)
+                    return i;
+            }
+
             return -1;
         }
     }
