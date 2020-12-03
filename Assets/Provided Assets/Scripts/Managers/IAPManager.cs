@@ -108,16 +108,16 @@ namespace MeditativeBowls
             bool productFound = false;
 
             // check slideshow
-            for (int i = 0; i < slideShows.Length && !productFound; i++)
-            {
-                if (String.Equals(args.purchasedProduct.definition.id, slideShows[i].id, StringComparison.Ordinal))
-                {
-                    productFound = true;
+            // for (int i = 0; i < slideShows.Length && !productFound; i++)
+            // {
+            //     if (String.Equals(args.purchasedProduct.definition.id, slideShows[i].id, StringComparison.Ordinal))
+            //     {
+            //         productFound = true;
 
-                    AllRefs.I.shopMenu.OnItemPurchased(2, i);
-                    break;
-                }
-            }
+            //         AllRefs.I.shopMenu.OnItemPurchased(2, i);
+            //         break;
+            //     }
+            // }
 
             // check carpets
             // for (int i = 0; i < carpets.Length && !productFound; i++)
@@ -139,7 +139,6 @@ namespace MeditativeBowls
                 {
                     // Debug.Log("Purchased: " + bowls[i].id);
                     productFound = true;
-
                     AllRefs.I.shopMenu.OnItemPurchased(1, i);
                     break;
                 }

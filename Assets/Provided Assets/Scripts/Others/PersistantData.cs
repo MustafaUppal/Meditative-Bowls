@@ -9,7 +9,7 @@ public class PersistantData
 {
     public static void Save(SessionData sessionData)
     {
-        Debug.Log(sessionData.Length);
+        // Debug.Log(sessionData.Length);
         BinaryFormatter binaryFormatter = new BinaryFormatter();
 
         FileStream file = null;

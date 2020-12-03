@@ -41,7 +41,10 @@ public class ShopMenuEventListener : MonoBehaviour
 
     private void OnEnable()
     {
-        restoreButton.SetActive(!PlayerPreferencesManager.GetItemsRestored(false));
+        if (Application.platform != RuntimePlatform.IPhonePlayer || Application.platform != RuntimePlatform.OSXPlayer)
+            restoreButton.SetActive(false);
+        else
+            restoreButton.SetActive(!PlayerPreferencesManager.GetItemsRestored(false));
 
         selectedItem.index = 0;
         ChangeState(defaultState);

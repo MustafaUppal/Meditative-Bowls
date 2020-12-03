@@ -64,7 +64,7 @@ public class BowlsManager : MonoBehaviour
                 playingAudios.Remove(i);
                 AudioListener.volume = 1 - playingAudios.Count * soundFactor;
                 i--;
-                Debug.Log("playingAudios: " + playingAudios.Count);
+                // Debug.Log("playingAudios: " + playingAudios.Count);
             }
         }
 
