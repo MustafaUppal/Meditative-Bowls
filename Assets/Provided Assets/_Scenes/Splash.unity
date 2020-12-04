@@ -727,6 +727,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: IAP Manager
       objectReference: {fileID: 0}
+    - target: {fileID: 2970922224653845073, guid: e14c5f9fbc55bb54286ef7500a830f50,
+        type: 3}
+      propertyPath: bowls.Array.data[8].id
+      value: com.HimalayanBowls.SingingBowls.Set2Bowl2.1
+      objectReference: {fileID: 0}
     - target: {fileID: 2970922224653845074, guid: e14c5f9fbc55bb54286ef7500a830f50,
         type: 3}
       propertyPath: m_LocalPosition.x
