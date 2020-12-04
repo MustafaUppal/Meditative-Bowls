@@ -11,6 +11,20 @@ public class Bowl : Item
     public Color lightColor;
     public Material material;
 
+    public MeshFilter mesh;
+
+    public MeshFilter Mesh 
+    {
+        get
+        {
+            if(mesh == null)
+                mesh = gameObject.GetComponent<MeshFilter>();
+
+            return mesh;
+        }
+    }
+
+
     // Private Variables
     AudioSource audioSource;
     float panStereo = -1;

@@ -1,5 +1,0 @@
-{
-    "assetName": 4,
-    "longVersion": "1.5.1",
-    "shortVersion": 1
-}

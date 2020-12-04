@@ -32,10 +32,10 @@ namespace MeditativeBowls
         };
 
         //Step 1 create your products
-        public CustomProduct[] carpets;
+        // public CustomProduct[] carpets;
         public CustomProduct[] bowls;
 
-        public CustomProduct[] slideShows;
+        // public CustomProduct[] slideShows;
 
         InventoryManager Inventory => InventoryManager.Instance;
 
@@ -57,7 +57,7 @@ namespace MeditativeBowls
 
             for (int i = 0; i < bowls.Length; i++)
             {
-                bowls[i].id = Inventory.GetItemProductId(1, i);
+                // bowls[i].id = Inventory.GetItemProductId(1, i);
                 builder.AddProduct(bowls[i].id, bowls[i].type);
             }
 
@@ -86,13 +86,13 @@ namespace MeditativeBowls
             switch (type)
             {
                 case 0: // carpet
-                    productId = carpets[index].id;
+                    // productId = carpets[index].id;
                     break;
                 case 1: // bowl
                     productId = bowls[index].id;
                     break;
                 case 2: // slideshow
-                    productId = slideShows[index].id;
+                    // productId = slideShows[index].id;
                     break;
             }
 
@@ -107,6 +107,7 @@ namespace MeditativeBowls
         {
             bool productFound = false;
 
+            Debug.Log("ProcessPurchase");
             // check slideshow
             // for (int i = 0; i < slideShows.Length && !productFound; i++)
             // {
@@ -135,6 +136,8 @@ namespace MeditativeBowls
             // check bowls
             for (int i = 0; i < bowls.Length && !productFound; i++)
             {
+                Debug.Log("Finding Product: " + bowls[i].id);
+
                 if (String.Equals(args.purchasedProduct.definition.id, bowls[i].id, StringComparison.Ordinal))
                 {
                     // Debug.Log("Purchased: " + bowls[i].id);
@@ -147,8 +150,9 @@ namespace MeditativeBowls
             if (!productFound)
             {
                 Debug.Log("Purchase Failed");
-                PopupManager.Instance.spinnerLoading.Hide();
             }
+
+            PopupManager.Instance.spinnerLoading.Hide();
 
             return PurchaseProcessingResult.Complete;
         }
@@ -161,14 +165,18 @@ namespace MeditativeBowls
 
         void Start()
         {
+            Debug.Log("Object Created");
             if (m_StoreController == null) { InitializePurchasing(); }
         }
 
+        static int count;
         private void TestSingleton()
         {
+            // Debug.Log("IAP: " + count++);
             if (instance != null) { Destroy(gameObject); return; }
             instance = this;
             DontDestroyOnLoad(gameObject);
+            // Debug.Log("IAP1: " + count++);
         }
 
         void BuyProductID(string productId)
@@ -180,6 +188,7 @@ namespace MeditativeBowls
                 {
                     // Debug.Log(string.Format("Purchasing product asychronously: '{0}'", product.definition.id));
                     m_StoreController.InitiatePurchase(product);
+                    // result is shwon in ProcessPurchase or OnPurchaseFailed functions
                 }
                 else
                 {
@@ -236,24 +245,24 @@ namespace MeditativeBowls
         }
 
         public void OnPurchaseFailed(Product product, PurchaseFailureReason failureReason)
-        {   
+        {
             // if duplication purchase
             if ((int)failureReason == 6)
             {
                 bool productFound = false;
 
                 // check slideshow
-                for (int i = 0; i < slideShows.Length && !productFound; i++)
-                {
-                    if (String.Equals(product.definition.storeSpecificId, slideShows[i].id, StringComparison.Ordinal))
-                    {
-                        Debug.Log("Purchased: " + slideShows[i].id);
-                        productFound = true;
+                // for (int i = 0; i < slideShows.Length && !productFound; i++)
+                // {
+                //     if (String.Equals(product.definition.storeSpecificId, slideShows[i].id, StringComparison.Ordinal))
+                //     {
+                //         Debug.Log("Purchased: " + slideShows[i].id);
+                //         productFound = true;
 
-                        AllRefs.I.shopMenu.OnItemPurchased(2, i);
-                        break;
-                    }
-                }
+                //         AllRefs.I.shopMenu.OnItemPurchased(2, i);
+                //         break;
+                //     }
+                // }
 
                 // check carpets
                 // for (int i = 0; i < carpets.Length && !productFound; i++)

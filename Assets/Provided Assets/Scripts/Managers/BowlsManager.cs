@@ -131,7 +131,9 @@ public class BowlsManager : MonoBehaviour
 
             // Managing loaded bowls
             Inventory.allBowls[activeBowlsIndexes[i]].gameObject.SetActive(true);
-            Inventory.allBowls[activeBowlsIndexes[i]].transform.localPosition = bowlsPositions[i];
+            float y = Inventory.allBowls[activeBowlsIndexes[i]].transform.localPosition.y;
+            Vector3 newPos = new Vector3(bowlsPositions[i].x, y, bowlsPositions[i].z);
+            Inventory.allBowls[activeBowlsIndexes[i]].transform.localPosition = newPos;
             Inventory.allBowls[activeBowlsIndexes[i]].CurrentState = Item.State.Loaded;
 
             Inventory.allBowls[activeBowlsIndexes[i]].AudioSource.panStereo = SessionManager.Instance.SessionData.defaultSnipt.panings[i];

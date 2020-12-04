@@ -52,84 +52,62 @@ MonoBehaviour:
   - Payment Declined
   - Duplicate Transaction
   - Something went wrong
-  carpets:
-  - id: com.HimalayanBowls.SingingBowls.Set1.Carpet1
-    type: 0
-  - id: 
-    type: 0
-  - id: 
-    type: 0
-  - id: 
-    type: 0
-  - id: 
-    type: 0
-  - id: 
-    type: 0
-  - id: 
-    type: 0
-  - id: 
-    type: 0
-  - id: 
-    type: 0
   bowls:
-  - id: 
+  - id: com.HimalayanBowls.SingingBowls.Set1.Bowl1.0
     type: 0
-  - id: 
+  - id: com.HimalayanBowls.SingingBowls.Set1.Bowl2.0
     type: 0
-  - id: 
+  - id: com.HimalayanBowls.SingingBowls.Set1.Bowl3.0
     type: 0
-  - id: 
+  - id: com.HimalayanBowls.SingingBowls.Set1.Bowl4.0
     type: 0
-  - id: 
+  - id: com.HimalayanBowls.SingingBowls.Set1.Bowl5.0
     type: 0
-  - id: 
+  - id: com.HimalayanBowls.SingingBowls.Set1.Bowl6.0
     type: 0
-  - id: 
+  - id: com.HimalayanBowls.SingingBowls.Set1.Bowl7.0
     type: 0
-  - id: 
+  - id: com.HimalayanBowls.SingingBowls.Set2.Bowl1.0
     type: 0
-  - id: 
+  - id: com.HimalayanBowls.SingingBowls.Set2.Bowl2.1
     type: 0
-  - id: 
+  - id: com.HimalayanBowls.SingingBowls.Set2.Bowl3.0
     type: 0
-  - id: 
+  - id: com.HimalayanBowls.SingingBowls.Set2.Bowl4.0
     type: 0
-  - id: 
+  - id: com.HimalayanBowls.SingingBowls.Set2.Bowl5.0
     type: 0
-  - id: 
+  - id: com.HimalayanBowls.SingingBowls.Set2.Bowl6.0
     type: 0
-  - id: 
+  - id: com.HimalayanBowls.SingingBowls.Set2.Bowl7.0
     type: 0
-  - id: 
+  - id: com.HimalayanBowls.SingingBowls.Set3.Bowl1.0
     type: 0
-  - id: 
+  - id: com.HimalayanBowls.SingingBowls.Set3.Bowl2.0
     type: 0
-  - id: 
+  - id: com.HimalayanBowls.SingingBowls.Set3.Bowl3.0
     type: 0
-  - id: 
+  - id: com.HimalayanBowls.SingingBowls.Set3.Bowl4.0
     type: 0
-  - id: 
+  - id: com.HimalayanBowls.SingingBowls.Set3.Bowl5.0
     type: 0
-  - id: 
+  - id: com.HimalayanBowls.SingingBowls.Set3.Bowl6.0
     type: 0
-  - id: 
+  - id: com.HimalayanBowls.SingingBowls.Set3.Bowl7.0
     type: 0
-  - id: 
+  - id: com.HimalayanBowls.SingingBowls.Set4.Bowl1.0
     type: 0
-  - id: 
+  - id: com.HimalayanBowls.SingingBowls.Set4.Bowl2.0
     type: 0
-  - id: 
+  - id: com.HimalayanBowls.SingingBowls.Set4.Bowl3.0
     type: 0
-  - id: 
+  - id: com.HimalayanBowls.SingingBowls.Set4.Bowl4.0
     type: 0
-  - id: 
+  - id: com.HimalayanBowls.SingingBowls.Set4.Bowl5.0
     type: 0
-  - id: 
+  - id: com.HimalayanBowls.SingingBowls.Set4.Bowl6.0
     type: 0
-  - id: 
+  - id: com.HimalayanBowls.SingingBowls.Set4.Bowl7.0
     type: 0
-  - id: 
+  - id: com.HimalayanBowls.SingingBowls.Set4.Bowl8.0
     type: 0
-  slideShow:
-    id: com.HimalayanBowls.SingingBowls.SlideShow
-    type: 1

@@ -1,0 +1,299 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!181963792 &2655988077585873504
+Preset:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: IAPManager
+  m_TargetType:
+    m_NativeTypeID: 114
+    m_ManagedTypePPtr: {fileID: 11500000, guid: c009332db4b340e409c1d7248111ac04,
+      type: 3}
+    m_ManagedTypeFallback: 
+  m_Properties:
+  - target: {fileID: 0}
+    propertyPath: m_Enabled
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_EditorHideFlags
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_EditorClassIdentifier
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: purchaseFailureReasons.Array.size
+    value: 8
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: purchaseFailureReasons.Array.data[0]
+    value: Purchase Unavailable
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: purchaseFailureReasons.Array.data[1]
+    value: Existing Purchase Pending
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: purchaseFailureReasons.Array.data[2]
+    value: Product Unavailable
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: purchaseFailureReasons.Array.data[3]
+    value: Signature Invalid
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: purchaseFailureReasons.Array.data[4]
+    value: User Cancelled
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: purchaseFailureReasons.Array.data[5]
+    value: Payment Declined
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: purchaseFailureReasons.Array.data[6]
+    value: Duplicate Transaction
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: purchaseFailureReasons.Array.data[7]
+    value: Something went wrong
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: bowls.Array.size
+    value: 29
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: bowls.Array.data[0].id
+    value: com.HimalayanBowls.SingingBowls.Set1.Bowl1.0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: bowls.Array.data[0].type
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: bowls.Array.data[1].id
+    value: com.HimalayanBowls.SingingBowls.Set1.Bowl2.0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: bowls.Array.data[1].type
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: bowls.Array.data[2].id
+    value: com.HimalayanBowls.SingingBowls.Set1.Bowl3.0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: bowls.Array.data[2].type
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: bowls.Array.data[3].id
+    value: com.HimalayanBowls.SingingBowls.Set1.Bowl4.0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: bowls.Array.data[3].type
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: bowls.Array.data[4].id
+    value: com.HimalayanBowls.SingingBowls.Set1.Bowl5.0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: bowls.Array.data[4].type
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: bowls.Array.data[5].id
+    value: com.HimalayanBowls.SingingBowls.Set1.Bowl6.0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: bowls.Array.data[5].type
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: bowls.Array.data[6].id
+    value: com.HimalayanBowls.SingingBowls.Set1.Bowl7.0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: bowls.Array.data[6].type
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: bowls.Array.data[7].id
+    value: com.HimalayanBowls.SingingBowls.Set2.Bowl1.0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: bowls.Array.data[7].type
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: bowls.Array.data[8].id
+    value: com.HimalayanBowls.SingingBowls.Set2.Bowl2.1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: bowls.Array.data[8].type
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: bowls.Array.data[9].id
+    value: com.HimalayanBowls.SingingBowls.Set2.Bowl3.0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: bowls.Array.data[9].type
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: bowls.Array.data[10].id
+    value: com.HimalayanBowls.SingingBowls.Set2.Bowl4.0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: bowls.Array.data[10].type
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: bowls.Array.data[11].id
+    value: com.HimalayanBowls.SingingBowls.Set2.Bowl5.0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: bowls.Array.data[11].type
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: bowls.Array.data[12].id
+    value: com.HimalayanBowls.SingingBowls.Set2.Bowl6.0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: bowls.Array.data[12].type
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: bowls.Array.data[13].id
+    value: com.HimalayanBowls.SingingBowls.Set2.Bowl7.0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: bowls.Array.data[13].type
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: bowls.Array.data[14].id
+    value: com.HimalayanBowls.SingingBowls.Set3.Bowl1.0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: bowls.Array.data[14].type
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: bowls.Array.data[15].id
+    value: com.HimalayanBowls.SingingBowls.Set3.Bowl2.0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: bowls.Array.data[15].type
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: bowls.Array.data[16].id
+    value: com.HimalayanBowls.SingingBowls.Set3.Bowl3.0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: bowls.Array.data[16].type
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: bowls.Array.data[17].id
+    value: com.HimalayanBowls.SingingBowls.Set3.Bowl4.0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: bowls.Array.data[17].type
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: bowls.Array.data[18].id
+    value: com.HimalayanBowls.SingingBowls.Set3.Bowl5.0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: bowls.Array.data[18].type
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: bowls.Array.data[19].id
+    value: com.HimalayanBowls.SingingBowls.Set3.Bowl6.0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: bowls.Array.data[19].type
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: bowls.Array.data[20].id
+    value: com.HimalayanBowls.SingingBowls.Set3.Bowl7.0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: bowls.Array.data[20].type
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: bowls.Array.data[21].id
+    value: com.HimalayanBowls.SingingBowls.Set4.Bowl1.0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: bowls.Array.data[21].type
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: bowls.Array.data[22].id
+    value: com.HimalayanBowls.SingingBowls.Set4.Bowl2.0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: bowls.Array.data[22].type
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: bowls.Array.data[23].id
+    value: com.HimalayanBowls.SingingBowls.Set4.Bowl3.0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: bowls.Array.data[23].type
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: bowls.Array.data[24].id
+    value: com.HimalayanBowls.SingingBowls.Set4.Bowl4.0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: bowls.Array.data[24].type
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: bowls.Array.data[25].id
+    value: com.HimalayanBowls.SingingBowls.Set4.Bowl5.0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: bowls.Array.data[25].type
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: bowls.Array.data[26].id
+    value: com.HimalayanBowls.SingingBowls.Set4.Bowl6.0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: bowls.Array.data[26].type
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: bowls.Array.data[27].id
+    value: com.HimalayanBowls.SingingBowls.Set4.Bowl7.0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: bowls.Array.data[27].type
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: bowls.Array.data[28].id
+    value: com.HimalayanBowls.SingingBowls.Set4.Bowl8.0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: bowls.Array.data[28].type
+    value: 0
+    objectReference: {fileID: 0}
